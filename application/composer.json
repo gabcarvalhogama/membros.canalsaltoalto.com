@@ -1,0 +1,12 @@
+{
+    "name": "canalsaltoalto/membros",
+    "autoload": {
+        "psr-4": {
+            "Canalsaltoalto\\Membros\\": "src/"
+        }
+    },
+    "require": {
+        "bramus/router": "^1.6",
+        "guzzlehttp/guzzle": "^7.8"
+    }
+}
