@@ -1,34 +1,60 @@
+# Checkout
+- Pendente integrar o Tokenize;
+- Funcionar o pagamento;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Routes
 
-/
+/ - Home page to site
+
+/app - Área de membros
+
+
 
 
 ## Notices
-/notices - List all notices
-/notices/create - Create a notice page
-/notices/:id - Read a notice page
+/app/notices - List all notices
+/app/notices/create - Create a notice page
+/app/notices/:id - Read a notice page
 
 ## Events
-/events
-/events/create
-/events/:id
+/app/events
+/app/events/create
+/app/events/:id
 
 ## Club
-/club
-/club/create
+/app/club
+/app/club/create
 
 ## Contents
-/contents - List all contents
-/contents/create - Create a new content
-/contents/:id - Read a content
+/app/contents - List all contents
+/app/contents/create - Create a new content
+/app/contents/:id - Read a content
 
 ## Companies
-/companies/ - List all companies
-/companies/create - Create a new company
-/companies/:id - Show informations about some company
-/companies/:id/edit - Edit a company
+/app/companies/ - List all companies
+/app/companies/create - Create a new company
+/app/companies/:id - Show informations about some company
+/app/companies/:id/edit - Edit a company
 
 ## Members
-/members/ - List all members
-/members/:id - Show informations about some member
-/members/me
+/app/members/ - List all members
+/app/members/:id - Show informations about some member
+/app/members/me
