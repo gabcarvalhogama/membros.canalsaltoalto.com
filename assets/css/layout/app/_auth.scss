@@ -1,0 +1,57 @@
+.app__auth{
+	display: flex;
+	flex-direction: row;
+	height: 100vh;
+	@include media-breakpoint-down(lg) {
+		flex-direction: column;
+		height: auto;
+	}
+
+	&--sidebar, &--bg{
+		width: 50%;
+		height: 100%;
+		@include media-breakpoint-down(lg) {
+			width: 100%;
+		}
+	}
+
+	&--bg{
+		@include media-breakpoint-down(lg) {
+			height: 20vh;
+		}
+	}
+	&--sidebar{
+		// background-color: #FFF;
+		padding: 50px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		color: #FFF;
+		@include media-breakpoint-down(sm) { 
+			padding: 20px;
+		}
+
+		.logo{
+			height: 60px;
+		}
+
+		h1{
+			font-size: 1.5rem;
+			margin-top: .5em;
+		}
+
+		form{
+			width: 75%;
+
+			@include media-breakpoint-down(sm) { 
+				width: 100%;
+			}
+		}
+
+		button:hover, button:active{
+			background-color: #E02978;
+			transform: translateY(5px);
+		}
+	}
+}

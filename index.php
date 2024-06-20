@@ -11,7 +11,19 @@
 
 
 	$router->get("/", function(){
-		require "views/home.php";
+		require "views/site/home.php";
+	});
+
+	$router->get("/seja-membro", function(){
+		require "views/site/seja-membro.php";
+	});
+
+	$router->get("/noticias", function(){
+		require "views/site/noticias.php";
+	});
+
+	$router->get("/quem-somos", function(){
+		require "views/site/quem-somos.php";
 	});
 
 
@@ -55,7 +67,7 @@
 
 	// Checkout
 	$router->get("/checkout", function(){
-		require "views/checkout.php";
+		require "views/site/checkout.php";
 	});
 
 	$router->get("/checkout/cities/{uf}", function($uf){
@@ -189,6 +201,54 @@
 			}
 
 		}
+	});
+
+
+
+
+
+
+	$router->mount("/app", function() use($router){
+
+		$router->get("/", function() {
+			require_once "views/app/index.php";
+		});
+
+
+		$router->get("/login", function(){
+			require_once "views/app/login.php";
+		});
+		$router->post("/login", function(){
+			if(empty($_POST["login_email"])){
+				die(json_encode(["res" => "Por favor, informe seu e-mail para acesso."]));
+			}else if(empty($_POST["login_password"])){
+				die(json_encode(["res" => "Por favor, informe sua senha para acesso."]));
+			}else{
+				$User = new User;
+				if($User->login($_POST["login_email"], $_POST["login_password"])){
+					$_SESSION["csa_email"] = $_POST["login_email"];
+					$_SESSION["csa_password"] = $_POST["login_password"];
+
+					die(json_encode(["res"=>1]));
+				}else{
+					die(json_encode(["res"=>"O e-mail ou senha estão incorretos. Verifique os dados e tente novamente!"]));
+				}
+			}
+		});
+
+
+		$router->get("/content/{slug}", function($content_slug){
+			$Content = new Content;
+
+			$content = $Content->getContentBySlug($content_slug);
+			if($content->rowCount() == 0) header("404");
+
+			$object = $content->fetchObject();
+
+			require "views/app/single-content.php";
+		});
+
+
 	});
 
 	$router->run();

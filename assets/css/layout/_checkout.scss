@@ -1,0 +1,102 @@
+.checkout{
+	color: #FFF;
+	padding-bottom: 50px;
+
+	.container{
+		// width: 798px;
+	}
+
+	.left, .right{
+		width: 50%;
+	}
+
+	.right{
+		border-radius: 0px 5px 5px 0px;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	&__header{
+		margin-bottom: 0.2em;
+		a:hover{
+			color: $primary-color;
+		}
+		&--logo{
+			height: 80px;
+		}
+
+		hgroup{
+			padding: 20px;
+			h1{
+				font-size: 1rem;
+				color: $primary-color;
+			}
+			h2{
+				font-size: 2rem;
+			}
+		}
+	}
+
+	&__content{
+		form{
+			padding: 20px;
+			color: #333;
+			background-color: #FFF;
+			border-radius: 5px 0px 0px 5px;
+			min-height: 50vh;
+		}
+		
+		.dont-know-cep{
+			color: #111;
+		}
+
+
+		form-step{
+			display: none;
+			&#enterpreneur{
+				display: block;
+			}
+		}
+
+	}
+
+	&__payment{
+		&--item{
+			padding: 20px;
+		    border-radius: 10px;
+		    background-color: #ddd;
+		    cursor: pointer;
+		    margin-bottom: 1em;
+		    justify-content: space-between;
+		    	transition: all 400ms;
+		    img{
+		    	height: 30px;
+		    }
+		    .mr-1_5{
+		    	margin-right: 1.5em;
+		    }
+		    &.selected{
+		    	background-color: $primary-color;
+		    	transition: all 400ms;
+		    	.pix{
+		    		filter: brightness(10.5);
+		    	}
+		    }
+		}
+	}
+
+	&__creditcard{
+		display: none;
+		padding: 20px;
+		border-radius: 5px;
+		border: solid 1px #ddd;
+		margin-bottom: 1rem;
+	}
+	.finish-checkout, .btn{
+		display: block;
+		font-weight: bold;
+		padding: 20px;
+		width: 100%;
+	}
+}

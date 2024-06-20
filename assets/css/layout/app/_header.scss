@@ -1,0 +1,41 @@
+.app__header{
+	padding: 20px 0;
+	&--logo{
+		height: 50px;
+	}
+
+
+	nav{
+		a{
+			padding: 10px;
+		}
+	}
+	.my-profile{
+		cursor: pointer;
+		background-color: $primary-color;
+		padding: 5px 10px;
+		border-radius: 50px;
+		align-items: center;
+    	justify-content: center;
+    	display: flex;
+    	position: relative;
+    	transition: all 400ms;
+		&:hover{
+			color: #FFF;
+		}
+		span{
+			margin-right: 10px;
+		}
+
+		&__menu{
+			position: absolute;
+			top: 100%;
+			left: 0;
+			padding: 10px;
+			display: none;
+		}
+	}
+	.profile-icon{
+		height: 30px;
+	}
+}

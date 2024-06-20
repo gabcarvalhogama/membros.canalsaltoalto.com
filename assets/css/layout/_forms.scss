@@ -1,0 +1,29 @@
+
+label, .form-label{
+	margin-bottom: 5px;
+}
+
+.form-control{
+	border-color: #CECECE;
+	background-color: #E4E4E4;
+	font-family: 'Open Sans', sans-serif;
+	padding: 0.7rem 0.75rem;
+	&:focus{
+		box-shadow: none;
+	}
+}
+
+.btn-rose{
+	background-color: $primary-color;
+	transition: all 400ms;
+	&:hover{
+		background-color: #000;
+		color: #FFF;
+	}
+}
+
+.btn-full{
+	padding: 10px;
+	display: block;
+	width: 100%;
+}

@@ -1,0 +1,33 @@
+.app{
+	ul{
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	a:hover{
+		color: $primary-color;
+		transition: all 400ms;
+	}
+
+	h2{
+		color: #FFF;
+		font-weight: 600;
+	}
+
+	@import "app/auth";
+
+	@import "app/header";
+
+	@import "app/hero";
+	
+	@import "app/adbanner";
+
+	@import "app/events";
+	
+	@import "app/contents";
+	
+	@import "app/notices";
+	
+	@import "app/footer";
+}
