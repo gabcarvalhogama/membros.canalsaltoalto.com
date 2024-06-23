@@ -58,3 +58,11 @@ ak_live_Z0vJOVrB36Q5mWHoAIDQnLxlbyREKG
 /app/members/ - List all members
 /app/members/:id - Show informations about some member
 /app/members/me
+
+
+
+
+
+# À Implementar/Corrigir
+- A função de message no Javascript está se repetindo em múltiplos arquivos;
+- Criar uma rota somente para autenticação;

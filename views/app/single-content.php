@@ -91,32 +91,21 @@
 		<section class="related-posts mb-3 mt-3">
 			<div class="container">
 				<h2>Você também pode se interessar...</h2>
-				<div class="post-grid">
+				<div class="contents">
 					<?php
 						$Content = new Content;
 
 						$contents = $Content->getRelatedContents(12, $object->idcontent);
 
 						if($contents->rowCount() > 0):
-							foreach($contents->fetchAll(PDO::FETCH_ASSOC) as $post):
+							foreach($contents->fetchAll(PDO::FETCH_ASSOC) as $content):
 					?>
-					<div class="post-grid__item">
-						<div class="post-grid__item--tag">
-							<a href="#">NOTÍCIA</a>
+					<div class="contents__item">
+						<div class="contents__item--photo" style="background-image: url('<?=$content["featured_image"]?>')"></div>
+						<div class="contents__item--content">
+							<h3><?=$content["title"]?></h3>
+							<a href="<?=PATH?>app/content/<?=$content['slug']?>" class="cta">LEIA MAIS »</a>
 						</div>
-						<div class="post-grid__item--image">
-							<a href="<?=PATH.'post/'.$post['slug']?>">
-								<div style="background-image: url('<?=PATH.$post['featured_image']?>');"></div>
-							</a>
-						</div>
-						<div class="post-grid__item--content">
-							<h3><a href="<?=PATH.'post/'.$post['slug']?>"><?=$post['title']?></a></h3>
-							<p class="post-grid__item--content-resume">
-								<?=$post['excerpt']?>
-							</p>
-							<a href="<?=PATH.'post/'.$post['slug']?>" class="post-grid__item--content-cta"><button>CONTINUE LENDO <span>»</span></button></a>
-						</div>
-
 					</div>
 					<?php endforeach; else: ?>
 					<div class="post-grid__item">

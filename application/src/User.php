@@ -42,10 +42,19 @@
 		}
 
 
+		public function isUserAdminByEmail($email){
+			$sql = DB::open()->prepare("SELECT user_type FROM csa_users WHERE email = :email LIMIT 1");
+			$sql->execute([
+				":email" => filter_var($email, FILTER_SANITIZE_EMAIL)
+			]);
+
+			return ($sql->rowCount() > 0) ? ( ($sql->fetchObject()->user_type) == 1 ) : 0;
+		}
+
 	    
 
 	    
-	    public static function isUserAuthenticated(){
+	    public function isUserAuthenticated(){
 	        if (session_status() == PHP_SESSION_NONE) session_start();
 	        
 	        return (!empty($_SESSION["csa_email"]) AND !empty($_SESSION["csa_password"])) ? $this->login($_SESSION["csa_email"], $_SESSION["csa_password"]) : false;
@@ -81,6 +90,41 @@
 			$sql->execute([
 				":uf" => intval($uf)
 			]);
+
+			return $sql;
+		}
+
+		public function getUsers(){
+			$sql = DB::open()->prepare("SELECT 
+			    u.iduser, 
+			    u.firstname, 
+			    u.lastname, 
+			    u.profile_photo, 
+			    u.cpf, 
+			    u.birthdate, 
+			    u.zipcode, 
+			    u.address_state, 
+			    u.address_city, 
+			    u.address, 
+			    u.address_number, 
+			    u.address_neighborhood, 
+			    u.address_complement, 
+			    u.cellphone, 
+			    u.email, 
+			    u.user_type, 
+			    u.created_at, 
+			    u.updated_at,
+			    um.starts_at, 
+			    um.ends_at,
+			    m.membership_title
+			FROM 
+			    csa_users u
+			LEFT JOIN 
+			    csa_users_memberships um ON u.iduser = um.iduser
+			LEFT JOIN 
+			    csa_memberships m ON um.membership_id = m.membership_id;
+			");
+			$sql->execute();
 
 			return $sql;
 		}

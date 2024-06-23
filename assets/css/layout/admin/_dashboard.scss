@@ -1,0 +1,50 @@
+.admin__dashboard{
+	display: flex;
+	flex-direction: row;
+	    align-items: stretch;
+
+	min-height: 100%;
+
+	&--nav, &--content{
+		min-height: 100%;
+	}
+	&--nav{
+		width: 250px;
+		max-width: 100%;
+		color: #FFF;
+
+		.logo{
+			padding-left: 40px;
+			padding-right: 40px;
+			max-width: 100%;
+			margin-top: 40px;
+		}
+
+		ul{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			li{
+				// padding: 10px;
+				a{
+					display: block;
+					padding: 10px;
+					transition: all 300ms;
+					&:hover{
+						background-color: $primary-color;
+						color: #FFF;
+					}
+				}
+					li a{
+						padding-left: 30px;
+					}
+			}
+		}
+	}
+
+	&--content{
+		width: calc(100% - 250px);
+		background-color: #FFF;
+		padding: 40px;
+	}
+}

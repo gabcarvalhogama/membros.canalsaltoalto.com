@@ -22014,6 +22014,11 @@ readers do not read off random characters that represent icons */
   font-style: italic;
   font-display: swap;
 }
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   background-color: #000;
   font-family: "Caviar Dreams", Opens Sans, Arial, sans-serif;
@@ -22038,6 +22043,11 @@ a {
 
 .btn-rounded {
   border-radius: 50px;
+}
+
+.btn-full {
+  width: 100%;
+  display: block;
 }
 
 .btn-medium {
@@ -22573,25 +22583,22 @@ label, .form-label {
   color: #E54C8E;
   font-weight: bold;
 }
-.app .app__contents {
-  padding: 50px;
-  background-color: #141414;
-}
-.app .app__contents .contents {
+.app .contents {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.app .app__contents .contents__item {
+.app .contents__item {
   background-color: #FFF;
   color: #333;
-  width: 33.33%;
+  width: calc(33.33% - 20px);
+  margin-right: 20px;
   border-radius: 5px;
 }
-.app .app__contents .contents__item a {
+.app .contents__item a {
   color: #333;
 }
-.app .app__contents .contents__item--photo {
+.app .contents__item--photo {
   height: 250px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -22600,15 +22607,19 @@ label, .form-label {
   transition: all 300ms;
   position: relative;
 }
-.app .app__contents .contents__item--content {
+.app .contents__item--content {
   padding: 20px;
 }
-.app .app__contents .contents__item--content h3, .app .app__contents .contents__item--content .h3 {
+.app .contents__item--content h3, .app .contents__item--content .h3 {
   font-size: 1.3rem;
 }
-.app .app__contents .contents__item--content .cta {
+.app .contents__item--content .cta {
   color: #E54C8E;
   font-weight: bold;
+}
+.app .app__contents {
+  padding: 50px;
+  background-color: #141414;
 }
 .app .app__notices {
   padding: 50px 0;
@@ -22708,6 +22719,81 @@ label, .form-label {
 .app__auth--sidebar button:hover, .app__auth--sidebar button:active {
   background-color: #E02978;
   transform: translateY(5px);
+}
+
+.admin .admin__auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.admin .admin__auth--form {
+  max-width: 95%;
+  width: 350px;
+  text-align: center;
+}
+.admin .admin__auth--form .logo {
+  width: 150px;
+}
+.admin .admin__auth--form h1, .admin .admin__auth--form .h1 {
+  font-size: 1.5rem;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+  color: #FFF;
+}
+.admin .admin__auth--form form {
+  padding: 20px;
+  background-color: #FFF;
+  border-radius: 10px;
+}
+.admin .admin__auth--form form label {
+  display: none;
+}
+.admin .admin__auth--form form a {
+  color: #333;
+}
+.admin .admin__dashboard {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 100%;
+}
+.admin .admin__dashboard--nav, .admin .admin__dashboard--content {
+  min-height: 100%;
+}
+.admin .admin__dashboard--nav {
+  width: 250px;
+  max-width: 100%;
+  color: #FFF;
+}
+.admin .admin__dashboard--nav .logo {
+  padding-left: 40px;
+  padding-right: 40px;
+  max-width: 100%;
+  margin-top: 40px;
+}
+.admin .admin__dashboard--nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.admin .admin__dashboard--nav ul li a {
+  display: block;
+  padding: 10px;
+  transition: all 300ms;
+}
+.admin .admin__dashboard--nav ul li a:hover {
+  background-color: #E54C8E;
+  color: #FFF;
+}
+.admin .admin__dashboard--nav ul li li a {
+  padding-left: 30px;
+}
+.admin .admin__dashboard--content {
+  width: calc(100% - 250px);
+  background-color: #FFF;
+  padding: 40px;
 }
 
 /*# sourceMappingURL=styles.css.map */

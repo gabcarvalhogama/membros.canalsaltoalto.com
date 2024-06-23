@@ -55,12 +55,12 @@
 		<section class="app__contents">
 			<div class="container">
 				<h2>Nossos <span class="color-primary">conteúdos</span></h2>
+				<div class="contents">
 				<?php
 			  		$Content = new Content;
 			  		$contents = $Content->getContents();
 			  		foreach($contents->fetchAll(PDO::FETCH_ASSOC) as $content):
 			  	?>
-			  	<a href="<?=PATH?>app/content/<?=$content['slug']?>">
 				  	<div class="contents__item">
 						<div class="contents__item--photo" style="background-image: url('<?=$content["featured_image"]?>')"></div>
 						<div class="contents__item--content">
@@ -68,9 +68,8 @@
 							<a href="<?=PATH?>app/content/<?=$content['slug']?>" class="cta">LEIA MAIS »</a>
 						</div>
 					</div>
-				</a>
 			    <?php endforeach; ?>
-
+			    </div>
 			</div>
 		</section>
 
