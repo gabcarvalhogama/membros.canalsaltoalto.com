@@ -117,7 +117,7 @@ const Admin = {
 			success: function(data){
 				if(data.res == 1){
 					$(form)[0].reset()
-					message.success(form, "Seu aviso foi criado com sucesso!");
+					message.success(form, "Seu conteúdo foi criado com sucesso!");
 				}else{
 					message.error(form, data.res);
 				}

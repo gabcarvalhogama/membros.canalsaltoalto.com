@@ -26,10 +26,10 @@
 	@import "app/events";
 	
 	@import "app/contents";
-	.app__contents{
-		padding: 50px;
-		background-color: #141414;	
-	}
+
+	@import "app/companies";
+
+	@import "app/members";
 	
 	@import "app/notices";
 	

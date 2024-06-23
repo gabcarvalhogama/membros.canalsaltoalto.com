@@ -3,7 +3,7 @@
 	class User{
 
 		public function create($firstname, $lastname, $cpf, $birthdate, $zipcode, $state, $city, $address, $address_number, $neighborhood, $complement, $cellphone, $email, $password, $type){
-			$sql = DB::open()->prepare("INSERT INTO csa_users () VALUES (default, :firstname, :lastname, null, :cpf, :birthdate, :zipcode, :state, :city, :address, :address_number, :neighborhood, :complement, :cellphone, :email, :password, :type, NOW(), null)");
+			$sql = DB::open()->prepare("INSERT INTO csa_users () VALUES (default, :firstname, :lastname, null, null, :cpf, :birthdate, :zipcode, :state, :city, :address, :address_number, :neighborhood, :complement, :cellphone, :email, :password, :type, NOW(), null)");
 			return $sql->execute([
 				":firstname" => ucfirst(trim($firstname)),
 				":lastname" => ucfirst(trim($lastname)),
@@ -100,6 +100,7 @@
 			    u.firstname, 
 			    u.lastname, 
 			    u.profile_photo, 
+			    u.biography,
 			    u.cpf, 
 			    u.birthdate, 
 			    u.zipcode, 
@@ -116,7 +117,8 @@
 			    u.updated_at,
 			    um.starts_at, 
 			    um.ends_at,
-			    m.membership_title
+			    m.membership_title,
+			    (SELECT COUNT(company_id) FROM csa_companies c WHERE c.iduser = u.iduser) as company_counter
 			FROM 
 			    csa_users u
 			LEFT JOIN 

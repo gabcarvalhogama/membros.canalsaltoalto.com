@@ -237,6 +237,9 @@
 		});
 
 
+		$router->get("/contents", function(){
+			require "views/app/contents.php";
+		});
 		$router->get("/content/{slug}", function($content_slug){
 			$Content = new Content;
 
@@ -251,6 +254,14 @@
 
 		$router->get("/notices", function(){
 			require "views/app/notices.php";
+		});
+
+
+		$router->get("/companies", function(){
+			require "views/app/companies.php";
+		});
+		$router->get("/members", function(){
+			require "views/app/members.php";
 		});
 	});
 

@@ -22,6 +22,7 @@
 			    c.status,
 			    c.created_at,
 			    c.updated_at,
+			    u.profile_photo,
 			    u.firstname,
 			    u.lastname
 			FROM 
