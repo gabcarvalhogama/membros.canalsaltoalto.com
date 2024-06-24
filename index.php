@@ -300,6 +300,13 @@
 			$event = $getEvent->fetchObject();
 			require "views/app/single-event.php";
 		});
+
+
+		$router->get("/publis", function(){
+			require "views/app/publis.php";
+		});
+
+		
 	});
 
 
@@ -611,11 +618,6 @@
 
 
 
-
-
-
-
-
 		$router->get("/notices", function(){
 			require "views/admin/notices.php";
 		});
@@ -833,7 +835,72 @@
 
 
 		    }
+		});
 
+
+		#/admin/publis
+		$router->get("/publis", function(){
+			require "views/admin/publis.php";
+		});
+
+		$router->get("/publis/new", function(){
+			require "views/admin/publis-new.php";
+		});
+
+		$router->post("/publis/new", function(){
+			if(empty($_POST["publi_title"])){
+				die(json_encode(["res" => "Por favor, informe um título para sua publi."]));
+			}else if(empty($_POST["publi_content"])){
+				die(json_encode(["res" => "Por favor, informe um conteúdo para sua publi."]));
+			}else if(empty($_POST["publi_creator"])){
+				die(json_encode(["res" => "Por favor, selecione uma dona para esta publi."]));
+			}else{
+
+				$Publi = new Publi;
+
+				if($Publi->create(
+					$_POST["publi_title"],
+					$_POST["publi_content"],
+					1,
+					$_POST["publi_creator"])){
+					die(json_encode(["res" => 1]));
+				}
+				else{
+					die(json_encode(["res" => "Desculpe, não foi possível criar a sua Publi. Verifique os dados e tente novamente!"]));
+				}
+
+			}
+		});
+
+		$router->get("/publis/edit/{publi_id}", function($publi_id){
+			$Publi = new Publi;
+			$getPubli = $Publi->getPubliById($publi_id);
+
+			if($getPubli->rowCount() == 0){
+				header("Location: /app/publis");
+				exit();
+			}
+
+			$publi = $getPubli->fetchObject();
+
+
+			require "views/admin/publis-edit.php";
+		});
+		$router->post("/publis/edit/{publi_id}", function($publi_id){
+			if(empty($_POST["publi_creator"])){
+				die(json_encode(["res" => "Por favor, selecione um criador para a publi."]));
+			}else if(empty(trim($_POST["publi_title"]))){
+				die(json_encode(["res" => "Por favor, informe o título da publi."]));
+			}else if(empty(trim($_POST["publi_content"]))){
+				die(json_encode(["res" => "Por favor, informe um conteúdo para a publi."]));
+			}else{
+				$Publi = new Publi;
+
+				if($Publi->update($publi_id, $_POST["publi_title"], $_POST["publi_content"], $_POST["publi_creator"]))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Desculpe, não foi possível atualizar a publi."]));
+			}
 		});
 	});
 

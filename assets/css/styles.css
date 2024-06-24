@@ -26454,6 +26454,40 @@ label, .form-label {
   color: #E54C8E;
   font-weight: bold;
 }
+.app .app__publis {
+  color: #fff;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  min-height: 60vh;
+}
+.app .publis-list__item {
+  border-radius: 15px;
+  background-color: #FFF;
+  padding: 20px;
+  color: #333;
+  margin-bottom: 20px;
+}
+.app .publis-list__item--header {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.app .publis-list__item--header img {
+  margin-right: 20px;
+}
+.app .publis-list__item--header .profile-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.app .publis-list__item--header small, .app .publis-list__item--header .small {
+  color: rgb(200, 200, 200);
+}
+.app .publis-list__item--content h3, .app .publis-list__item--content .h3 {
+  font-weight: bold;
+  margin-bottom: 0;
+  font-size: 1.1rem;
+}
 .app .app__footer {
   margin-top: 30px;
   padding-top: 30px;

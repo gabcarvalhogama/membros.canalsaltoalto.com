@@ -365,3 +365,59 @@ const CSAEvent = {
 		})
 	}
 }
+
+
+const Publi = {
+	create: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+		formData.append("publi_content", tinyMCE.get()[0].getContent());
+		
+		$.ajax({
+			type: 'post',
+			data: formData,
+			processData: false,
+			contentType: false,
+			url: '/admin/publis/new',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$(form)[0].reset()
+					message.success(form, "Sua publi foi criada com sucesso!");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+	update: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+		formData.append("publi_content", tinyMCE.get()[0].getContent());
+		
+		$.ajax({
+			type: 'post',
+			data: formData,
+			processData: false,
+			contentType: false,
+			url: '/admin/publis/edit/'+$('#publi_id').val(),
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					message.success(form, "Sua publi foi atualizada com sucesso!");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+
+}
