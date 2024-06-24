@@ -257,11 +257,48 @@
 		});
 
 
+		$router->get("/clubs", function(){
+			require "views/app/clubs.php";
+		});
+
+
 		$router->get("/companies", function(){
 			require "views/app/companies.php";
 		});
+
+
+
 		$router->get("/members", function(){
 			require "views/app/members.php";
+		});
+		$router->get("/members/{user_id}/companies", function($user_id){
+			if(empty($user_id) OR $user_id == 0) header("Location: /app/companies");
+
+			$User = new User;
+			$getUser = $User->getUserById($user_id);
+
+			if($getUser->rowCount() == 0) header("Location: /app/companies");
+
+			$user = $getUser->fetchObject();
+
+			require "views/app/members-companies.php";
+		});
+
+		$router->get("/events", function(){
+			require "views/app/events.php";
+		});
+
+		$router->get("/events/{slug}", function($slug){
+			$Event = new Event;
+			$getEvent = $Event->getEventBySlug($slug);
+
+			if($getEvent->rowCount() == 0){
+				header("Location: /app/events");
+				exit();
+			}
+
+			$event = $getEvent->fetchObject();
+			require "views/app/single-event.php";
 		});
 	});
 
@@ -300,11 +337,9 @@
 		$router->get("/contents", function(){
 			require "views/admin/contents.php";
 		});
-
 		$router->get("/contents/new", function(){
 			require "views/admin/contents-new.php";
 		});
-
 		$router->post("/contents/new", function(){
 			if(empty($_POST["content_title"])){
 				die(json_encode(["res"=>"Por favor, informe o título do conteúdo!"]));
@@ -339,7 +374,6 @@
 					die(json_encode(["res" => "Não foi possível criar este conteúdo. Atualize a página e tente novamente!"]));
 			}
 		});
-
 		$router->get("/contents/edit/{content_id}", function($content_id){
 			$Content = new Content;
 			$getContent = $Content->getContentById($content_id);
@@ -387,8 +421,6 @@
 					die(json_encode(["res" => "Não foi possível atualizar este conteúdo. Atualize a página e tente novamente!"]));
 			}
 		});
-
-
 
 
 		# /clubs
@@ -467,11 +499,115 @@
 				else
 					die(json_encode(["res"=>"Desculpe, não foi possivel atualizar este clube. Atualize a página e tente novamente!"]));
 			}
-
 		});
 
 
+		# /events
+		$router->get("/events", function(){
+			require "views/admin/events.php";
+		});
+		$router->get("/events/new", function(){
+			require "views/admin/events-new.php";
+		});
+		$router->post("/events/new", function(){
 
+			if (empty($_POST["event_title"])){
+			    die(json_encode(["res" => "Por favor, informe um título para o evento."]));
+			}else if (empty($_POST["event_excerpt"])){
+			    die(json_encode(["res" => "Por favor, informe um resumo para o evento."]));
+			}else if (empty($_POST["event_content"])){
+			    die(json_encode(["res" => "Por favor, informe o conteúdo do evento."]));
+			}else if (empty($_FILES["event_poster"]["name"])){
+			    die(json_encode(["res" => "Por favor, envie uma imagem em destaque para o evento."]));
+			}else if (empty($_POST["event_datetime"])){
+			    die(json_encode(["res" => "Por favor, informe a data e hora do evento."]));
+			}else{
+				if(isset($_FILES["event_poster"]) AND !empty($_FILES["event_poster"]["name"])){
+					$Upin = new Upin;
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["event_poster"]["name"], 10, "jpeg,jpg,png", "event_poster", 1);
+					$Upin->run();
+
+					if($Upin->res === true) $event_poster = "uploads/".date("Y\/m\/").$Upin->json[0];
+					else die(json_encode(["res"=>"Por favor, envie uma imagem válida."]));
+				}else{
+					die(json_encode(["res" => "Por favor, envie uma imagem de destaque."]));
+				}
+
+
+				$Event = new Event;
+				if($Event->create(
+					$_POST["event_title"],
+					$_POST["event_excerpt"],
+					DateTime::createFromFormat('d/m/Y H:i', $_POST["event_datetime"])->format('Y-m-d H:i'),
+					$event_poster,
+					$_POST["event_content"],
+					$_SESSION["csa_email"]
+				))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Desculpe, não foi possível cadastrar o evento."]));
+
+
+			}
+
+		});
+
+		$router->get("/events/edit/{idevent}", function($idevent){
+			$Event = new Event;
+			$getEvent = $Event->getEventById($idevent);
+
+			if($getEvent->rowCount() == 0){
+				header("Location: /admin/events");
+				exit;
+			}
+
+			$event = $getEvent->fetchObject();
+
+			require "views/admin/events-edit.php";
+		});
+		$router->post("/events/edit/{idevent}", function($idevent){
+			if(empty($idevent)){
+				die(json_encode(["res" => "Desculpe, não foi possível encontrar o evento. Atualize a página e tente novamente!"]));
+			}else if (empty($_POST["event_title"])){
+			    die(json_encode(["res" => "Por favor, informe um título para o evento."]));
+			}else if (empty($_POST["event_excerpt"])){
+			    die(json_encode(["res" => "Por favor, informe um resumo para o evento."]));
+			}else if (empty($_POST["event_content"])){
+			    die(json_encode(["res" => "Por favor, informe o conteúdo do evento."]));
+			}else if (empty($_POST["event_datetime"])){
+			    die(json_encode(["res" => "Por favor, informe a data e hora do evento."]));
+			}else{
+				if(isset($_FILES["event_poster"]) AND !empty($_FILES["event_poster"]["name"])){
+					$Upin = new Upin;
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["event_poster"]["name"], 10, "jpeg,jpg,png", "event_poster", 1);
+					$Upin->run();
+
+					if($Upin->res === true) $event_poster = "uploads/".date("Y\/m\/").$Upin->json[0];
+					else die(json_encode(["res"=>"Por favor, envie uma imagem válida."]));
+				}else{
+					if(empty($_POST["event_poster_actual"]))
+						die(json_encode(["res" => "Por favor, envie uma imagem de destaque."]));
+					else
+						$event_poster = $_POST["event_poster_actual"];
+				}
+
+				$Event = new Event;
+
+				if($Event->update(
+					$idevent,
+					$_POST["event_title"],
+					$_POST["event_excerpt"],
+					DateTime::createFromFormat('d/m/Y H:i', $_POST["event_datetime"])->format('Y-m-d H:i'),
+					$event_poster,
+					$_POST["event_content"]
+				))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Desculpe, não foi possível atualizar este evento. Atualize a página e tente novamente!"]));
+
+			}
+
+		});
 
 
 

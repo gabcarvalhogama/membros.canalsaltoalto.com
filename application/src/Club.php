@@ -4,7 +4,7 @@
 			$sql = DB::open()->prepare("
 				INSERT INTO csa_clubs ()
 
-				VALUES (default, :club_title, :club_description, :club_image, :club_status, (SELECT iduser FROM csa_users WHERE email = :created_by_email LIMIT 1), NOW(), null)
+				VALUES (default, :club_title, :club_description, :club_image, :club_status, (SELECT iduser FROM csa_users WHERE email = :created_by_email LIMIT 1), NOW(), null, null)
 
 				");
 			return $sql->execute([

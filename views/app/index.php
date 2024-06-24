@@ -33,21 +33,22 @@
 		<section class="app__events">
 			<div class="container">
 				<h2>Conheça <span class="color-primary">nossos eventos</span></h2>
+
+				<div class="events-list">
 				<?php
 			  		$Event = new Event;
 			  		$events = $Event->getEvents();
 			  		foreach($events->fetchAll(PDO::FETCH_ASSOC) as $event):
 			  	?>
-			  	<a href="<?=PATH?>app/event/<?=$event['slug']?>">
 				  	<div class="events__item">
 						<div class="events__item--photo" style="background-image: url('<?=$event["event_poster"]?>')"></div>
 						<div class="events__item--content">
 							<h3><?=$event["event_title"]?></h3>
-							<a href="<?=PATH?>app/event/<?=$event['slug']?>" class="cta">INSCREVA-SE »</a>
+							<a href="<?=PATH?>app/events/<?=$event['slug']?>" class="cta">INSCREVA-SE »</a>
 						</div>
 					</div>
-				</a>
 			    <?php endforeach; ?>
+			    </div>
 			</div>
 		</section>
 

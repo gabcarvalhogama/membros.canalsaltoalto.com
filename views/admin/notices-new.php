@@ -64,6 +64,7 @@
 			
 			tinymce.init({
 				selector: 'textarea#notice_content',
+				license_key: 'gpl',
 			   	promotion: false,
 			   	plugins: 'image, link, lists',
 			   	toolbar: 'undo redo | styles | bold italic | numlist bullist | link image | link',

@@ -58,6 +58,7 @@
 			
 			tinymce.init({
 				selector: 'textarea#club_description',
+				license_key: 'gpl',
 			   	promotion: false,
 			   	plugins: 'image, link, lists',
 			   	toolbar: 'undo redo | styles | bold italic | numlist bullist | link image | link',

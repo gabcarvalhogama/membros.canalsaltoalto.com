@@ -303,3 +303,65 @@ const Companies = {
 
 
 }
+
+
+
+const CSAEvent = {
+	create: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+		formData.append("event_poster", $('#event_poster')[0].files[0]);
+		formData.append("event_content", tinyMCE.get()[0].getContent());
+
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/events/new',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$(form)[0].reset()
+					message.success(form, "O evento foi criado com sucesso!");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+	update: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+		formData.append("event_poster", $('#event_poster')[0].files[0]);
+		formData.append("event_poster_actual", $('#event_poster').data("poster"))
+		formData.append("event_content", tinyMCE.get()[0].getContent());
+
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/events/edit/' + $('#idevent').val(),
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					// $(form)[0].reset()
+					message.success(form, "O evento foi atualizado com sucesso!");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	}
+}

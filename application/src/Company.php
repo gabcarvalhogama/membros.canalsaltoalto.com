@@ -157,4 +157,43 @@
 	            ":status" => intval($status)
 	        ]);
 		}
+
+
+		public function getCompaniesByOwner($user_id){
+			$sql = DB::open()->prepare("SELECT 
+			    c.company_id,
+			    c.iduser,
+			    c.company_name,
+			    c.company_description,
+			    c.company_image,
+			    c.has_place,
+			    c.address_zipcode,
+			    c.address_state,
+			    c.address_city,
+			    c.address,
+			    c.address_number,
+			    c.address_neighborhood,
+			    c.address_complement,
+			    c.cellphone,
+			    c.instagram_url,
+			    c.site_url,
+			    c.facebook_url,
+			    c.status,
+			    c.created_at,
+			    c.updated_at,
+			    u.profile_photo,
+			    u.firstname,
+			    u.lastname
+			FROM 
+			    csa_companies c
+			LEFT JOIN 
+			    csa_users u ON c.iduser = u.iduser
+			WHERE c.iduser = :user_id ");
+
+			$sql->execute([
+				":user_id" => intval($user_id)
+			]);
+
+			return $sql;
+		}
 	}

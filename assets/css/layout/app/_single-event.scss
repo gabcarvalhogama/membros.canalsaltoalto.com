@@ -1,0 +1,18 @@
+.single-event{
+
+	&__hero{
+		color: #FFF;
+	}
+	h1{
+	}
+
+	&__content{
+		padding-top: 30px;
+		padding-bottom: 30px;
+		background-color: #FFF;
+		a{
+			color: $primary-color;
+			font-weight: bold;
+		}
+	}
+}
