@@ -33,6 +33,7 @@
 					<!-- # Sobre Você -->
 					<form-step id="enterpreneur">
 						<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutEnterpreneur(this)">
+							<div class="message"></div>
 							<div class="row">
 								<div class="mb-3 col-md-6">
 									<label for="f_firstname" class="form-label">Seu nome</label>
@@ -141,6 +142,7 @@
 					<!-- # Sobre Sua Empresa -->
 					<form-step id="company">
 						<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutCompany(this)">
+							<div class="message"></div>
 							<div class="row mb-3">
 								<div class="col">
 									<label for="f_cnpj" class="form-label">Seu CNPJ</label>
@@ -162,6 +164,7 @@
 					<!-- # Pagamento -->
 					<form-step id="payment">
 						<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutPayment(this)">
+							<div class="message"></div>
 							<div class="checkout__payment">
 								<p>Selecione a melhor forma de pagamento</p>
 								<div class="checkout__payment--item d-flex" onclick="Checkout.changePayment(this, 'pix')">
@@ -211,9 +214,35 @@
 						</form>
 					</form-step>
 
+					<form-step id="checkout__loading">
+						<div class="text-center">
+							<img src="<?=PATH?>assets/images/loading-pink.svg" alt="" />
+							<p>Estamos carregando as informações, aguarde...</p>
+						</div>
+					</form-step>
+
 					<!-- # Checkouting -->
-					<form-step id="checkouting">
-						
+					<form-step id="checkouting-pix_pending">
+						<h2>Faça o pagamento do Pix abaixo:</h2>
+						<p>O pagamento será identificado automaticamente e você será redirecionada para a tela de confirmação.</p>
+
+						<div class="pix text-center" >
+							<p><small>Escaneie este QR Code</small></p>
+							<div>
+								<img src="https://api.pagar.me/core/v5/transactions/tran_qwOMP3BI4IlYkQgW/qrcode?payment_method=pix" alt="" id="pixImage" />
+							</div>
+
+							<p><small>Ou clique no botão para copiar o Pix Copia e Cola</small></p>
+							<input type="text"  value="00020101021226820014br.gov.bcb.pix2560pix.stone.com.br/pix/v2/e4accc26-edb1-466a-8e30-8b84a9043e67520400005303986540529.905802BR5925Tatiane Serafim Suzana 106014RIO DE JANEIRO622905251ae0f2a1fbd52787ddef3b2fb6304B41B" id="pixField" />
+							<button onclick="Checkout.copyPix()" class="btn-rose btn-rounded" style="border: none">Copiar Pix Copia e Cola</button>
+						</div>
+					</form-step>
+
+
+					<form-step id="checkouting-pix_paid" class="d-flex flex-column align-items-center justify-content-center">
+						<div class=""><img src="<?=PATH?>assets/images/success.gif" alt="" /></div>
+						<h2>Pagamento confirmado!</h2>
+						<p>Aguarde, você será redirecionada em breve...</p>
 					</form-step>
 				</div>
 				<div class="right" style="background-image: url('https://membros.canalsaltoalto.com/wp-content/uploads/2023/08/WhatsApp-Image-2022-11-17-at-17.56.42.jpeg');">

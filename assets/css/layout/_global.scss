@@ -40,3 +40,15 @@ a{
 .fs-3{
 	font-size: 3rem;
 }
+
+.inactive{
+    opacity: .2;
+    pointer-events: none;
+    animation: oscillation 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    @keyframes oscillation {
+      0%   { opacity: .2; }
+      100% { opacity: .8; }
+    }
+}

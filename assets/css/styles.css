@@ -25745,6 +25745,22 @@ a {
   font-size: 3rem;
 }
 
+.inactive {
+  opacity: 0.2;
+  pointer-events: none;
+  animation: oscillation 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes oscillation {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
 label, .form-label {
   margin-bottom: 5px;
 }
@@ -26036,6 +26052,13 @@ label, .form-label {
   color: #FFF;
   padding-bottom: 50px;
 }
+.checkout .left {
+  padding: 20px;
+  color: #333;
+  background-color: #FFF;
+  border-radius: 5px 0px 0px 5px;
+  min-height: 50vh;
+}
 .checkout .left, .checkout .right {
   width: 50%;
 }
@@ -26064,18 +26087,16 @@ label, .form-label {
 .checkout__header hgroup h2, .checkout__header hgroup .h2 {
   font-size: 2rem;
 }
-.checkout__content form {
-  padding: 20px;
-  color: #333;
-  background-color: #FFF;
-  border-radius: 5px 0px 0px 5px;
-  min-height: 50vh;
+.checkout__content {
+  margin-bottom: 40px;
+  padding-bottom: 50px;
 }
 .checkout__content .dont-know-cep {
   color: #111;
 }
 .checkout__content form-step {
   display: none;
+  min-height: 50vh;
 }
 .checkout__content form-step#enterpreneur {
   display: block;
@@ -26598,13 +26619,28 @@ label, .form-label {
   align-items: stretch;
   min-height: 100%;
 }
-.admin .admin__dashboard--nav, .admin .admin__dashboard--content {
-  min-height: 100%;
+@media screen and (max-width: 1200px) {
+  .admin .admin__dashboard {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .admin .admin__dashboard--nav, .admin .admin__dashboard--content {
+    min-height: 100%;
+  }
 }
 .admin .admin__dashboard--nav {
   width: 250px;
   max-width: 100%;
   color: #FFF;
+}
+@media screen and (max-width: 1200px) {
+  .admin .admin__dashboard--nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
 }
 .admin .admin__dashboard--nav .logo {
   padding-left: 40px;
@@ -26612,10 +26648,23 @@ label, .form-label {
   max-width: 100%;
   margin-top: 40px;
 }
+@media screen and (max-width: 1200px) {
+  .admin .admin__dashboard--nav .logo {
+    width: 250px;
+    margin-top: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
 .admin .admin__dashboard--nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+@media screen and (max-width: 1200px) {
+  .admin .admin__dashboard--nav ul {
+    display: none;
+  }
 }
 .admin .admin__dashboard--nav ul li a {
   display: block;
@@ -26626,13 +26675,23 @@ label, .form-label {
   background-color: #E54C8E;
   color: #FFF;
 }
+.admin .admin__dashboard--nav ul li ul {
+  background-color: rgb(20, 20, 20);
+}
 .admin .admin__dashboard--nav ul li li a {
   padding-left: 30px;
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
 }
 .admin .admin__dashboard--content {
   width: calc(100% - 250px);
   background-color: #FFF;
   padding: 40px;
+}
+@media screen and (max-width: 1200px) {
+  .admin .admin__dashboard--content {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

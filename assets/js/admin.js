@@ -421,3 +421,74 @@ const Publi = {
 	},
 
 }
+
+
+const Post = {
+	create: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData();
+
+		formData.append("post_title", $('#post_title').val())
+		formData.append("post_excerpt", $('#post_excerpt').val());
+		formData.append("post_content", tinyMCE.get()[0].getContent());
+		formData.append("post_featured_image", $('#post_featured_image')[0].files[0]);
+		formData.append("post_status", $('#post_status').val());
+		formData.append("post_publish_date", $('#post_publish_date').val());
+		
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/posts/new',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$(form)[0].reset()
+					message.success(form, "Seu post foi criado com sucesso!");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+	update: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData();
+
+		formData.append("post_title", $('#post_title').val())
+		formData.append("post_excerpt", $('#post_excerpt').val());
+		formData.append("post_content", tinyMCE.get()[0].getContent());
+		formData.append("post_featured_image", $('#post_featured_image')[0].files[0]);
+		formData.append("post_actual_featured_image", $('#post_featured_image').data("actualimage"))
+		formData.append("post_status", $('#post_status').val());
+		formData.append("post_publish_date", $('#post_publish_date').val());
+		
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/posts/edit/'+$('#post_id').val(),
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					message.success(form, "Seu post foi atualizado com sucesso!");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+
+}

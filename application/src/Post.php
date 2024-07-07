@@ -1,6 +1,72 @@
 <?php
 	class Post{
 
+		public function generateSlug($content){
+			// Converter para minúsculas
+		    $titulo_minusculo = strtolower($content);
+		    // Substituir caracteres acentuados por seus equivalentes sem acento
+		    $titulo_sem_acentos = iconv('UTF-8', 'ASCII//TRANSLIT', $titulo_minusculo);
+		    // Substituir caracteres não alfanuméricos e espaços por hífen
+		    $slug = preg_replace('/[^a-z0-9]+/', '-', $titulo_sem_acentos);
+		    // Remover hífens no início e no final
+		    $slug = trim($slug, '-');
+		    return $slug;
+		}
+
+
+		public function create($post_title, $post_excerpt, $post_content, $post_featured_image, $created_by_email){
+			$sql = DB::open()->prepare("INSERT INTO csa_posts (
+				title,
+				excerpt,
+				post_content,
+				featured_image,
+				author,
+				slug,
+				published_at,
+				created_at,
+				updated_at
+			) VALUES (
+				:post_title,
+				:post_excerpt,
+				:post_content,
+				:post_featured_image,
+				(SELECT iduser FROM csa_users WHERE email = :created_by_email LIMIT 1),
+				:slug,
+				NOW(),
+				NOW(),
+				null
+			)");
+
+			return $sql->execute([
+				":post_title" => $post_title,
+				":post_excerpt" => $post_excerpt,
+				":post_content" => $post_content,
+				":post_featured_image" => $post_featured_image,
+				":created_by_email" => filter_var($created_by_email, FILTER_SANITIZE_EMAIL),
+				":slug" => $this->generateSlug($post_title)
+			]);
+		}
+
+		public function update($post_id, $post_title, $post_excerpt, $post_content, $post_featured_image){
+		    $sql = DB::open()->prepare("
+		        UPDATE csa_posts 
+		        SET 
+		            title = :post_title,
+		            excerpt = :post_excerpt,
+		            post_content = :post_content,
+		            featured_image = :post_featured_image,
+		            updated_at = NOW()
+		        WHERE post_id = :post_id
+		    ");
+
+		    return $sql->execute([
+		        ":post_id" => intval($post_id),
+		        ":post_title" => $post_title,
+		        ":post_excerpt" => $post_excerpt,
+		        ":post_content" => $post_content,
+		        ":post_featured_image" => $post_featured_image,
+		    ]);
+		}
 
 
 		public function getPosts($limit = 12, $offset = 0){

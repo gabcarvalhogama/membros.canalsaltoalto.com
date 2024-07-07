@@ -6,6 +6,13 @@
 		// width: 798px;
 	}
 
+	.left{
+		padding: 20px;
+		color: #333;
+		background-color: #FFF;
+			border-radius: 5px 0px 0px 5px;
+			min-height: 50vh;
+	}
 	.left, .right{
 		width: 50%;
 	}
@@ -39,12 +46,9 @@
 	}
 
 	&__content{
+		margin-bottom: 40px;
+		padding-bottom: 50px;
 		form{
-			padding: 20px;
-			color: #333;
-			background-color: #FFF;
-			border-radius: 5px 0px 0px 5px;
-			min-height: 50vh;
 		}
 		
 		.dont-know-cep{
@@ -54,6 +58,7 @@
 
 		form-step{
 			display: none;
+			min-height: 50vh;
 			&#enterpreneur{
 				display: block;
 			}

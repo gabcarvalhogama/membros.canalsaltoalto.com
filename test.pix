@@ -1,0 +1,169 @@
+{
+  ["id"]=>
+  string(19) "or_5VjXNV9SDSkebED1"
+  ["code"]=>
+  string(10) "K56GSDSJVW"
+  ["amount"]=>
+  int(2990)
+  ["currency"]=>
+  string(3) "BRL"
+  ["closed"]=>
+  bool(true)
+  ["items"]=>
+  array(1) {
+    [0]=>
+    array(8) {
+      ["id"]=>
+      string(19) "oi_ZLdb2z6C1Cw2OQEv"
+      ["type"]=>
+      string(7) "product"
+      ["description"]=>
+      string(10) "Assinatura"
+      ["amount"]=>
+      int(2990)
+      ["quantity"]=>
+      int(1)
+      ["status"]=>
+      string(6) "active"
+      ["created_at"]=>
+      string(20) "2024-07-02T23:09:00Z"
+      ["updated_at"]=>
+      string(20) "2024-07-02T23:09:00Z"
+    }
+  }
+  ["customer"]=>
+  array(10) {
+    ["id"]=>
+    string(20) "cus_r9AJxJLCPCbnpLdk"
+    ["name"]=>
+    string(7) "Gabriel"
+    ["email"]=>
+    string(19) "gabriel@hatorai.com"
+    ["document"]=>
+    string(11) "14962940767"
+    ["document_type"]=>
+    string(3) "cpf"
+    ["type"]=>
+    string(10) "individual"
+    ["delinquent"]=>
+    bool(false)
+    ["created_at"]=>
+    string(20) "2024-07-02T22:49:37Z"
+    ["updated_at"]=>
+    string(20) "2024-07-02T22:49:37Z"
+    ["phones"]=>
+    array(1) {
+      ["home_phone"]=>
+      array(3) {
+        ["country_code"]=>
+        string(2) "55"
+        ["number"]=>
+        string(9) "996039678"
+        ["area_code"]=>
+        string(2) "27"
+      }
+    }
+  }
+  ["status"]=>
+  string(7) "pending"
+  ["created_at"]=>
+  string(20) "2024-07-02T23:09:00Z"
+  ["updated_at"]=>
+  string(20) "2024-07-02T23:09:00Z"
+  ["closed_at"]=>
+  string(20) "2024-07-02T23:09:00Z"
+  ["charges"]=>
+  array(1) {
+    [0]=>
+    array(11) {
+      ["id"]=>
+      string(19) "ch_MBbakDNCqC8LjNZg"
+      ["code"]=>
+      string(10) "K56GSDSJVW"
+      ["gateway_id"]=>
+      string(6) "428703"
+      ["amount"]=>
+      int(2990)
+      ["status"]=>
+      string(7) "pending"
+      ["currency"]=>
+      string(3) "BRL"
+      ["payment_method"]=>
+      string(3) "pix"
+      ["created_at"]=>
+      string(20) "2024-07-02T23:09:00Z"
+      ["updated_at"]=>
+      string(20) "2024-07-02T23:09:00Z"
+      ["customer"]=>
+      array(10) {
+        ["id"]=>
+        string(20) "cus_r9AJxJLCPCbnpLdk"
+        ["name"]=>
+        string(7) "Gabriel"
+        ["email"]=>
+        string(19) "gabriel@hatorai.com"
+        ["document"]=>
+        string(11) "14962940767"
+        ["document_type"]=>
+        string(3) "cpf"
+        ["type"]=>
+        string(10) "individual"
+        ["delinquent"]=>
+        bool(false)
+        ["created_at"]=>
+        string(20) "2024-07-02T22:49:37Z"
+        ["updated_at"]=>
+        string(20) "2024-07-02T22:49:37Z"
+        ["phones"]=>
+        array(1) {
+          ["home_phone"]=>
+          array(3) {
+            ["country_code"]=>
+            string(2) "55"
+            ["number"]=>
+            string(9) "996039678"
+            ["area_code"]=>
+            string(2) "27"
+          }
+        }
+      }
+      ["last_transaction"]=>
+      array(15) {
+        ["pix_provider_tid"]=>
+        string(6) "428703"
+        ["qr_code"]=>
+        string(34) "https://digital.mundipagg.com/pix/"
+        ["qr_code_url"]=>
+        string(89) "https://api.pagar.me/core/v5/transactions/tran_GVg13vVtqtJ3lNQR/qrcode?payment_method=pix"
+        ["expires_at"]=>
+        string(20) "2024-07-03T00:09:00Z"
+        ["id"]=>
+        string(21) "tran_GVg13vVtqtJ3lNQR"
+        ["transaction_type"]=>
+        string(3) "pix"
+        ["gateway_id"]=>
+        string(6) "428703"
+        ["amount"]=>
+        int(2990)
+        ["status"]=>
+        string(15) "waiting_payment"
+        ["success"]=>
+        bool(true)
+        ["created_at"]=>
+        string(20) "2024-07-02T23:09:00Z"
+        ["updated_at"]=>
+        string(20) "2024-07-02T23:09:00Z"
+        ["gateway_response"]=>
+        array(0) {
+        }
+        ["antifraud_response"]=>
+        array(0) {
+        }
+        ["metadata"]=>
+        array(0) {
+        }
+      }
+    }
+  }
+}
+Pedido criado com sucesso, ID: or_5VjXNV9SDSkebED1

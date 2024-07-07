@@ -1,0 +1,169 @@
+array(12) {
+  ["id"]=>
+  string(19) "or_mngPvAPfDfgd7La1"
+  ["code"]=>
+  string(10) "169LT5TMK4"
+  ["amount"]=>
+  int(2990)
+  ["currency"]=>
+  string(3) "BRL"
+  ["closed"]=>
+  bool(true)
+  ["items"]=>
+  array(1) {
+    [0]=>
+    array(8) {
+      ["id"]=>
+      string(19) "oi_lZQ4dw1T0T7OvmJR"
+      ["type"]=>
+      string(7) "product"
+      ["description"]=>
+      string(10) "Assinatura"
+      ["amount"]=>
+      int(2990)
+      ["quantity"]=>
+      int(1)
+      ["status"]=>
+      string(6) "active"
+      ["created_at"]=>
+      string(20) "2024-07-02T23:10:03Z"
+      ["updated_at"]=>
+      string(20) "2024-07-02T23:10:03Z"
+    }
+  }
+  ["customer"]=>
+  array(10) {
+    ["id"]=>
+    string(20) "cus_NY9jwdDfnfawMbGL"
+    ["name"]=>
+    string(7) "Gabriel"
+    ["email"]=>
+    string(19) "gabriel@hatorai.com"
+    ["document"]=>
+    string(11) "14962940767"
+    ["document_type"]=>
+    string(3) "cpf"
+    ["type"]=>
+    string(10) "individual"
+    ["delinquent"]=>
+    bool(false)
+    ["created_at"]=>
+    string(20) "2024-07-02T22:36:05Z"
+    ["updated_at"]=>
+    string(20) "2024-07-02T22:46:45Z"
+    ["phones"]=>
+    array(1) {
+      ["home_phone"]=>
+      array(3) {
+        ["country_code"]=>
+        string(2) "55"
+        ["number"]=>
+        string(9) "996039678"
+        ["area_code"]=>
+        string(2) "27"
+      }
+    }
+  }
+  ["status"]=>
+  string(7) "pending"
+  ["created_at"]=>
+  string(20) "2024-07-02T23:10:03Z"
+  ["updated_at"]=>
+  string(20) "2024-07-02T23:10:04Z"
+  ["closed_at"]=>
+  string(20) "2024-07-02T23:10:03Z"
+  ["charges"]=>
+  array(1) {
+    [0]=>
+    array(11) {
+      ["id"]=>
+      string(19) "ch_bV8Dr7bSLSpMglz4"
+      ["code"]=>
+      string(10) "169LT5TMK4"
+      ["gateway_id"]=>
+      string(10) "2929432737"
+      ["amount"]=>
+      int(2990)
+      ["status"]=>
+      string(7) "pending"
+      ["currency"]=>
+      string(3) "BRL"
+      ["payment_method"]=>
+      string(3) "pix"
+      ["created_at"]=>
+      string(20) "2024-07-02T23:10:03Z"
+      ["updated_at"]=>
+      string(20) "2024-07-02T23:10:04Z"
+      ["customer"]=>
+      array(10) {
+        ["id"]=>
+        string(20) "cus_NY9jwdDfnfawMbGL"
+        ["name"]=>
+        string(7) "Gabriel"
+        ["email"]=>
+        string(19) "gabriel@hatorai.com"
+        ["document"]=>
+        string(11) "14962940767"
+        ["document_type"]=>
+        string(3) "cpf"
+        ["type"]=>
+        string(10) "individual"
+        ["delinquent"]=>
+        bool(false)
+        ["created_at"]=>
+        string(20) "2024-07-02T22:36:05Z"
+        ["updated_at"]=>
+        string(20) "2024-07-02T22:46:45Z"
+        ["phones"]=>
+        array(1) {
+          ["home_phone"]=>
+          array(3) {
+            ["country_code"]=>
+            string(2) "55"
+            ["number"]=>
+            string(9) "996039678"
+            ["area_code"]=>
+            string(2) "27"
+          }
+        }
+      }
+      ["last_transaction"]=>
+      array(15) {
+        ["pix_provider_tid"]=>
+        string(10) "2929432737"
+        ["qr_code"]=>
+        string(216) "00020101021226820014br.gov.bcb.pix2560pix.stone.com.br/pix/v2/e4accc26-edb1-466a-8e30-8b84a9043e67520400005303986540529.905802BR5925Tatiane Serafim Suzana 106014RIO DE JANEIRO622905251ae0f2a1fbd52787ddef3b2fb6304B41B"
+        ["qr_code_url"]=>
+        string(89) "https://api.pagar.me/core/v5/transactions/tran_qwOMP3BI4IlYkQgW/qrcode?payment_method=pix"
+        ["expires_at"]=>
+        string(20) "2024-07-03T00:10:03Z"
+        ["id"]=>
+        string(21) "tran_qwOMP3BI4IlYkQgW"
+        ["transaction_type"]=>
+        string(3) "pix"
+        ["gateway_id"]=>
+        string(10) "2929432737"
+        ["amount"]=>
+        int(2990)
+        ["status"]=>
+        string(15) "waiting_payment"
+        ["success"]=>
+        bool(true)
+        ["created_at"]=>
+        string(20) "2024-07-02T23:10:03Z"
+        ["updated_at"]=>
+        string(20) "2024-07-02T23:10:04Z"
+        ["gateway_response"]=>
+        array(0) {
+        }
+        ["antifraud_response"]=>
+        array(0) {
+        }
+        ["metadata"]=>
+        array(0) {
+        }
+      }
+    }
+  }
+}
+Pedido criado com sucesso, ID: or_mngPvAPfDfgd7La1

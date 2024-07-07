@@ -118,6 +118,47 @@
 	    }
 
 
+	    public function addMembership($iduser, $membership_id, $order_id, $payment_method, $payment_value, $starts_at, $ends_at, $status){
+	    	$sql = DB::open()->prepare("INSERT INTO csa_users_memberships() VALUES (default, :iduser, :membership_id, :order_id, :payment_method, :payment_value, :starts_at, :ends_at, :status)");
+
+	    	return $sql->execute([
+	    		":iduser" => intval($iduser),
+	    		":membership_id" => intval($membership_id),
+	    		":order_id" => $order_id,
+	    		":payment_method" => $payment_method,
+	    		":payment_value" => $payment_value,
+	    		":starts_at" => $starts_at,
+	    		":ends_at" => $ends_at,
+	    		":status" => $status
+	    	]);
+	    }
+
+	    public function updateMembershipByOrderId($order_id, $status, $starts_at, $ends_at){
+	    	$sql = DB::open()->prepare("UPDATE csa_users_memberships um 
+	    		SET 
+	    			um.status = :status,
+	    			um.starts_at = :starts_at,
+	    			um.ends_at = :ends_at
+	    		WHERE
+	    			um.order_id = :order_id");
+	    	return $sql->execute([
+	    		":status" => trim(strtolower($status)),
+	    		":starts_at" => $starts_at,
+	    		":ends_at" => $ends_at,
+	    		":order_id" => $order_id
+	    	]);
+	    }
+
+	    public function getUserMembershipByOrderId($order_id){
+	    	$sql = DB::open()->prepare("SELECT * FROM csa_users_memberships WHERE order_id = :order_id LIMIT 1");
+	    	$sql->execute([
+	    		":order_id" => $order_id
+    		]);
+
+    		return $sql;
+	    }
+
+
 
 		public static function getStates(){
 			$sql = DB::open()->prepare("SELECT * FROM csa_states ORDER BY uf");

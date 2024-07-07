@@ -30,7 +30,7 @@
 								<img src="/<?=(!empty($user['profile_photo'])) ? $user['profile_photo'] : 'assets/images/default-pfp.png'?>" class="logo" alt=""/>
 								<h3 class="mb-0"><?=$user['firstname']." ".$user['lastname']?></h3>
 							</div>
-							<a href="#">
+							<a href="/app/members/<?=$user['iduser']?>/companies">
 								<?php 
 									if($user["company_counter"] == 0 OR $user["company_counter"] == null) echo "nenhuma empresa";
 									else if($user["company_counter"] == 1) echo "ver 1 empresa";
