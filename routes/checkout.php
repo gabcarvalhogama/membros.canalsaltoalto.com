@@ -77,6 +77,15 @@
 			if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
 				die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur"]));
 
+			if($User->getUserByCPF($_POST["f_cpf"])->rowCount() > 0)
+				die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!", "step" => "enterpreneur"]));
+
+			// if($User->getUserByCNPJ($_POST["f_cnpj"])->rowCount() > 0)
+			// 	die(json_encode(["res"=>"O CNPJ informado já foi utilizado. Informe um novo CNPJ para continuar!", "step" => "enterpreneur"]));
+
+			if($User->getUserByCellphone($_POST["f_cellphone"])->rowCount() > 0)
+				die(json_encode(["res"=>"O Celular informado já foi utilizado. Informe um novo Celular para continuar!", "step" => "enterpreneur"]));
+
 
 
 			$isUserCreated =  $User->create(
@@ -102,8 +111,11 @@
 
 			$user = $User->getUserByEmail($_POST["f_email"])->fetchObject();
 
+			$_SESSION["csa_email"] = $_POST["f_email"];
+			$_SESSION["csa_password"] = $_POST["f_password"];
+
+
 			$Checkout = new Checkout();
-			// Dados do cliente
 			$customerData = [
 			    'name' => $user->firstname . " ".$user->lastname,
 			    'type' => 'individual',
@@ -119,18 +131,15 @@
 	        	],
 			];
 
-			// Dados do item
-			$itemData = [
-			    'amount' => 29700,
-			    'quantity' => 1,
-			    'description' => 'Assinatura - Canal Salto Alto'
-			];
-
-
-
 			switch($_POST["f_payment_method"]){
 
 				case "pix":
+					$itemData = [
+					    'amount' => 29700,
+					    'quantity' => 1,
+					    'description' => 'Membro CSA - Anual'
+					];
+
 					$paymentMethod = [
 			            [
 			                'pix' => [
@@ -155,7 +164,7 @@
 					    	die(json_encode(["res" => "Desculpe, não foi possível gerar o QR Code."]));
 					    }
 					} else {
-					    echo "Erro ao criar o pedido: " . json_encode($orderResponse);
+				    	die(json_encode(["res" => "Erro ao criar o pedido:" . json_encode($orderResponse)]));
 					}
 				break;
 
@@ -167,7 +176,6 @@
 					die(json_encode(["res" => "Por favor, selecione uma forma de pagamento válida."]));
 					exit;
 			}
-
 		}
 	});
 

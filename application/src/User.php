@@ -23,6 +23,41 @@
 			]);
 		}
 
+		public function update($firstname, $lastname, $biography, $cpf, $birthdate, $zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $iduser){
+			$sql = DB::open()->prepare("UPDATE csa_users SET 
+                firstname = :firstname,
+                lastname = :lastname,
+                biography = :biography,
+                cpf = :cpf,
+                birthdate = :birthdate,
+                zipcode = :zipcode,
+                address_state = :address_state,
+                address_city = :address_city,
+                address = :address,
+                address_number = :address_number,
+                address_neighborhood = :address_neighborhood,
+                address_complement = :address_complement,
+                cellphone = :cellphone
+            WHERE iduser = :iduser");
+
+            return $sql->execute([
+            	":firstname" => ucfirst(trim($firstname)),
+				":lastname" => ucfirst(trim($lastname)),
+				":biography" => ucfirst(trim($biography)),
+				":cpf" => preg_replace('/\D/', '', $cpf),
+				":birthdate" => $birthdate,
+				":zipcode" => preg_replace('/\D/', '', $zipcode),
+				":address_state" => intval($address_state),
+				":address_city" => intval($address_city),
+				":address" => ucfirst(trim($address)),
+				":address_number" => trim($address_number),
+				":address_neighborhood" => ucfirst(trim($address_neighborhood)),
+				":address_complement" => ucfirst(trim($address_complement)),
+				":cellphone" => preg_replace('/\D/', '', $cellphone),
+				":iduser" => intval($iduser)
+            ]);
+		}
+
 		public function getUserIdByEmail($email){
 			$sql = DB::open()->prepare("SELECT iduser FROM csa_users WHERE email = :email LIMIT 1");
 			$sql->execute([
@@ -36,6 +71,33 @@
 			$sql = DB::open()->prepare("SELECT * FROM csa_users WHERE email = :email LIMIT 1");
 			$sql->execute([
 				":email" => filter_var($email, FILTER_SANITIZE_EMAIL)
+			]);
+
+			return $sql;
+		}
+
+		public function getUserByCPF($cpf){
+			$sql = DB::open()->prepare("SELECT * FROM csa_users WHERE cpf = :cpf LIMIT 1");
+			$sql->execute([
+				":cpf" => preg_replace('/\D/', '', $cpf)
+			]);
+
+			return $sql;
+		}
+
+		public function getUserByCNPJ($cnpj){
+			$sql = DB::open()->prepare("SELECT * FROM csa_users WHERE cnpj = :cnpj LIMIT 1");
+			$sql->execute([
+				":cnpj" => preg_replace('/\D/', '', $cnpj)
+			]);
+
+			return $sql;
+		}
+
+		public function getUserByCellphone($cellphone){
+			$sql = DB::open()->prepare("SELECT * FROM csa_users WHERE cellphone = :cellphone LIMIT 1");
+			$sql->execute([
+				":cellphone" => preg_replace('/\D/', '', $cellphone)
 			]);
 
 			return $sql;
@@ -82,6 +144,15 @@
 		}
 
 
+		public function updatePhotoByEmail($email, $file_path){
+			$sql = DB::open()->prepare("UPDATE csa_users SET profile_photo = :profile_photo WHERE email = :email");
+			return $sql->execute([
+				":profile_photo" => strtolower(trim($file_path)),
+				":email" => filter_var($email, FILTER_SANITIZE_EMAIL)
+			]);
+		}
+
+
 		public function isUserAdminByEmail($email){
 			$sql = DB::open()->prepare("SELECT user_type FROM csa_users WHERE email = :email LIMIT 1");
 			$sql->execute([
@@ -98,6 +169,31 @@
 	        if (session_status() == PHP_SESSION_NONE) session_start();
 	        
 	        return (!empty($_SESSION["csa_email"]) AND !empty($_SESSION["csa_password"])) ? $this->login($_SESSION["csa_email"], $_SESSION["csa_password"]) : false;
+	    }
+
+	    public function isUserAMember($email){
+	    	$sql = DB::open()->prepare("SELECT
+			    um.iduser,
+			    um.membership_id,
+			    um.starts_at,
+			    um.ends_at,
+			    um.status,
+			    CASE
+			        WHEN um.starts_at <= NOW() AND um.ends_at >= NOW() THEN TRUE
+			        ELSE FALSE
+			    END AS is_valid_member
+			FROM
+			    csa_users_memberships um
+			LEFT JOIN
+			    csa_users u ON u.iduser = um.iduser
+			WHERE
+			    u.email = :email
+			LIMIT 1;");
+			$sql->execute([
+				":email" => filter_var($email, FILTER_VALIDATE_EMAIL)
+			]);
+
+			return (($sql->rowCount() > 0));
 	    }
 
 	    public function getPasswordByEmail($email){

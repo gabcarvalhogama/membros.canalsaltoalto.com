@@ -25722,6 +25722,18 @@ a {
   text-decoration: none;
 }
 
+@media screen and (max-width: 992px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
+}
+
 .color-primary {
   color: #E54C8E;
 }
@@ -25818,21 +25830,20 @@ label, .form-label {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin: -10px;
 }
 .site .post-grid__item {
-  width: calc(33.33% - 40px);
-  margin: 20px;
-  margin-top: 0;
+  width: calc(33.33% - 20px);
+  margin: 20px 10px;
   position: relative;
   background-color: #FFF;
   border-radius: 5px 5px 5px 5px;
 }
-.site .post-grid__item:first-child {
-  margin-left: 0;
-  margin-top: 0;
-}
-.site .post-grid__item:last-child {
-  margin-right: 0;
+@media screen and (max-width: 992px) {
+  .site .post-grid__item {
+    width: calc(50% - 20px);
+    margin: 10px;
+  }
 }
 .site .post-grid__item--tag {
   position: absolute;
@@ -25897,6 +25908,9 @@ label, .form-label {
   100% {
     margin-left: 0;
   }
+}
+.site .post-grid-slider .post-grid__item {
+  margin: 0;
 }
 .site__single-post {
   background-color: #FFF;
@@ -26508,6 +26522,62 @@ label, .form-label {
   font-weight: bold;
   margin-bottom: 0;
   font-size: 1.1rem;
+}
+.app .app__profile .container {
+  margin-top: 2rem;
+}
+.app .app__profile .profile__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.app .app__profile .profile__header--photo img {
+  height: 150px;
+  width: 150px;
+  border: solid 1px #E54C8E;
+  border-radius: 250px;
+  box-shadow: 4px 5px 5px rgb(28, 28, 28);
+  object-fit: cover;
+}
+.app .app__profile .profile__header .bio {
+  color: #FFF;
+}
+.app .app__profile .profile__header--presentation {
+  padding-left: 20px;
+}
+.app .app__profile .profile__section {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+.app .app__profile .profile__section aside {
+  width: 300px;
+  max-width: 100%;
+  background-color: #333;
+  padding: 20px;
+  margin-right: 20px;
+  border-radius: 10px;
+  flex: 0 0 auto;
+}
+.app .app__profile .profile__section aside ul li a {
+  padding: 10px;
+  display: block;
+  background-color: #2a2a2a;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  transition: all 400ms;
+}
+.app .app__profile .profile__section aside ul li a:hover {
+  background-color: #E54C8E;
+  color: #000;
+}
+.app .app__profile .profile__section--content {
+  max-width: 100%;
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  color: #FFF;
 }
 .app .app__footer {
   margin-top: 30px;

@@ -239,10 +239,13 @@
 					</form-step>
 
 
-					<form-step id="checkouting-pix_paid" class="d-flex flex-column align-items-center justify-content-center">
+					<form-step id="checkouting-pix_paid">
+						<div class="d-flex flex-column align-items-center justify-content-center">
 						<div class=""><img src="<?=PATH?>assets/images/success.gif" alt="" /></div>
 						<h2>Pagamento confirmado!</h2>
 						<p>Aguarde, você será redirecionada em breve...</p>
+							
+						</div>
 					</form-step>
 				</div>
 				<div class="right" style="background-image: url('https://membros.canalsaltoalto.com/wp-content/uploads/2023/08/WhatsApp-Image-2022-11-17-at-17.56.42.jpeg');">

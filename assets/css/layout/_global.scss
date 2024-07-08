@@ -21,6 +21,20 @@ a{
 	text-decoration: none;
 }
 
+
+.hide-on-mobile{
+	@media screen and (max-width: 992px){
+		display: none !important;
+	}
+}
+.hide-on-desktop{
+	@media screen and (min-width: 992px){
+		display: none !important;
+	}
+}
+
+
+
 .color-primary{
 	color: $primary-color
 }

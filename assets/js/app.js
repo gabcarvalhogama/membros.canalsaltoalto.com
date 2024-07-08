@@ -75,6 +75,82 @@ const App = {
 				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
 			}
 		})
+	},
+	loadCities: function(el){
+		$(el).attr("disabled");
+		$.ajax({
+			type: 'get',
+			contentType: false,
+			url: '/checkout/cities/' + el.value,
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					var html = "";
+					data.cities.forEach(function(item, index){
+						html += `<option value="${item.idcity}">${item.city}</option>`;
+					})
+					$('#f_city').html(html);
+				}else{
+
+				}
+
+				$(el).removeAttr("disabled")
+
+				$('#f_city').removeAttr("disabled")
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!")
+			}
+		})
+	},
+	updateUser: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+
+
+		$.ajax({
+			type: 'post',
+			data: formData,
+			processData: false,
+			contentType: false,
+			url: '/app/profile/update',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					window.location = '';
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+	updateProfilePhoto: function(el){
+		var formData = new FormData();
+		formData.append("f_profile_photo", $(el)[0].files[0]);
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/app/profile/update/photo',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$('#profile__header--photo-image').attr("src", "/"+data.path)
+					alert("Sua imagem de perfil foi atualizada com sucesso!");
+				}else{
+					alert(data.res)
+				}
+			},
+			error: function(err){
+				alert("Desculpe, algo deu errado ao atualizar sua foto de perfil. Atualize a página e tente novamente!");
+			}
+		})
 	}
 };
 
