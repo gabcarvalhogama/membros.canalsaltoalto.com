@@ -26395,6 +26395,11 @@ label, .form-label {
   text-align: center;
   background-color: #E54C8E;
 }
+.app .app__newCompany form {
+  padding: 20px;
+  background-color: #FFF;
+  border-radius: 10px;
+}
 .app .members-list {
   display: flex;
   flex-direction: column;

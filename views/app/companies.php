@@ -13,8 +13,13 @@
 
 		<section class="app__companies mt-5 mb-5">
 			<div class="container">
-				<h2>Conheça os negócios <span class="color-primary">das membros</span></h2>
-				<div class="companies-list">
+				<div class="d-flex flex-row justify-content-between">
+					<h2>Conheça os negócios <span class="color-primary">das membros</span></h2>
+					<div>
+						<a href="/app/companies/new"><button class="btn btn-rose btn-rounded">Cadastre sua empresa</button></a>
+					</div>
+				</div>
+				<div class="companies-list mt-3">
 				<?php
 			  		$Company = new Company;
 			  		$companies = $Company->getCompanies();

@@ -36,7 +36,7 @@
 		}
 
 
-		public function create($company_owner, $company_name, $company_description, $company_image, $has_place, $address_zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $instagram_url, $site_url, $facebook_url){
+		public function create($company_owner, $company_name, $company_description, $company_image, $has_place, $address_zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $instagram_url, $site_url, $facebook_url, $status){
 			$sql = DB::open()->prepare("
 	            INSERT INTO csa_companies (
 	                iduser,
@@ -74,7 +74,7 @@
 	                :instagram_url,
 	                :site_url,
 	                :facebook_url,
-	                1,
+	                :status,
 	                NOW()
 	            )
 	        ");
@@ -95,7 +95,8 @@
 	            ":cellphone" => $cellphone,
 	            ":instagram_url" => filter_var($instagram_url, FILTER_SANITIZE_URL),
 	            ":site_url" => filter_var($site_url, FILTER_SANITIZE_URL),
-	            ":facebook_url" => filter_var($facebook_url, FILTER_SANITIZE_URL)
+	            ":facebook_url" => filter_var($facebook_url, FILTER_SANITIZE_URL),
+	            ":status" => intval($status)
 	        ]);
 		}
 

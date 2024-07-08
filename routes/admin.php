@@ -527,7 +527,8 @@
 				    ($_POST["cellphone"]) ?? $_POST["cellphone"],
 				    ($_POST["instagram_url"]) ?? $_POST["instagram_url"],
 				    ($_POST["site_url"]) ?? $_POST["site_url"],
-				    ($_POST["facebook_url"]) ?? $_POST["facebook_url"]
+				    ($_POST["facebook_url"]) ?? $_POST["facebook_url"],
+				    1
 		    	))
 		    		die(json_encode(["res" => 1]));
 		    	else

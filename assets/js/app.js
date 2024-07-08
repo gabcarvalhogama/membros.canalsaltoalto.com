@@ -151,6 +151,36 @@ const App = {
 				alert("Desculpe, algo deu errado ao atualizar sua foto de perfil. Atualize a página e tente novamente!");
 			}
 		})
+	},
+
+
+	newCompany: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+
+		formData.append("company_image", $('#company_image')[0].files[0]);
+
+		
+		$.ajax({
+			type: 'post',
+			data: formData,
+			processData: false,
+			contentType: false,
+			url: '/app/companies/new',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$(form)[0].reset()
+					message.success(form, "Sua empresa foi criada com sucesso!");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
 	}
 };
 
