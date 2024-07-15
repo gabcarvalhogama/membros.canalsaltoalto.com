@@ -24,7 +24,7 @@
 				<div class="d-flex justify-content-center align-items-center flex-column">
 					<div class="m-3"><iframe width="560" height="315" style="max-width:  100%;border-radius: 10px;" src="https://www.youtube.com/embed/ERrRshiMc8Y?si=tpi62am4OPUl42QP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 
-					<a href="http://canalsaltoalto.local/checkout" class="btn btn-rose btn-rounded btn-medium">QUERO SER MEMBRO</a>
+					<a href="/checkout" class="btn btn-rose btn-rounded btn-medium">QUERO SER MEMBRO</a>
 				</div>
 			</div>
 		</section>

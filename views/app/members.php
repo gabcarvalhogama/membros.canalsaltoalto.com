@@ -22,6 +22,7 @@
 						$getUsers = $User->getUsers();
 						if($getUsers->rowCount() > 0):
 							foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $user):
+								if(in_array($user["email"], ["gabriel@hatoria.com"])) continue;
 								$ms+=200;
 					?>
 					<div class="members-list__item animate__animated animate__faster animate__fadeInDown" style="animation-delay: <?=$ms?>ms ">

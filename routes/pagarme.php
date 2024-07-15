@@ -5,14 +5,14 @@
 			if(empty($data)) die(json_encode(["msg" => "Webhook received: empty body."]));
 
 
-			if (isset($data['type']) && $data['type'] === 'order.paid') {
+			if (isset($data['type']) && $data['type'] === 'charge.paid') {
 			    // Obtenha o ID do pedido
-			    if (isset($data['data']['id'])) {
-			        $orderId = $data['data']['id'];
+			    if (isset($data['data']['order']['id'])) {
+			        $orderId = $data['data']['order']['id'];
 
 			        $User = new User;
 
-			        $starts_at = str_replace("T", " ", $data['data']['charges'][0]['paid_at']);
+			        $starts_at = str_replace("T", " ", $data['data']['paid_at']);
 
 			        $dateTime = new DateTime($starts_at);
 					$dateTime->add(new DateInterval('P365D'));

@@ -36,7 +36,11 @@
 						<?=$object->content?>
 
 						<div>
-							<?=$object->featured_video?>
+							<?php
+								if(!empty($object->featured_video)){
+									echo '<iframe width="560" height="480" style="border-radius: 10px" src="'.$object->featured_video.'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+								}
+							?>
 						</div>
 
 						<div class="site__single-post--comments" id="#comments">
