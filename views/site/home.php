@@ -47,6 +47,40 @@
 			</div>
 		</div>
 
+		<section class="banner mt-3 mb-3">
+			<div class="container">
+				<a href="https://www.sicoob.com.br/web/sicoobes/para-voce" target="_blank" style="display: block">
+					<img src="<?=PATH?>uploads/2024/07/BANNER-SICOOB-900x100px.png" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
+				</a>
+			</div>
+		</section>
+
+		<section class="banners mt-4 mb-1">
+			<div class="container">
+				<div class="d-flex flex-row flex-wrap justify-content-between">
+					<div class="banner-item">
+						<a href="https://membros.canalsaltoalto.com/" target="_blank"><img src="<?=PATH?>uploads/2024/07/banner-plataforma-membros.jpg" alt="" style="width: 100%;"></a>
+					</div>
+					<div class="banner-item">
+						<a href="https://marketplace.canalsaltoalto.com/" target="_blank"><img src="<?=PATH?>uploads/2024/07/marketplace-banner.jpg" alt="" style="width: 100%;"></a>
+					</div>
+					<div class="banner-item">
+						<a href="https://www.youtube.com/c/CanalSaltoAlto" target="_blank"><img src="<?=PATH?>uploads/2024/07/banner-canal-youtube.jpg" alt="" style="width: 100%;"></a>
+					</div>
+					<div class="banner-item">
+						<a href="https://canalsaltoalto.com/guia-de-empreendedoras/" target="_blank"><img src="<?=PATH?>uploads/2024/07/Banner-guia-de-empreendedoras.jpg" alt="" style="width: 100%;"></a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="banner mt-3 mb-3">
+			<div class="container">
+				<a href="https://wa.me/message/UIAZUSAT7AZNK1" target="_blank" style="display: block">
+					<img src="<?=PATH?>uploads/2024/07/club1.png" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
+				</a>
+			</div>
+		</section>
 
 
 
@@ -132,6 +166,34 @@
 
 
 
+				</div>
+			</div>
+		</section>
+
+
+
+		<section class="banner mt-3 mb-3">
+			<div class="container">
+				<a href="https://limilk.com.br/" target="_blank" style="display: block">
+					<img src="<?=PATH?>uploads/2024/07/LIMILK.png" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
+				</a>
+			</div>
+		</section>
+
+		<section class="newsletter bg-primary p-4">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-md-6">
+						<h5>Seja avisada das novidades do <b>Canal Salto Alto!</b></h5>
+					</div>
+					<div class="col-md-6">
+						<form action="">
+							<div class="d-flex flex-row">
+								<input type="email" placeholder="Qual o seu e-mail?" />
+								<button>OK!</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</section>

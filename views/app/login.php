@@ -11,9 +11,7 @@
 	<body class="app">
 
 		<div class="app__auth">
-			<div class="app__auth--bg" style="background-image: url('<?=PATH?>assets/images/auth-image.jpg');">
-				BG
-			</div>
+			<div class="app__auth--bg" style="background-image: url('<?=PATH?>assets/images/auth-image.jpg');"></div>
 			<div class="app__auth--sidebar">
 				<img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="logo" />
 				<h1>Faça login na sua conta</h1>

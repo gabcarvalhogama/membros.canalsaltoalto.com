@@ -198,6 +198,20 @@
 		}
 	}
 
+
+
+	.banners{
+		.banner-item{
+			width: calc(50% - 10px);
+			margin-bottom: 20px;
+			img{
+				border-radius: 5px;
+			}
+		}
+	}
+
+	@import "site/newsletter";
+
 	&__footer{
 		padding: 30px 0;
 		&--logo{

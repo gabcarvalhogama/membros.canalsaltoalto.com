@@ -74,7 +74,7 @@ const Checkout = {
 
 		$('.checkout__creditcard:visible').fadeOut(400)
 
-		if(method == "cc"){
+		if(method == "credit_card"){
 			$('.checkout__creditcard').fadeIn(400)
 		}
 	},
@@ -129,8 +129,8 @@ const Checkout = {
 		this.changeStep(null, '#payment')
 	},
 	checkoutPayment: function(form){
-		$(form).addClass("inactive")
-		message.warning(form, "Carregando, aguarde...");
+		// $(form).addClass("inactive")
+		// message.warning(form, "Carregando, aguarde...");
 		Checkout.changeStep(null, "#checkout__loading")
 	
 		var object = this.payload;
@@ -154,12 +154,16 @@ const Checkout = {
 						$('#pixImage').attr("src", data.qr_code_url)
 						$('#pixField').val(data.qr_code)
 						Checkout.changeStep(null, "#checkouting-pix_pending")
-						Checkout.checkPix()
+					}else{
+
 					}
+					Checkout.checkPayment()
+
 				}else{
 					Checkout.changeStep(null, "#"+data.step)
 					alert(data.res);
 				}
+
 			},
 			error: function(err){
 				alert("Algo deu errado, verifique sua internet e tente novamente!")
@@ -177,13 +181,13 @@ const Checkout = {
 	    // Copia o texto selecionado para a área de transferência
 	    document.execCommand("copy");
 	},
-	checkPix: function(){
+	checkPayment: function(){
 		var intervalId = setInterval(function(){
 
 			$.ajax({
 				type: 'get',
 				data: null,
-				url: '/checkout/check-pix',
+				url: '/checkout/check-payment',
 				dataType: 'json',
 				success: function(data){
 					if(data.res == 1 && data.status == 'paid'){
@@ -204,9 +208,13 @@ const Checkout = {
 			});
 
 		}, 5000)
+	},
 
+	updateExpirationDates: function(value){
+		const dateExpiration = value.split("/");
 
-
+		document.querySelector('#f_cc_expirationdate_month').value = dateExpiration[0];
+		document.querySelector('#f_cc_expirationdate_year').value = dateExpiration[1];
 	}
 }
 Checkout.init()

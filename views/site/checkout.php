@@ -163,7 +163,7 @@
 
 					<!-- # Pagamento -->
 					<form-step id="payment">
-						<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutPayment(this)">
+						<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutPayment(this)" data-pagarmecheckout-form>
 							<div class="message"></div>
 							<div class="checkout__payment">
 								<p>Selecione a melhor forma de pagamento</p>
@@ -171,7 +171,7 @@
 									<span class="mr-1_5">Pague via Pix</span>
 									<img src="<?=PATH?>assets/images/logo-pix-horizontal.svg" class="pix" alt="" />
 								</div>
-								<div class="checkout__payment--item d-flex" onclick="Checkout.changePayment(this, 'cc')">
+								<div class="checkout__payment--item d-flex" onclick="Checkout.changePayment(this, 'credit_card')">
 									<span class="mr-1_5">Pague via Cartão de Crédito</span>
 									<img src="<?=PATH?>assets/images/logo-cc-horizontal.svg" class="cc" alt="" />
 								</div>
@@ -182,26 +182,28 @@
 							<div class="checkout__creditcard">
 								<div class="row mb-3">
 									<div class="col">
-										<label for="f_cc_number" class="form-label">Número do Cartão de Crédito</label>
-										<input type="text" class="form-control" id="f_cc_number" name="f_cc_number" placeholder="" data-mask="0000 0000 0000 0000" />
+										<label for="f_cc_holdername" class="form-label">Nome no Cartão</label>
+										<input type="text" class="form-control" id="f_cc_holdername" data-pagarmecheckout-element="holder_name" name="f_cc_holdername" placeholder="" />
 									</div>
 								</div>
-
 								<div class="row mb-3">
 									<div class="col">
-										<label for="f_cc_name" class="form-label">Nome Completo</label>
-										<input type="text" class="form-control" id="f_cc_name" name="f_cc_name" />
+										<label for="f_cc_number" class="form-label">Número do Cartão de Crédito</label>
+										<input type="text" class="form-control" id="f_cc_number" data-pagarmecheckout-element="number" name="f_cc_number" placeholder="" data-mask="0000 0000 0000 0000" />
+									    <span  data-pagarmecheckout-element="brand"></span>
 									</div>
 								</div>
 
 								<div class="row mb-3">
 									<div class="col-md-6">
 										<label for="f_cc_expirationdate" class="form-label">Data de Validade</label>
-										<input type="text" class="form-control" id="f_cc_expirationdate" name="f_cc_expirationdate" value="DD/AA" data-mask="00/00" />
+										<input type="text" class="form-control" id="f_cc_expirationdate" name="f_cc_expirationdate" value="DD/AA" data-mask="00/00" onkeyup="Checkout.updateExpirationDates(this.value)" />
+										<input type="hidden" id="f_cc_expirationdate_month" data-pagarmecheckout-element="exp_month" />
+										<input type="hidden" id="f_cc_expirationdate_year" data-pagarmecheckout-element="exp_year" />
 									</div>
 									<div class="col-md-6">
 										<label for="f_cc_cvv" class="form-label">CVV</label>
-										<input type="text" class="form-control" id="f_cc_cvv" name="f_cc_cvv" maxlength="3" />
+										<input type="text" class="form-control" id="f_cc_cvv" name="f_cc_cvv" maxlength="3" data-pagarmecheckout-element="cvv" />
 									</div>
 								</div>
 							</div>
@@ -260,6 +262,18 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
+		<!-- <script src="https://checkout.pagar.me/v1/tokenizecard.js" data-pagarmecheckout-app-id="pk_test_ZgALAN5IKBH50K1N"></script> -->
 		<script type="text/javascript" src="<?=PATH?>assets/js/checkout.js"></script>
+		<!-- <script type="text/javascript">
+			function success(data) {
+        	};
+    
+        	function fail(error) {
+        		alert("Error")
+            	console.error(error);
+        	};
+    
+        	PagarmeCheckout.init(success,fail)
+		</script> -->
 	</body>
 </html>

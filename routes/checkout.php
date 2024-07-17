@@ -61,7 +61,7 @@
 			if($_POST["f_payment_method"] == "cc"){
 				if(empty($_POST["f_cc_number"])){
 					die(json_encode(["res"=>"Por favor, informe os números do Cartão de Crédito.", "step" => "payment"]));
-				}else if(empty($_POST["f_cc_name"])){
+				}else if(empty($_POST["f_cc_holdername"])){
 					die(json_encode(["res"=>"Por favor, informe o Nome Completo que está no Cartão de Crédito.", "step" => "payment"]));
 				}else if(empty($_POST["f_cc_expirationdate"])){
 					die(json_encode(["res"=>"Por favor, informe a data de expiração do Cartão de Crédito.", "step" => "payment"]));
@@ -70,49 +70,54 @@
 				}else if(empty($_POST["f_cc_cvv"])){
 					die(json_encode(["res"=>"Por favor, informe o CVV do Cartão de Crédito.", "step" => "payment"]));
 				}
+				// if(empty($_POST["pagarmetoken-0"]))
+				// 	die(json_encode(["res" => "Desculpe, algo deu errado com o seu cartão. Atualize a página e tente novamente!", "step" => "payment", $_POST]));
 			}
 
 
 			$User = new User;
-			if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
-				die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur"]));
-
-			if($User->getUserByCPF($_POST["f_cpf"])->rowCount() > 0)
-				die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!", "step" => "enterpreneur"]));
-
-			// if($User->getUserByCNPJ($_POST["f_cnpj"])->rowCount() > 0)
-			// 	die(json_encode(["res"=>"O CNPJ informado já foi utilizado. Informe um novo CNPJ para continuar!", "step" => "enterpreneur"]));
-
-			if($User->getUserByCellphone($_POST["f_cellphone"])->rowCount() > 0)
-				die(json_encode(["res"=>"O Celular informado já foi utilizado. Informe um novo Celular para continuar!", "step" => "enterpreneur"]));
 
 
+			if((empty($_SESSION["csa_email"]) OR empty($_SESSION["csa_password"]))){
+				if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
+					die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur"]));
 
-			$isUserCreated =  $User->create(
-				(isset($_POST["f_firstname"])) ? $_POST["f_firstname"] : null,
-				(isset($_POST["f_lastname"])) ? $_POST["f_lastname"] : null,
-				(isset($_POST["f_cpf"])) ? $_POST["f_cpf"] : null,
-				(isset($_POST["f_birthdate"])) ? $_POST["f_birthdate"] : null,
-				(isset($_POST["f_zipcode"])) ? $_POST["f_zipcode"] : null,
-				(isset($_POST["f_state"])) ? $_POST["f_state"] : null,
-				(isset($_POST["f_city"])) ? $_POST["f_city"] : null,
-				(isset($_POST["f_address"])) ? $_POST["f_address"] : null,
-				(isset($_POST["f_address_number"])) ? $_POST["f_address_number"] : null,
-				(isset($_POST["f_neighborhood"])) ? $_POST["f_neighborhood"] : null,
-				(isset($_POST["f_complement"])) ? $_POST["f_complement"] : null,
-				(isset($_POST["f_cellphone"])) ? $_POST["f_cellphone"] : null,
-				(isset($_POST["f_email"])) ? $_POST["f_email"] : null,
-				(isset($_POST["f_password"])) ? $_POST["f_password"] : null,
-				0
-			);
+					if($User->getUserByCPF($_POST["f_cpf"])->rowCount() > 0)
+						die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!", "step" => "enterpreneur"]));
 
-			if(!$isUserCreated)
-				die(json_encode(["res"=>"Algo deu errado ao criar o seu usuário. Atualize a página e tente novamente!", "step" => "enterpreneur"]));
+					// if($User->getUserByCNPJ($_POST["f_cnpj"])->rowCount() > 0)
+					// 	die(json_encode(["res"=>"O CNPJ informado já foi utilizado. Informe um novo CNPJ para continuar!", "step" => "enterpreneur"]));
 
-			$user = $User->getUserByEmail($_POST["f_email"])->fetchObject();
+					if($User->getUserByCellphone($_POST["f_cellphone"])->rowCount() > 0)
+						die(json_encode(["res"=>"O Celular informado já foi utilizado. Informe um novo Celular para continuar!", "step" => "enterpreneur"]));
 
-			$_SESSION["csa_email"] = $_POST["f_email"];
-			$_SESSION["csa_password"] = $_POST["f_password"];
+					$isUserCreated =  $User->create(
+						(isset($_POST["f_firstname"])) ? $_POST["f_firstname"] : null,
+						(isset($_POST["f_lastname"])) ? $_POST["f_lastname"] : null,
+						(isset($_POST["f_cpf"])) ? $_POST["f_cpf"] : null,
+						(isset($_POST["f_birthdate"])) ? $_POST["f_birthdate"] : null,
+						(isset($_POST["f_zipcode"])) ? $_POST["f_zipcode"] : null,
+						(isset($_POST["f_state"])) ? $_POST["f_state"] : null,
+						(isset($_POST["f_city"])) ? $_POST["f_city"] : null,
+						(isset($_POST["f_address"])) ? $_POST["f_address"] : null,
+						(isset($_POST["f_address_number"])) ? $_POST["f_address_number"] : null,
+						(isset($_POST["f_neighborhood"])) ? $_POST["f_neighborhood"] : null,
+						(isset($_POST["f_complement"])) ? $_POST["f_complement"] : null,
+						(isset($_POST["f_cellphone"])) ? $_POST["f_cellphone"] : null,
+						(isset($_POST["f_email"])) ? $_POST["f_email"] : null,
+						(isset($_POST["f_password"])) ? $_POST["f_password"] : null,
+						0
+					);
+
+					if(!$isUserCreated)
+						die(json_encode(["res"=>"Algo deu errado ao criar o seu usuário. Atualize a página e tente novamente!", "step" => "enterpreneur"]));
+
+					$user = $User->getUserByEmail($_POST["f_email"])->fetchObject();
+			}else{
+				$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
+				$_SESSION["csa_email"] = $_POST["f_email"];
+				$_SESSION["csa_password"] = $_POST["f_password"];
+			}
 
 
 			$Checkout = new Checkout();
@@ -161,19 +166,65 @@
 					        $qrCode = $orderResponse->charges[0]->last_transaction->qr_code;
 					        die(json_encode(["res" => 1, "qr_code" => $qrCode, "qr_code_url" => $qrCodeUrl, "order_id" => $orderResponse->id]));
 					    } else {
-					    	die(json_encode(["res" => "Desculpe, não foi possível gerar o QR Code."]));
+					    	die(json_encode(["res" => "Desculpe, não foi possível gerar o QR Code.", "step" => "payment"]));
 					    }
 					} else {
-				    	die(json_encode(["res" => "Erro ao criar o pedido:" . json_encode($orderResponse)]));
+				    	die(json_encode(["res" => "Erro ao criar o pedido:" . $orderResponse->message, "step" => "payment"]));
 					}
 				break;
 
 				case "credit_card":
+					$itemData = [
+					    'amount' => 39700,
+					    'quantity' => 1,
+					    'description' => 'Membro CSA - Anual',
+					    'code' => 0
+					];
 
+					$paymentMethod = [
+			            [
+			                'payment_method' => 'credit_card',
+			                'credit_card' => [
+			                	'recurrence' => false,
+			                	'installments' => 12,
+			                	'statement_descriptor' => 'SALTOALTO',
+			                	'card' => [
+			                		'number' => preg_replace('/\D/', '', $_POST["f_cc_number"]),
+			                		'holder_name' => $_POST["f_cc_holdername"],
+			                		'exp_month' => intval(explode("/", $_POST["f_cc_expirationdate"])[0]),
+			                		'exp_year' => intval(explode("/", $_POST["f_cc_expirationdate"])[1]),
+			                		'cvv' => $_POST["f_cc_cvv"],
+			                		'billing_address' => [
+				                		"line_1" => $user->address,
+			                        	"zip_code" => $user->zipcode,
+			                        	"city" => $user->address_city_name,
+			                        	"state" => $user->address_state_name,
+			                        	"country" => "BR"
+			                		]
+			                	]
+			                ],
+			            ]
+			        ];
+
+			        $orderResponse = $Checkout->createOrder($customerData, $paymentMethod, $itemData);
+
+					if (isset($orderResponse->id)) {
+						$_SESSION["csa_order_id"] = $orderResponse->id;
+
+						$User->addMembership($user->iduser, 1, $orderResponse->id, 'credit_card', 297.00, null, null, 'pending');
+
+					    if ( $orderResponse->charges[0]->last_transaction->success == true ) {
+					        die(json_encode(["res" => 1, "order_id" => $orderResponse->id]));
+					    } else {
+					    	die(json_encode(["res" => "Desculpe, o cartão retornou este erro: ", $orderResponse, "step" => "payment"]));
+					    }
+					} else {
+				    	die(json_encode(["res" => "Erro ao criar o pedido:" . $orderResponse->message, "step" => "payment"]));
+					}
 				break;
 
 				default:
-					die(json_encode(["res" => "Por favor, selecione uma forma de pagamento válida."]));
+					die(json_encode(["res" => "Por favor, selecione uma forma de pagamento válida.", "step" => "payment"]));
 					exit;
 			}
 		}
@@ -251,7 +302,7 @@
 	// });
 
 
-	$router->get("/checkout/check-pix", function(){
+	$router->get("/checkout/check-payment", function(){
 		if(!isset($_SESSION["csa_order_id"]) OR empty($_SESSION["csa_order_id"]))
 			die(json_encode(["res" => "Desculpe, não foi possível identificar o seu pedido."]));
 
