@@ -4,7 +4,14 @@
 		if(($User->isUserAuthenticated()) == false OR $User->isUserAMember($_SESSION["csa_email"]) == 0) die(header("Location: /app/login"));
 	});
 	$router->mount("/app", function() use($router){
-		$router->get("/", function() {
+
+		$User = new User;
+		if($User->isUserAuthenticated() AND $User->isUserAMember($_SESSION["csa_email"]))
+			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
+		else
+			$user = [];
+
+		$router->get("/", function() use ($user) {
 			require_once "views/app/index.php";
 		});
 
@@ -34,13 +41,13 @@
 		// $User = new User;
 		
 		
-		$router->get("/welcome", function(){
+		$router->get("/welcome", function() use ($user){
 
 			require_once "views/app/welcome.php";
 		});
 
 
-		$router->get("/contents", function(){
+		$router->get("/contents", function() use ($user){
 
 			require "views/app/contents.php";
 		});
@@ -57,23 +64,23 @@
 		});
 
 
-		$router->get("/notices", function(){
+		$router->get("/notices", function() use ($user){
 
 			require "views/app/notices.php";
 		});
 
 
-		$router->get("/clubs", function(){
+		$router->get("/clubs", function() use ($user){
 
 			require "views/app/clubs.php";
 		});
 
 
-		$router->get("/companies", function(){
+		$router->get("/companies", function() use ($user){
 			require "views/app/companies.php";
 		});
 
-		$router->get("/companies/new", function(){
+		$router->get("/companies/new", function() use ($user){
 			require "views/app/companies-new.php";
 		});
 		$router->post("/companies/new", function(){
@@ -150,7 +157,7 @@
 
 
 
-		$router->get("/members", function(){
+		$router->get("/members", function() use ($user){
 
 			require "views/app/members.php";
 		});
@@ -168,12 +175,12 @@
 			require "views/app/members-companies.php";
 		});
 
-		$router->get("/events", function(){
+		$router->get("/events", function() use ($user){
 
 			require "views/app/events.php";
 		});
 
-		$router->get("/events/{slug}", function($slug){
+		$router->get("/events/{slug}", function($slug) use ($user){
 
 			$Event = new Event;
 			$getEvent = $Event->getEventBySlug($slug);
@@ -188,12 +195,12 @@
 		});
 
 
-		$router->get("/publis", function(){
+		$router->get("/publis", function() use ($user){
 
 			require "views/app/publis.php";
 		});
 
-		$router->get("/profile", function(){
+		$router->get("/profile", function() use ($user){
 			$User = new User;
 			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
 			require "views/app/profile.php";
@@ -252,31 +259,31 @@
 		$router->post("/profile/update/photo", function(){
 			// $accepted_origins = array("http://localhost", "http://192.168.1.1", "http://example.com");
 
-		$imageFolder = "uploads/".date("Y\/m\/");
+			$imageFolder = "uploads/".date("Y\/m\/");
 
-		if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
+			if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
 
-  		reset ($_FILES);
-  		$temp = current($_FILES);
-  		if (is_uploaded_file($temp['tmp_name'])){
-		    if (!in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("gif", "jpg", "png"))) {
-		        header("HTTP/1.1 400 Invalid extension.");
-		        return;
-		    }
+	  		reset ($_FILES);
+	  		$temp = current($_FILES);
+	  		if (is_uploaded_file($temp['tmp_name'])){
+			    if (!in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("gif", "jpg", "png"))) {
+			        header("HTTP/1.1 400 Invalid extension.");
+			        return;
+			    }
 
-		    $filetowrite = $imageFolder . uniqid().".".pathinfo($temp['name'], PATHINFO_EXTENSION);
-		    if(move_uploaded_file($temp['tmp_name'], $filetowrite)){
-		    	$User = new User;
-		    	$User->updatePhotoByEmail($_SESSION["csa_email"], $filetowrite);
-		    	die(json_encode(array('res' => 1, 'path' => $filetowrite)));
-		    }
-		    else{
-		    	die(json_encode(["res" => "Desculpe, algo deu errado ao salvar sua foto de perfil."]));
-		    }
+			    $filetowrite = $imageFolder . uniqid().".".pathinfo($temp['name'], PATHINFO_EXTENSION);
+			    if(move_uploaded_file($temp['tmp_name'], $filetowrite)){
+			    	$User = new User;
+			    	$User->updatePhotoByEmail($_SESSION["csa_email"], $filetowrite);
+			    	die(json_encode(array('res' => 1, 'path' => $filetowrite)));
+			    }
+			    else{
+			    	die(json_encode(["res" => "Desculpe, algo deu errado ao salvar sua foto de perfil."]));
+			    }
 
-		  } else {
-		    // Notify editor that the upload failed
-		    header("HTTP/1.1 500 Server Error");
-		  }
+			  } else {
+			    // Notify editor that the upload failed
+			    header("HTTP/1.1 500 Server Error");
+			  }
 		});
 	});

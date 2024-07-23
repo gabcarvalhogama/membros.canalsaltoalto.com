@@ -26275,6 +26275,17 @@ label, .form-label {
 }
 .app .app__header .profile-icon {
   height: 30px;
+  width: 30px;
+  border: solid 1px #E54C8E;
+  border-radius: 250px;
+  object-fit: cover;
+}
+.app .app__header .my-profile a {
+  display: flex;
+  align-items: center;
+}
+.app .app__header .my-profile a:hover {
+  color: #FFF;
 }
 .app .app__hero--image {
   width: 100%;
@@ -26440,6 +26451,7 @@ label, .form-label {
   width: 80px;
   height: 80px;
   border-radius: 80px;
+  object-fit: cover;
 }
 .app .members-list__item h3, .app .members-list__item .h3 {
   padding-left: 20px;
@@ -26464,6 +26476,7 @@ label, .form-label {
   background-repeat: no-repeat;
   border-radius: 15px 0px 0px 15px;
   background-color: #ddd;
+  object-fit: cover;
 }
 .app .clubs-list .clubs-list__item--content {
   padding: 20px;

@@ -78,43 +78,45 @@
 			$User = new User;
 
 
-			if((empty($_SESSION["csa_email"]) OR empty($_SESSION["csa_password"]))){
-				if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
-					die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur"]));
-
-					if($User->getUserByCPF($_POST["f_cpf"])->rowCount() > 0)
-						die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!", "step" => "enterpreneur"]));
-
-					// if($User->getUserByCNPJ($_POST["f_cnpj"])->rowCount() > 0)
-					// 	die(json_encode(["res"=>"O CNPJ informado já foi utilizado. Informe um novo CNPJ para continuar!", "step" => "enterpreneur"]));
-
-					if($User->getUserByCellphone($_POST["f_cellphone"])->rowCount() > 0)
-						die(json_encode(["res"=>"O Celular informado já foi utilizado. Informe um novo Celular para continuar!", "step" => "enterpreneur"]));
-
-					$isUserCreated =  $User->create(
-						(isset($_POST["f_firstname"])) ? $_POST["f_firstname"] : null,
-						(isset($_POST["f_lastname"])) ? $_POST["f_lastname"] : null,
-						(isset($_POST["f_cpf"])) ? $_POST["f_cpf"] : null,
-						(isset($_POST["f_birthdate"])) ? $_POST["f_birthdate"] : null,
-						(isset($_POST["f_zipcode"])) ? $_POST["f_zipcode"] : null,
-						(isset($_POST["f_state"])) ? $_POST["f_state"] : null,
-						(isset($_POST["f_city"])) ? $_POST["f_city"] : null,
-						(isset($_POST["f_address"])) ? $_POST["f_address"] : null,
-						(isset($_POST["f_address_number"])) ? $_POST["f_address_number"] : null,
-						(isset($_POST["f_neighborhood"])) ? $_POST["f_neighborhood"] : null,
-						(isset($_POST["f_complement"])) ? $_POST["f_complement"] : null,
-						(isset($_POST["f_cellphone"])) ? $_POST["f_cellphone"] : null,
-						(isset($_POST["f_email"])) ? $_POST["f_email"] : null,
-						(isset($_POST["f_password"])) ? $_POST["f_password"] : null,
-						0
-					);
-
-					if(!$isUserCreated)
-						die(json_encode(["res"=>"Algo deu errado ao criar o seu usuário. Atualize a página e tente novamente!", "step" => "enterpreneur"]));
-
-					$user = $User->getUserByEmail($_POST["f_email"])->fetchObject();
-			}else{
+			if($User->login($_POST["f_email"], $_POST["f_password"])){
+				$_SESSION["csa_email"] = $_POST["f_email"];
+				$_SESSION["csa_password"] = $_POST["f_password"];
 				$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
+			}else{
+				if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
+					die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur", $_SESSION]));
+
+				if($User->getUserByCPF($_POST["f_cpf"])->rowCount() > 0)
+					die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!", "step" => "enterpreneur"]));
+
+				// if($User->getUserByCNPJ($_POST["f_cnpj"])->rowCount() > 0)
+				// 	die(json_encode(["res"=>"O CNPJ informado já foi utilizado. Informe um novo CNPJ para continuar!", "step" => "enterpreneur"]));
+
+				if($User->getUserByCellphone($_POST["f_cellphone"])->rowCount() > 0)
+					die(json_encode(["res"=>"O Celular informado já foi utilizado. Informe um novo Celular para continuar!", "step" => "enterpreneur"]));
+
+				$isUserCreated =  $User->create(
+					(isset($_POST["f_firstname"])) ? $_POST["f_firstname"] : null,
+					(isset($_POST["f_lastname"])) ? $_POST["f_lastname"] : null,
+					(isset($_POST["f_cpf"])) ? $_POST["f_cpf"] : null,
+					(isset($_POST["f_birthdate"])) ? $_POST["f_birthdate"] : null,
+					(isset($_POST["f_zipcode"])) ? $_POST["f_zipcode"] : null,
+					(isset($_POST["f_state"])) ? $_POST["f_state"] : null,
+					(isset($_POST["f_city"])) ? $_POST["f_city"] : null,
+					(isset($_POST["f_address"])) ? $_POST["f_address"] : null,
+					(isset($_POST["f_address_number"])) ? $_POST["f_address_number"] : null,
+					(isset($_POST["f_neighborhood"])) ? $_POST["f_neighborhood"] : null,
+					(isset($_POST["f_complement"])) ? $_POST["f_complement"] : null,
+					(isset($_POST["f_cellphone"])) ? $_POST["f_cellphone"] : null,
+					(isset($_POST["f_email"])) ? $_POST["f_email"] : null,
+					(isset($_POST["f_password"])) ? $_POST["f_password"] : null,
+					0
+				);
+
+				if(!$isUserCreated)
+					die(json_encode(["res"=>"Algo deu errado ao criar o seu usuário. Atualize a página e tente novamente!", "step" => "enterpreneur"]));
+
+				$user = $User->getUserByEmail($_POST["f_email"])->fetchObject();
 				$_SESSION["csa_email"] = $_POST["f_email"];
 				$_SESSION["csa_password"] = $_POST["f_password"];
 			}
@@ -169,7 +171,7 @@
 					    	die(json_encode(["res" => "Desculpe, não foi possível gerar o QR Code.", "step" => "payment"]));
 					    }
 					} else {
-				    	die(json_encode(["res" => "Erro ao criar o pedido:" . $orderResponse->message, "step" => "payment"]));
+				    	die(json_encode(["res" => "Erro ao criar o pedido:" . $orderResponse->message,  "step" => "payment"]));
 					}
 				break;
 
@@ -219,7 +221,10 @@
 					    	die(json_encode(["res" => "Desculpe, o cartão retornou este erro: ", $orderResponse, "step" => "payment"]));
 					    }
 					} else {
-				    	die(json_encode(["res" => "Erro ao criar o pedido:" . $orderResponse->message, "step" => "payment"]));
+						$arr = get_object_vars($orderResponse->errors);
+						// $arr = reset($arr);
+						$arr = current($arr);
+				    	die(json_encode(["res" => "Erro ao criar o pedido: " . Checkout::translate($arr[0]), "step" => "payment"]));
 					}
 				break;
 

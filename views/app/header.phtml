@@ -27,7 +27,7 @@
 						<div class="d-flex flex-row align-items-center my-profile">
 							<a href="/app/profile">
 								<span>Meu Perfil</span>
-								<img src="<?=PATH?>assets/images/profile-icon.png" alt="" class="profile-icon" />
+								<img src="<?=PATH.((!isset($user->profile_photo) OR empty($user->profile_photo)) ? 'assets/images/profile-icon.png' : $user->profile_photo)  ?>" alt="" class="profile-icon" />
 							</a>
 							<ul class="my-profile__menu">
 								<li><a href="/app/profile">Editar perfil</a></li>

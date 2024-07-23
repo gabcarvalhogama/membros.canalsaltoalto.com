@@ -62,7 +62,7 @@
 						</div> -->
 
 						<div>
-							<input type="submit" value="Atualizar conteúdo" class="btn btn-rose btn-medium" />
+							<input type="submit" value="Publicar Post" class="btn btn-rose btn-medium" />
 						</div>
 					</form>
 				</div>
@@ -79,8 +79,8 @@
 				selector: 'textarea#post_content',
 				license_key: 'gpl',
 			   	promotion: false,
-			   	plugins: 'image, link, lists',
-			   	toolbar: 'undo redo | styles | bold italic | numlist bullist | link image | link',
+			   	plugins: 'image, link, lists, code',
+			   	toolbar: 'undo redo code | styles | bold italic | numlist bullist | link image | link',
 			   	menubar: false,
 		       	language: 'pt_BR',
 	         	images_upload_url: '<?=PATH?>upload/image',

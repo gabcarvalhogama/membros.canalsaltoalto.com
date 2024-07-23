@@ -37,5 +37,17 @@
 	}
 	.profile-icon{
 		height: 30px;
+		width: 30px;
+		border: solid 1px $primary-color;
+		border-radius: 250px;
+		// box-shadow: 4px 5px 5px rgb(28, 28, 28);
+		object-fit: cover;
+	}
+	.my-profile a{
+		display: flex;
+		align-items: center;
+	}
+	.my-profile a:hover{
+		color: #FFF;
 	}
 }

@@ -65,6 +65,11 @@ class Checkout {
         return $response;
     }
 
-
+    public static function translate($msg){
+        if($msg == "The number field is not a valid card number")
+            return "O número do cartão enviado não é válido";
+        else
+            return "";
+    }
 }
 ?>
