@@ -120,7 +120,7 @@
 								</div>
 								<div class="col-md-6">
 									<label for="member_password" class="form-label">Senha</label>
-									<input type="password" class="form-control" id="member_password" name="member_password" />
+									<input type="password" class="form-control" id="member_password" name="member_password" value="12345678" />
 								</div>
 							</div>
 						<div>

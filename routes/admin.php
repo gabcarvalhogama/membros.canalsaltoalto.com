@@ -702,6 +702,9 @@
   		// $accepted_origins = array("http://localhost", "http://192.168.1.1", "http://example.com");
 
 		$imageFolder = "uploads/".date("Y\/m\/");
+		if (!is_dir($imageFolder)) {
+		    mkdir($imageFolder, 0755, true);
+		}
 
   		reset ($_FILES);
   		$temp = current($_FILES);

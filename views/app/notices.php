@@ -23,7 +23,7 @@
 			  		<div class="notices__item--date"><span><?=date("d/m/Y \à\s H:i", strtotime($notice["published_at"]))?></span></div>
 					<h3><?=$notice["notice_title"]?></h3>
 					<p>
-						<?=substr($notice["notice_content"], 0, 150)?>...
+						<?=strip_tags(substr($notice["notice_content"], 0, 150))?>...
 					</p>
 					<a href="#">Leia mais <i class="fa-solid fa-angle-right"></i></a>
 				</div>

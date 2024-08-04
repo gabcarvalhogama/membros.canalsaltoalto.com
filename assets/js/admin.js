@@ -39,6 +39,66 @@ const Admin = {
 	init: function(){
 		
 	},
+
+	newMember: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+
+		// formData.append("member_photo", $('#member_photo')[0].files[0]);
+
+
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/members/new',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$(form)[0].reset()
+					message.success(form, "A membro foi criada com sucesso!");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+
+
+	loadCities: function(el){
+		$(el).attr("disabled");
+		$.ajax({
+			type: 'get',
+			contentType: false,
+			url: '/checkout/cities/' + el.value,
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					var html = "";
+					data.cities.forEach(function(item, index){
+						html += `<option value="${item.idcity}">${item.city}</option>`;
+					})
+					$('#member_city').html(html);
+				}else{
+
+				}
+
+				$(el).removeAttr("disabled")
+
+				$('#member_city').removeAttr("disabled")
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!")
+			}
+		})
+	},
+
 	login: function(form){
 		$(form).addClass("inactive")
 		message.warning(form, "Carregando, aguarde...");

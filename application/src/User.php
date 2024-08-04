@@ -325,7 +325,9 @@
 			LEFT JOIN 
 			    csa_users_memberships um ON u.iduser = um.iduser
 			LEFT JOIN 
-			    csa_memberships m ON um.membership_id = m.membership_id;
+			    csa_memberships m ON um.membership_id = m.membership_id
+
+			ORDER BY u.firstname ASC
 			");
 			$sql->execute();
 
