@@ -456,6 +456,68 @@
 		$router->get("/members", function(){
 			require "views/admin/members.php";
 		});
+		$router->post("/members/new", function(){
+			if(empty($_POST["member_name"])){
+				die(json_encode(["res"=>"Por favor, informe seu nome!", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_lastname"])){
+				die(json_encode(["res"=>"Por favor, informe seu sobrenome.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_cpf"])){
+				die(json_encode(["res"=>"Por favor, informe seu C.P.F.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_birthdate"])){
+				die(json_encode(["res"=>"Por favor, informe sua data de nascimento.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_zipcode"])){
+				die(json_encode(["res"=>"Por favor, informe um CEP válido.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_state"])){
+				die(json_encode(["res"=>"Por favor, informe o seu estado.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_city"])){
+				die(json_encode(["res"=>"Por favor, informe sua cidade.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_address"])){
+				die(json_encode(["res"=>"Por favor, informe seu endereço.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_neighborhood"])){
+				die(json_encode(["res"=>"Por favor, informe o seu bairro.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_cellphone"])){
+				die(json_encode(["res"=>"Por favor, informe seu celular.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_email"])){
+				die(json_encode(["res"=>"Por favor, informe o seu e-mail.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["member_password"])){
+				die(json_encode(["res"=>"Por favor, informe uma senha.", "step" => "enterpreneur"]));
+			}else{
+				$User = new User;
+
+				// if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
+				// 	die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur", $_SESSION]));
+
+				// if($User->getUserByCPF($_POST["f_cpf"])->rowCount() > 0)
+				// 	die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!", "step" => "enterpreneur"]));
+
+				// if($User->getUserByCNPJ($_POST["f_cnpj"])->rowCount() > 0)
+				// 	die(json_encode(["res"=>"O CNPJ informado já foi utilizado. Informe um novo CNPJ para continuar!", "step" => "enterpreneur"]));
+
+				// if($User->getUserByCellphone($_POST["f_cellphone"])->rowCount() > 0)
+				// 	die(json_encode(["res"=>"O Celular informado já foi utilizado. Informe um novo Celular para continuar!", "step" => "enterpreneur"]));
+
+				if($User->create(
+					(isset($_POST["member_name"])) ? $_POST["member_name"] : null,
+					(isset($_POST["member_lastname"])) ? $_POST["member_lastname"] : null,
+					(isset($_POST["member_cpf"])) ? $_POST["member_cpf"] : null,
+					(isset($_POST["member_birthdate"])) ? $_POST["member_birthdate"] : null,
+					(isset($_POST["member_zipcode"])) ? $_POST["member_zipcode"] : null,
+					(isset($_POST["member_state"])) ? $_POST["member_state"] : null,
+					(isset($_POST["member_city"])) ? $_POST["member_city"] : null,
+					(isset($_POST["member_address"])) ? $_POST["member_address"] : null,
+					(isset($_POST["member_address_number"])) ? $_POST["member_address_number"] : null,
+					(isset($_POST["member_neighborhood"])) ? $_POST["member_neighborhood"] : null,
+					(isset($_POST["member_complement"])) ? $_POST["member_complement"] : null,
+					(isset($_POST["member_cellphone"])) ? $_POST["member_cellphone"] : null,
+					(isset($_POST["member_email"])) ? $_POST["member_email"] : null,
+					(isset($_POST["member_password"])) ? $_POST["member_password"] : null,
+					0
+				))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Desculpe, algo deu errado ao criar o usuário."]));
+			}
+		});
 
 
 
