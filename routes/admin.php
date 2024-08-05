@@ -456,45 +456,64 @@
 		$router->get("/members", function(){
 			require "views/admin/members.php";
 		});
+
+		$router->get("/members/new", function(){
+			require "views/admin/members-new.php";
+		});
 		$router->post("/members/new", function(){
 			if(empty($_POST["member_name"])){
-				die(json_encode(["res"=>"Por favor, informe seu nome!", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe seu nome!"]));
 			}else if(empty($_POST["member_lastname"])){
-				die(json_encode(["res"=>"Por favor, informe seu sobrenome.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe seu sobrenome."]));
 			}else if(empty($_POST["member_cpf"])){
-				die(json_encode(["res"=>"Por favor, informe seu C.P.F.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe seu C.P.F."]));
 			}else if(empty($_POST["member_birthdate"])){
-				die(json_encode(["res"=>"Por favor, informe sua data de nascimento.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe sua data de nascimento."]));
 			}else if(empty($_POST["member_zipcode"])){
-				die(json_encode(["res"=>"Por favor, informe um CEP válido.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe um CEP válido."]));
 			}else if(empty($_POST["member_state"])){
-				die(json_encode(["res"=>"Por favor, informe o seu estado.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe o seu estado."]));
 			}else if(empty($_POST["member_city"])){
-				die(json_encode(["res"=>"Por favor, informe sua cidade.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe sua cidade."]));
 			}else if(empty($_POST["member_address"])){
-				die(json_encode(["res"=>"Por favor, informe seu endereço.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe seu endereço."]));
 			}else if(empty($_POST["member_neighborhood"])){
-				die(json_encode(["res"=>"Por favor, informe o seu bairro.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe o seu bairro."]));
 			}else if(empty($_POST["member_cellphone"])){
-				die(json_encode(["res"=>"Por favor, informe seu celular.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe seu celular."]));
 			}else if(empty($_POST["member_email"])){
-				die(json_encode(["res"=>"Por favor, informe o seu e-mail.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe o seu e-mail."]));
 			}else if(empty($_POST["member_password"])){
-				die(json_encode(["res"=>"Por favor, informe uma senha.", "step" => "enterpreneur"]));
+				die(json_encode(["res"=>"Por favor, informe uma senha."]));
 			}else{
-				$User = new User;
+				if(isset($_FILES["member_photo"]) AND !empty($_FILES["member_photo"]["name"])){
+					$imageFolder = "uploads/".date("Y\/m\/");
+					if (!is_dir($imageFolder)) {
+					    mkdir($imageFolder, 0755, true);
+					}
 
+					$Upin = new Upin;
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["member_photo"]["name"], 10, "jpeg,jpg,png", "member_photo", 1);
+					$Upin->run();
+
+					if($Upin->res === true) $member_photo = "uploads/".date("Y\/m\/").$Upin->json[0];
+					else die(json_encode(["res"=>"Por favor, envie uma foto de perfil válida."]));
+				}
+
+
+
+				$User = new User;
 				// if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
-				// 	die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur", $_SESSION]));
+				// 	die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", $_SESSION]));
 
 				// if($User->getUserByCPF($_POST["f_cpf"])->rowCount() > 0)
-				// 	die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!", "step" => "enterpreneur"]));
+				// 	die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!"]));
 
 				// if($User->getUserByCNPJ($_POST["f_cnpj"])->rowCount() > 0)
-				// 	die(json_encode(["res"=>"O CNPJ informado já foi utilizado. Informe um novo CNPJ para continuar!", "step" => "enterpreneur"]));
+				// 	die(json_encode(["res"=>"O CNPJ informado já foi utilizado. Informe um novo CNPJ para continuar!"]));
 
 				// if($User->getUserByCellphone($_POST["f_cellphone"])->rowCount() > 0)
-				// 	die(json_encode(["res"=>"O Celular informado já foi utilizado. Informe um novo Celular para continuar!", "step" => "enterpreneur"]));
+				// 	die(json_encode(["res"=>"O Celular informado já foi utilizado. Informe um novo Celular para continuar!"]));
 
 				if($User->create(
 					(isset($_POST["member_name"])) ? $_POST["member_name"] : null,
@@ -518,6 +537,89 @@
 					die(json_encode(["res" => "Desculpe, algo deu errado ao criar o usuário."]));
 			}
 		});
+
+		$router->get("/members/edit/{user_id}", function($user_id){
+			$User = new User;
+			$getUser = $User->getUserById($user_id);
+
+			if($getUser->rowCount() == 0){
+				header("Location: /admin/members");
+				exit;
+			}
+
+			$user = $getUser->fetchObject();
+
+
+			require "views/admin/members-edit.php";
+		});
+
+		$router->post("/members/edit/{user_id}", function($user_id){
+			if(empty($user_id)){
+				die(json_encode(["res" => "Desculpe, não foi possível encontrar o usuário. Atualize a página!"]));
+			}else if(empty($_POST["member_name"])){
+				die(json_encode(["res"=>"Por favor, informe seu nome!"]));
+			}else if(empty($_POST["member_lastname"])){
+				die(json_encode(["res"=>"Por favor, informe seu sobrenome."]));
+			}
+			// else if(empty($_POST["member_cpf"])){
+			// 	die(json_encode(["res"=>"Por favor, informe seu C.P.F."]));
+			// }
+			else if(empty($_POST["member_birthdate"])){
+				die(json_encode(["res"=>"Por favor, informe sua data de nascimento."]));
+			}else if(empty($_POST["member_zipcode"])){
+				die(json_encode(["res"=>"Por favor, informe um CEP válido."]));
+			}else if(empty($_POST["member_state"])){
+				die(json_encode(["res"=>"Por favor, informe o seu estado."]));
+			}else if(empty($_POST["member_city"])){
+				die(json_encode(["res"=>"Por favor, informe sua cidade."]));
+			}else if(empty($_POST["member_address"])){
+				die(json_encode(["res"=>"Por favor, informe seu endereço."]));
+			}else if(empty($_POST["member_neighborhood"])){
+				die(json_encode(["res"=>"Por favor, informe o seu bairro."]));
+			}else if(empty($_POST["member_cellphone"])){
+				die(json_encode(["res"=>"Por favor, informe seu celular."]));
+			}else{
+				if(isset($_FILES["member_photo"]) AND !empty($_FILES["member_photo"]["name"])){
+					$imageFolder = "uploads/".date("Y\/m\/");
+					if (!is_dir($imageFolder)) {
+					    mkdir($imageFolder, 0755, true);
+					}
+
+					$Upin = new Upin;
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["member_photo"]["name"], 10, "jpeg,jpg,png", "member_photo", 1);
+					$Upin->run();
+
+					if($Upin->res === true) $member_photo = "uploads/".date("Y\/m\/").$Upin->json[0];
+					else die(json_encode(["res"=>"Por favor, envie uma foto de perfil válida."]));
+				}
+
+
+
+				$User = new User;
+
+				if($User->update(
+					(isset($_POST["member_name"])) ? $_POST["member_name"] : null,
+					(isset($_POST["member_lastname"])) ? $_POST["member_lastname"] : null,
+					(isset($member_photo)) ? $member_photo : null,
+					(isset($_POST["member_biography"])) ? $_POST["member_biography"] : null,
+					(isset($_POST["member_cpf"])) ? $_POST["member_cpf"] : null,
+					(isset($_POST["member_birthdate"])) ? $_POST["member_birthdate"] : null,
+					(isset($_POST["member_zipcode"])) ? $_POST["member_zipcode"] : null,
+					(isset($_POST["member_state"])) ? $_POST["member_state"] : null,
+					(isset($_POST["member_city"])) ? $_POST["member_city"] : null,
+					(isset($_POST["member_address"])) ? $_POST["member_address"] : null,
+					(isset($_POST["member_address_number"])) ? $_POST["member_address_number"] : null,
+					(isset($_POST["member_neighborhood"])) ? $_POST["member_neighborhood"] : null,
+					(isset($_POST["member_complement"])) ? $_POST["member_complement"] : null,
+					(isset($_POST["member_cellphone"])) ? $_POST["member_cellphone"] : null,
+					$user_id
+				))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Desculpe, algo deu errado ao atualizar o usuário."]));
+			}
+		});
+
 
 
 

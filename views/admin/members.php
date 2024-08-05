@@ -36,7 +36,7 @@
 							?>
 							<tr>
 								<td style="width: auto">
-									<img src="<?=PATH?>assets/images/default-pfp.png" style="width: 50px;" alt="">
+									<img src="<?= ((!empty($user["profile_photo"])) ? PATH.$user["profile_photo"] : PATH."assets/images/default-pfp.png")  ?>" style="width: 50px; height: 50px; object-fit: cover;border-radius: 50px;" alt="">
 								</td>
 								<td class="align-middle">
 									<?=$user['firstname']." ".$user['lastname']?>
@@ -44,7 +44,9 @@
 								<td class="align-middle">
 									<?=date("d/m/Y", strtotime($user['starts_at']))?> até <?=date("d/m/Y", strtotime($user['ends_at']))?>
 								</td>
-								<td class="align-middle"></td>
+								<td class="align-middle">
+									<a href="/admin/members/edit/<?=$user['iduser']?>" style="color: #000">Editar<a>
+								</td>
 							</tr>
 							<?php endforeach; endif; ?>
 						</tbody>

@@ -70,6 +70,32 @@ const Admin = {
 		})
 	},
 
+	updateMember: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/members/edit/'+$('#member_iduser').val(),
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					message.success(form, "A membro foi atualizada com sucesso!");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+
 
 	loadCities: function(el){
 		$(el).attr("disabled");

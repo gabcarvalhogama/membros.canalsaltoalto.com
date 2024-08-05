@@ -24,40 +24,43 @@
 			]);
 		}
 
-		public function update($firstname, $lastname, $biography, $cpf, $birthdate, $zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $iduser){
-			$sql = DB::open()->prepare("UPDATE csa_users SET 
-                firstname = :firstname,
-                lastname = :lastname,
-                biography = :biography,
-                cpf = :cpf,
-                birthdate = :birthdate,
-                zipcode = :zipcode,
-                address_state = :address_state,
-                address_city = :address_city,
-                address = :address,
-                address_number = :address_number,
-                address_neighborhood = :address_neighborhood,
-                address_complement = :address_complement,
-                cellphone = :cellphone
-            WHERE iduser = :iduser");
+		public function update($firstname = null, $lastname = null, $profile_photo = null, $biography = null, $cpf = null, $birthdate = null, $zipcode = null, $address_state = null, $address_city = null, $address = null, $address_number = null, $address_neighborhood = null, $address_complement = null, $cellphone = null, $iduser) {
+		    $sql = DB::open()->prepare("UPDATE csa_users SET 
+		        firstname = COALESCE(:firstname, firstname),
+		        lastname = COALESCE(:lastname, lastname),
+		        profile_photo = COALESCE(:profile_photo, profile_photo),
+		        biography = COALESCE(:biography, biography),
+		        cpf = COALESCE(:cpf, cpf),
+		        birthdate = COALESCE(:birthdate, birthdate),
+		        zipcode = COALESCE(:zipcode, zipcode),
+		        address_state = COALESCE(:address_state, address_state),
+		        address_city = COALESCE(:address_city, address_city),
+		        address = COALESCE(:address, address),
+		        address_number = COALESCE(:address_number, address_number),
+		        address_neighborhood = COALESCE(:address_neighborhood, address_neighborhood),
+		        address_complement = COALESCE(:address_complement, address_complement),
+		        cellphone = COALESCE(:cellphone, cellphone)
+		    WHERE iduser = :iduser");
 
-            return $sql->execute([
-            	":firstname" => ucfirst(trim($firstname)),
-				":lastname" => ucfirst(trim($lastname)),
-				":biography" => ucfirst(trim($biography)),
-				":cpf" => preg_replace('/\D/', '', $cpf),
-				":birthdate" => $birthdate,
-				":zipcode" => preg_replace('/\D/', '', $zipcode),
-				":address_state" => intval($address_state),
-				":address_city" => intval($address_city),
-				":address" => ucfirst(trim($address)),
-				":address_number" => trim($address_number),
-				":address_neighborhood" => ucfirst(trim($address_neighborhood)),
-				":address_complement" => ucfirst(trim($address_complement)),
-				":cellphone" => preg_replace('/\D/', '', $cellphone),
-				":iduser" => intval($iduser)
-            ]);
+		    return $sql->execute([
+		        ":firstname" => ucfirst(trim($firstname)),
+		        ":lastname" => ucfirst(trim($lastname)),
+		        ":profile_photo" => $profile_photo,
+		        ":biography" => ucfirst(trim($biography)),
+		        ":cpf" => preg_replace('/\D/', '', $cpf),
+		        ":birthdate" => $birthdate,
+		        ":zipcode" => preg_replace('/\D/', '', $zipcode),
+		        ":address_state" => intval($address_state),
+		        ":address_city" => intval($address_city),
+		        ":address" => ucfirst(trim($address)),
+		        ":address_number" => trim($address_number),
+		        ":address_neighborhood" => ucfirst(trim($address_neighborhood)),
+		        ":address_complement" => ucfirst(trim($address_complement)),
+		        ":cellphone" => preg_replace('/\D/', '', $cellphone),
+		        ":iduser" => intval($iduser)
+		    ]);
 		}
+
 
 		public function getUserIdByEmail($email){
 			$sql = DB::open()->prepare("SELECT iduser FROM csa_users WHERE email = :email LIMIT 1");
@@ -393,5 +396,15 @@
 		public static function formatDateToUs($datebr){
 			$vari = str_replace('/', '-', $datebr);
 			return date('Y-m-d', strtotime($vari));
+		}
+
+
+		public static function convertDate($original_date){
+			if (preg_match('/\d{4}-\d{2}-\d{2}/', $original_date)) {
+	            // Converte a data para o formato DD/MM/AAAA
+	            return date("d/m/Y", strtotime($original_date));
+	        } else {
+	        	return $original_date;
+	        }
 		}
 	}
