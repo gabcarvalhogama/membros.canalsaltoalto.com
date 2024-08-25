@@ -76,7 +76,7 @@
 								</div>
 								<div class="col-md-6">
 									<label for="member_city" class="form-label address-fields">Cidade</label>
-									<select name="member_city" id="member_city" class="form-control" required disabled>
+									<select name="member_city" id="member_city"  data-address="city" class="form-control" required disabled>
 										<option value="">Selecione um estado</option>
 									</select>
 								</div>

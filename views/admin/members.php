@@ -42,7 +42,13 @@
 									<?=$user['firstname']." ".$user['lastname']?>
 								</td>
 								<td class="align-middle">
-									<?=date("d/m/Y", strtotime($user['starts_at']))?> até <?=date("d/m/Y", strtotime($user['ends_at']))?>
+									<?php
+										if(empty($user['starts_at']) OR empty($user['ends_at']))
+											echo "-";
+										else
+											echo date("d/m/Y", strtotime($user['starts_at'])). " até " . date("d/m/Y", strtotime($user['ends_at']));
+
+									?>
 								</td>
 								<td class="align-middle">
 									<a href="/admin/members/edit/<?=$user['iduser']?>" style="color: #000">Editar<a>

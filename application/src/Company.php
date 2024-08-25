@@ -39,6 +39,7 @@
 		public function create($company_owner, $company_name, $company_description, $company_image, $has_place, $address_zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $instagram_url, $site_url, $facebook_url, $status){
 			$sql = DB::open()->prepare("
 	            INSERT INTO csa_companies (
+	            	company_id,
 	                iduser,
 	                company_name,
 	                company_description,
@@ -58,6 +59,7 @@
 	                status,
 	                created_at
 	            ) VALUES (
+		            default, 
 	                :company_owner,
 	                :company_name,
 	                :company_description,

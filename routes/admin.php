@@ -640,18 +640,6 @@
 		        die(json_encode(["res" => "Por favor, envie uma imagem para a empresa!"]));
 		    }else if (empty($_POST["cellphone"])) {
 		        die(json_encode(["res" => "Por favor, informe o celular!"]));
-		    }else if (isset($_POST["has_place"]) && $_POST["has_place"] == 'on') {
-		        if (empty($_POST["address_zipcode"])) {
-		            die(json_encode(["res" => "Por favor, informe o CEP!"]));
-		        }else if (empty($_POST["address_state"])) {
-		            die(json_encode(["res" => "Por favor, informe o estado!"]));
-		        }else if (empty($_POST["address_city"])) {
-		            die(json_encode(["res" => "Por favor, informe a cidade!"]));
-		        }else if (empty($_POST["address"])) {
-		            die(json_encode(["res" => "Por favor, informe o endereço!"]));
-		        }else if (empty($_POST["address_number"])) {
-		            die(json_encode(["res" => "Por favor, informe o número do endereço!"]));
-		        }
 		    }else if (!empty($_POST["instagram_url"]) && !filter_var($_POST["instagram_url"], FILTER_VALIDATE_URL)) {
 		        die(json_encode(["res" => "Por favor, informe uma URL válida para o Instagram!"]));
 		    }
@@ -661,8 +649,27 @@
 		    else if (!empty($_POST["facebook_url"]) && !filter_var($_POST["facebook_url"], FILTER_VALIDATE_URL)) {
 		        die(json_encode(["res" => "Por favor, informe uma URL válida para o Facebook!"]));
 		    }else{
+		    	if (isset($_POST["has_place"]) && $_POST["has_place"] == 'on') {
+			        if (empty($_POST["address_zipcode"])) {
+			            die(json_encode(["res" => "Por favor, informe o CEP!"]));
+			        }else if (empty($_POST["address_state"])) {
+			            die(json_encode(["res" => "Por favor, informe o estado!"]));
+			        }else if (empty($_POST["address_city"])) {
+			            die(json_encode(["res" => "Por favor, informe a cidade!"]));
+			        }else if (empty($_POST["address"])) {
+			            die(json_encode(["res" => "Por favor, informe o endereço!"]));
+			        }else if (empty($_POST["address_number"])) {
+			            die(json_encode(["res" => "Por favor, informe o número do endereço!"]));
+			        }
+			    }
 
 		    	if(isset($_FILES["company_image"]) AND !empty($_FILES["company_image"]["name"])){
+		    		$imageFolder = "uploads/".date("Y\/m\/");
+					if (!is_dir($imageFolder)) {
+					    mkdir($imageFolder, 0755, true);
+					}
+
+
 					$Upin = new Upin;
 					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["company_image"]["name"], 10, "jpeg,jpg,png", "company_image", 1);
 					$Upin->run();
@@ -693,11 +700,12 @@
 				    ($_POST["site_url"]) ?? $_POST["site_url"],
 				    ($_POST["facebook_url"]) ?? $_POST["facebook_url"],
 				    1
-		    	))
+		    	)){
 		    		die(json_encode(["res" => 1]));
-		    	else
+		    	}
+		    	else{
 		    		die(json_encode(["res" => "Desculpe, algo deu errado ao tentar criar a empresa. Atualize a página e tente novamente!"]));
-
+		    	}
 
 		    }
 		});
@@ -858,6 +866,11 @@
 				else
 					die(json_encode(["res" => "Desculpe, não foi possível atualizar a publi."]));
 			}
+		});
+
+		$router->get("/logout", function(){
+			session_destroy();
+			header("Location: /");
 		});
 	});
 

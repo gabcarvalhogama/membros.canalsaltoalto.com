@@ -13,7 +13,7 @@
 
 		<section class="app__companies mt-5 mb-5">
 			<div class="container">
-				<div class="d-flex flex-row justify-content-between">
+				<div class="d-flex flex-column flex-md-row justify-content-between">
 					<h2>Conheça os negócios <span class="color-primary">das membros</span></h2>
 					<div>
 						<a href="/app/companies/new"><button class="btn btn-rose btn-rounded">Cadastre sua empresa</button></a>
@@ -47,7 +47,7 @@
 			  				<div class="description"><?=$company["company_description"]?></div>
 			  				<div class="d-flex flex-row align-items-center mt-2">
 			  					<a href="https://wa.me/55<?=$company["cellphone"]?>" target="_blank"><button class="btn btn-rose btn-rounded"><i class="fa-brands fa-whatsapp"></i> <?=$company["cellphone"]?></button></a>
-			  					<div class="d-flex flex-row p-2 align-items-center">
+			  					<div class="d-flex flex-row p-2 align-items-center metas">
 			  						<img src="/<?=(!empty($company['profile_photo'])) ? $company["profile_photo"] : 'assets/images/default-pfp.png'?>" style="width: 20px;height: 20px;border-radius: 20px;" alt=""/>
 			  						<span class="p-2 d-block">by <?=$company["firstname"]." ".$company["lastname"]?></span>
 			  					</div>

@@ -11,13 +11,26 @@
 		align-items: center;
 		margin-bottom: 10px;
 
+		@media screen and (max-width: 991px){
+			flex-direction: column;
+		}
+
 		&--image{
-			width: 250px;
+			width: 350px;
 			max-width: 100%;
-			height: 250px;
+			height: 350px;
 			background-size: cover;
 			background-repeat: no-repeat;
 			border-radius: 15px 0px 0px 15px;
+		    flex: 0 0 350px;
+		    background-position: center center;
+
+			@media screen and (max-width: 991px){
+				flex: auto;
+				width: 100%;
+				border-radius: 15px 15px 0px 0px;
+				height: calc(100vw - 60px);
+			}
 		}
 
 		&--content{
@@ -37,6 +50,19 @@
 					display: block;
 					text-align: center;
 					background-color: $primary-color;
+				}
+			}
+
+			@media screen and (max-width: 991px){
+				h3{
+					font-size: 1rem;
+				}
+				p{
+					font-size: .9rem;
+				}
+
+				.metas{
+					flex-direction: column;
 				}
 			}
 		}

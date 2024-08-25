@@ -75,7 +75,7 @@
 						<div class="row">
 							<div class="col-md-6 mb-3">
 								<label for="address_state" class="form-label">Estado</label>
-								<select name="address_state" id="address_state" class="form-control address-fields" onchange="Checkout.loadCities(this)">
+								<select name="address_state" id="address_state" class="form-control address-fields" onchange="Admin.loadCities(this)">
 									<option value="">Selecione uma opção</option>
 									<?php
 										foreach(User::getStates()->fetchAll(PDO::FETCH_ASSOC) as $state)
@@ -85,7 +85,7 @@
 							</div>
 							<div class="col-md-6 mb-3">
 								<label for="address_city" class="form-label address-fields">Cidade</label>
-								<select name="address_city" id="address_city" class="form-control">
+								<select name="address_city" id="address_city" data-address="city" class="form-control">
 									<option value="">Selecione um estado</option>
 								</select>
 							</div>

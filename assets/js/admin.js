@@ -110,14 +110,14 @@ const Admin = {
 					data.cities.forEach(function(item, index){
 						html += `<option value="${item.idcity}">${item.city}</option>`;
 					})
-					$('#member_city').html(html);
+					$('select[data-address="city"]').html(html);
 				}else{
 
 				}
 
 				$(el).removeAttr("disabled")
 
-				$('#member_city').removeAttr("disabled")
+				$('select[data-address="city"]').removeAttr("disabled")
 			},
 			error: function(err){
 				alert("Algo deu errado, verifique sua internet e tente novamente!")
