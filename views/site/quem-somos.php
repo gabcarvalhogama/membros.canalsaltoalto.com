@@ -13,7 +13,7 @@
 		<?php include("header.phtml"); ?>
 
 		<section class="about mt-5 site__lp-about" style="background-image: url('<?=PATH?>assets/images/photo-tati-transparent.png');">
-			<div class="container">
+			<div class="container-xl">
 				<div class="row">
 					<div class="col-md-8">
 						<h2>Conheça a história do <strong class="color-primary">Canal Salto Alto</strong></h2>
@@ -21,13 +21,15 @@
 						<p>Sou empreendedora, esposa, mãe e dona de casa, assim como milhões de mulheres em todo o Brasil. E por conhecer tão de perto essa realidade criei essa linda rede de apoio a mulheres empreendedoras.</p>
 						<p>E vou te contar agora um pouco da nossa história!</p>
 					</div>
-					<div class="col-md-8 site__lp-about--tati"></div>
+					<div class="col-md-8 site__lp-about--tati text-center">
+						<img src="<?=PATH?>assets/images/photo-tati-transparent.png" class="d-block d-md-none" alt="">
+					</div>
 				</div>
 			</div>
 		</section>
 
 		<section>
-			<div class="container">
+			<div class="container-xl">
 				<div class="site__lp-counter">
 					<div class="site__lp-counter--col">
 						<h3>+9 Mil</h3>
@@ -50,7 +52,7 @@
 		</section>
 
 		<section class="m-4">
-			<div class="container">
+			<div class="container-xl">
 				<div class="row">
 					<div class="col-md-6">
 						<h2 class="h1">Nossa História</h2>

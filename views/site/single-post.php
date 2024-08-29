@@ -14,12 +14,13 @@
 		<article class="site__single-post">
 
 			<div class="site__single-post--highlight">
-				<div style="background-image: url(<?=PATH.$object->featured_image?>);"></div>
+				<div style="background-image: url(<?=PATH.$object->featured_image?>);" class="d-none d-lg-block"></div>
+				<img src="<?=PATH.$object->featured_image?>" alt="<?=$object->title?>" class="d-block d-lg-none" />
 			</div>
 
-			<div class="container mt-3">
+			<div class="container-xl mt-3">
 				<h1><?=$object->title?></h1>
-				<ul class="d-flex site__single-post--terms">
+				<ul class="d-flex flex-wrap site__single-post--terms">
 					<li><a href="#"><i class="fa-solid fa-user"></i> <?=$object->firstname." ".$object->lastname?></a></li>
 					<li><a href="#"><i class="fa-solid fa-calendar"></i> <?=date('d/m/Y \à\s H:i', strtotime($object->published_at))?></a></li>
 					<li><a href="#comments"><i class="fa-solid fa-calendar"></i> <?php 
@@ -29,7 +30,7 @@
 			</div>
 			
 
-			<div class="container">
+			<div class="container-xl">
 				<div class="site__single-post--grid">
 					<div class="site__single-post--content">
 						<?=$object->post_content?>
@@ -60,10 +61,11 @@
 							</form>
 
 
-							<div class="comments">
+							<div class="comments" id="comments">
 								<?php
 									$comments = $Post->getComments($object->post_id);
 
+									if($comments->rowCount() > 0):
 									foreach($comments->fetchAll(PDO::FETCH_ASSOC) as $comment):
 								?>
 
@@ -74,7 +76,9 @@
 									</div>
 								</div>
 
-								<?php endforeach; ?>
+								<?php endforeach; else: ?>
+								<p>Seja a primeira a comentar nesse post.</p>
+								<?php endif; ?>
 							</div>
 						</div>
 					</div>
@@ -84,7 +88,7 @@
 		</article>
 
 		<section class="related-posts mb-3 mt-3">
-			<div class="container">
+			<div class="container-xl">
 				<h2>Você também pode se interessar...</h2>
 				<div class="post-grid">
 					<?php

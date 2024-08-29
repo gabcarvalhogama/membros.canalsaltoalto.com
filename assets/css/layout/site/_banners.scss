@@ -1,0 +1,13 @@
+.banners{
+		.banner-item{
+			width: calc(50% - 10px);
+			margin-bottom: 20px;
+
+			@include media-breakpoint-down(md) {
+				width: 100%;
+			}
+			img{
+				border-radius: 5px;
+			}
+		}
+	}

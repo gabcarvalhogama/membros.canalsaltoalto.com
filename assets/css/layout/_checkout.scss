@@ -24,6 +24,19 @@
 		background-repeat: no-repeat;
 	}
 
+
+	@include media-breakpoint-down(xl) {
+		.left, .right{
+			width: 100%;
+		}
+		.left{
+			border-radius: 5px 5px 0px 0px;
+		}
+		.right{
+			border-radius: 0px 0px 5px 5px;
+		}
+	}
+
 	&__header{
 		margin-bottom: 0.2em;
 		a:hover{
@@ -31,6 +44,10 @@
 		}
 		&--logo{
 			height: 80px;
+
+			@include media-breakpoint-down(md) {
+				height: 50px;
+			}
 		}
 
 		hgroup{
@@ -59,7 +76,7 @@
 		form-step{
 			display: none;
 			min-height: 50vh;
-			&#enterpreneur{
+			&:first-child{
 				display: block;
 			}
 		}

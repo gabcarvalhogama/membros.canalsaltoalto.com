@@ -13,15 +13,59 @@
 	}
 
 	&__header{
-		padding: 20px 0;
+		padding: 20px;
+
 		&--logo{
 			height: 80px;
+
+			@include media-breakpoint-down(md) {
+				height: 50px
+			}
 		}
 
 
 		nav{
 			a{
 				padding: 10px;
+			}
+		}
+
+		.lmenu{
+			background-color: #000;
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			min-height: 100vh;
+			z-index: 99;
+			display: none;
+			&--header{
+				padding: 20px;
+				img{
+					height: 50px;
+				}
+				.fa-xmark{
+					border: solid 1px #FFF;
+					width: 20px;
+					height: 20px;
+					border-radius: 20px;
+					text-align: center;
+				}
+			}
+
+			ul{
+				border-top: 1px solid rgb(40,40,40);
+				margin-top: 20px;
+				li{
+					a{
+						display: block;
+						padding: 20px;
+
+						&:hover, &:active{
+							background-color: rgb(40,40,40);
+						}
+					}
+				}
 			}
 		}
 	}
@@ -55,6 +99,9 @@
 					z-index: 2;
 				}
 			}
+			img{
+				width: 100%;
+			}
 		}
 		&--terms{
 			margin-bottom: 1rem !important;
@@ -86,11 +133,17 @@
 		&--grid{
 			display: flex;
 			flex-direction: row;
+			flex-wrap: wrap;
 		}
 
 		&--content{
 			width: 70%;
 			color: #333;
+
+			@include media-breakpoint-down(lg) {
+				width: 100%;
+			}
+
 			h2 {
 			    font-size: 2em;
 			    margin-top: 1.25em;
@@ -169,11 +222,22 @@
 		background-position-x: 80%;
 		padding-bottom: 50px;
 		padding-top: 50px;
+
+
+
+		@include media-breakpoint-down(md) {
+			background-image: none !important;
+			padding-bottom: 0;
+		}
 		h2{
 			font-size: 3rem;
 		}
 		p{
 			font-size: 1.1rem;
+		}
+
+		.site__lp-about--tati img{
+			margin: 0 auto
 		}
 	}
 
@@ -184,44 +248,39 @@
 		color: #000;
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 		&--col{
 			width: 25%;
 			text-align: center;
 			h3{
 				font-weight: bold;
 				margin-bottom: 0px;
-				font-size: 3rem;
+				font-size: 4vw;
 			}
 			span{
 				font-size: 1.1rem;
 			}
 		}
-	}
 
 
 
-	.banners{
-		.banner-item{
-			width: calc(50% - 10px);
-			margin-bottom: 20px;
-			img{
-				border-radius: 5px;
+		@include media-breakpoint-down(md) {
+			&--col{
+				width: 100%;
+				margin-bottom: 30px;
 			}
 		}
 	}
+
+
+	@import "site/companies";
+	@import "site/members";
+
+
+
+	@import "site/banners";
 
 	@import "site/newsletter";
 
-	&__footer{
-		padding: 30px 0;
-		&--logo{
-			height: 80px;
-		}
-
-		&--social{
-			a{
-				padding: 10px;
-			}
-		}
-	}
+	@import "site/footer";
 }

@@ -25,6 +25,20 @@ const swiper_post_grid = new Swiper('.post-grid-slider', {
 	},
 });
 
+const swiper_companies = new Swiper('.swiper_companies', {
+	direction: 'horizontal',
+	loop: true,
+	slidesPerView: 4,
+    spaceBetween: 30,
+});
+
+const swiper_members = new Swiper('.swiper_members', {
+	direction: 'horizontal',
+	loop: true,
+	slidesPerView: 4,
+    spaceBetween: 30,
+});
+
 
 const Post = {
 	comment: function(form){

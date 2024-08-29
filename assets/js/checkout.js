@@ -108,6 +108,7 @@ const Checkout = {
 
 	payload: {},
 
+
 	checkoutEnterpreneur: function(form){
 		var object = this.payload;
 		var formData = new FormData(form);

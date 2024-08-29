@@ -298,7 +298,7 @@
 			return $sql;
 		}
 
-		public function getUsers(){
+		public function getUsers($limit = null){
 			$sql = DB::open()->prepare("SELECT 
 			    u.iduser, 
 			    u.firstname, 
@@ -330,8 +330,7 @@
 			LEFT JOIN 
 			    csa_memberships m ON um.membership_id = m.membership_id
 
-			ORDER BY u.firstname ASC
-			");
+			ORDER BY u.firstname ASC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
 			$sql->execute();
 
 			return $sql;

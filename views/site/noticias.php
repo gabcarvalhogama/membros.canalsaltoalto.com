@@ -12,8 +12,8 @@
 	<body class="site">
 		<?php include("header.phtml"); ?>
 
-		<main class="m-5">
-			<div class="container">
+		<main class="mt-5 mb-5">
+			<div class="container-xl">
 				<h2>Notícias</h2>
 				<div class="post-grid">
 					<?php

@@ -19,6 +19,20 @@
 		}
 	});
 
+	$router->post("/checkout/check-email", function(){
+		if(empty($_POST["f_checkout_email"])){
+			die(json_encode(["res" => "Por favor, informe o seu e-mail para começar."]));
+		}else{
+			$User = new User;
+
+			if($User->getUserByEmail($_POST["f_checkout_email"])->rowCount() > 0){
+				die(json_encode(["res" => 1, "has_email" => 1]));
+			}else{
+				die(json_encode(["res" => 1, "has_email" => 0]));
+			}
+		}
+	});
+
 
 	$router->post("/checkout", function(){
 		if(empty($_POST["f_firstname"])){
