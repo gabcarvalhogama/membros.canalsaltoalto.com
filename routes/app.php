@@ -5,13 +5,9 @@
 	});
 	$router->mount("/app", function() use($router){
 
-		$User = new User;
-		if($User->isUserAuthenticated() AND $User->isUserAMember($_SESSION["csa_email"]))
-			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
-		else
-			$user = [];
+		
 
-		$router->get("/", function() use ($user) {
+		$router->get("/", function() {
 			require_once "views/app/index.php";
 		});
 
@@ -41,13 +37,13 @@
 		// $User = new User;
 		
 		
-		$router->get("/welcome", function() use ($user){
+		$router->get("/welcome", function(){
 
 			require_once "views/app/welcome.php";
 		});
 
 
-		$router->get("/contents", function() use ($user){
+		$router->get("/contents", function(){
 
 			require "views/app/contents.php";
 		});
@@ -64,23 +60,23 @@
 		});
 
 
-		$router->get("/notices", function() use ($user){
+		$router->get("/notices", function(){
 
 			require "views/app/notices.php";
 		});
 
 
-		$router->get("/clubs", function() use ($user){
+		$router->get("/clubs", function(){
 
 			require "views/app/clubs.php";
 		});
 
 
-		$router->get("/companies", function() use ($user){
+		$router->get("/companies", function(){
 			require "views/app/companies.php";
 		});
 
-		$router->get("/companies/new", function() use ($user){
+		$router->get("/companies/new", function(){
 			require "views/app/companies-new.php";
 		});
 		$router->post("/companies/new", function(){
@@ -157,7 +153,7 @@
 
 
 
-		$router->get("/members", function() use ($user){
+		$router->get("/members", function(){
 
 			require "views/app/members.php";
 		});
@@ -175,12 +171,12 @@
 			require "views/app/members-companies.php";
 		});
 
-		$router->get("/events", function() use ($user){
+		$router->get("/events", function(){
 
 			require "views/app/events.php";
 		});
 
-		$router->get("/events/{slug}", function($slug) use ($user){
+		$router->get("/events/{slug}", function($slug){
 
 			$Event = new Event;
 			$getEvent = $Event->getEventBySlug($slug);
@@ -195,12 +191,41 @@
 		});
 
 
-		$router->get("/publis", function() use ($user){
+		$router->get("/publis", function(){
 
 			require "views/app/publis.php";
 		});
 
-		$router->get("/profile", function() use ($user){
+		$router->get("/publis/new", function(){
+
+			require "views/app/publis-new.php";
+		});
+
+		$router->post("/publis/new", function(){
+			if(empty($_POST["publi_title"])){
+				die(json_encode(["res" => "Por favor, informe um título para sua publi."]));
+			}else if(empty($_POST["publi_content"])){
+				die(json_encode(["res" => "Por favor, informe um conteúdo para sua publi."]));
+			}else{
+
+				$Publi = new Publi;
+
+				if($Publi->create(
+					$_POST["publi_title"],
+					$_POST["publi_content"],
+					0,
+					$user->iduser
+				)){
+					die(json_encode(["res" => 1]));
+				}
+				else{
+					die(json_encode(["res" => "Desculpe, não foi possível criar a sua Publi. Verifique os dados e tente novamente!"]));
+				}
+
+			}
+		});
+
+		$router->get("/profile", function(){
 			$User = new User;
 			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
 			require "views/app/profile.php";
@@ -235,6 +260,7 @@
 				if($User->update(
 					(isset($_POST["f_firstname"])) ? $_POST["f_firstname"] : null,
 					(isset($_POST["f_lastname"])) ? $_POST["f_lastname"] : null,
+					null,
 					(isset($_POST["f_biography"])) ? $_POST["f_biography"] : null,
 					(isset($_POST["f_cpf"])) ? $_POST["f_cpf"] : null,
 					(isset($_POST["f_birthdate"])) ? $_POST["f_birthdate"] : null,
@@ -285,5 +311,11 @@
 			    // Notify editor that the upload failed
 			    header("HTTP/1.1 500 Server Error");
 			  }
+		});
+
+		$router->get("/profile/companies", function(){
+			$User = new User;
+			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
+			require "views/app/profile-companies.php";
 		});
 	});

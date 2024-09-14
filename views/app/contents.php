@@ -9,32 +9,26 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__contents">
-			<div class="container">
+			<div class="container-xl">
 				<h2>Nossos <span class="color-primary">conteúdos</span></h2>
 				<div class="contents">
 				<?php
 			  		$Content = new Content;
 			  		$contents = $Content->getContents();
 			  		foreach($contents->fetchAll(PDO::FETCH_ASSOC) as $content):
+			  			echo Template::render($content, "loop_contents");
+			  		endforeach;
 			  	?>
-				  	<div class="contents__item">
-						<div class="contents__item--photo" style="background-image: url('/<?=$content["featured_image"]?>')"></div>
-						<div class="contents__item--content">
-							<h3><?=$content["title"]?></h3>
-							<a href="<?=PATH?>app/content/<?=$content['slug']?>" class="cta">LEIA MAIS »</a>
-						</div>
-					</div>
-			    <?php endforeach; ?>
 			    </div>
 			</div>
 		</section>
 
 
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 
 

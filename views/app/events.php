@@ -9,34 +9,25 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__contents">
-			<div class="container">
+			<div class="container-xl">
 				<h2>Nossos <span class="color-primary">Eventos</span></h2>
 				<div class="events-list">
 					<?php
 				  		$Event = new Event;
 				  		$events = $Event->getEvents();
-				  		foreach($events->fetchAll(PDO::FETCH_ASSOC) as $event):
+				  		foreach($events->fetchAll(PDO::FETCH_ASSOC) as $event)
+				  			echo Template::render($event, "loop_events");
 				  	?>
-				  	<a href="<?=PATH?>app/events/<?=$event['slug']?>">
-					  	<div class="events__item">
-							<div class="events__item--photo" style="background-image: url('/<?=$event["event_poster"]?>')"></div>
-							<div class="events__item--content">
-								<h3><?=$event["event_title"]?></h3>
-								<a href="<?=PATH?>app/events/<?=$event['slug']?>" class="cta">INSCREVA-SE »</a>
-							</div>
-						</div>
-					</a>
-				    <?php endforeach; ?>
 			    </div>
 			</div>
 		</section>
 
 
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 
 

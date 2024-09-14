@@ -9,10 +9,10 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__members mt-5 mb-5">
-			<div class="container">
+			<div class="container-xl">
 				<h2>Conheça <span class="color-primary">nossas membros</span></h2>
 				<div class="members-list">
 					<?php
@@ -21,37 +21,18 @@
 						$ms = 0;
 						$getUsers = $User->getUsers();
 						if($getUsers->rowCount() > 0):
-							foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $user):
-								if(in_array($user["email"], ["gabriel@hatoria.com"])) continue;
+							foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $member):
+								if(in_array($member["email"], ["gabriel@hatoria.com"])) continue;
 								$ms+=200;
-					?>
-					<div class="members-list__item animate__animated animate__faster animate__fadeInDown" style="animation-delay: <?=$ms?>ms ">
-						<div class="members-list__item--header">
-							<div class="d-flex flex-row align-items-center">
-								<img src="/<?=(!empty($user['profile_photo'])) ? $user['profile_photo'] : 'assets/images/default-pfp.png'?>" class="logo" alt=""/>
-								<h3 class="mb-0"><?=$user['firstname']." ".$user['lastname']?></h3>
-							</div>
-							<a href="/app/members/<?=$user['iduser']?>/companies">
-								<?php 
-									if($user["company_counter"] == 0 OR $user["company_counter"] == null) echo "nenhuma empresa";
-									else if($user["company_counter"] == 1) echo "ver 1 empresa";
-									else echo "ver ".$user["company_counter"]." empresas";
-								?>
-							</a>
-						</div>
-
-						<div class="members-list__item--description">
-							<?=$user['biography']?>
-						</div>
-					</div>
-					<?php endforeach; endif; ?>
+								echo Template::render($member, "loop_members");
+							endforeach; endif; ?>
 			    </div>
 			</div>
 		</section>
 
 
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 
 

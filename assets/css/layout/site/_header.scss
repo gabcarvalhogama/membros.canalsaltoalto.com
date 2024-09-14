@@ -1,0 +1,20 @@
+&__header{
+		padding: 20px;
+
+		&--logo{
+			height: 80px;
+
+			@include media-breakpoint-down(md) {
+				height: 50px
+			}
+		}
+
+
+		nav{
+			a{
+				padding: 10px;
+			}
+		}
+
+		@include lmenu;
+	}

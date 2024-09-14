@@ -12,63 +12,7 @@
 		transition: all 400ms;
 	}
 
-	&__header{
-		padding: 20px;
-
-		&--logo{
-			height: 80px;
-
-			@include media-breakpoint-down(md) {
-				height: 50px
-			}
-		}
-
-
-		nav{
-			a{
-				padding: 10px;
-			}
-		}
-
-		.lmenu{
-			background-color: #000;
-			position: fixed;
-			left: 0;
-			top: 0;
-			width: 100%;
-			min-height: 100vh;
-			z-index: 99;
-			display: none;
-			&--header{
-				padding: 20px;
-				img{
-					height: 50px;
-				}
-				.fa-xmark{
-					border: solid 1px #FFF;
-					width: 20px;
-					height: 20px;
-					border-radius: 20px;
-					text-align: center;
-				}
-			}
-
-			ul{
-				border-top: 1px solid rgb(40,40,40);
-				margin-top: 20px;
-				li{
-					a{
-						display: block;
-						padding: 20px;
-
-						&:hover, &:active{
-							background-color: rgb(40,40,40);
-						}
-					}
-				}
-			}
-		}
-	}
+	@import "site/header";
 
 	&__hero{
 		&--image{
@@ -180,6 +124,9 @@
 			}
 			iframe{
 				width: 100%;
+				@include media-breakpoint-down(md) {
+					height: 200px
+				}
 			}
 			img{
 				max-width: 100%;

@@ -55,6 +55,31 @@
 			return $sql;
 		}
 
+		public function getPublisByStatus($limit = 12, $status){
+			$sql = DB::open()->prepare("SELECT 
+			    csa_publis.*, 
+			    csa_users.firstname, 
+			    csa_users.lastname, 
+			    csa_users.profile_photo 
+			FROM 
+			    csa_publis 
+			JOIN 
+			    csa_users 
+			ON 
+			    csa_publis.user_id = csa_users.iduser 
+
+			WHERE publi_status = :publi_status
+			ORDER BY 
+			    csa_publis.created_at DESC 
+			LIMIT 
+			    :limit_posts");
+			$sql->bindParam(':publi_status', $status, \PDO::PARAM_INT);
+			$sql->bindParam(':limit_posts', $limit, \PDO::PARAM_INT);
+			$sql->execute();
+
+			return $sql;
+		}
+
 		public function getPubliById($publi_id){
 			$sql = DB::open()->prepare("SELECT * FROM csa_publis WHERE publi_id = :publi_id LIMIT 1");
 			$sql->execute([

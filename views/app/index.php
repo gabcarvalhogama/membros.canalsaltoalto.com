@@ -9,14 +9,14 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<main id="app__hero">
 			
 			<div class="swiper">
 			  <div class="swiper-wrapper">
 			    <div class="swiper-slide">
-			    	<div class="container">
+			    	<div class="container-xl">
 			    		<a href="javascript:void(0)">
 			    			<img src="<?=PATH?>assets/images/app-banner-bem-vinda.jpg" class="app__hero--image" />
 			    		</a>
@@ -30,78 +30,57 @@
 			</div>
 		</main>
 
-		<section class="app__events">
-			<div class="container">
+		<section class="app__events mt-4 mb-4">
+			<div class="container-xl">
 				<h2>Conheça <span class="color-primary">nossos eventos</span></h2>
 
 				<div class="events-list">
 				<?php
 			  		$Event = new Event;
-			  		$events = $Event->getEvents();
-			  		foreach($events->fetchAll(PDO::FETCH_ASSOC) as $event):
-			  	?>
-				  	<div class="events__item">
-						<div class="events__item--photo" style="background-image: url('<?=$event["event_poster"]?>')"></div>
-						<div class="events__item--content">
-							<h3><?=$event["event_title"]?></h3>
-							<a href="<?=PATH?>app/events/<?=$event['slug']?>" class="cta">INSCREVA-SE »</a>
-						</div>
-					</div>
-			    <?php endforeach; ?>
+			  		$events = $Event->getEvents(6);
+			  		foreach($events->fetchAll(PDO::FETCH_ASSOC) as $event)
+			  			echo Template::render($event, "loop_events");
+				?>
 			    </div>
 			</div>
 		</section>
 
 
-		<section class="app__contents">
-			<div class="container">
+		<section class="app__contents mt-4 mb-4">
+			<div class="container-xl">
 				<h2>Nossos <span class="color-primary">conteúdos</span></h2>
 				<div class="contents">
 				<?php
 			  		$Content = new Content;
-			  		$contents = $Content->getContents();
-			  		foreach($contents->fetchAll(PDO::FETCH_ASSOC) as $content):
+			  		$contents = $Content->getContents(6);
+			  		foreach($contents->fetchAll(PDO::FETCH_ASSOC) as $content)
+			  			echo Template::render($content, "loop_contents");
 			  	?>
-				  	<div class="contents__item">
-						<div class="contents__item--photo" style="background-image: url('<?=$content["featured_image"]?>')"></div>
-						<div class="contents__item--content">
-							<h3><?=$content["title"]?></h3>
-							<a href="<?=PATH?>app/content/<?=$content['slug']?>" class="cta">LEIA MAIS »</a>
-						</div>
-					</div>
-			    <?php endforeach; ?>
 			    </div>
 			</div>
 		</section>
 
 		<!-- <section class="adbanner">
-			<div class="container">
+			<div class="container-xl">
 				<img src="<?=PATH?>assets/images/Banner-900x100-Light-transparent.png" alt="" />
 			</div>
 		</section> -->
 
-		<section class="app__notices">
-			<div class="container">
+		<section class="app__notices mt-4 mb-4">
+			<div class="container-xl">
 				<h2>Nossos <span class="color-primary">avisos</span></h2>
 				<?php
 			  		$Notice = new Notice;
 			  		$notices = $Notice->getNotices(5);
-			  		foreach($notices->fetchAll(PDO::FETCH_ASSOC) as $notice):
+			  		foreach($notices->fetchAll(PDO::FETCH_ASSOC) as $notice)
+			  			echo Template::render($notice, "loop_notices");
 			  	?>
-			  	<div class="notices__item">
-			  		<div class="notices__item--date"><span><?=date("d/m/Y \à\s H:i", strtotime($notice["published_at"]))?></span></div>
-					<h3><?=$notice["notice_title"]?></h3>
-					<p>
-						<?=substr($notice["notice_content"], 0, 150)?>...
-					</p>
-				</div>
-			    <?php endforeach; ?>
 			</div>
 		</section>
 
 
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 
 

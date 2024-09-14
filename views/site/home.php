@@ -10,7 +10,7 @@
 		<?php include(__DIR__."/../templates/head-tags.phtml"); ?>
 	</head>
 	<body class="site">
-		<?php include("header.phtml"); ?>
+		<?=Template::render(null, "header_site")?>
 
 		<div class="site__hero">
 			
@@ -66,9 +66,6 @@
 						<a href="https://membros.canalsaltoalto.com/" target="_blank"><img src="<?=PATH?>uploads/2024/07/banner-plataforma-membros.jpg" alt="" style="width: 100%;"></a>
 					</div>
 					<div class="banner-item">
-						<a href="https://marketplace.canalsaltoalto.com/" target="_blank"><img src="<?=PATH?>uploads/2024/07/marketplace-banner.jpg" alt="" style="width: 100%;"></a>
-					</div>
-					<div class="banner-item">
 						<a href="https://www.youtube.com/c/CanalSaltoAlto" target="_blank"><img src="<?=PATH?>uploads/2024/07/banner-canal-youtube.jpg" alt="" style="width: 100%;"></a>
 					</div>
 					<div class="banner-item">
@@ -99,26 +96,11 @@
 						$posts = $Post->getPosts();
 
 						if($posts->rowCount() > 0):
-							foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post):
+							foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post)
+					  			echo Template::render($post, "loop_posts");
+
+					  	else:
 					?>
-					<div class="post-grid__item">
-						<div class="post-grid__item--tag">
-							<a href="#">NOTÍCIA</a>
-						</div>
-						<div class="post-grid__item--image">
-							<a href="<?=PATH.'post/'.$post['slug']?>">
-								<div style="background-image: url('<?=PATH.$post['featured_image']?>');"></div>
-							</a>
-						</div>
-						<div class="post-grid__item--content">
-							<h3><a href="<?=PATH.'post/'.$post['slug']?>"><?=$post['title']?></a></h3>
-							<p class="post-grid__item--content-resume">
-								<?=$post['excerpt']?>
-							</p>
-							<a href="<?=PATH.'post/'.$post['slug']?>" class="post-grid__item--content-cta"><button>CONTINUE LENDO <span>»</span></button></a>
-						</div>
-					</div>
-					<?php endforeach; else: ?>
 					<div class="post-grid__item">
 						<h3>Não foi possível encontrar posts.</h3>
 					</div>
@@ -130,42 +112,16 @@
 				<div class="post-grid-slider swiper hide-on-desktop">
 			  		<div class="swiper-wrapper">
 					<?php
-						$Post = new Post;
-
-						$posts = $Post->getPosts();
-
 						if($posts->rowCount() > 0):
 							foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post):
-					?>
-					<div class="post-grid__item swiper-slide">
-						<div class="post-grid__item--tag">
-							<a href="#">NOTÍCIA</a>
-						</div>
-						<div class="post-grid__item--image">
-							<a href="<?=PATH.'post/'.$post['slug']?>">
-								<div style="background-image: url('<?=PATH.$post['featured_image']?>');"></div>
-							</a>
-						</div>
-						<div class="post-grid__item--content">
-							<h3><a href="<?=PATH.'post/'.$post['slug']?>"><?=$post['title']?></a></h3>
-							<p class="post-grid__item--content-resume">
-								<?=$post['excerpt']?>
-							</p>
-							<a href="<?=PATH.'post/'.$post['slug']?>" class="post-grid__item--content-cta"><button>CONTINUE LENDO <span>»</span></button></a>
-						</div>
-					</div>
-					<?php endforeach; else: ?>
-					<div class="post-grid__item">
-						<h3>Não foi possível encontrar posts.</h3>
-					</div>
-				<?php endif; ?>
+					  			echo Template::render($post, "loop_posts");
+							endforeach;
 
-					<!-- If we need pagination -->
-					<div class="swiper-pagination-pg"></div>
-
-					<!-- If we need navigation buttons -->
-					<div class="swiper-button-prev"></div>
-					<div class="swiper-button-next"></div>
+						else: ?>
+						<div class="post-grid__item">
+							<h3>Não foi possível encontrar posts.</h3>
+						</div>
+					<?php endif; ?>
 				</div>
 
 
@@ -197,7 +153,6 @@
 				  		if($companies->rowCount() > 0):
 				  			foreach($companies->fetchAll(PDO::FETCH_ASSOC) as $company):
 				  	?>
-
 				  		<div class="swiper-slide">
 					    	<div class="companies--item">
 					    		<div class="companies--item__content">
@@ -206,7 +161,6 @@
 					    		</div>
 					    	</div>
 					    </div>
-
 				  	<?php endforeach; endif; ?>
 				  </div>
 				</div>
@@ -242,17 +196,17 @@
 				  <div class="swiper-wrapper">
 				    <?php
 				  		$User = new User;
-				  		$users = $User->getUsers(10);
+				  		$users = $User->getLastUsersWithMembership(10);
 				  		if($users->rowCount() > 0):
-				  			foreach($users->fetchAll(PDO::FETCH_ASSOC) as $user):
-				  				if(empty($user["profile_photo"])) continue;
+				  			foreach($users->fetchAll(PDO::FETCH_ASSOC) as $user_loop):
+				  				if(empty($user_loop["profile_photo"])) continue;
 				  	?>
 
 				  		<div class="swiper-slide">
 					    	<div class="members--item">
 					    		<div class="members--item__content">
-					    			<img src="/<?=$user["profile_photo"]?>" alt="" />
-					    			<h3><?=$user["firstname"]." ".$user["lastname"]?></h3>
+					    			<img src="/<?=$user_loop["profile_photo"]?>" alt="" />
+					    			<h3><?=$user_loop["firstname"]." ".$user_loop["lastname"]?></h3>
 					    		</div>
 					    	</div>
 					    </div>
@@ -264,7 +218,7 @@
 		</section>
 
 
-		<?php include("footer.phtml"); ?>
+		<?=Template::render(null, "footer_site")?>
 
 
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>

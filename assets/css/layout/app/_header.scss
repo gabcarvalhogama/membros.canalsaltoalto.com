@@ -10,6 +10,9 @@
 			padding: 10px;
 		}
 	}
+
+	@include lmenu;
+
 	.my-profile{
 		cursor: pointer;
 		background-color: $primary-color;
@@ -34,20 +37,31 @@
 			padding: 10px;
 			display: none;
 		}
+		.profile-icon{
+			height: 30px;
+			width: 30px;
+			border: solid 1px $primary-color;
+			border-radius: 250px;
+			// box-shadow: 4px 5px 5px rgb(28, 28, 28);
+			object-fit: cover;
+		}
+		a{
+			display: flex;
+			align-items: center;
+			&:hover{
+				color: #FFF;
+			}
+		}
 	}
-	.profile-icon{
-		height: 30px;
-		width: 30px;
-		border: solid 1px $primary-color;
-		border-radius: 250px;
-		// box-shadow: 4px 5px 5px rgb(28, 28, 28);
-		object-fit: cover;
-	}
-	.my-profile a{
-		display: flex;
-		align-items: center;
-	}
-	.my-profile a:hover{
-		color: #FFF;
+
+	.col-btns{
+		@include media-breakpoint-down(lg) {
+			display: flex;
+			align-items: center;
+			.open-menu-btn{
+				margin-left: 30px;
+				font-size: 2em;
+			}
+		}
 	}
 }

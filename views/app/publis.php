@@ -9,50 +9,35 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__publis">
-			<div class="container">
-				<h1>Faça aqui sua <span class="color-primary">publis!</span></h1>
-				<p>Atenção, empreendedoras membros! Agora é possível fazer divulgações em nossa Plataforma de Membros! Basta preencher o formulário acima, utilizar as Tags para facilitar na busca e publicar!</p>
+			<div class="container-xl">
+				<div class="d-flex flex-column flex-md-row justify-content-between">
+					<h2>Faça aqui sua <span class="color-primary">publi!</span></h2>
+					<div>
+						<a href="/app/publis/new"><button class="btn btn-rose btn-rounded">Faça uma Publi</button></a>
+					</div>
+				</div>
+				<p>Atenção, empreendedora! Agora é possível fazer divulgações em nossa Plataforma de Membros! Basta clicar no botão e utilizar as Tags para facilitar na busca e publicar!</p>
 				<div class="publis-list">
 					<?php
 						$Publi = new Publi;
 						$ms = 0;
 
-						$getPubli = $Publi->getPublis(200);
+						$getPubli = $Publi->getPublisByStatus(200, 1);
 						if($getPubli->rowCount() > 0):
 							foreach($getPubli->fetchAll(PDO::FETCH_ASSOC) as $publi):
 								$ms+=100;
-					?>
-					<div class="publis-list__item animate__animated animate__faster animate__fadeInDown" style="animation-delay: <?=$ms?>ms ">
-						<div class="publis-list__item--header">
-							<img src="/<?=(!empty($publi['profile_photo'])) ? $publi['profile_photo'] : 'assets/images/default-pfp.png';?>" style="width:
-							 60px;" alt="" />
-							<div class="d-flex flex-column">
-								<span class="profile-name">
-									<?=$publi['firstname']." ".$publi['lastname']?>
-								</span>
-								<small>
-									<?=date("d/m/Y \à\s H:i", strtotime($publi["published_at"]))?>
-								</small>
-							</div>
-							
-						</div>
-						<div class="publis-list__item--content">
-							<h3><?=$publi['publi_title']?></h3>
-							<?=$publi['publi_content']?>
-						</div>
-					</div>
-
-					<?php endforeach; endif; ?>
+								echo Template::render($publi, "loop_publis");
+							endforeach; endif; ?>
 			    </div>
 			</div>
 		</section>
 
 
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 
 

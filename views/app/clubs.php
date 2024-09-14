@@ -9,10 +9,10 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__clubs mt-5 mb-5">
-			<div class="container">
+			<div class="container-xl">
 				<h2>Aproveite nosso <span class="color-primary">clube de vantagens.</span></h2>
 
 				<div class="clubs-list">
@@ -23,16 +23,8 @@
 
 					if($getClub->rowCount() > 0):
 					foreach($getClub->fetchAll(PDO::FETCH_ASSOC) as $club):
-								$ms+=200;
-				?>
-					<div class="clubs-list__item animate__animated animate__faster animate__fadeInDown"  style="animation-delay: <?=$ms?>ms ">
-			  			<div class="clubs-list__item--image" style="background-image: url('/<?=$club["club_image"]?>')"></div>
-			  			<div class="clubs-list__item--content">
-			  				<h3 class="mt-3"><?=$club["club_title"]?></h3>
-			  				<div class="description"><?=$club["club_description"]?></div>
-			  			</div>
-			  		</div>
-				<?php 
+						$ms+=200;
+						echo Template::render($club, "loop_clubs");
 					endforeach; endif;
 				?>
 				</div>
@@ -41,7 +33,7 @@
 
 
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 
 

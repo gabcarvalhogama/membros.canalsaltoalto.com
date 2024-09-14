@@ -9,17 +9,17 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__welcome mt-5 mb-5">
-			<div class="container">
+			<div class="container-xl">
 				<h2>Seja bem-vinda ao Canal Salto Alto!</h2>
 			</div>
 		</section>
 
 
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 
 

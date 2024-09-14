@@ -10,7 +10,7 @@
 		<?php include(__DIR__."/../templates/head-tags.phtml"); ?>
 	</head>
 	<body class="site">
-		<?php include("header.phtml"); ?>
+		<?=Template::render(null, "header_site")?>
 
 		<main class="hero">
 			<img src="<?=PATH?>uploads/2024/08/site-seja-membro-hero.png" class="site__hero--image" />
@@ -79,7 +79,7 @@
 			</div>
 		</section>
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_site")?>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>

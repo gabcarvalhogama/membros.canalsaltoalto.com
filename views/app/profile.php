@@ -9,10 +9,10 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__profile">
-			<div class="container">
+			<div class="container-xl">
 
 				<div class="profile__header">
 					<div class="profile__header--photo">
@@ -39,16 +39,7 @@
 				</div>
 
 				<div class="profile__section">
-					<aside>
-						<ul>
-							<li><a href="/app/profile/">Informações básicas</a></li>
-							<li><a href="/app/profile/companies" onclick="return false;">Minhas empresas (em breve)</a></li>
-							<li><a href="/app/profile/subscriptions" onclick="return false;">Minhas Inscrições (em breve)</a></li>
-							<li><a href="/app/profile/change-password" onclick="return false;">Alterar senha (em breve)</a></li>
-							<!-- <li><a href=""></a></li> -->
-							<!-- <li><a href=""></a></li> -->
-						</ul>
-					</aside>
+					<?php include "profile.menu.php"; ?>
 					<div class="profile__section--content">
 						<h3>Informações Básicas</h3>
 						<form action="javascript:void(0)" method="post" onsubmit="App.updateUser(this)">
@@ -157,7 +148,7 @@
 			</div>
 		</section>
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>

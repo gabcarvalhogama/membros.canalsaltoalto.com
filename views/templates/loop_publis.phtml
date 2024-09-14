@@ -1,0 +1,18 @@
+<div class="publis-list__item animate__animated animate__faster animate__fadeInDown" style="animation-delay: <?=$ms?>ms ">
+						<div class="publis-list__item--header">
+							<img src="/<?=(!empty($profile_photo)) ? $profile_photo : 'assets/images/default-pfp.png';?>" style="width: 60px;border-radius: 100px;" alt="" />
+							<div class="d-flex flex-column">
+								<span class="profile-name">
+									<?=$firstname." ".$lastname?>
+								</span>
+								<small>
+									<?=date("d/m/Y \à\s H:i", strtotime($published_at))?>
+								</small>
+							</div>
+							
+						</div>
+						<div class="publis-list__item--content">
+							<h3><?=$publi_title?></h3>
+							<?=$publi_content?>
+						</div>
+					</div>

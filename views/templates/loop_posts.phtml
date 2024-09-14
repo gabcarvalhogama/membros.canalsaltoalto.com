@@ -1,0 +1,17 @@
+<div class="post-grid__item">
+	<div class="post-grid__item--tag">
+		<a href="#">NOTÍCIA</a>
+	</div>
+	<div class="post-grid__item--image">
+		<a href="<?=PATH.'post/'.$slug?>">
+			<div style="background-image: url('<?=PATH.$featured_image?>');"></div>
+		</a>
+	</div>
+	<div class="post-grid__item--content">
+		<h3><a href="<?=PATH.'post/'.$slug?>"><?=$title?></a></h3>
+		<p class="post-grid__item--content-resume">
+			<?=$excerpt?>
+		</p>
+		<a href="<?=PATH.'post/'.$slug?>" class="post-grid__item--content-cta"><button>CONTINUE LENDO <span>»</span></button></a>
+	</div>
+</div>

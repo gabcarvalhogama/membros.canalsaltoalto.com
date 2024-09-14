@@ -9,31 +9,23 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__notices">
-			<div class="container">
+			<div class="container-xl">
 				<h2>Nossos <span class="color-primary">avisos</span></h2>
 				<?php
 			  		$Notice = new Notice;
 			  		$notices = $Notice->getNotices(20);
-			  		foreach($notices->fetchAll(PDO::FETCH_ASSOC) as $notice):
+			  		foreach($notices->fetchAll(PDO::FETCH_ASSOC) as $notice)
+			  			echo Template::render($notice, "loop_notices");
 			  	?>
-			  	<div class="notices__item mb-5">
-			  		<div class="notices__item--date"><span><?=date("d/m/Y \à\s H:i", strtotime($notice["published_at"]))?></span></div>
-					<h3><?=$notice["notice_title"]?></h3>
-					<p>
-						<?=strip_tags(substr($notice["notice_content"], 0, 150))?>...
-					</p>
-					<a href="#">Leia mais <i class="fa-solid fa-angle-right"></i></a>
-				</div>
-			    <?php endforeach; ?>
 			</div>
 		</section>
 
 
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 
 

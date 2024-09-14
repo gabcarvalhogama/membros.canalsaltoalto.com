@@ -15,12 +15,13 @@
 		<article class="site__single-post">
 
 			<div class="site__single-post--highlight">
-				<div style="background-image: url(<?=PATH.$object->featured_image?>);"></div>
+				<div style="background-image: url(<?=PATH.$object->featured_image?>);" class="d-none d-lg-block"></div>
+				<img src="<?=PATH.$object->featured_image?>" alt="<?=$object->title?>" class="d-block d-lg-none" />
 			</div>
 
-			<div class="container mt-3">
+			<div class="container-xl mt-3">
 				<h1><?=$object->title?></h1>
-				<ul class="d-flex site__single-post--terms">
+				<ul class="d-flex flex-wrap site__single-post--terms">
 					<li><a href="#"><i class="fa-solid fa-user"></i> <?=$object->firstname." ".$object->lastname?></a></li>
 					<li><a href="#"><i class="fa-solid fa-calendar"></i> <?=date('d/m/Y \à\s H:i', strtotime($object->published_at))?></a></li>
 					<li><a href="#comments"><i class="fa-solid fa-calendar"></i> <?php 
@@ -30,7 +31,7 @@
 			</div>
 			
 
-			<div class="container">
+			<div class="container-xl">
 				<div class="site__single-post--grid">
 					<div class="site__single-post--content">
 						<?=$object->content?>
@@ -38,7 +39,11 @@
 						<div>
 							<?php
 								if(!empty($object->featured_video)){
-									echo '<iframe width="560" height="480" style="border-radius: 10px" src="'.$object->featured_video.'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+									$video1 = (str_replace("watch?v=", "embed/", $object->featured_video));
+									$video2 = str_replace("youtu.be", "youtube.com/embed", $video1);
+
+
+									echo '<iframe width="560" height="480" style="border-radius: 10px" src="'.($video2).'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
 								}
 							?>
 						</div>
@@ -93,9 +98,9 @@
 		</article>
 
 		<section class="related-posts mb-3 mt-3">
-			<div class="container">
+			<div class="container-xl">
 				<h2>Você também pode se interessar...</h2>
-				<div class="contents">
+				<div class="contents hide-on-mobile">
 					<?php
 						$Content = new Content;
 
@@ -103,20 +108,42 @@
 
 						if($contents->rowCount() > 0):
 							foreach($contents->fetchAll(PDO::FETCH_ASSOC) as $content):
+								echo Template::render($content, "loop_contents");
 					?>
-					<div class="contents__item">
-						<div class="contents__item--photo" style="background-image: url('<?=$content["featured_image"]?>')"></div>
-						<div class="contents__item--content">
-							<h3><?=$content["title"]?></h3>
-							<a href="<?=PATH?>app/content/<?=$content['slug']?>" class="cta">LEIA MAIS »</a>
-						</div>
-					</div>
+					
 					<?php endforeach; else: ?>
 					<div class="post-grid__item">
 						<h3>Não foi possível encontrar posts.</h3>
 					</div>
 				<?php endif; ?>
 				</div>
+
+
+
+				<!-- MOBILE -->
+				<div class="contents hide-on-desktop swiper">
+					<div class="swiper-wrapper">
+					<?php
+						$Content = new Content;
+
+						$contents = $Content->getRelatedContents(12, $object->idcontent);
+
+						if($contents->rowCount() > 0):
+							foreach($contents->fetchAll(PDO::FETCH_ASSOC) as $content):
+								echo "<div class='swiper-slide'>";
+								echo Template::render($content, "loop_contents");
+								echo "</div>";
+					?>
+					
+					<?php endforeach; else: ?>
+					<div class="post-grid__item">
+							<h3>Não foi possível encontrar posts.</h3>
+						</div>
+					<?php endif; ?>
+					</div>
+				</div>
+
+
 			</div>
 		</section>
 
@@ -127,7 +154,13 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/site.js"></script>
-
+		<script type="text/javascript">
+			
+			const swiper = new Swiper('.swiper', {
+				direction: 'horizontal',
+				spaceBetween: 20,
+			});
+		</script>
 
 	</body>
 </html>

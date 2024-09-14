@@ -1,6 +1,6 @@
 .banners{
 		.banner-item{
-			width: calc(50% - 10px);
+			width: calc(33.3333% - 10px);
 			margin-bottom: 20px;
 
 			@include media-breakpoint-down(md) {

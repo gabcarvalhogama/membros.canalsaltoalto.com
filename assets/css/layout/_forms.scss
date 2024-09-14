@@ -12,18 +12,3 @@ label, .form-label{
 		box-shadow: none;
 	}
 }
-
-.btn-rose{
-	background-color: $primary-color;
-	transition: all 400ms;
-	&:hover{
-		background-color: #000;
-		color: #FFF;
-	}
-}
-
-.btn-full{
-	padding: 10px;
-	display: block;
-	width: 100%;
-}

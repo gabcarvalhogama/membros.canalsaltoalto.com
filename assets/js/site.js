@@ -28,15 +28,27 @@ const swiper_post_grid = new Swiper('.post-grid-slider', {
 const swiper_companies = new Swiper('.swiper_companies', {
 	direction: 'horizontal',
 	loop: true,
-	slidesPerView: 4,
+	slidesPerView: 2,
     spaceBetween: 30,
+
+	breakpoints: {
+		798: {
+			slidesPerView: 4
+		}
+	},
 });
 
 const swiper_members = new Swiper('.swiper_members', {
 	direction: 'horizontal',
 	loop: true,
-	slidesPerView: 4,
+	slidesPerView: 2,
     spaceBetween: 30,
+
+	breakpoints: {
+		798: {
+			slidesPerView: 4
+		}
+	},
 });
 
 

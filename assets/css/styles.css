@@ -25707,6 +25707,7 @@ html, body {
 body {
   background-color: #000;
   font-family: "Caviar Dreams", Opens Sans, Arial, sans-serif;
+  font-style: normal;
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
@@ -25747,6 +25748,23 @@ a {
   display: block;
 }
 
+.btn-rose {
+  background-color: #E54C8E;
+  transition: all 400ms;
+  border: solid 1px transparent;
+}
+.btn-rose:hover {
+  background-color: transparent;
+  border-color: #E54C8E;
+  color: #E54C8E;
+}
+
+.btn-full {
+  padding: 10px;
+  display: block;
+  width: 100%;
+}
+
 .btn-medium {
   padding: 10px 30px;
   font-size: 1.4rem;
@@ -25785,21 +25803,6 @@ label, .form-label {
 }
 .form-control:focus {
   box-shadow: none;
-}
-
-.btn-rose {
-  background-color: #E54C8E;
-  transition: all 400ms;
-}
-.btn-rose:hover {
-  background-color: #000;
-  color: #FFF;
-}
-
-.btn-full {
-  padding: 10px;
-  display: block;
-  width: 100%;
 }
 
 .site {
@@ -26051,6 +26054,11 @@ label, .form-label {
 .site__single-post--content iframe {
   width: 100%;
 }
+@media (max-width: 767.98px) {
+  .site__single-post--content iframe {
+    height: 200px;
+  }
+}
 .site__single-post--content img {
   max-width: 100%;
   border-radius: 5px;
@@ -26152,7 +26160,7 @@ label, .form-label {
   margin-top: 1.25em;
 }
 .site .banners .banner-item {
-  width: calc(50% - 10px);
+  width: calc(33.3333% - 10px);
   margin-bottom: 20px;
 }
 @media (max-width: 767.98px) {
@@ -26369,6 +26377,40 @@ label, .form-label {
 .app .app__header nav a {
   padding: 10px;
 }
+.app .app__header .lmenu {
+  background-color: #000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 99;
+  display: none;
+}
+.app .app__header .lmenu--header {
+  padding: 20px;
+}
+.app .app__header .lmenu--header img {
+  height: 50px;
+}
+.app .app__header .lmenu--header .fa-xmark {
+  border: solid 1px #FFF;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  text-align: center;
+}
+.app .app__header .lmenu ul {
+  border-top: 1px solid rgb(40, 40, 40);
+  margin-top: 20px;
+}
+.app .app__header .lmenu ul li a {
+  display: block;
+  padding: 20px;
+}
+.app .app__header .lmenu ul li a:hover, .app .app__header .lmenu ul li a:active {
+  background-color: rgb(40, 40, 40);
+}
 .app .app__header .my-profile {
   cursor: pointer;
   background-color: #E54C8E;
@@ -26393,7 +26435,7 @@ label, .form-label {
   padding: 10px;
   display: none;
 }
-.app .app__header .profile-icon {
+.app .app__header .my-profile .profile-icon {
   height: 30px;
   width: 30px;
   border: solid 1px #E54C8E;
@@ -26406,6 +26448,16 @@ label, .form-label {
 }
 .app .app__header .my-profile a:hover {
   color: #FFF;
+}
+@media (max-width: 991.98px) {
+  .app .app__header .col-btns {
+    display: flex;
+    align-items: center;
+  }
+  .app .app__header .col-btns .open-menu-btn {
+    margin-left: 30px;
+    font-size: 2em;
+  }
 }
 .app .app__hero--image {
   width: 100%;
@@ -26467,25 +26519,39 @@ label, .form-label {
   font-weight: bold;
 }
 .app .app__contents {
-  padding: 50px;
   background-color: #141414;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 .app .contents {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.app .contents__item {
+@media (max-width: 991.98px) {
+  .app .contents {
+    flex-direction: column;
+  }
+}
+.app .contents .contents__item {
   background-color: #FFF;
   color: #333;
   width: calc(33.33% - 20px);
   margin-right: 20px;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
-.app .contents__item a {
+@media (max-width: 991.98px) {
+  .app .contents .contents__item {
+    width: 100%;
+    margin-bottom: 20px;
+    margin-right: 0px;
+  }
+}
+.app .contents .contents__item a {
   color: #333;
 }
-.app .contents__item--photo {
+.app .contents .contents__item--photo {
   height: 250px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -26494,13 +26560,18 @@ label, .form-label {
   transition: all 300ms;
   position: relative;
 }
-.app .contents__item--content {
+.app .contents .contents__item--content {
   padding: 20px;
 }
-.app .contents__item--content h3, .app .contents__item--content .h3 {
+.app .contents .contents__item--content h3, .app .contents .contents__item--content .h3 {
   font-size: 1.3rem;
 }
-.app .contents__item--content .cta {
+@media (max-width: 767.98px) {
+  .app .contents .contents__item--content h3, .app .contents .contents__item--content .h3 {
+    font-size: 1rem;
+  }
+}
+.app .contents .contents__item--content .cta {
   color: #E54C8E;
   font-weight: bold;
 }
@@ -26602,6 +26673,10 @@ label, .form-label {
 .app .members-list__item h3, .app .members-list__item .h3 {
   padding-left: 20px;
 }
+.app .members-list__item--description {
+  color: #FFF;
+  margin-top: 20px;
+}
 .app .clubs-list {
   display: flex;
   flex-direction: column;
@@ -26613,16 +26688,30 @@ label, .form-label {
   border-radius: 15px;
   padding: 0;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+@media (max-width: 991.98px) {
+  .app .clubs-list .clubs-list__item {
+    flex-direction: column;
+  }
 }
 .app .clubs-list .clubs-list__item--image {
-  width: 250px;
-  height: 250px;
+  width: 350px;
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 15px 0px 0px 15px;
   background-color: #ddd;
   object-fit: cover;
+  background-position: center;
+  aspect-ratio: 1/1;
+}
+@media (max-width: 991.98px) {
+  .app .clubs-list .clubs-list__item--image {
+    width: 100%;
+    border-radius: 15px 15px 0px 0px;
+    height: auto;
+    background-position: center;
+  }
 }
 .app .clubs-list .clubs-list__item--content {
   padding: 20px;
@@ -26632,8 +26721,10 @@ label, .form-label {
   color: #E54C8E;
   font-weight: bold;
 }
-.app .app__notices {
-  padding: 50px 0;
+@media (max-width: 991.98px) {
+  .app .clubs-list .clubs-list__item--content {
+    width: 100%;
+  }
 }
 .app .app__notices .notices__item {
   padding: 20px;
@@ -26642,7 +26733,7 @@ label, .form-label {
   border-radius: 5px;
   border: solid 1px #d1d1d1;
   position: relative;
-  margin-top: 1rem;
+  margin-bottom: 40px;
 }
 .app .app__notices .notices__item--date {
   margin-top: -10px;
@@ -26714,6 +26805,12 @@ label, .form-label {
   flex-direction: row;
   align-items: center;
 }
+@media (max-width: 767.98px) {
+  .app .app__profile .profile__header {
+    flex-direction: column;
+    text-align: center;
+  }
+}
 .app .app__profile .profile__header--photo img {
   height: 150px;
   width: 150px;
@@ -26733,6 +26830,11 @@ label, .form-label {
   flex-direction: row;
   margin-top: 1rem;
 }
+@media (max-width: 991.98px) {
+  .app .app__profile .profile__section {
+    flex-direction: column;
+  }
+}
 .app .app__profile .profile__section aside {
   width: 300px;
   max-width: 100%;
@@ -26741,6 +26843,12 @@ label, .form-label {
   margin-right: 20px;
   border-radius: 10px;
   flex: 0 0 auto;
+}
+@media (max-width: 991.98px) {
+  .app .app__profile .profile__section aside {
+    width: 100%;
+    border-radius: 5px 5px 0px 0px;
+  }
 }
 .app .app__profile .profile__section aside ul li a {
   padding: 10px;
@@ -26761,6 +26869,11 @@ label, .form-label {
   border-radius: 10px;
   width: 100%;
   color: #FFF;
+}
+@media (max-width: 991.98px) {
+  .app .app__profile .profile__section--content {
+    border-radius: 0px 0px 5px 5px;
+  }
 }
 .app .app__footer {
   margin-top: 30px;

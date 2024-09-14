@@ -10,7 +10,7 @@
 		<?php include(__DIR__."/../templates/head-tags.phtml"); ?>
 	</head>
 	<body class="site">
-		<?php include("header.phtml"); ?>
+		<?=Template::render(null, "header_site")?>
 
 		<section class="about mt-5 site__lp-about" style="background-image: url('<?=PATH?>assets/images/photo-tati-transparent.png');">
 			<div class="container-xl">
@@ -67,7 +67,7 @@
 			</div>
 		</section>
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_site")?>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>

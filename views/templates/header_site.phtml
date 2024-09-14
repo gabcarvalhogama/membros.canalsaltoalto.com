@@ -1,0 +1,50 @@
+<header class="site__header">
+			<div class="container-xl">
+				<div class="d-flex align-items-center justify-content-between">
+					<div>
+						<a href="<?=PATH?>"><img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="site__header--logo" /></a>
+					</div>
+					<div>
+						<nav class="d-none d-lg-flex align-items-center">
+							<ul class="d-flex">
+								<li><a href="<?=PATH?>">Início</a></li>
+								<li><a href="<?=PATH?>noticias">Notícias</a></li>
+								<li><a href="<?=PATH?>seja-membro">Seja Membro</a></li>
+								<li><a href="<?=PATH?>quem-somos">Quem Somos</a></li>
+							</ul>
+							<ul class="site__header--social d-flex">
+								<li><a href="https://www.youtube.com/c/CanalSaltoAlto" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
+								<li><a href="https://www.instagram.com/canalsaltoalto/" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+								<li><a href="https://www.facebook.com/canalsaltoalto/" target="_blank"><i class="fa-brands fa-facebook"></i></a></li>
+								<li><a href="https://twitter.com/saltoaltocanal" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li>
+							</ul>
+							<div>
+								<a href="/app/login"><button class="btn btn-rose btn-rounded">Faça login</button></a>
+							</div>
+						</nav>
+
+						<a href="javascript:void(0)" class="d-flex d-lg-none" onclick="$('.lmenu').fadeIn(200)"><i class="fa-solid fa-bars"></i></a>
+					</div>
+				</div>
+			</div>
+			<nav class="lmenu">
+				<div class="container-xl">
+					<div class="lmenu--header row align-items-center justify-content-between">
+						<div class="col-6">
+							<img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="img-fluid" />
+						</div>
+						<div class="col-6 text-end">
+							<a href="javascript:void(0)" class="close-menu p-0 d-block" onclick="$('.lmenu').fadeOut(200)"><i class="fa-solid fa-xmark"></i></a>
+						</div>
+					</div>
+
+					<ul class="d-flex flex-column">
+						<li><a href="<?=PATH?>">Início</a></li>
+						<li><a href="<?=PATH?>noticias">Notícias</a></li>
+						<li><a href="<?=PATH?>seja-membro">Seja Membro</a></li>
+						<li><a href="<?=PATH?>quem-somos">Quem Somos</a></li>
+					</ul>
+					<a href="/app/login"><button class="btn btn-rose btn-rounded">Faça login</button></a>
+				</div>
+			</nav>
+		</header>

@@ -9,10 +9,10 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__newCompany mt-5 mb-5">
-			<div class="container">
+			<div class="container-xl">
 				<h2>Cadastre a <span class="color-primary">sua empresa.</span></h2>
 				<form action="javascript:void(0)" method="post" onsubmit="App.newCompany(this)"  accept-charset="utf-8" enctype="multipart/form-data">
 					<div class="message"></div>
@@ -128,7 +128,7 @@
 
 
 
-		<?php include "footer.phtml"; ?>
+		<?=Template::render(null, "footer_app")?>
 
 
 

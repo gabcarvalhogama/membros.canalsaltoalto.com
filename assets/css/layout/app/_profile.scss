@@ -12,6 +12,13 @@
 			display: flex;
 			flex-direction: row;
 			align-items: center;
+
+
+
+			@include media-breakpoint-down(md) {
+				flex-direction: column;
+				text-align: center;
+			}
 			&--photo{
 				img{
 					height: 150px;
@@ -36,6 +43,10 @@
 			display: flex;
 			flex-direction: row;
 			margin-top: 1rem;
+
+			@include media-breakpoint-down(lg) {
+				flex-direction: column;
+			}
 			aside{
 				width: 300px;
 				max-width: 100%;
@@ -44,6 +55,11 @@
 				margin-right: 20px;
 				border-radius: 10px;
 				flex: 0 0 auto;
+
+				@include media-breakpoint-down(lg) {
+					width: 100%;
+					border-radius: 5px 5px 0px 0px;
+				}
 
 				ul li a{
 					padding: 10px;
@@ -66,6 +82,10 @@
 				border-radius: 10px;
 				width: 100%;
 				color: #FFF;
+
+				@include media-breakpoint-down(lg) {
+					border-radius: 0px 0px 5px 5px;
+				}
 			}
 		}
 	}

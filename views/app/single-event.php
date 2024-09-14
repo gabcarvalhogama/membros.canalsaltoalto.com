@@ -9,10 +9,10 @@
 
 	</head>
 	<body class="app">
-		<?php include "header.phtml"; ?>
+		<?=Template::render(null, "header_app")?>
 
 		<section class="app__single-event single-event mt-5 mb-5">
-			<div class="container">
+			<div class="container-xl">
 				<div class="row align-items-center single-event__hero">
 					<div class="col-md-6">
 						<h1><?=$event->event_title?></h1>
@@ -23,7 +23,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 mt-4 mb-4">
 						<img src="/<?=$event->event_poster?>" alt="" class="img-fluid" style="border-radius: 15px;">
 					</div>
 				</div>
@@ -31,14 +31,30 @@
 		</section>
 
 		<section class="single-event__content">
-			<div class="container">
+			<div class="container-xl">
 				<?=$event->event_content?>
 			</div>
 		</section>
 
 
+		<section class="related-posts mb-3 mt-3">
+			<div class="container-xl">
+				<h2>Você também pode se interessar...</h2>
+				<div class="contents">
+					<?php
+				  		$Event = new Event;
+				  		$events = $Event->getEvents(7);
+				  		foreach($events->fetchAll(PDO::FETCH_ASSOC) as $event_loop){
+				  			if($event_loop['idevent'] == $event->idevent) continue;
+				  			echo Template::render($event_loop, "loop_events");
+				  		}
+				  	?>
+				</div>
+			</div>
+		</section>
 
-		<?php include "footer.phtml"; ?>
+
+		<?=Template::render(null, "footer_app")?>
 
 
 
