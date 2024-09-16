@@ -25872,11 +25872,10 @@ label, .form-label {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: -10px;
 }
 .site .post-grid__item {
   width: calc(33.33% - 20px);
-  margin: 20px 10px;
+  margin: 10px 10px;
   position: relative;
   background-color: #FFF;
   border-radius: 5px 5px 5px 5px;
@@ -25954,6 +25953,11 @@ label, .form-label {
   }
   100% {
     margin-left: 0;
+  }
+}
+@media (max-width: 767.98px) {
+  .site .post-grid .swiper-slide .post-grid__item {
+    margin: 0;
   }
 }
 .site .post-grid-slider .post-grid__item {
@@ -26476,13 +26480,12 @@ label, .form-label {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: 20px;
 }
 .app .events__item {
   background-color: #FFF;
   color: #333;
   width: calc(33.33% - 20px);
-  margin-right: 20px;
-  margin-bottom: 20px;
   border-radius: 5px;
 }
 @media screen and (max-width: 1200px) {
@@ -26493,7 +26496,6 @@ label, .form-label {
 @media screen and (max-width: 768px) {
   .app .events__item {
     width: 100%;
-    margin-right: 0;
   }
 }
 .app .events__item a {
@@ -26527,6 +26529,7 @@ label, .form-label {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  gap: 20px;
 }
 @media (max-width: 991.98px) {
   .app .contents {
@@ -26537,9 +26540,7 @@ label, .form-label {
   background-color: #FFF;
   color: #333;
   width: calc(33.33% - 20px);
-  margin-right: 20px;
   border-radius: 5px;
-  margin-bottom: 20px;
 }
 @media (max-width: 991.98px) {
   .app .contents .contents__item {
@@ -26578,6 +26579,7 @@ label, .form-label {
 .app .companies-list {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 .app .companies-list .companies-list__item {
   display: flex;
@@ -26586,7 +26588,6 @@ label, .form-label {
   border-radius: 15px;
   padding: 0;
   align-items: center;
-  margin-bottom: 10px;
 }
 @media screen and (max-width: 991px) {
   .app .companies-list .companies-list__item {
@@ -26631,6 +26632,9 @@ label, .form-label {
   text-align: center;
   background-color: #E54C8E;
 }
+.app .companies-list .companies-list__item--content h3, .app .companies-list .companies-list__item--content .h3 {
+  font-weight: bold;
+}
 @media screen and (max-width: 991px) {
   .app .companies-list .companies-list__item--content h3, .app .companies-list .companies-list__item--content .h3 {
     font-size: 1rem;
@@ -26664,6 +26668,15 @@ label, .form-label {
   align-items: center;
   justify-content: space-between;
 }
+@media screen and (max-width: 768px) {
+  .app .members-list__item--header {
+    flex-direction: column;
+    align-items: baseline;
+  }
+  .app .members-list__item--header .photo_title {
+    align-items: baseline !important;
+  }
+}
 .app .members-list__item .logo {
   width: 80px;
   height: 80px;
@@ -26672,6 +26685,13 @@ label, .form-label {
 }
 .app .members-list__item h3, .app .members-list__item .h3 {
   padding-left: 20px;
+}
+@media screen and (max-width: 768px) {
+  .app .members-list__item h3, .app .members-list__item .h3 {
+    padding-left: 0;
+    font-size: 1.25rem;
+    margin-top: 5px;
+  }
 }
 .app .members-list__item--description {
   color: #FFF;
@@ -26726,6 +26746,13 @@ label, .form-label {
     width: 100%;
   }
 }
+.app .app__notices {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.app .app__notices h2, .app .app__notices .h2 {
+  margin-bottom: 20px;
+}
 .app .app__notices .notices__item {
   padding: 20px;
   padding-top: 0;
@@ -26733,7 +26760,7 @@ label, .form-label {
   border-radius: 5px;
   border: solid 1px #d1d1d1;
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 .app .app__notices .notices__item--date {
   margin-top: -10px;

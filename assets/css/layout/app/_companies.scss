@@ -1,6 +1,7 @@
 .companies-list{
 	display: flex;
 	flex-direction: column;
+	gap: 20px;
 
 	.companies-list__item{
 		display: flex;
@@ -9,7 +10,6 @@
 		border-radius: 15px;
 		padding: 0;
 		align-items: center;
-		margin-bottom: 10px;
 
 		@media screen and (max-width: 991px){
 			flex-direction: column;
@@ -51,6 +51,10 @@
 					text-align: center;
 					background-color: $primary-color;
 				}
+			}
+
+			h3{
+				font-weight: bold;
 			}
 
 			@media screen and (max-width: 991px){

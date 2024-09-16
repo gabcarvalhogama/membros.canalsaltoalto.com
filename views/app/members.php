@@ -18,12 +18,10 @@
 					<?php
 						$User = new User;
 
-						$ms = 0;
 						$getUsers = $User->getUsers();
 						if($getUsers->rowCount() > 0):
 							foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $member):
 								if(in_array($member["email"], ["gabriel@hatoria.com"])) continue;
-								$ms+=200;
 								echo Template::render($member, "loop_members");
 							endforeach; endif; ?>
 			    </div>

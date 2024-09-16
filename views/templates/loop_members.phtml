@@ -1,21 +1,35 @@
-<div class="members-list__item animate__animated animate__faster animate__fadeInDown" style="animation-delay: <?=$ms?>ms ">
+<div class="members-list__item animate__animated animate__faster animate__fadeInDown" style="animation-delay: 100ms ">
 	<div class="members-list__item--header">
-		<div class="d-flex flex-row align-items-center">
+		<div class="d-flex flex-column flex-md-row align-items-center photo_title">
 			<img src="/<?=(!empty($profile_photo)) ? $profile_photo : 'assets/images/default-pfp.png'?>" class="logo" alt=""/>
 			<h3 class="mb-0"><?=$firstname." ".$lastname?></h3>
 		</div>
+
+		<span class="hide-on-mobile">
 		<?php 
 			if($company_counter == 0 OR $company_counter == null){
 				echo "nenhuma empresa";
 			}else if($company_counter == 1){
-				echo "<a href='/app/members/<?=$iduser?>/companies'>ver 1 empresa</a>";
+				echo "<a href='/app/members/$iduser/companies'>ver 1 empresa</a>";
 			}else{
-				echo "<a href='/app/members/<?=$iduser?>/companies'>ver <?=$company_counter?> empresas</a>";
+				echo "<a href='/app/members/$iduser/companies'>ver $company_counter empresas</a>";
 			}
 		?>
+		</span>
 	</div>
 
 	<div class="members-list__item--description">
 		<?=$biography?>
+	</div>
+	<div class="hide-on-desktop mt-5">
+		<?php 
+			if($company_counter == 0 OR $company_counter == null){
+				echo "<a href='javascript:void(0)'>nenhuma empresa</a>";
+			}else if($company_counter == 1){
+				echo "<a href='/app/members/$iduser/companies'>ver 1 empresa</a>";
+			}else{
+				echo "<a href='/app/members/$iduser/companies'>ver $company_counter empresas</a>";
+			}
+		?>
 	</div>
 </div>

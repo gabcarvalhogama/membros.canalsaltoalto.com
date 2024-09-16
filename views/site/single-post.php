@@ -90,38 +90,42 @@
 		<section class="related-posts mb-3 mt-3">
 			<div class="container-xl">
 				<h2>Você também pode se interessar...</h2>
-				<div class="post-grid">
+				<div class="post-grid hide-on-mobile">
 					<?php
 						$Post = new Post;
 
-						$posts = $Post->getRelatedPosts(12, $object->post_id);
+						$posts = $Post->getRelatedPosts(6, $object->post_id);
 
 						if($posts->rowCount() > 0):
 							foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post):
-					?>
-					<div class="post-grid__item">
-						<div class="post-grid__item--tag">
-							<a href="#">NOTÍCIA</a>
-						</div>
-						<div class="post-grid__item--image">
-							<a href="<?=PATH.'post/'.$post['slug']?>">
-								<div style="background-image: url('<?=PATH.$post['featured_image']?>');"></div>
-							</a>
-						</div>
-						<div class="post-grid__item--content">
-							<h3><a href="<?=PATH.'post/'.$post['slug']?>"><?=$post['title']?></a></h3>
-							<p class="post-grid__item--content-resume">
-								<?=$post['excerpt']?>
-							</p>
-							<a href="<?=PATH.'post/'.$post['slug']?>" class="post-grid__item--content-cta"><button>CONTINUE LENDO <span>»</span></button></a>
-						</div>
-
-					</div>
-					<?php endforeach; else: ?>
+								echo Template::render($post, "loop_posts");
+							endforeach; else: ?>
 					<div class="post-grid__item">
 						<h3>Não foi possível encontrar posts.</h3>
 					</div>
 				<?php endif; ?>
+				</div>
+
+
+				<!-- MOBILE -->
+				<div class="post-grid hide-on-desktop swiper">
+					<div class="swiper-wrapper">
+						<?php
+							$Post = new Post;
+
+							$posts = $Post->getRelatedPosts(6, $object->post_id);
+
+							if($posts->rowCount() > 0):
+								foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post):
+									echo "<div class='swiper-slide'>";
+									echo Template::render($post, "loop_posts");
+									echo "</div>";
+								endforeach; else: ?>
+							<div class="post-grid__item">
+								<h3>Não foi possível encontrar posts.</h3>
+							</div>
+						<?php endif; ?>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -133,6 +137,13 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/site.js"></script>
+		<script type="text/javascript">
+			
+			const swiper = new Swiper('.swiper', {
+				direction: 'horizontal',
+				spaceBetween: 20,
+			});
+		</script>
 
 
 	</body>

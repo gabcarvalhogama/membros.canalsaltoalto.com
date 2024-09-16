@@ -1,4 +1,9 @@
 .app__notices{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	h2{
+		margin-bottom: 20px;
+	}
 
 	.notices__item{
 		padding: 20px;
@@ -7,7 +12,7 @@
 		border-radius: 5px;
 		border: solid 1px #d1d1d1;
 		position: relative;
-		margin-bottom: 40px;
+		margin-bottom: 30px;
 		&--date{
 			margin-top: -10px;
 			span{

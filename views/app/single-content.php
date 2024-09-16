@@ -10,7 +10,7 @@
 
 	</head>
 	<body class="app">
-		<?php include("header.phtml"); ?>
+		<?=Template::render(null, "header_app")?>
 
 		<article class="site__single-post">
 
@@ -147,7 +147,7 @@
 			</div>
 		</section>
 
-		<?php include("footer.phtml"); ?>
+		<?=Template::render(null, "footer_app")?>
 
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>

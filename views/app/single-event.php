@@ -40,7 +40,7 @@
 		<section class="related-posts mb-3 mt-3">
 			<div class="container-xl">
 				<h2>Você também pode se interessar...</h2>
-				<div class="contents">
+				<div class="events-list hide-on-mobile">
 					<?php
 				  		$Event = new Event;
 				  		$events = $Event->getEvents(7);
@@ -49,6 +49,23 @@
 				  			echo Template::render($event_loop, "loop_events");
 				  		}
 				  	?>
+				</div>
+
+				<!-- MOBILE -->
+				<div class="hide-on-desktop swiper">
+					<div class="swiper-wrapper">
+					<?php
+				  		$Event = new Event;
+				  		$events = $Event->getEvents(7);
+				  		foreach($events->fetchAll(PDO::FETCH_ASSOC) as $event_loop){
+				  			if($event_loop['idevent'] == $event->idevent) continue;
+
+				  			echo "<div class='swiper-slide'>";
+				  			echo Template::render($event_loop, "loop_events");
+				  			echo "</div>";
+				  		}
+				  	?>
+				  	</div>
 				</div>
 			</div>
 		</section>
@@ -63,5 +80,14 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/app.js"></script>
+		<script type="text/javascript">
+			
+			const swiper = new Swiper('.swiper', {
+				direction: 'horizontal',
+				spaceBetween: 20,
+				slidesPerView: 1,
+				loop: true
+			});
+		</script>
 	</body>
 </html>
