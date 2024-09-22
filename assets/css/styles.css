@@ -25753,7 +25753,7 @@ a {
   transition: all 400ms;
   border: solid 1px transparent;
 }
-.btn-rose:hover {
+.btn-rose:hover, .btn-rose:active, .btn-rose:focus {
   background-color: transparent;
   border-color: #E54C8E;
   color: #E54C8E;
@@ -25763,6 +25763,10 @@ a {
   padding: 10px;
   display: block;
   width: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
 }
 
 .btn-medium {
@@ -26201,52 +26205,26 @@ label, .form-label {
   color: #FFF;
   padding-bottom: 50px;
 }
-.checkout .left {
-  padding: 20px;
-  color: #333;
-  background-color: #FFF;
-  border-radius: 5px 0px 0px 5px;
-  min-height: 50vh;
-}
-.checkout .left, .checkout .right {
-  width: 50%;
-}
-.checkout .right {
-  border-radius: 0px 5px 5px 0px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-@media (max-width: 1199.98px) {
-  .checkout .left, .checkout .right {
-    width: 100%;
-  }
-  .checkout .left {
-    border-radius: 5px 5px 0px 0px;
-  }
-  .checkout .right {
-    border-radius: 0px 0px 5px 5px;
-  }
-}
 .checkout__header {
   margin-bottom: 0.2em;
+  text-align: center;
 }
 .checkout__header a:hover {
   color: #E54C8E;
 }
 .checkout__header--logo {
-  height: 80px;
+  height: 50px;
 }
 @media (max-width: 767.98px) {
   .checkout__header--logo {
-    height: 50px;
+    height: 40px;
   }
 }
 .checkout__header hgroup {
   padding: 20px;
 }
 .checkout__header hgroup h1, .checkout__header hgroup .h1 {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #E54C8E;
 }
 .checkout__header hgroup h2, .checkout__header hgroup .h2 {
@@ -26255,15 +26233,36 @@ label, .form-label {
 .checkout__content {
   margin-bottom: 40px;
   padding-bottom: 50px;
+  display: flex;
+  justify-content: center;
+}
+.checkout__content--box {
+  background-color: #FFF;
+  padding: 20px;
+  color: #333;
+  border-radius: 5px;
+  max-width: 100%;
+  width: 700px;
+}
+.checkout__content--price {
+  margin-bottom: 20px;
+}
+.checkout__content--price h4, .checkout__content--price .h4 {
+  font-size: 1em;
+}
+.checkout__content--price p {
+  margin: 0;
 }
 .checkout__content .dont-know-cep {
   color: #111;
 }
+.checkout__content input:disabled {
+  opacity: 0.6;
+}
 .checkout__content form-step {
   display: none;
-  min-height: 50vh;
 }
-.checkout__content form-step:first-child {
+.checkout__content form-step:first-of-type {
   display: block;
 }
 .checkout__payment--item {

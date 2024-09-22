@@ -105,8 +105,108 @@ const Checkout = {
 			}
 		})
 	},
+	changeLabel: function(text){
+		$(".checkout__header h2").fadeOut(200, function() {
+		    $(this).html(text).fadeIn(200);
+		});
+
+		$([document.documentElement, document.body]).animate({
+	        scrollTop: $(".checkout__header h2").offset().top
+	    }, 400);
+	},
 
 	payload: {},
+
+
+	checkoutAuth: function(form){
+		// var object = this.payload;
+		// formData.forEach(function(value, key){
+		// 	object[key] = value;
+		// })
+		// this.payload = object;
+		var formData = new FormData(form);
+		const email = $('#f_auth_email').val()
+
+		if($('#f_auth_email').val() == ""){
+			message.error(form, 'Por favor, informe o seu e-mail para começar.')
+			return false;
+		}
+
+
+		if($('#f_auth_password').is(':visible')){
+			if($('#f_auth_password').val() == ""){
+				message.error(form, 'Por favor, informe a sua senha para avançar.')
+				return false;
+			}
+
+			$.ajax({
+				type: 'post',
+				data: formData,
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+				url: '/checkout/login',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						Checkout.changeLabel("Perfeito! Selecione a forma de <br />pagamento da sua preferência.")
+						Checkout.changeStep(null, '#payment')
+
+						// $('#f_email').val(data.user.email)
+						// $('#f_firstname').val(data.user.firstname)
+						// $('#f_lastname').val(data.user.lastname)
+						// $('#f_cpf').val(data.user.cpf)
+						// $('#f_birthdate').val(data.user.birthdate)
+						// $('#f_zipcode').val(data.user.zipcode)
+						
+						// $('#f_state').val(data.user.address_state)
+						// $('#f_state').trigger("change");
+
+						// $('#f_city').val(data.user.address_city)
+						// $('#f_address').val(data.user.address)
+						// $('#f_address_number').val(data.user.address_number)
+						// $('#f_neighborhood').val(data.user.address_neighborhood)
+						// $('#f_complement').val(data.user.address_complement)
+						// $('#f_cellphone').val(data.user.cellphone)
+					}else{
+						message.error(form, data.res)
+					}
+				},
+				error: function(err){
+					console.log(err)
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			});
+
+		}else{
+			$.ajax({
+				type: 'post',
+				data: formData,
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+				url: '/checkout/check-email',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1 && data.has_email == 1){
+						$('#f_auth_password').fadeIn('fast')
+						$('#f_auth_password').focus()
+						Checkout.changeLabel("Seja bem-vinda de volta! <br />Informe sua senha.")
+					}else{
+						$('#f_email').val(email)
+						Checkout.changeStep(null, '#enterpreneur')
+
+						Checkout.changeLabel("Fale um pouco mais <br/>sobre você!")
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		}
+
+
+	},
 
 
 	checkoutEnterpreneur: function(form){
@@ -117,7 +217,9 @@ const Checkout = {
 		})
 		this.payload = object;
 
-		this.changeStep('#enterpreneur', '#company')
+		Checkout.changeLabel("Perfeito! Selecione a forma de <br />pagamento da sua preferência.")
+
+		this.changeStep('#enterpreneur', '#payment')
 	},
 	checkoutCompany: function(form){
 		var object = this.payload;
@@ -155,6 +257,8 @@ const Checkout = {
 						$('#pixImage').attr("src", data.qr_code_url)
 						$('#pixField').val(data.qr_code)
 						Checkout.changeStep(null, "#checkouting-pix_pending")
+
+						Checkout.changeLabel("Agora é só fazer o pagamento do <br/>Pix abaixo e aguardar!")
 					}else{
 
 					}
@@ -167,6 +271,7 @@ const Checkout = {
 
 			},
 			error: function(err){
+				Checkout.changeStep(null, "#payment")
 				alert("Algo deu errado, verifique sua internet e tente novamente!")
 			}
 		})
@@ -195,8 +300,11 @@ const Checkout = {
 						console.log('Already Paid');
 						clearInterval(intervalId)
 						Checkout.changeStep(null, '#checkouting-pix_paid')
+
+						Checkout.changeLabel("Sucesso! Seu pagamento <br />foi confirmado.")
+
 						setTimeout(function(){
-							window.location = "/app/welcome";
+							window.location = "/app";
 						}, 7000)
 					}else{
 						console.log('Not paid yet');
