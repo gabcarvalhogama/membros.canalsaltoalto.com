@@ -109,23 +109,26 @@
 
 
 				<!-- MOBILE -->
-				<div class="post-grid-slider swiper hide-on-desktop">
-			  		<div class="swiper-wrapper">
-					<?php
-						if($posts->rowCount() > 0):
-							foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post):
-					  			echo Template::render($post, "loop_posts");
-							endforeach;
+				<div class="hide-on-desktop">
+					<div class="post-grid-slider swiper">
+				  		<div class="swiper-wrapper">
+							<?php
+								$Post = new Post;
 
-						else: ?>
-						<div class="post-grid__item">
-							<h3>Não foi possível encontrar posts.</h3>
+								$posts = $Post->getPosts();
+								if($posts->rowCount() > 0){
+									foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post){
+										echo "<div class='swiper-slide'>";
+							  			echo Template::render($post, "loop_posts");
+							  			echo "</div>";
+									}
+								}else{ ?>
+								<div class="post-grid__item">
+									<h3>Não foi possível encontrar posts.</h3>
+								</div>
+							<?php } ?>
 						</div>
-					<?php endif; ?>
-				</div>
-
-
-
+					</div>
 				</div>
 			</div>
 		</section>

@@ -1,7 +1,7 @@
 <?php
-	$router->before('GET', '/app(?!/login$).*', function(){
+	$router->before('GET', '/app(?!/(login|recover)$).*', function(){
 		$User = new User;
-		if(($User->isUserAuthenticated()) == false OR $User->isUserAMember($_SESSION["csa_email"]) == 0) die(header("Location: /app/login"));
+		if((($User->isUserAuthenticated()) == false OR $User->isUserAMember(  (isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)  ) == 0) AND !($User->isUserAdminByEmail($_SESSION["csa_email"]))) die(header("Location: /app/login"));
 	});
 	$router->mount("/app", function() use($router){
 
@@ -29,6 +29,73 @@
 					die(json_encode(["res"=>1]));
 				}else{
 					die(json_encode(["res"=>"O e-mail ou senha estão incorretos. Verifique os dados e tente novamente!"]));
+				}
+			}
+		});
+
+
+		$router->get("/recover", function(){
+			require_once "views/app/recover.php";
+		});
+
+		$router->post("/recover", function(){
+			if(empty($_POST["recover_email"])){
+				die(json_encode(["res" => "Por favor, informe o e-mail para recuperação do acesso."]));
+			}else{
+				$User = new User;
+				$user = $User->getUserByEmail($_POST["recover_email"]);
+				if($user->rowCount() == 0)
+					die(json_encode(["res" => "Desculpe, não foi possível encontrar este e-mail."]));
+				
+
+				$userData = $user->fetchObject();
+				$token = bin2hex(random_bytes(16));
+				if($User->createPasswordReset($userData->iduser, $token)){
+
+					$Comunications = new Comunications;
+
+					$subject = "Recupere o seu Acesso - Canal Salto Alto";
+					$body = "<div>
+						<h1>Recupere o seu acesso à Comunidade Canal Salto Alto</h1>
+						<p>Olá, recebemos a sua solicitação para recuperação de senha. Para prosseguir com a redefinição da sua senha, clique no botão a seguir:</p>
+						<a href='https://canalsaltoalto.com/app/recover/?token=$token'>QUERO REDEFINIR MINHA SENHA</a>
+					</div>";
+
+
+ 					$Comunications->sendEmail($userData->email, $subject, $body);
+
+					die(json_encode(["res" => 1]));
+				}else{
+					die(json_encode(["res" => "Desculpe, não foi possível recuperar a sua senha. Entre em contato com nossa equipe de suporte."]));
+				}
+
+			}
+		});
+
+		$router->post("/recover/updatepwd", function(){
+			if(empty($_POST["recovery_token"])){
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o token de recuperação."]));
+			}else if(empty($_POST["recover_password"])){
+				die(json_encode(["res" => "Por favor, informe a nova senha."]));
+			}else if(empty($_POST["recover_confirmation_password"])){
+				die(json_encode(["res" => "Por favor, confirme a sua nova senha."]));
+			}else if(strlen($_POST["recover_password"]) < 8){
+				die(json_encode(["res" => "Por favor, informe uma senha com no mínimo 8 caracteres."]));
+			}else if($_POST["recover_password"] != $_POST["recover_confirmation_password"]){
+				die(json_encode(["res" => "As senhas não conferem! Verifique os dados e tente novamente."]));
+			}else{
+				$User = new User;
+				if($User->isTokenValid($_POST["recovery_token"]) != true)
+					die(json_encode(["res" => "Desculpe, este token já expirou ou foi usado. Acesse a página de recuperação e tente novamente!"]));
+
+
+				$getToken = $User->getToken($_POST["recovery_token"])->fetchObject();
+
+				if($User->updatePassword($getToken->user_id, $_POST["recover_password"])){
+					$User->updateTokenToUsed($_POST["recovery_token"]);
+					die(json_encode(["res" => 1]));
+				}else{
+					die(json_encode(["res" => "Desculpe, não foi possível alterar a sua senha. Verifique com o suporte da plataforma e tente novamente."]));
 				}
 			}
 		});

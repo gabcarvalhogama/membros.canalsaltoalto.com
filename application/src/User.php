@@ -61,6 +61,17 @@
 		    ]);
 		}
 
+		public function updatePassword($iduser, $password){
+			$sql = DB::open()->prepare("UPDATE csa_users SET 
+		        password = :password
+		    WHERE iduser = :iduser");
+
+		    return $sql->execute([
+		        ":password" => Bcrypt::hash($password),
+		        ":iduser" => intval($iduser)
+		    ]);
+		}
+
 
 		public function getUserIdByEmail($email){
 			$sql = DB::open()->prepare("SELECT iduser FROM csa_users WHERE email = :email LIMIT 1");
@@ -165,6 +176,30 @@
 			LIMIT 1");
 			$sql->execute([
 				":iduser" => intval($iduser)
+			]);
+
+			return $sql;
+		}
+
+
+		public static function getActiveMembersCount(){
+			$sql = DB::open()->prepare("SELECT COUNT(idusermembership) as active_members_count FROM csa_users_memberships WHERE starts_at <= NOW() AND ends_at >= NOW() AND status = 'paid'");
+			$sql->execute();
+
+			return $sql->fetchObject()->active_members_count;
+		}
+
+		public static function getInactiveMembersCount(){
+			$sql = DB::open()->prepare("SELECT COUNT(idusermembership) as inactive_members_count FROM csa_users_memberships WHERE ends_at <= NOW()");
+			$sql->execute();
+
+			return $sql->fetchObject()->inactive_members_count;
+		}
+
+		public function getNextExpirationMembers($days = 15){
+			$sql = DB::open()->prepare("SELECT um.*, u.firstname, u.lastname, u.profile_photo FROM csa_users_memberships um LEFT JOIN csa_users u ON um.iduser = u.iduser WHERE um.ends_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL :days_int DAY) ORDER BY um.ends_at ASC");
+			$sql->execute([
+				":days_int" => $days
 			]);
 
 			return $sql;
@@ -377,6 +412,40 @@
 			return $sql;
 		}
 
+		public function createPasswordReset($user_id, $token){
+			$sql = DB::open()->prepare("INSERT INTO csa_users_passwords_resets () VALUES (default, :user_id, :token, DATE_ADD(NOW(), INTERVAL 2 HOUR), 0, NOW())");
+			return $sql->execute([
+				":user_id" => intval($user_id),
+				":token" => $token
+			]);
+		}
+
+		public function isTokenValid($token){
+			$sql = DB::open()->prepare("SELECT * FROM csa_users_passwords_resets WHERE used = 0 AND expires_at > NOW() AND token = :token");
+			$sql->execute([
+				":token" => $token
+			]);
+
+			return $sql->rowCount() > 0;
+		}
+
+		public function getToken($token){
+			$sql = DB::open()->prepare("SELECT * FROM csa_users_passwords_resets WHERE token = :token LIMIT 1");
+			$sql->execute([
+				":token" => $token
+			]);
+
+			return $sql;
+		}
+
+		public function updateTokenToUsed($token){
+			$sql = DB::open()->prepare("UPDATE csa_users_passwords_resets SET used = 1 WHERE token = :token");
+			$sql->execute([
+				":token" => $token
+			]);
+
+			return $sql;
+		}
 
 
 

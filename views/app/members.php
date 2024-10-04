@@ -21,6 +21,7 @@
 						$getUsers = $User->getUsers();
 						if($getUsers->rowCount() > 0):
 							foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $member):
+								if($member["firstname"] == null) continue;
 								if(in_array($member["email"], ["gabriel@hatoria.com"])) continue;
 								echo Template::render($member, "loop_members");
 							endforeach; endif; ?>

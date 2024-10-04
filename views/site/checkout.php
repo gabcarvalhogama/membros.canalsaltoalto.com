@@ -67,7 +67,7 @@
 						<div class="row mb-3">
 							<div class="col">
 								<label for="f_email" class="form-label">Seu E-mail</label>
-								<input type="email" class="form-control" id="f_email" name="f_email" placeholder="Ex.: meuemail@gmail.com" required tabindex="1" disabled />
+								<input type="email" class="form-control" id="f_email" name="f_email" placeholder="Ex.: meuemail@gmail.com" required tabindex="1" readonly />
 								<a href="javascript:void(0)" onclick="Checkout.changeStep('#enterpreneur', '#auth-email')" style="color: #000">Quero alterar meu e-mail</a>
 							</div>
 						</div>

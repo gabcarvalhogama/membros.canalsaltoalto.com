@@ -76,6 +76,55 @@ const App = {
 			}
 		})
 	},
+	recover: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+		if($(form).data("inprogress") == 1){
+			$.ajax({
+				type: 'post',
+				data: formData,
+				processData: false,
+				contentType: false,
+				url: '/app/recover/updatepwd',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						message.success(form, "Sucesso! Sua senha foi alterada com sucesso. Aguarde, você será redirecionada para entrar na conta.");
+						$(form)[0].reset()
+						setTimeout(function(){
+							window.location = "/app/login";
+						}, 7000);
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		}else{
+			$.ajax({
+				type: 'post',
+				data: formData,
+				processData: false,
+				contentType: false,
+				url: '/app/recover',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						message.success(form, "Sucesso! Acesse o seu e-mail e clique no link para verificação e alteração da sua senha.");
+						$(form)[0].reset()
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		}
+	},
 	loadCities: function(el){
 		$(el).attr("disabled");
 		$.ajax({

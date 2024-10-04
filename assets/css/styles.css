@@ -25756,7 +25756,7 @@ a {
 .btn-rose:hover, .btn-rose:active, .btn-rose:focus {
   background-color: transparent;
   border-color: #E54C8E;
-  color: #E54C8E;
+  color: #FFF !important;
 }
 
 .btn-full {

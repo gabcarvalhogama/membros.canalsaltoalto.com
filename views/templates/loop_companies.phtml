@@ -20,7 +20,7 @@
 		<div class="d-flex flex-column flex-md-row align-items-md-center align-items-start mt-2">
 			<a href="https://wa.me/55<?=$cellphone?>" target="_blank"><button class="btn btn-rose btn-rounded"><i class="fa-brands fa-whatsapp"></i> <?=$cellphone?></button></a>
 			<div class="d-flex flex-row p-2 align-items-center metas">
-				<img src="/<?=(!empty($company['profile_photo'])) ? $profile_photo : 'assets/images/default-pfp.png'?>" style="width: 20px;height: 20px;border-radius: 20px;" alt=""/>
+				<img src="/<?=(!empty($profile_photo)) ? $profile_photo : 'assets/images/default-pfp.png'?>" style="width: 20px;height: 20px;border-radius: 20px;object-fit: cover;" alt=""/>
 			<span class="p-2 d-block">by <?=$firstname." ".$lastname?></span>
 			</div>
 		</div>

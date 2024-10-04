@@ -86,11 +86,16 @@
 				die(json_encode(["res"=>"Por favor, repita sua senha.", "step" => "enterpreneur"]));
 			}else if($_POST["f_password"] != $_POST["f_rpassword"]){
 				die(json_encode(["res"=>"As senhas digitadas não combinam.", "step" => "enterpreneur"]));
-			}else if(empty($_POST["f_cnpj"])){
-				die(json_encode(["res"=>"Por favor, informe seu CNPJ para se tornar membro.", "step" => "company"]));
-			}else if(!User::validateCNPJ($_POST["f_cnpj"])){
-				die(json_encode(["res"=>"Por favor, informe um CNPJ válido para se tornar membro.", "step" => "company"]));
-			}else if(empty($_POST["f_payment_method"])){
+			}
+
+			// else if(empty($_POST["f_cnpj"])){
+			// 	die(json_encode(["res"=>"Por favor, informe seu CNPJ para se tornar membro.", "step" => "company"]));
+			// }else if(!User::validateCNPJ($_POST["f_cnpj"])){
+			// 	die(json_encode(["res"=>"Por favor, informe um CNPJ válido para se tornar membro.", "step" => "company"]));
+			// }
+
+
+			else if(empty($_POST["f_payment_method"])){
 				die(json_encode(["res"=>"Por favor, selecione uma forma de pagamento válida.", "step" => "payment"]));
 			}else{
 				if($_POST["f_payment_method"] == "cc"){
@@ -109,8 +114,8 @@
 
 				if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
 					die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur"]));
-				if($User->getUserByCPF($_POST["f_cpf"])->rowCount() > 0)
-					die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!", "step" => "enterpreneur"]));
+				// if($User->getUserByCPF($_POST["f_cpf"])->rowCount() > 0)
+					// die(json_encode(["res"=>"O CPF informado já foi utilizado. Informe um novo CPF para continuar!", "step" => "enterpreneur"]));
 				// if($User->getUserByCellphone($_POST["f_cellphone"])->rowCount() > 0)
 				// 	die(json_encode(["res"=>"O Celular informado já foi utilizado. Informe um novo Celular para continuar!", "step" => "enterpreneur"]));
 
@@ -182,7 +187,7 @@
 				if (isset($orderResponse->id)) {
 					$_SESSION["csa_order_id"] = $orderResponse->id;
 
-					$User->addMembership($user->iduser, 1, $orderResponse->id, 'pix', 297.00, null, null, 'pending');
+					$User->addMembership($user->iduser, 1, $orderResponse->id, 'pix', 199.00, null, null, 'pending');
 
 				    if ( $orderResponse->charges[0]->last_transaction->success == true ) {
 				        $qrCodeUrl = $orderResponse->charges[0]->last_transaction->qr_code_url;

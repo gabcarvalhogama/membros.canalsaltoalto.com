@@ -55,7 +55,7 @@ a{
 	&:hover, &:active, &:focus{
 		background-color: transparent;
 		border-color: $primary-color;
-		color: $primary-color;
+		color: #FFF !important;
 	}
 }
 

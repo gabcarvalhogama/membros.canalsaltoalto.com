@@ -2,8 +2,7 @@
 	
 	$router->before('GET|POST', '/admin(?!/login$).*', function(){
 		$User = new User;
-		if((($User->isUserAuthenticated()) == false OR $User->isUserAMember($_SESSION["csa_email"]) == 0) OR !$User->isUserAdminByEmail($_SESSION["csa_email"])) die(header("Location: /admin/login"));
-
+		if((($User->isUserAuthenticated()) == false OR $User->isUserAMember(  (isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)  ) == 0) AND !($User->isUserAdminByEmail($_SESSION["csa_email"]))) die(header("Location: /app/login"));
 
 	});
 
@@ -51,7 +50,7 @@
 			}else{
 				if(isset($_FILES["post_featured_image"]) AND !empty($_FILES["post_featured_image"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["post_featured_image"]["name"], 10, "jpeg,jpg,png", "post_featured_image", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["post_featured_image"]["name"], 10, "jpeg,jpg,png,webp", "post_featured_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $post_featured_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -102,7 +101,7 @@
 			}else{
 				if(isset($_FILES["post_featured_image"]) AND !empty($_FILES["post_featured_image"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["post_featured_image"]["name"], 10, "jpeg,jpg,png", "post_featured_image", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["post_featured_image"]["name"], 10, "jpeg,jpg,png,webp", "post_featured_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $post_featured_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -152,7 +151,7 @@
 
 				if(isset($_FILES["content_featured_image"]) AND !empty($_FILES["content_featured_image"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["content_featured_image"]["name"], 10, "jpeg,jpg,png", "content_featured_image", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["content_featured_image"]["name"], 10, "jpeg,jpg,png,webp", "content_featured_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $content_featured_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -202,7 +201,7 @@
 
 				if(isset($_FILES["content_featured_image"]) AND !empty($_FILES["content_featured_image"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["content_featured_image"]["name"], 10, "jpeg,jpg,png", "content_featured_image", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["content_featured_image"]["name"], 10, "jpeg,jpg,png,webp", "content_featured_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $content_featured_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -237,7 +236,7 @@
 			}else{
 				if(isset($_FILES["club_image"]) AND !empty($_FILES["club_image"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["club_image"]["name"], 10, "jpeg,jpg,png", "club_image", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["club_image"]["name"], 10, "jpeg,jpg,png,webp", "club_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $club_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -282,7 +281,7 @@
 			}else{
 				if(isset($_FILES["club_image"]) AND !empty($_FILES["club_image"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["club_image"]["name"], 10, "jpeg,jpg,png", "club_image", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["club_image"]["name"], 10, "jpeg,jpg,png,webp", "club_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $club_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -323,7 +322,7 @@
 			}else{
 				if(isset($_FILES["event_poster"]) AND !empty($_FILES["event_poster"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["event_poster"]["name"], 10, "jpeg,jpg,png", "event_poster", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["event_poster"]["name"], 10, "jpeg,jpg,png,webp", "event_poster", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $event_poster = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -378,7 +377,7 @@
 			}else{
 				if(isset($_FILES["event_poster"]) AND !empty($_FILES["event_poster"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["event_poster"]["name"], 10, "jpeg,jpg,png", "event_poster", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["event_poster"]["name"], 10, "jpeg,jpg,png,webp", "event_poster", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $event_poster = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -493,7 +492,7 @@
 					}
 
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["member_photo"]["name"], 10, "jpeg,jpg,png", "member_photo", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["member_photo"]["name"], 10, "jpeg,jpg,png,webp", "member_photo", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $member_photo = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -586,7 +585,7 @@
 					}
 
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["member_photo"]["name"], 10, "jpeg,jpg,png", "member_photo", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["member_photo"]["name"], 10, "jpeg,jpg,png,webp", "member_photo", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $member_photo = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -671,7 +670,7 @@
 
 
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["company_image"]["name"], 10, "jpeg,jpg,png", "company_image", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["company_image"]["name"], 10, "jpeg,jpg,png,webp", "company_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $company_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -759,7 +758,7 @@
 
 		    	if(isset($_FILES["company_image"]) AND !empty($_FILES["company_image"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["company_image"]["name"], 10, "jpeg,jpg,png", "company_image", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["company_image"]["name"], 10, "jpeg,jpg,png,webp", "company_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $company_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -894,7 +893,7 @@
 		    // }
 
 		    // Verify extension
-		    if (!in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("gif", "jpg", "png", "jpeg"))) {
+		    if (!in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("gif", "jpg", "png", "jpeg", "webp"))) {
 		        header("HTTP/1.1 400 Invalid extension.");
 		        return;
 		    }
