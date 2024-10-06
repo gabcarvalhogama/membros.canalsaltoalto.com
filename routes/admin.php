@@ -802,6 +802,13 @@
 		});
 
 
+
+
+		$router->get("/companies/approves", function(){
+			require "views/admin/companies-approves.php";
+		});
+
+
 		#/admin/publis
 		$router->get("/publis", function(){
 			require "views/admin/publis.php";

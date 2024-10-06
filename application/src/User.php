@@ -371,6 +371,41 @@
 			return $sql;
 		}
 
+		public function getActiveUsers($limit = null){
+			$sql = DB::open()->prepare("SELECT 
+			    u.iduser, 
+			    u.firstname, 
+			    u.lastname, 
+			    u.profile_photo, 
+			    u.biography,
+			    u.cpf, 
+			    u.birthdate, 
+			    u.zipcode, 
+			    u.address_state, 
+			    u.address_city, 
+			    u.address, 
+			    u.address_number, 
+			    u.address_neighborhood, 
+			    u.address_complement, 
+			    u.cellphone, 
+			    u.email, 
+			    u.user_type, 
+			    u.created_at, 
+			    u.updated_at,
+			    (SELECT COUNT(company_id) FROM csa_companies c WHERE c.iduser = u.iduser) as company_counter,
+			    (SELECT COUNT(idusermembership) FROM csa_users_memberships um WHERE um.iduser = u.iduser AND um.status = 'paid' AND um.ends_at > NOW()) as is_member
+
+			FROM 
+			    csa_users u	
+                
+            HAVING is_member > 0 AND user_type = 0
+
+			ORDER BY u.firstname ASC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
+			$sql->execute();
+
+			return $sql;
+		}
+
 
 		public function getLastUsersWithMembership($limit = null){
 			$sql = DB::open()->prepare("SELECT 
@@ -404,7 +439,7 @@
 			LEFT JOIN 
 			    csa_memberships m ON um.membership_id = m.membership_id
 
-			WHERE um.status = 'paid'
+			WHERE um.status = 'paid' AND u.user_type = 0
 
 			ORDER BY um.starts_at DESC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
 			$sql->execute();

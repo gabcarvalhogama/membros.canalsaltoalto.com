@@ -17,7 +17,7 @@
 				<div class="companies-list">
 				<?php
 			  		$Company = new Company;
-			  		$companies = $Company->getCompaniesByOwner($user_id);
+			  		$companies = $Company->getCompaniesByOwnerAndStatus($user_id, 1);
 			  		if($companies->rowCount() > 0):
 			  			foreach($companies->fetchAll(PDO::FETCH_ASSOC) as $company):
 			  				echo Template::render($company, "loop_companies");

@@ -22,7 +22,7 @@
 				<div class="companies-list mt-3">
 				<?php
 			  		$Company = new Company;
-			  		$companies = $Company->getCompanies();
+			  		$companies = $Company->getCompaniesByStatus(1);
 			  		if($companies->rowCount() > 0):
 			  			foreach($companies->fetchAll(PDO::FETCH_ASSOC) as $company):
 			  				echo Template::render($company, "loop_companies");

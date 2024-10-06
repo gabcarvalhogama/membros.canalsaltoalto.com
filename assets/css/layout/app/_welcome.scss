@@ -1,0 +1,15 @@
+.app__welcome{
+	padding: 30px;
+	color: #FFF;
+	&--box{
+		text-align: center;
+		max-width: 590px;
+	}
+	&--logo{
+		width: 250px;
+	}
+
+	form{
+		text-align: left;
+	}
+}

@@ -59,6 +59,18 @@ a{
 	}
 }
 
+.btn-rose-light{
+	background-color: $primary-color;
+	transition: all 400ms;
+	border: solid 1px transparent;
+	&:hover, &:active, &:focus{
+		background-color: transparent;
+		border-color: $primary-color;
+		color: $primary-color !important;
+	}
+}
+
+
 .btn-full{
 	padding: 10px;
 	display: block;

@@ -109,6 +109,17 @@
 			require_once "views/app/welcome.php";
 		});
 
+		
+		$router->get("/welcome/new-company", function(){
+
+			require_once "views/app/welcome-new-company.php";
+		});
+		
+		$router->get("/welcome/success", function(){
+
+			require_once "views/app/welcome-success.php";
+		});
+
 
 		$router->get("/contents", function(){
 
@@ -151,9 +162,12 @@
 		        die(json_encode(["res" => "Por favor, informe o nome da empresa!"]));
 		    }else if (empty($_POST["company_description"])) {
 		        die(json_encode(["res" => "Por favor, informe a descrição da empresa!"]));
-		    }else if (empty($_FILES["company_image"]["name"])) {
-		        die(json_encode(["res" => "Por favor, envie uma imagem para a empresa!"]));
-		    }else if (empty($_POST["cellphone"])) {
+		    }
+		    // else if (empty($_FILES["company_image"]["name"])) {
+		    //     die(json_encode(["res" => "Por favor, envie uma imagem para a empresa!"]));
+		    // }
+
+		    else if (empty($_POST["cellphone"])) {
 		        die(json_encode(["res" => "Por favor, informe o celular!"]));
 		    }else if (isset($_POST["has_place"]) && $_POST["has_place"] == 'on') {
 		        if (empty($_POST["address_zipcode"])) {
@@ -185,7 +199,8 @@
 					if($Upin->res === true) $company_image = "uploads/".date("Y\/m\/").$Upin->json[0];
 					else die(json_encode(["res"=>"Por favor, envie uma imagem de destaque válida."]));
 				}else{
-					die(json_encode(["res" => "Por favor, envie uma imagem de destaque."]));
+					// die(json_encode(["res" => "Por favor, envie uma imagem de destaque."]));
+					$company_image = null;
 				}
 
 		    	$Company = new Company;

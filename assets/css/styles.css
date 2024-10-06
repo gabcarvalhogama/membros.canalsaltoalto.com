@@ -25759,6 +25759,17 @@ a {
   color: #FFF !important;
 }
 
+.btn-rose-light {
+  background-color: #E54C8E;
+  transition: all 400ms;
+  border: solid 1px transparent;
+}
+.btn-rose-light:hover, .btn-rose-light:active, .btn-rose-light:focus {
+  background-color: transparent;
+  border-color: #E54C8E;
+  color: #E54C8E !important;
+}
+
 .btn-full {
   padding: 10px;
   display: block;
@@ -26470,6 +26481,20 @@ label, .form-label {
 }
 .app .adbanner img {
   width: 100%;
+}
+.app .app__welcome {
+  padding: 30px;
+  color: #FFF;
+}
+.app .app__welcome--box {
+  text-align: center;
+  max-width: 590px;
+}
+.app .app__welcome--logo {
+  width: 250px;
+}
+.app .app__welcome form {
+  text-align: left;
 }
 .app .app__events {
   margin-top: 2rem;

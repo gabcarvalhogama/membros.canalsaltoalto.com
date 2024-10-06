@@ -18,7 +18,7 @@
 					<?php
 						$User = new User;
 
-						$getUsers = $User->getUsers();
+						$getUsers = $User->getActiveUsers();
 						if($getUsers->rowCount() > 0):
 							foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $member):
 								if($member["firstname"] == null) continue;
