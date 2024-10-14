@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
 		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
 
-		<?php include(__DIR__."/../templates/head-tags.phtml"); ?>
+		<?=Template::render(null, "head-tags")?>
 	</head>
 	<body class="site">
 		<?=Template::render(null, "header_site")?>

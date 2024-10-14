@@ -1,15 +1,19 @@
 <?php
 	require_once "application/autoload.php";
 
-	define("PATH", "http://canalsaltoalto.local/");
+	define("PATH", "https://canalsaltoalto.com/");
 
 	if (session_status() == PHP_SESSION_NONE) session_start();
 
 	$User = new User;
-	if($User->isUserAuthenticated() AND $User->isUserAMember($_SESSION["csa_email"]))
+	// if((($User->isUserAuthenticated()) == false OR $User->isUserAMember((isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)  ) == 0) AND !($User->isUserAdminByEmail($_SESSION["csa_email"]))){
+
+	if($User->isUserAuthenticated()){
 		$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
-	else
-		$user = [];
+	}
+	else{
+		$user = (object) [];
+	}
 
 	define("USER", $user);
 

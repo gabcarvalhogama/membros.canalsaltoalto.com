@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
 		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
 
+		
+		<?=Template::render(null, "head-tags")?>
 	</head>
 	<body class="admin">
 
@@ -50,7 +52,7 @@
 						<div class="row">
 							<div class="col mb-3">
 								<label for="event_datetime" class="form-label">Data do Evento <span class="text-danger">*</span></label>
-								<input type="text" name="event_datetime" id="event_datetime" class="form-control" data-mask="00/00/0000 00:00" value="<?=date('d/m/Y H:i', strtotime($event->event_datetime))?>" required />
+								<input type="text" name="event_datetime" id="event_datetime" class="form-control" data-mask="00/00/0000 00:00" placeholder="DD/MM/AAAA HH:MM"  value="<?=date('d/m/Y H:i', strtotime($event->event_datetime))?>" required />
 							</div>
 						</div>
 

@@ -102,7 +102,8 @@
 			    u.address_complement, 
 			    u.cellphone, 
 			    u.email, 
-			    u.user_type
+			    u.user_type,
+			    (SELECT COUNT(company_id) FROM csa_companies WHERE iduser = u.iduser) as company_counter
 			FROM 
 			    csa_users u
 			WHERE u.email = :email
@@ -276,13 +277,14 @@
 	    }
 
 
-	    public function addMembership($iduser, $membership_id, $order_id, $payment_method, $payment_value, $starts_at, $ends_at, $status){
-	    	$sql = DB::open()->prepare("INSERT INTO csa_users_memberships() VALUES (default, :iduser, :membership_id, :order_id, :payment_method, :payment_value, :starts_at, :ends_at, :status)");
+	    public function addMembership($iduser, $membership_id, $order_id, $coupon_id, $payment_method, $payment_value, $starts_at, $ends_at, $status){
+	    	$sql = DB::open()->prepare("INSERT INTO csa_users_memberships() VALUES (default, :iduser, :membership_id, :order_id, :coupon_id, :payment_method, :payment_value, :starts_at, :ends_at, :status, NOW())");
 
 	    	return $sql->execute([
 	    		":iduser" => intval($iduser),
 	    		":membership_id" => intval($membership_id),
 	    		":order_id" => $order_id,
+	    		":coupon_id" => $coupon_id,
 	    		":payment_method" => $payment_method,
 	    		":payment_value" => $payment_value,
 	    		":starts_at" => $starts_at,

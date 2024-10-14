@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
 		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
 
+		
+		<?=Template::render(null, "head-tags")?>
 	</head>
 	<body class="app">
 

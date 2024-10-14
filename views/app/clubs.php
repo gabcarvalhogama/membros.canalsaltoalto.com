@@ -6,7 +6,8 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
 		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
-
+		
+		<?=Template::render(null, "head-tags")?>
 	</head>
 	<body class="app">
 		<?=Template::render(null, "header_app")?>

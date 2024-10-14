@@ -145,7 +145,7 @@
 				$_SESSION["csa_password"] = $_POST["f_password"];
 			}
 		}else{
-			// no needing for check fields emptynesses
+			// no needing for check fields emptynesses 'cause user is already authenticated
 			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
 		}
 
@@ -164,6 +164,8 @@
                 ]
         	],
 		];
+
+		$coupon_id = null;
 
 		switch($_POST["f_payment_method"]){
 			case "pix":
@@ -187,11 +189,14 @@
 				if (isset($orderResponse->id)) {
 					$_SESSION["csa_order_id"] = $orderResponse->id;
 
-					$User->addMembership($user->iduser, 1, $orderResponse->id, 'pix', 199.00, null, null, 'pending');
+					$User->addMembership($user->iduser, 1, $orderResponse->id, $coupon_id, 'pix', 199.00, null, null, 'pending');
 
 				    if ( $orderResponse->charges[0]->last_transaction->success == true ) {
 				        $qrCodeUrl = $orderResponse->charges[0]->last_transaction->qr_code_url;
 				        $qrCode = $orderResponse->charges[0]->last_transaction->qr_code;
+
+
+
 				        die(json_encode(["res" => 1, "qr_code" => $qrCode, "qr_code_url" => $qrCodeUrl, "order_id" => $orderResponse->id]));
 				    } else {
 				    	die(json_encode(["res" => "Desculpe, não foi possível gerar o QR Code.", "step" => "payment"]));
@@ -247,12 +252,12 @@
 						$ends_at = $dateTime->format('Y-m-d H:i:s');
 
 
-						$User->addMembership($user->iduser, 1, $orderResponse->id, 'credit_card', 238.00, $paid_at, $ends_at, 'paid');
+						$User->addMembership($user->iduser, 1, $orderResponse->id, $coupon_id, 'credit_card', 238.00, $paid_at, $ends_at, 'paid');
 
 
 				        die(json_encode(["res" => 1, "order_id" => $orderResponse->id]));
 					}else if($orderResponse->charges[0]->status == 'pending'){
-						$User->addMembership($user->iduser, 1, $orderResponse->id, 'credit_card', 238.00, null, null, '');
+						$User->addMembership($user->iduser, 1, $orderResponse->id, $coupon_id, 'credit_card', 238.00, null, null, '');
 
 				        die(json_encode(["res" => 1, "order_id" => $orderResponse->id]));
 					}else{

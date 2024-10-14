@@ -2,7 +2,7 @@
 	
 	$router->before('GET|POST', '/admin(?!/login$).*', function(){
 		$User = new User;
-		if((($User->isUserAuthenticated()) == false OR $User->isUserAMember(  (isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)  ) == 0) AND !($User->isUserAdminByEmail($_SESSION["csa_email"]))) die(header("Location: /app/login"));
+		if((($User->isUserAuthenticated()) == false OR $User->isUserAMember(  (isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)  ) == 0) AND ($User->isUserAdminByEmail($_SESSION["csa_email"]) == false)) die(header("Location: /admin/login"));
 
 	});
 
@@ -319,7 +319,11 @@
 			    die(json_encode(["res" => "Por favor, envie uma imagem em destaque para o evento."]));
 			}else if (empty($_POST["event_datetime"])){
 			    die(json_encode(["res" => "Por favor, informe a data e hora do evento."]));
-			}else{
+			}
+			// else if(!DateTime::createFromFormat('d/m/Y H:i', $_POST["event_datetime"])->format('Y-m-d H:i')){
+			//     die(json_encode(["res" => "Por favor, informe uma data e hora VÁLIDAS para o evento."]));
+			// }
+			else{
 				if(isset($_FILES["event_poster"]) AND !empty($_FILES["event_poster"]["name"])){
 					$Upin = new Upin;
 					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["event_poster"]["name"], 10, "jpeg,jpg,png,webp", "event_poster", 1);

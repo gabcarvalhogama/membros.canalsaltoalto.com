@@ -1,13 +1,18 @@
 <?php
 	$router->before('GET', '/app(?!/(login|recover)$).*', function(){
 		$User = new User;
-		if((($User->isUserAuthenticated()) == false OR $User->isUserAMember(  (isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)  ) == 0) AND !($User->isUserAdminByEmail($_SESSION["csa_email"]))) die(header("Location: /app/login"));
+		if((($User->isUserAuthenticated()) == false OR $User->isUserAMember(  (isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)  ) == 0) AND ($User->isUserAdminByEmail($_SESSION["csa_email"]) == false)) die(header("Location: /app/login"));
 	});
 	$router->mount("/app", function() use($router){
 
 		
 
 		$router->get("/", function() {
+			// if(USER->)
+			// var_dump(USER);
+			if(intval(USER->company_counter) == 0)
+				header("Location: /app/welcome/new-company");
+
 			require_once "views/app/index.php";
 		});
 
@@ -54,15 +59,20 @@
 
 					$Comunications = new Comunications;
 
-					$subject = "Recupere o seu Acesso - Canal Salto Alto";
-					$body = "<div>
+					$email_title = "Recupere o seu Acesso - Canal Salto Alto";
+					$content = "<div>
 						<h1>Recupere o seu acesso à Comunidade Canal Salto Alto</h1>
 						<p>Olá, recebemos a sua solicitação para recuperação de senha. Para prosseguir com a redefinição da sua senha, clique no botão a seguir:</p>
 						<a href='https://canalsaltoalto.com/app/recover/?token=$token'>QUERO REDEFINIR MINHA SENHA</a>
 					</div>";
+					$email_content = Template::render([
+						"email_title" => $email_title,
+						"email_content" => $content 
+					], "email_general");
 
 
- 					$Comunications->sendEmail($userData->email, $subject, $body);
+
+ 					$Comunications->sendEmail($userData->email, $email_title, $email_content);
 
 					die(json_encode(["res" => 1]));
 				}else{
@@ -162,25 +172,8 @@
 		        die(json_encode(["res" => "Por favor, informe o nome da empresa!"]));
 		    }else if (empty($_POST["company_description"])) {
 		        die(json_encode(["res" => "Por favor, informe a descrição da empresa!"]));
-		    }
-		    // else if (empty($_FILES["company_image"]["name"])) {
-		    //     die(json_encode(["res" => "Por favor, envie uma imagem para a empresa!"]));
-		    // }
-
-		    else if (empty($_POST["cellphone"])) {
+		    }else if (empty($_POST["cellphone"])) {
 		        die(json_encode(["res" => "Por favor, informe o celular!"]));
-		    }else if (isset($_POST["has_place"]) && $_POST["has_place"] == 'on') {
-		        if (empty($_POST["address_zipcode"])) {
-		            die(json_encode(["res" => "Por favor, informe o CEP!"]));
-		        }else if (empty($_POST["address_state"])) {
-		            die(json_encode(["res" => "Por favor, informe o estado!"]));
-		        }else if (empty($_POST["address_city"])) {
-		            die(json_encode(["res" => "Por favor, informe a cidade!"]));
-		        }else if (empty($_POST["address"])) {
-		            die(json_encode(["res" => "Por favor, informe o endereço!"]));
-		        }else if (empty($_POST["address_number"])) {
-		            die(json_encode(["res" => "Por favor, informe o número do endereço!"]));
-		        }
 		    }else if (!empty($_POST["instagram_url"]) && !filter_var($_POST["instagram_url"], FILTER_VALIDATE_URL)) {
 		        die(json_encode(["res" => "Por favor, informe uma URL válida para o Instagram!"]));
 		    }
@@ -190,6 +183,19 @@
 		    else if (!empty($_POST["facebook_url"]) && !filter_var($_POST["facebook_url"], FILTER_VALIDATE_URL)) {
 		        die(json_encode(["res" => "Por favor, informe uma URL válida para o Facebook!"]));
 		    }else{
+		    	if (isset($_POST["has_place"]) && $_POST["has_place"] == 'on') {
+			        if (empty($_POST["address_zipcode"])) {
+			            die(json_encode(["res" => "Por favor, informe o CEP!"]));
+			        }else if (empty($_POST["address_state"])) {
+			            die(json_encode(["res" => "Por favor, informe o estado!"]));
+			        }else if (empty($_POST["address_city"])) {
+			            die(json_encode(["res" => "Por favor, informe a cidade!"]));
+			        }else if (empty($_POST["address"])) {
+			            die(json_encode(["res" => "Por favor, informe o endereço!"]));
+			        }else if (empty($_POST["address_number"])) {
+			            die(json_encode(["res" => "Por favor, informe o número do endereço!"]));
+			        }
+			    }
 
 		    	if(isset($_FILES["company_image"]) AND !empty($_FILES["company_image"]["name"])){
 					$Upin = new Upin;

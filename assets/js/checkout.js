@@ -304,7 +304,7 @@ const Checkout = {
 						Checkout.changeLabel("Sucesso! Seu pagamento <br />foi confirmado.")
 
 						setTimeout(function(){
-							window.location = "/app";
+							window.location = "/app/welcome";
 						}, 7000)
 					}else{
 						console.log('Not paid yet');

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><?=$email_title?></title>
+    <style>
+        /* Reset styles for some clients */
+        body { margin: 0; padding: 0; }
+        img { display: block; }
+        table { border-collapse: collapse; }
+    </style>
+</head>
+<body style="background-color:#f4f4f4; margin: 0; padding: 0;">
+    <!-- Wrapper Table for Email Content -->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#f4f4f4;">
+        <tr>
+            <td align="center">
+                <!-- Main Table -->
+                <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color:#000;">
+                    <!-- Header Section -->
+                    <tr>
+                        <td align="center" style="padding: 20px 0;">
+                            <img src="https://canalsaltoalto.com/assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" height="50" style="display:block;">
+                        </td>
+                    </tr>
+                    <!-- Main Content Section -->
+                    <tr style="background-color: #FFF">
+                        <td style="padding: 20px; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #333;">
+                            <?=$email_content?>
+                        </td>
+                    </tr>
+                    <!-- Footer Section -->
+                    <tr>
+                        <td align="center" style="padding: 20px; background-color: #333333; color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;">
+                            <p style="margin: 0;">&copy; 2024 Canal Salto Alto. Todos os Direitos Reservados.</p>
+                            <p><small>Você está recebendo este e-mail porque é uma membro do Canal Salto Alto. Para remover seu e-mail da nossa lista, acesse sua conta e mude as preferências de comunicação.</small></p>
+                            <!-- <p style="margin: 0;"><a href="https://example.com/unsubscribe" style="color: #ffffff; text-decoration: underline;">Unsubscribe</a></p> -->
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

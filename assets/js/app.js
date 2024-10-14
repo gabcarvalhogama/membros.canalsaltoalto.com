@@ -138,14 +138,14 @@ const App = {
 					data.cities.forEach(function(item, index){
 						html += `<option value="${item.idcity}">${item.city}</option>`;
 					})
-					$('#f_city').html(html);
+					$('#address_city').html(html);
 				}else{
 
 				}
 
 				$(el).removeAttr("disabled")
 
-				$('#f_city').removeAttr("disabled")
+				$('#address_city').removeAttr("disabled")
 			},
 			error: function(err){
 				alert("Algo deu errado, verifique sua internet e tente novamente!")
@@ -248,7 +248,7 @@ const App = {
 			dataType: 'json',
 			success: function(data){
 				if(data.res == 1){
-					window.location = '/app/welcome/sucess';
+					window.location = '/app/welcome/success';
 				}else{
 					message.error(form, data.res);
 				}

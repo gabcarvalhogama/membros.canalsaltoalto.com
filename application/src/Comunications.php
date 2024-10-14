@@ -5,6 +5,7 @@
 
 	class Comunications{
 
+
 		public function sendEmail($destination, $subject, $body){
 
 			//Create an instance; passing `true` enables exceptions

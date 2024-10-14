@@ -281,4 +281,15 @@
 
 			return $sql;
 		}
+
+
+		// public function userHasCompany($email){
+
+		// 	$sql = DB::open()->prepare("SELECT company_id FROM csa_companies WHERE iduser = (SELECT iduser FROM csa_users WHERE email = :email)");
+		// 	$sql->execute([
+		// 		":email" => 
+		// 	]);
+
+
+		// }
 	}

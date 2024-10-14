@@ -7,6 +7,8 @@
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
 		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
 
+		
+		<?=Template::render(null, "head-tags")?>
 	</head>
 	<body class="admin">
 
@@ -44,8 +46,8 @@
 								<input type="file" name="event_poster" id="event_poster" class="form-control" accept="image/*" required />
 							</div>
 							<div class="col-md-6 mb-3">
-								<label for="event_datetime" class="form-label">Data do Evento <span class="text-danger">*</span></label>
-								<input type="text" name="event_datetime" id="event_datetime" class="form-control" data-mask="00/00/0000 00:00" required />
+								<label for="event_datetime" class="form-label">Data e Hora do Evento <span class="text-danger">*</span></label>
+								<input type="text" name="event_datetime" id="event_datetime" class="form-control" data-mask="00/00/0000 00:00"  placeholder="DD/MM/AAAA HH:MM" required />
 							</div>
 						</div>
 
