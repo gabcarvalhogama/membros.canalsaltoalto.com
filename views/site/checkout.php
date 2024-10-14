@@ -37,7 +37,7 @@
 						</div>
 						<div class="flex flex-column" style="margin-left: 10px;">
 							<h4 class="font-weight-bold">Acesso de 1 (um) ano à Comunidade Salto Alto</h4>
-							<p class="d-flex flex-row align-items-center font-weight-bold">R$ 199,00 à vista <br /><small style="margin-left: 10px;color: rgb(150,150,150);">ou 12x de R$ 19,90</small></p>
+							<p class="d-flex flex-row align-items-center font-weight-bold">R$ <span id="priceAvistaValueSelector">199,00</span> à vista <br /><small style="margin-left: 10px;color: rgb(150,150,150);">ou 12x de R$ 19,90</small></p>
 						</div>
 					</div>
 				</div>
@@ -56,7 +56,7 @@
 						</div>
 						<div class="row">
 							<div class="col">
-								<button class="btn btn-rose btn-next">AVANÇAR PARA PRÓXIMA ETAPA</buton>
+								<button class="btn btn-rose-light btn-next">AVANÇAR PARA PRÓXIMA ETAPA</buton>
 							</div>
 						</div>
 					</form>
@@ -167,137 +167,31 @@
 
 						<div class="row">
 							<div class="col">
-								<button class="btn btn-rose btn-next">AVANÇAR PARA PRÓXIMA ETAPA</buton>
+								<button class="btn btn-rose-light btn-next">AVANÇAR PARA PRÓXIMA ETAPA</buton>
 							</div>
 						</div>
 					</form>
 				</form-step>
 
-				<!-- # Sobre Sua Empresa -->
-				<!-- <form-step id="company">
-					<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutCompany(this)">
+
+				<form-step id="coupon">
+					<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutCoupon(this)" id="checkoutCouponForm">
 						<div class="message"></div>
-						<div class="row mb-3">
+						<div class="row">
 							<div class="col">
-								<label for="f_cnpj" class="form-label">Seu CNPJ</label>
-								<input type="text" class="form-control" id="f_cnpj" name="f_cnpj" placeholder="00.000.000/0000-00" data-mask="00.000.000/0000-00" />
+								<input type="text" class="form-control" id="f_coupon" name="f_coupon" placeholder="Digite seu Cupom de Desconto" required tabindex="2" />
 							</div>
+							<!-- <div class="col-md-4">
+								<a href="javascript:void(0)" class="btn btn-rose-light" onclick="Checkout.checkCoupon(document.getElementById('f_coupon').value)">APLICAR</a>
+							</div> -->
 						</div>
-
-						<div class="row">
-							<div class="col mb-3">
-								<label for="company_name" class="form-label">Nome da empresa</label>
-								<input type="text" class="form-control" id="company_name" name="company_name" placeholder="Escreva aqui o título do conteúdo." required />
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col mb-3">
-								<label for="company_description" class="form-label">Descrição da Empresa</label>
-								<textarea name="company_description" id="company_description" class="form-control"></textarea>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col mb-3">
-								<label for="company_image">Imagem em destaque</label>
-								<input type="file" name="company_image" id="company_image" class="form-control" accept="image/*" />
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col mb-3">
-								<input type="checkbox" name="has_place" id="has_place" onchange="$('address_group').toggle()" /> <label for="has_place">A empresa tem um endereço físico.</label>
-							</div>
-						</div>
-
-						<address_group style="display: none;">
-						<div class="row">
-							<div class="col mb-3">
-								<label for="address_zipcode">CEP</label>
-								<input type="text" class="form-control" id="address_zipcode" name="address_zipcode" data-mask="00.000-000" />
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6 mb-3">
-								<label for="address_state" class="form-label">Estado</label>
-								<select name="address_state" id="address_state" class="form-control address-fields" onchange="Checkout.loadCities(this)">
-									<option value="">Selecione uma opção</option>
-									<?php
-										foreach(User::getStates()->fetchAll(PDO::FETCH_ASSOC) as $state)
-											echo '<option value="'.$state["idstate"].'" data-uf="'.$state["uf"].'"  >'.$state["state"].'</option>';
-									?>
-								</select>
-							</div>
-							<div class="col-md-6 mb-3">
-								<label for="address_city" class="form-label address-fields">Cidade</label>
-								<select name="address_city" id="address_city" class="form-control">
-									<option value="">Selecione um estado</option>
-								</select>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-8 mb-3">
-								<label for="address" class="form-label address-fields">Endereço</label>
-								<input type="text" class="form-control" id="address" name="address" placeholder="Av., Rua, etc." />
-							</div>
-							<div class="col-md-4 mb-3">
-								<label for="address_number" class="form-label address-fields">Número</label>
-								<input type="text" class="form-control" id="address_number" name="address_number" placeholder="" />
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6 mb-3">
-								<label for="address_neighborhood" class="form-label address-fields">Seu Bairro</label>
-								<input type="text" class="form-control" id="address_neighborhood" name="address_neighborhood" placeholder="" />
-							</div>
-							<div class="col-md-6 mb-3">
-								<label for="address_complement" class="form-label address-fields">Complemento</label>
-								<input type="text" class="form-control" id="address_complement" name="address_complement" placeholder="" />
-							</div>
-						</div>
-						</address_group>
-
-						<div class="row">
-							<div class="col mb-3">
-								<label for="cellphone" class="form-label">Celular</label>
-								<input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="" />
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-6 mb-3">
-								<label for="instagram_url" class="form-label">Instagram</label>
-								<input type="text" class="form-control" id="instagram_url" name="instagram_url" placeholder="https://instagram.com/username" />
-							</div>
-							<div class="col-md-6 mb-3">
-								<label for="site_url" class="form-label">Site</label>
-								<input type="text" class="form-control" id="site_url" name="site_url" placeholder="https://site.com" />
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col mb-3">
-								<label for="facebook_url" class="form-label">Facebook</label>
-								<input type="text" class="form-control" id="facebook_url" name="facebook_url" placeholder="" />
-							</div>
-						</div>
-
-
-
-						<div class="row">
-							<div class="col-md-6">
-								<a href="javascript:void(0)" onclick="Checkout.changeStep(null, '#enterpreneur')" class="btn btn-prev">VOLTAR</a>
-							</div>
-							<div class="col-md-6">
-								<button class="btn btn-rose btn-next">AVANÇAR PARA PRÓXIMA ETAPA</button>
+						<div class="row mt-3">
+							<div class="col">
+								<button type="submit" class="btn btn-rose-light"><i class="fa-solid fa-lock"></i> AVANÇAR PARA PRÓXIMA ETAPA</button>
 							</div>
 						</div>
 					</form>
-				</form-step> -->
+				</form-step>
 
 				<!-- # Pagamento -->
 				<form-step id="payment">
@@ -368,7 +262,7 @@
 
 						<div class="row">
 							<div class="col">
-								<button type="submit" class="btn btn-rose finish-checkout"><i class="fa-solid fa-lock"></i> FINALIZE SUA COMPRA</button>
+								<button type="submit" class="btn btn-rose-light finish-checkout"><i class="fa-solid fa-lock"></i> FINALIZE SUA COMPRA</button>
 							</div>
 						</div>
 					</form>
@@ -394,7 +288,7 @@
 
 						<p><small>Ou clique no botão para copiar o Pix Copia e Cola</small></p>
 						<input type="text"  value="" id="pixField" />
-						<button onclick="Checkout.copyPix()" class="btn-rose btn-rounded" style="border: none">Copiar Pix Copia e Cola</button>
+						<button onclick="Checkout.copyPix()" class="btn-rose-light btn-rounded" style="border: none">Copiar Pix Copia e Cola</button>
 					</div>
 				</form-step>
 
@@ -417,7 +311,7 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<!-- <script src="https://checkout.pagar.me/v1/tokenizecard.js" data-pagarmecheckout-app-id="pk_test_ZgALAN5IKBH50K1N"></script> -->
-		<script type="text/javascript" src="<?=PATH?>assets/js/checkout.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/checkout.js?<?=uniqid()?>"></script>
 		<!-- <script type="text/javascript">
 			function success(data) {
         	};

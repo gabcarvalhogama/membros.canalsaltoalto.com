@@ -148,6 +148,17 @@
 							</div>
 						</div>
 
+						<div class="row">
+							<div class="col mb-3">
+								<label for="status" class="form-label">Status da Empresa</label>
+								<select name="status" id="status" class="form-control" required>
+									<option value="0" <?=($company->status == "0") ? "selected" : ""?> >Desativada</option>
+									<option value="1" <?=($company->status == "1") ? "selected" : ""?>>Ativada</option>
+									<option value="2" <?=($company->status == "2") ? "selected" : ""?>>Pendente</option>
+								</select>
+							</div>
+						</div>
+
 						<div>
 							<input type="submit" value="Atualizar empresa" class="btn btn-rose btn-medium btn-full btn-rounded" />
 						</div>

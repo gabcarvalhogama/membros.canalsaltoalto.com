@@ -336,7 +336,19 @@
 		}
 
 		public function getUsers($limit = null){
-			$sql = DB::open()->prepare("SELECT 
+			$sql = DB::open()->prepare("WITH memberships AS (
+			    SELECT 
+			        um.iduser, 
+			        um.starts_at, 
+			        um.ends_at, 
+			        m.membership_title,
+			        ROW_NUMBER() OVER (PARTITION BY um.iduser ORDER BY um.starts_at DESC) AS rn
+			    FROM 
+			        csa_users_memberships um
+			    LEFT JOIN 
+			        csa_memberships m ON um.membership_id = m.membership_id
+			)
+			SELECT 
 			    u.iduser, 
 			    u.firstname, 
 			    u.lastname, 
@@ -356,18 +368,16 @@
 			    u.user_type, 
 			    u.created_at, 
 			    u.updated_at,
-			    um.starts_at, 
-			    um.ends_at,
+			    m.starts_at, 
+			    m.ends_at,
 			    m.membership_title,
-			    (SELECT COUNT(company_id) FROM csa_companies c WHERE c.iduser = u.iduser) as company_counter
+			    (SELECT COUNT(company_id) FROM csa_companies c WHERE c.iduser = u.iduser) AS company_counter
 			FROM 
 			    csa_users u
 			LEFT JOIN 
-			    csa_users_memberships um ON u.iduser = um.iduser
-			LEFT JOIN 
-			    csa_memberships m ON um.membership_id = m.membership_id
-
-			ORDER BY u.firstname ASC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
+			    memberships m ON u.iduser = m.iduser AND m.rn = 1
+			ORDER BY 
+			    u.firstname ASC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
 			$sql->execute();
 
 			return $sql;

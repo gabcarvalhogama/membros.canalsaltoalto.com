@@ -117,6 +117,15 @@ const Checkout = {
 
 	payload: {},
 
+	processData: function(form){
+		var object = this.payload;
+		var formData = new FormData(form);
+		formData.forEach(function(value, key){
+			object[key] = value;
+		})
+		this.payload = object;
+	},
+
 
 	checkoutAuth: function(form){
 		// var object = this.payload;
@@ -149,25 +158,8 @@ const Checkout = {
 				dataType: 'json',
 				success: function(data){
 					if(data.res == 1){
-						Checkout.changeLabel("Perfeito! Selecione a forma de <br />pagamento da sua preferência.")
+						Checkout.changeLabel("Perfeito! Se você tiver um cupom de desconto, informe abaixo.")
 						Checkout.changeStep(null, '#payment')
-
-						// $('#f_email').val(data.user.email)
-						// $('#f_firstname').val(data.user.firstname)
-						// $('#f_lastname').val(data.user.lastname)
-						// $('#f_cpf').val(data.user.cpf)
-						// $('#f_birthdate').val(data.user.birthdate)
-						// $('#f_zipcode').val(data.user.zipcode)
-						
-						// $('#f_state').val(data.user.address_state)
-						// $('#f_state').trigger("change");
-
-						// $('#f_city').val(data.user.address_city)
-						// $('#f_address').val(data.user.address)
-						// $('#f_address_number').val(data.user.address_number)
-						// $('#f_neighborhood').val(data.user.address_neighborhood)
-						// $('#f_complement').val(data.user.address_complement)
-						// $('#f_cellphone').val(data.user.cellphone)
 					}else{
 						message.error(form, data.res)
 					}
@@ -204,8 +196,6 @@ const Checkout = {
 				}
 			})
 		}
-
-
 	},
 
 
@@ -217,19 +207,38 @@ const Checkout = {
 		})
 		this.payload = object;
 
-		Checkout.changeLabel("Perfeito! Selecione a forma de <br />pagamento da sua preferência.")
+		Checkout.changeLabel("Perfeito! Se você tiver um cupom de desconto, informe abaixo.")
 
 		this.changeStep('#enterpreneur', '#payment')
 	},
-	checkoutCompany: function(form){
-		var object = this.payload;
-		var formData = new FormData(form);
-		formData.forEach(function(value, key){
-			object[key] = value;
-		})
-		this.payload = object;
 
-		this.changeStep(null, '#payment')
+
+	checkoutCoupon: function(form){
+		this.processData(form)
+		$(form).addClass("inactive")
+		message.warning(form, "Verificando cupom, aguarde...");
+
+		// $.ajax({
+		// 	type: 'post',
+		// 	data: formData,
+  //           contentType: false,
+  //           cache: false,
+  //           processData:false,
+		// 	url: '/checkout/check-coupon',
+		// 	dataType: 'json',
+		// 	success: function(data){
+		// 		if(data.res == 1){
+					
+		// 		}else{
+		// 			message.error(form, data.res)
+		// 		}
+		// 	},
+		// 	error: function(err){
+		// 		console.log(err)
+		// 		message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+		// 	}
+		// });
+
 	},
 	checkoutPayment: function(form){
 		// $(form).addClass("inactive")

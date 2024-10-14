@@ -738,18 +738,6 @@
 		        die(json_encode(["res" => "Por favor, informe a descrição da empresa!"]));
 		    }else if (empty($_POST["cellphone"])) {
 		        die(json_encode(["res" => "Por favor, informe o celular!"]));
-		    }else if (isset($_POST["has_place"]) && $_POST["has_place"] == 'on') {
-		        if (empty($_POST["address_zipcode"])) {
-		            die(json_encode(["res" => "Por favor, informe o CEP!"]));
-		        }else if (empty($_POST["address_state"])) {
-		            die(json_encode(["res" => "Por favor, informe o estado!"]));
-		        }else if (empty($_POST["address_city"])) {
-		            die(json_encode(["res" => "Por favor, informe a cidade!"]));
-		        }else if (empty($_POST["address"])) {
-		            die(json_encode(["res" => "Por favor, informe o endereço!"]));
-		        }else if (empty($_POST["address_number"])) {
-		            die(json_encode(["res" => "Por favor, informe o número do endereço!"]));
-		        }
 		    }else if (!empty($_POST["instagram_url"]) && !filter_var($_POST["instagram_url"], FILTER_VALIDATE_URL)) {
 		        die(json_encode(["res" => "Por favor, informe uma URL válida para o Instagram!"]));
 		    }
@@ -759,6 +747,20 @@
 		    else if (!empty($_POST["facebook_url"]) && !filter_var($_POST["facebook_url"], FILTER_VALIDATE_URL)) {
 		        die(json_encode(["res" => "Por favor, informe uma URL válida para o Facebook!"]));
 		    }else{
+
+		    	if (isset($_POST["has_place"]) && $_POST["has_place"] == 'on') {
+			        if (empty($_POST["address_zipcode"])) {
+			            die(json_encode(["res" => "Por favor, informe o CEP!"]));
+			        }else if (empty($_POST["address_state"])) {
+			            die(json_encode(["res" => "Por favor, informe o estado!"]));
+			        }else if (empty($_POST["address_city"])) {
+			            die(json_encode(["res" => "Por favor, informe a cidade!"]));
+			        }else if (empty($_POST["address"])) {
+			            die(json_encode(["res" => "Por favor, informe o endereço!"]));
+			        }else if (empty($_POST["address_number"])) {
+			            die(json_encode(["res" => "Por favor, informe o número do endereço!"]));
+			        }
+			    }
 
 		    	if(isset($_FILES["company_image"]) AND !empty($_FILES["company_image"]["name"])){
 					$Upin = new Upin;
@@ -773,6 +775,8 @@
 					else
 						$company_image = $_POST["actual_company_image"];
 				}
+
+				$status = (isset($_POST["status"])) ? intval($_POST["status"]) : 2;
 
 		    	$Company = new Company;
 
@@ -795,7 +799,7 @@
 				    ($_POST["instagram_url"]) ?? $_POST["instagram_url"],
 				    ($_POST["site_url"]) ?? $_POST["site_url"],
 				    ($_POST["facebook_url"]) ?? $_POST["facebook_url"],
-				    1
+				    $status
 		    	))
 		    		die(json_encode(["res" => 1]));
 		    	else
