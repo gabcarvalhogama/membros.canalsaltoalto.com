@@ -31,12 +31,13 @@
 						<div class="row">
 							<div class="col mb-3">
 								<label for="notice_content" class="form-label">Conteúdo do Aviso</label>
-								<textarea name="notice_content" id="notice_content" class="form-control" placeholder="Escreva aqui seu aviso."></textarea>
+								<textarea name="notice_content" id="notice_content" class="form-control" placeholder="Escreva aqui seu aviso." maxlength="350"></textarea>
+								<small>Aviso: limite de 350 caracteres.</small>
 							</div>
 						</div>
 
 
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-md-6 mb-3">
 								<label for="notice_status" class="form-label">Status</label>
 								<select name="notice_status" id="notice_status" class="form-control" required>
@@ -48,7 +49,7 @@
 								<label for="notice_publish_date" class="form-label">Data de Publicação</label>
 								<input type="text" name="notice_publish_date" id="notice_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="Imediato" />
 							</div>
-						</div>
+						</div> -->
 
 						<div>
 							<input type="submit" value="Cadastrar aviso" class="btn btn-rose" />
@@ -62,26 +63,19 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/tinymce/tinymce.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
-		<script type="text/javascript">
+		<!-- <script type="text/javascript">
 			
 			tinymce.init({
 				selector: 'textarea#notice_content',
 				license_key: 'gpl',
 			   	promotion: false,
-			   	plugins: 'image, link, lists code',
-			   	toolbar: 'undo redo code | styles | bold italic | numlist bullist | link image | link',
+			   	plugins: 'link, lists code',
+			   	toolbar: 'undo redo code | styles | bold italic | numlist bullist | link',
 			   	menubar: false,
 		       	language: 'pt_BR',
-	         	images_upload_url: '<?=PATH?>upload/image',
-         	  	images_upload_base_path: '/',
-         	  	relative_urls: false,
-				remove_script_host: false,
-         	  	image_dimensions: false,
-         	  	image_class_list: [
-		            {title: 'Responsive', value: 'img-responsive'}
-		        ]
+				remove_script_host: false
 			});
 
-		</script>	
+		</script>	 -->
 	</body>
 </html>

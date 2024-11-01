@@ -263,6 +263,8 @@ const App = {
 		$(form).addClass("inactive")
 		message.warning(form, "Carregando, aguarde...");
 		var formData = new FormData(form);
+
+		formData.append("publi_image", $('#publi_image')[0].files[0]);
 		
 		$.ajax({
 			type: 'post',

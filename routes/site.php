@@ -16,6 +16,10 @@
 		require "views/site/quem-somos.php";
 	});
 
+	$router->get("/menu", function(){
+		require "views/site/menu.php";
+	});
+
 
 	$router->get("/post/{slug}", function($post_slug){
 		$Post = new Post;

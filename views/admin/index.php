@@ -24,7 +24,7 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col">
-										<h5 class="card-title text-muted mb-0">Membros Ativos</h5>
+										<h5 class="card-title text-muted mb-0"><a href="/admin/members/active" style="color: #000">Membros Ativos</a></h5>
 										<span class="h2 font-weight-bold mb-0"><?=User::getActiveMembersCount()?></span>
 									</div>
 									<div class="col-auto">
@@ -45,7 +45,7 @@
 			    		<div class="card-body">
 			    			<div class="row">
 			    				<div class="col">
-			    					<h5 class="card-title text-muted mb-0">Membros Inativos</h5>
+			    					<h5 class="card-title text-muted mb-0"><a href="/admin/members/inactive" style="color: #000">Membros Inativos</a></h5>
 			    					<span class="h2 font-weight-bold mb-0"><?=User::getInactiveMembersCount()?></span>
 			    				</div>
 			    				<div class="col-auto">

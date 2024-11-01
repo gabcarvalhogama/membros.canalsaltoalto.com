@@ -2,6 +2,6 @@
 	<div class="notices__item--date"><span><?=date("d/m/Y \à\s H:i", strtotime($published_at))?></span></div>
 	<h3><?=$notice_title?></h3>
 	<p>
-		<?=substr($notice_content, 0, 150)?>...
+		<?=$notice_content?>...
 	</p>
 </div>

@@ -28,7 +28,9 @@
 			FROM 
 			    csa_companies c
 			LEFT JOIN 
-			    csa_users u ON c.iduser = u.iduser;");
+			    csa_users u ON c.iduser = u.iduser
+
+			    ORDER BY c.company_name ASC;");
 
 			$sql->execute();
 
@@ -292,4 +294,12 @@
 
 
 		// }
+
+		public function delete($company_id){
+		    $sql = DB::open()->prepare("DELETE FROM csa_companies WHERE company_id = :company_id");
+		    return $sql->execute([
+		        ":company_id" => intval($company_id)
+		    ]);
+		}
+
 	}

@@ -9,5 +9,13 @@
 			return $sql;
 		}
 
+		public function getMembershipsByUser($iduser){
+			$sql = DB::open()->prepare("SELECT * FROM csa_users_memberships WHERE iduser = :iduser LIMIT 1");
+			$sql->execute([
+				":iduser" => $iduser
+			]);
+			return $sql;
+		}
+
 
 	}

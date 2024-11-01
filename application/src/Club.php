@@ -56,4 +56,12 @@
 		}
 
 
+		public function delete($club_id){
+			$sql = DB::open()->prepare("DELETE FROM csa_clubs WHERE club_id = :club_id");
+			return $sql->execute([
+				":club_id" => intval($club_id)
+			]);
+		}
+
+
 	}

@@ -50,6 +50,17 @@
 								<textarea name="publi_content" id="publi_content" class="form-control"><?=$publi->publi_content?></textarea>
 							</div>
 						</div>
+
+						<div class="row">
+							<div class="col mb-3">
+								<label for="publi_status">Status da Publi</label>
+								<select name="publi_status" id="publi_status" class="publi_status form-control">
+									<option value="0" <?=($publi->publi_status == 0) ? 'selected' : '' ?>>Pendente de Aprovação</option>
+									<option value="1" <?=($publi->publi_status == 1) ? 'selected' : '' ?>>Aprovada</option>
+									<option value="2" <?=($publi->publi_status == 2) ? 'selected' : '' ?>>Reprovada</option>
+								</select>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col mb-3 text-center">
 								<input type="submit" value="Atualizar Publi" class="btn btn-rose btn-medium btn-full" />

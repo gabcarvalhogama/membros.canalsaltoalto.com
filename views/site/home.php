@@ -17,6 +17,12 @@
 			<div class="swiper swiper_hero">
 			  <div class="swiper-wrapper">
 			    <div class="swiper-slide">
+			    	<a href="https://forms.gle/P2qjAyqLjwEvfYW16" target="_blank">
+			    		<img src="<?=PATH?>uploads/2024/10/banner-premio-1600x572.jpeg" class="site__hero--image d-none d-md-block" />
+			    		<img src="<?=PATH?>uploads/2024/10/banner-premio-850x1100.jpeg" class="site__hero--image d-block d-md-none" />
+			    	</a>
+			    </div>
+			    <div class="swiper-slide">
 			    	<a href="https://www.youtube.com/playlist?list=PL7QAaleeNYRztUZvoBAdVH4Oq239rjNnb" target="_blank">
 			    		<img src="<?=PATH?>uploads/2024/08/site-banner-salto-alto-pod.png" class="site__hero--image d-none d-md-block" />
 			    		<img src="<?=PATH?>uploads/2024/08/BANNER-MOBILE-425x425.png" class="site__hero--image d-block d-md-none" />
@@ -29,7 +35,7 @@
 			    	</a>
 			    </div>
 			    <div class="swiper-slide">
-			    	<a href="https://membros.canalsaltoalto.com/" target="_blank">
+			    	<a href="https://canalsaltoalto.com/app/login" target="_blank">
 			    		<img src="<?=PATH?>uploads/2024/08/site-banner-seja-membro.jpg" class="site__hero--image d-none d-md-block" />
 			    		<img src="<?=PATH?>uploads/2024/08/Banner-2-mobile.jpg" class="site__hero--image d-block d-md-none" />
 			    	</a>
@@ -62,7 +68,7 @@
 			<div class="container-xl">
 				<div class="d-flex flex-column flex-md-row flex-wrap justify-content-between">
 					<div class="banner-item">
-						<a href="https://membros.canalsaltoalto.com/" target="_blank"><img src="<?=PATH?>uploads/2024/07/banner-plataforma-membros.jpg" alt="" style="width: 100%;"></a>
+						<a href="https://canalsaltoalto.com/app" target="_blank"><img src="<?=PATH?>uploads/2024/07/banner-plataforma-membros.jpg" alt="" style="width: 100%;"></a>
 					</div>
 					<div class="banner-item">
 						<a href="https://www.youtube.com/c/CanalSaltoAlto" target="_blank"><img src="<?=PATH?>uploads/2024/07/banner-canal-youtube.jpg" alt="" style="width: 100%;"></a>

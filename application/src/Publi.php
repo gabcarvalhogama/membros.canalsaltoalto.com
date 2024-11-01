@@ -1,13 +1,14 @@
 <?php
 	class Publi{
-		public function create($publi_title, $publi_content, $publi_status, $user_id){
+		public function create($publi_title, $publi_content, $publi_image = null, $publi_status, $user_id){
 			$sql = DB::open()->prepare("INSERT INTO 
 				csa_publis () 
 				VALUES 
-				(default, :publi_title, :publi_content, :publi_status, :user_id, NOW(), NOW(), null)");
+				(default, :publi_title, :publi_content, :publi_image, :publi_status, :user_id, NOW(), NOW(), null)");
 			return $sql->execute([
 				":publi_title" => ucfirst(trim($publi_title)),
 				":publi_content" => ucfirst(trim($publi_content)),
+				":publi_image" => trim($publi_image),
 				":publi_status" => intval($publi_status),
 				":user_id" => intval($user_id)
 			]);
@@ -41,7 +42,7 @@
 			    csa_users.profile_photo 
 			FROM 
 			    csa_publis 
-			JOIN 
+			LEFT JOIN 
 			    csa_users 
 			ON 
 			    csa_publis.user_id = csa_users.iduser 
@@ -63,7 +64,7 @@
 			    csa_users.profile_photo 
 			FROM 
 			    csa_publis 
-			JOIN 
+			LEFT JOIN 
 			    csa_users 
 			ON 
 			    csa_publis.user_id = csa_users.iduser 

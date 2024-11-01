@@ -259,6 +259,35 @@
 			return (($sql->rowCount() > 0));
 	    }
 
+	    public function isMemberEligibleForRenewallDiscount($email){
+	    	$sql = DB::open()->prepare("SELECT
+            um.iduser,
+            um.membership_id,
+            um.starts_at,
+            um.ends_at,
+            um.status,
+	            CASE
+	                -- Verifica se o usuário foi um membro ativo nos últimos 30 dias
+	                WHEN um.ends_at BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW() THEN TRUE
+	                ELSE FALSE
+	            END AS was_recently_valid_member
+	        FROM
+	            csa_users_memberships um
+	        LEFT JOIN
+	            csa_users u ON u.iduser = um.iduser
+	        WHERE
+	            u.email = :email
+	        LIMIT 1;");
+			$sql->execute([
+				":email" => filter_var($email, FILTER_VALIDATE_EMAIL)
+			]);
+
+			$result = $sql->fetch(PDO::FETCH_ASSOC);
+		    
+		    // Verifica se o membro foi ativo nos últimos 30 dias
+		    return ($result && $result['was_recently_valid_member'] == TRUE);
+	    }
+
 	    public function getPasswordByEmail($email){
 	        $sql = DB::open()->prepare("SELECT password FROM csa_users WHERE email = :email  
 	            LIMIT 1");
@@ -383,7 +412,7 @@
 			return $sql;
 		}
 
-		public function getActiveUsers($limit = null){
+		public function getInactiveUsers($limit = null){
 			$sql = DB::open()->prepare("SELECT 
 			    u.iduser, 
 			    u.firstname, 
@@ -410,7 +439,49 @@
 			FROM 
 			    csa_users u	
                 
-            HAVING is_member > 0 AND user_type = 0
+            HAVING is_member < 1 AND user_type = 0
+
+			ORDER BY u.firstname ASC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
+			$sql->execute();
+
+			return $sql;
+		}
+
+
+
+		public function getActiveUsers($limit = null){
+			$sql = DB::open()->prepare("SELECT 
+			    u.iduser, 
+			    u.firstname, 
+			    u.lastname, 
+			    u.profile_photo, 
+			    u.biography,
+			    u.cpf, 
+			    u.birthdate, 
+			    u.zipcode, 
+			    u.address_state, 
+			    u.address_city, 
+			    u.address, 
+			    u.address_number, 
+			    u.address_neighborhood, 
+			    u.address_complement, 
+			    u.cellphone, 
+			    u.email, 
+			    u.user_type, 
+			    u.created_at, 
+			    u.updated_at,
+			    um.starts_at, 
+			    um.ends_at,
+			    m.membership_title,
+			    (SELECT COUNT(company_id) FROM csa_companies c WHERE c.iduser = u.iduser AND status = 1) as company_counter
+			FROM 
+			    csa_users u
+			LEFT JOIN 
+			    csa_users_memberships um ON u.iduser = um.iduser AND um.ends_at > NOW()
+			LEFT JOIN 
+			    csa_memberships m ON um.membership_id = m.membership_id
+
+			WHERE um.status = 'paid' AND u.user_type = 0 AND um.ends_at > NOW()
 
 			ORDER BY u.firstname ASC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
 			$sql->execute();

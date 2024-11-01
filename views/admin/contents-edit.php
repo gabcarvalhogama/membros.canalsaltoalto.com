@@ -57,7 +57,7 @@
 						<div class="row">
 							<!-- <div class="col-md-6 mb-3">
 								<label for="content_status" class="form-label">Status</label>
-								<select name="content_status" id="content_status" class="form-control" required data-selected="<?=$content->status?>">
+								<select name="content_status" id="content_status" class="form-control" required data-selected="">
 									<option value="0">Rascunho</option>
 									<option value="1">Publicado</option>
 								</select>
@@ -69,8 +69,9 @@
 						</div>
 						<input type="hidden" name="content_id" id="content_id" value="<?=$content_id?>">
 
-						<div>
-							<input type="submit" value="Atualizar conteúdo" class="btn btn-rose btn-medium" />
+						<div class="d-flex flex-row align-items-center">
+							<input type="submit" value="Atualizar conteúdo" class="btn btn-rose" />
+							<a href="javascript:void(0)" style="margin-left:  20px;color: #000" onclick="Admin.deleteContent(<?=$content_id?>)">Apagar postagem</a>
 						</div>
 					</form>
 				</div>
@@ -80,7 +81,7 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/tinymce/tinymce.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js?<?=uniqid()?>"></script>
 		<script type="text/javascript">
 			
 			tinymce.init({

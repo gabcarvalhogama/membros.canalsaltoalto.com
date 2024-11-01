@@ -41,9 +41,12 @@
 								<input type="file" name="club_image" id="club_image" class="form-control" accept="image/*" data-actualimage="<?=$club->club_image?>" />
 							</div>
 						</div>
-						<div class="row">
+						<div class="row align-items-center">
 							<div class="col mb-3 text-center">
 								<input type="submit" value="Atualizar Clube" class="btn btn-rose btn-medium btn-full btn-rounded" />
+							</div>
+							<div class="col mb-3">
+								<a href="javascript:void(0)" style="margin-left:  20px;color: #000" onclick="Club.delete(<?=$club->club_id?>)">Apagar Clube</a>
 							</div>
 						</div>
 						<input type="hidden" name="club_id" id="club_id" value="<?=$club->club_id?>" />
@@ -55,7 +58,7 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/tinymce/tinymce.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js?<?=uniqid()?>"></script>
 		<script type="text/javascript">
 			
 			tinymce.init({

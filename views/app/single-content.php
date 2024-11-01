@@ -71,7 +71,7 @@
 										<button class="btn btn-rose">Postar comentário</button>
 									</div>
 								</div>
-								<input type="hidden" name="post_id" value="<?=$object->post_id?>" />
+								<input type="hidden" name="post_id" value="<?=$object->idcontent?>" />
 							</form>
 
 

@@ -149,6 +149,52 @@
 			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
 		}
 
+		// Membership Price
+		$aVistaPrice = 199;
+		$cartaoPrice = 238.80;
+
+		$isMemberEligibleForRenewallDiscount = $User->isMemberEligibleForRenewallDiscount($user->iduser);
+
+
+		$coupon_id = null;
+		if(!empty($_POST["f_coupon"])){
+
+			$Coupon = new Coupon;
+
+			$coupon = $Coupon->getCouponByCode($_POST["f_coupon"]);
+
+			if($coupon->rowCount() == 0)
+				die(json_encode(["res" => "Desculpe, o cupom informado não foi encontrado."]));
+
+			$couponObj = $coupon->fetchObject();
+
+			// if($couponObj->expiration_date )
+			$current_date = new DateTime();
+
+			// Convertendo a string recebida do MySQL para um objeto DateTime
+			$expiration_date_obj = new DateTime($couponObj->expiration_date);
+
+			if ($current_date > $expiration_date_obj)
+				die(json_encode(["res" => "Desculpe, o cupom informado já expirou."]));
+
+
+			if($couponObj->discount_type == "percent"){
+				$aVistaPrice = ($aVistaPrice*(1-($couponObj->discount_value/100)));
+				$cartaoPrice = ($cartaoPrice*(1-($couponObj->discount_value/100)));
+			}else{
+				$aVistaPrice = ($aVistaPrice - $couponObj->discount_value);
+				$cartaoPrice = ($cartaoPrice - $couponObj->discount_value);
+			}
+		}
+
+
+		if(empty($user->cellphone)){
+			$phone_number = "27996959895";
+		}else{
+			$phone_number = $user->cellphone;
+		}
+
+
 		$Checkout = new Checkout();
 		$customerData = [
 		    'name' => $user->firstname . " ".$user->lastname,
@@ -159,18 +205,17 @@
 		    'phones' => [
                 'home_phone' => [
                     'country_code' => '55',
-                    'area_code' => substr($user->cellphone, 0, 2),
-                    'number' => substr($user->cellphone, 2)
+                    'area_code' => substr($phone_number, 0, 2),
+                    'number' => substr($phone_number, 2)
                 ]
         	],
 		];
 
-		$coupon_id = null;
 
 		switch($_POST["f_payment_method"]){
 			case "pix":
 				$itemData = [
-				    'amount' => 19900,
+				    'amount' => str_replace(".", "", number_format($aVistaPrice, 2, '.', '')),
 				    'quantity' => 1,
 				    'description' => 'Membro CSA - Anual'
 				];
@@ -186,10 +231,11 @@
 
 				$orderResponse = $Checkout->createOrder($customerData, $paymentMethod, $itemData);
 
+
 				if (isset($orderResponse->id)) {
 					$_SESSION["csa_order_id"] = $orderResponse->id;
 
-					$User->addMembership($user->iduser, 1, $orderResponse->id, $coupon_id, 'pix', 199.00, null, null, 'pending');
+					$User->addMembership($user->iduser, 1, $orderResponse->id, $coupon_id, 'pix', $aVistaPrice, null, null, 'pending');
 
 				    if ( $orderResponse->charges[0]->last_transaction->success == true ) {
 				        $qrCodeUrl = $orderResponse->charges[0]->last_transaction->qr_code_url;
@@ -202,13 +248,13 @@
 				    	die(json_encode(["res" => "Desculpe, não foi possível gerar o QR Code.", "step" => "payment"]));
 				    }
 				} else {
-			    	die(json_encode(["res" => "Erro ao criar o pedido:" . $orderResponse->message,  "step" => "payment"]));
+			    	die(json_encode(["res" => "Erro ao criar o pedido:" . $orderResponse->message,  "step" => "payment", $orderResponse]));
 				}
 			break;
 
 			case "credit_card":
 				$itemData = [
-				    'amount' => 23880,
+				    'amount' => str_replace(".", "", number_format($cartaoPrice, 2, '.', '')),
 				    'quantity' => 1,
 				    'description' => 'Comunidade - Canal Salto Alto (1 ano)',
 				    'code' => 0
@@ -252,12 +298,12 @@
 						$ends_at = $dateTime->format('Y-m-d H:i:s');
 
 
-						$User->addMembership($user->iduser, 1, $orderResponse->id, $coupon_id, 'credit_card', 238.00, $paid_at, $ends_at, 'paid');
+						$User->addMembership($user->iduser, 1, $orderResponse->id, $coupon_id, 'credit_card', $cartaoPrice, $paid_at, $ends_at, 'paid');
 
 
 				        die(json_encode(["res" => 1, "order_id" => $orderResponse->id]));
 					}else if($orderResponse->charges[0]->status == 'pending'){
-						$User->addMembership($user->iduser, 1, $orderResponse->id, $coupon_id, 'credit_card', 238.00, null, null, '');
+						$User->addMembership($user->iduser, 1, $orderResponse->id, $coupon_id, 'credit_card', $cartaoPrice, null, null, '');
 
 				        die(json_encode(["res" => 1, "order_id" => $orderResponse->id]));
 					}else{
@@ -274,6 +320,39 @@
 			default:
 				die(json_encode(["res" => "Por favor, selecione uma forma de pagamento válida.", "step" => "payment"]));
 				exit;
+		}
+	});
+
+
+	$router->post("/checkout/check-coupon", function(){
+		if(empty($_POST["f_coupon"])){
+			die(json_encode(["res" => "Desculpe, o cupom enviado é inválido."]));
+		}else{
+			$Coupon = new Coupon;
+
+			$coupon = $Coupon->getCouponByCode($_POST["f_coupon"]);
+
+			if($coupon->rowCount() == 0)
+				die(json_encode(["res" => "Desculpe, o cupom informado não foi encontrado."]));
+
+			$couponObj = $coupon->fetchObject();
+
+			// if($couponObj->expiration_date )
+			$current_date = new DateTime();
+
+			// Convertendo a string recebida do MySQL para um objeto DateTime
+			$expiration_date_obj = new DateTime($couponObj->expiration_date);
+
+			if ($current_date > $expiration_date_obj)
+				die(json_encode(["res" => "Desculpe, o cupom informado já expirou."]));
+
+
+			die(json_encode(["res" => 1, "coupon" => [ 
+				"code" => $couponObj->code,
+				"discount_type" => $couponObj->discount_type,
+				"discount_value" => $couponObj->discount_value,
+				"expiration_date" => $couponObj->expiration_date
+			]]));
 		}
 	});
 

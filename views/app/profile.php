@@ -78,7 +78,7 @@
 							<div class="row mb-3">
 								<div class="col-md-6">
 									<label for="f_zipcode" class="form-label">CEP</label>
-									<input type="text" class="form-control" id="f_zipcode" name="f_zipcode" placeholder="Digite seu CEP" required data-mask="00.000-000" onkeyup="Checkout.getCep(this)"  value="<?=$user->zipcode?>" />
+									<input type="text" class="form-control" id="f_zipcode" name="f_zipcode" placeholder="Digite seu CEP" required data-mask="00.000-000"  value="<?=$user->zipcode?>" />
 								</div>
 								<div class="col-md-6 d-flex align-items-end">
 									<a href="" class="dont-know-cep">Não sei meu CEP</a>

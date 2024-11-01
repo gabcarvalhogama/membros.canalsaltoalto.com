@@ -156,8 +156,8 @@ const Admin = {
 		var formData = new FormData();
 
 		formData.append("notice_title", $('#notice_title').val())
-		formData.append("notice_content", tinyMCE.get()[0].getContent());
-		
+		formData.append("notice_content", $('#notice_content').val());
+			
 		$.ajax({
 			type: 'post',
 			data: formData,
@@ -250,6 +250,32 @@ const Admin = {
 			}
 		})
 	},
+
+	deleteContent: function(content_id){
+		if(confirm("Você realmente deseja apagar este conteúdo?") != true)
+			return false;
+
+		$.ajax({
+			type: 'post',
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/contents/delete/'+content_id,
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					window.location = '/admin/contents'
+					alert("Sucesso! O seu conteúdo foi apagado definitivamente.");
+				}else{
+					alert(data.res);
+				}
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!")
+				console.log(err)
+			}
+		})
+	}
 };
 
 Admin.init()
@@ -322,6 +348,32 @@ const Club = {
 				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
 			}
 		})
+	},
+
+	delete: function(club_id){
+		if(confirm("Você realmente deseja apagar este clube?") != true)
+			return false;
+
+		$.ajax({
+			type: 'post',
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/clubs/delete/'+club_id,
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					alert("Sucesso! O seu CLUBE foi apagado definitivamente.");
+					window.location = '/admin/clubs'
+				}else{
+					alert(data.res);
+				}
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!")
+				console.log(err)
+			}
+		})
 	}
 }
 
@@ -386,6 +438,33 @@ const Companies = {
 			}
 		})
 	},
+
+
+	delete: function(company_id){
+		if(confirm("Você realmente deseja apagar esta empresa?") != true)
+			return false;
+
+		$.ajax({
+			type: 'post',
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/companies/delete/'+company_id,
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					window.location = '/admin/companies'
+					alert("Sucesso! A empresa foi apagada definitivamente.");
+				}else{
+					alert(data.res);
+				}
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!")
+				console.log(err)
+			}
+		})
+	}
 
 
 }

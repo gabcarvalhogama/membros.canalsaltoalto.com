@@ -55,6 +55,12 @@
 		}
 
 
+		public function delete($content_id){
+			$sql = DB::open()->prepare("DELETE FROM csa_contents WHERE idcontent = :content_id");
+			return $sql->execute([":content_id" => intval($content_id)]);
+		}
+
+
 
 
 		public function getContents($limit = 12){

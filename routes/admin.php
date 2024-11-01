@@ -219,6 +219,17 @@
 					die(json_encode(["res" => "Não foi possível atualizar este conteúdo. Atualize a página e tente novamente!"]));
 			}
 		});
+		$router->post("/contents/delete/{content_id}", function($content_id){
+			if(empty($content_id)){
+				die(json_encode(["res" => "Desculpe, não foi possível apagar este conteúdo."]));
+			}else{
+				$Content = new Content;
+				if($Content->delete($content_id))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Não foi possível apagar este conteúdo. Atualize a página e tente novamente!"]));
+			}
+		});
 
 
 		# /clubs
@@ -296,6 +307,18 @@
 					die(json_encode(["res" => 1]));
 				else
 					die(json_encode(["res"=>"Desculpe, não foi possivel atualizar este clube. Atualize a página e tente novamente!"]));
+			}
+		});
+
+		$router->post("/clubs/delete/{club_id}", function($club_id){
+			if(empty($club_id)){
+				die(json_encode(["res" => "Desculpe, não foi possível apagar este clube."]));
+			}else{
+				$Club = new Club;
+				if($Club->delete($club_id))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Não foi possível apagar este clube. Atualize a página e tente novamente!"]));
 			}
 		});
 
@@ -623,6 +646,29 @@
 			}
 		});
 
+		$router->get("/members/view/{user_id}", function($user_id){
+			$User = new User;
+			$getUser = $User->getUserById($user_id);
+
+			if($getUser->rowCount() == 0){
+				header("Location: /admin/members");
+				exit;
+			}
+
+			$user = $getUser->fetchObject();
+
+
+			require "views/admin/members-view.php";
+		});
+
+
+		$router->get("/members/inactive", function(){
+			require "views/admin/members-inactive.php";
+		});
+
+		$router->get("/members/active", function(){
+			require "views/admin/members-active.php";
+		});
 
 
 
@@ -810,6 +856,26 @@
 		});
 
 
+		$router->post("/companies/delete/{company_id}", function($company_id){
+		    if (empty($company_id)) {
+		        die(json_encode(["res" => "Desculpe, não foi possível apagar esta empresa."]));
+		    } else {
+		        $Company = new Company;
+		        
+		        // Verifica se a empresa existe
+		        $company = $Company->getCompanyById($company_id);
+		        if ($company->rowCount() === 0) {
+		            die(json_encode(["res" => "Empresa não encontrada."]));
+		        }
+		        
+		        // Tenta deletar a empresa
+		        if ($Company->delete($company_id)) {
+		            die(json_encode(["res" => 1]));
+		        } else {
+		            die(json_encode(["res" => "Não foi possível apagar esta empresa. Atualize a página e tente novamente!"]));
+		        }
+		    }
+		});
 
 
 		$router->get("/companies/approves", function(){
@@ -873,6 +939,12 @@
 			}else if(empty(trim($_POST["publi_content"]))){
 				die(json_encode(["res" => "Por favor, informe um conteúdo para a publi."]));
 			}else{
+
+				if(empty($_POST["publi_status"]))
+					$publi_status = 0;
+				else
+					$publi_status = intval($_POST["publi_status"]);
+
 				$Publi = new Publi;
 
 				if($Publi->update($publi_id, $_POST["publi_title"], $_POST["publi_content"], $_POST["publi_creator"]))
@@ -880,6 +952,10 @@
 				else
 					die(json_encode(["res" => "Desculpe, não foi possível atualizar a publi."]));
 			}
+		});
+
+		$router->get("/publis/approves", function(){
+			require "views/admin/publis-approves.php";
 		});
 
 		$router->get("/logout", function(){
@@ -892,10 +968,10 @@
 	$router->post("/upload/image", function(){
   		// $accepted_origins = array("http://localhost", "http://192.168.1.1", "http://example.com");
 
+		
 		$imageFolder = "uploads/".date("Y\/m\/");
-		if (!is_dir($imageFolder)) {
-		    mkdir($imageFolder, 0755, true);
-		}
+
+		if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
 
   		reset ($_FILES);
   		$temp = current($_FILES);

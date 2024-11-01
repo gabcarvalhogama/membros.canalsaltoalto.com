@@ -159,7 +159,8 @@ const Checkout = {
 				success: function(data){
 					if(data.res == 1){
 						Checkout.changeLabel("Perfeito! Se você tiver um cupom de desconto, informe abaixo.")
-						Checkout.changeStep(null, '#payment')
+						// Checkout.changeLabel("Perfeito! Agora é hora de realizar o pagamento.")
+						Checkout.changeStep(null, '#coupon')
 					}else{
 						message.error(form, data.res)
 					}
@@ -181,7 +182,7 @@ const Checkout = {
 				dataType: 'json',
 				success: function(data){
 					if(data.res == 1 && data.has_email == 1){
-						$('#f_auth_password').fadeIn('fast')
+						$('#f_auth_password, #f_auth_password_forgot').fadeIn('fast')
 						$('#f_auth_password').focus()
 						Checkout.changeLabel("Seja bem-vinda de volta! <br />Informe sua senha.")
 					}else{
@@ -209,36 +210,87 @@ const Checkout = {
 
 		Checkout.changeLabel("Perfeito! Se você tiver um cupom de desconto, informe abaixo.")
 
-		this.changeStep('#enterpreneur', '#payment')
+		this.changeStep('#enterpreneur', '#coupon')
+	},
+
+	updateInstallments: function(new_value){
+		var html = `<option value="1">À vista (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="2">2x de R$ ${(new_value/2).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="3">3x de R$ ${(new_value/3).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="4">4x de R$ ${(new_value/4).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="5">5x de R$ ${(new_value/5).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="6">6x de R$ ${(new_value/6).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="7">7x de R$ ${(new_value/7).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="8">8x de R$ ${(new_value/8).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="9">9x de R$ ${(new_value/9).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="10">10x de R$ ${(new_value/10).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="11">11x de R$ ${(new_value/11).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
+                    <option value="12">12x de R$ ${(new_value/12).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>`;
+
+                  $('#f_cc_installments').html(html)
+
 	},
 
 
 	checkoutCoupon: function(form){
-		this.processData(form)
+		var formData = new FormData(form);
+
+
 		$(form).addClass("inactive")
+
+		if($('#f_coupon').val() == ""){
+					Checkout.changeStep(null, "#payment")
+			return false;
+		}
+
 		message.warning(form, "Verificando cupom, aguarde...");
 
-		// $.ajax({
-		// 	type: 'post',
-		// 	data: formData,
-  //           contentType: false,
-  //           cache: false,
-  //           processData:false,
-		// 	url: '/checkout/check-coupon',
-		// 	dataType: 'json',
-		// 	success: function(data){
-		// 		if(data.res == 1){
-					
-		// 		}else{
-		// 			message.error(form, data.res)
-		// 		}
-		// 	},
-		// 	error: function(err){
-		// 		console.log(err)
-		// 		message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
-		// 	}
-		// });
+		var priceAvista = $('#priceAvistaValueSelector').data("original")
+		var priceInstallmentsValueSelector = $('#priceInstallmentsValueSelector').data("original")
 
+
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/checkout/check-coupon',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					if(data.coupon.discount_type == 'percent'){
+						var newPriceAvista = (priceAvista*(1-(data.coupon.discount_value/100))).toFixed(2);
+						$('#priceAvistaValueSelector').text(newPriceAvista)
+
+						var newPriceInstallments = (priceInstallmentsValueSelector*(1-(data.coupon.discount_value/100))).toFixed(2);
+						$('#priceInstallmentsValueSelector').text(newPriceInstallments)
+						Checkout.updateInstallments(newPriceInstallments * 12)
+					}else{
+						var newPriceAvista = (priceAvista - data.coupon.discount_value).toFixed(2);
+						$('#priceAvistaValueSelector').text(newPriceAvista)
+						
+						var newPriceInstallments = (priceInstallmentsValueSelector-data.coupon.discount_value).toFixed(2);
+						$('#priceInstallmentsValueSelector').text(newPriceInstallments)
+						Checkout.updateInstallments(newPriceInstallments * 12)
+					}
+					Checkout.processData(form)
+
+
+					$(form).removeClass("inactive")
+					Checkout.changeStep(null, "#payment")
+
+
+
+				}else{
+					message.error(form, data.res)
+				}
+			},
+			error: function(err){
+				console.log(err)
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		});
 	},
 	checkoutPayment: function(form){
 		// $(form).addClass("inactive")

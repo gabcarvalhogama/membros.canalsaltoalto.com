@@ -37,7 +37,7 @@
 						</div>
 						<div class="flex flex-column" style="margin-left: 10px;">
 							<h4 class="font-weight-bold">Acesso de 1 (um) ano à Comunidade Salto Alto</h4>
-							<p class="d-flex flex-row align-items-center font-weight-bold">R$ <span id="priceAvistaValueSelector">199,00</span> à vista <br /><small style="margin-left: 10px;color: rgb(150,150,150);">ou 12x de R$ 19,90</small></p>
+							<p class="d-flex flex-row align-items-center font-weight-bold">R$ <span id="priceAvistaValueSelector" data-original="199.00" style="margin-right: 5px;">199,00</span> à vista <br /><small style="margin-left: 10px;color: rgb(150,150,150);">ou 12x de R$ <span id="priceInstallmentsValueSelector" data-original="19.90">19,90</span></small></p>
 						</div>
 					</div>
 				</div>
@@ -52,6 +52,7 @@
 						<div class="row mb-3">
 							<div class="col">
 								<input type="password" style="display: none" class="form-control" id="f_auth_password" name="f_auth_password" placeholder="Digite a sua senha" tabindex="1" />
+								<a href="/app/recover" style="display: none;color: #000" id="f_auth_password_forgot">Esqueci minha senha</a>
 							</div>
 						</div>
 						<div class="row">
@@ -173,21 +174,24 @@
 					</form>
 				</form-step>
 
-
+				<!-- # Coupon -->
 				<form-step id="coupon">
 					<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutCoupon(this)" id="checkoutCouponForm">
 						<div class="message"></div>
 						<div class="row">
 							<div class="col">
-								<input type="text" class="form-control" id="f_coupon" name="f_coupon" placeholder="Digite seu Cupom de Desconto" required tabindex="2" />
+								<input type="text" class="form-control" id="f_coupon" name="f_coupon" placeholder="Digite seu Cupom de Desconto"  tabindex="2" />
 							</div>
 							<!-- <div class="col-md-4">
 								<a href="javascript:void(0)" class="btn btn-rose-light" onclick="Checkout.checkCoupon(document.getElementById('f_coupon').value)">APLICAR</a>
 							</div> -->
 						</div>
 						<div class="row mt-3">
-							<div class="col">
+							<div class="col-md-6">
 								<button type="submit" class="btn btn-rose-light"><i class="fa-solid fa-lock"></i> AVANÇAR PARA PRÓXIMA ETAPA</button>
+							</div>
+							<div class="col-md-6">
+								<a href="javascript:void(0)" onclick="Checkout.changeStep(null, '#payment')" class="btn">NÃO TENHO CUPOM</a>
 							</div>
 						</div>
 					</form>

@@ -199,7 +199,13 @@
 
 		    	if(isset($_FILES["company_image"]) AND !empty($_FILES["company_image"]["name"])){
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["company_image"]["name"], 10, "jpeg,jpg,png", "company_image", 1);
+
+					$imageFolder = "uploads/".date("Y\/m\/");
+
+					if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
+
+
+					$Upin->get( $imageFolder, $_FILES["company_image"]["name"], 10, "jpeg,jpg,png", "company_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $company_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -296,13 +302,32 @@
 				die(json_encode(["res" => "Por favor, informe um conteúdo para sua publi."]));
 			}else{
 
+				if(isset($_FILES["publi_image"]) AND !empty($_FILES["publi_image"]["name"])){
+					
+					$imageFolder = "uploads/".date("Y\/m\/");
+
+					if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
+
+
+					$Upin = new Upin;
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["publi_image"]["name"], 10, "jpeg,jpg,png", "publi_image", 1);
+					$Upin->run();
+
+					if($Upin->res === true) $publi_image = "uploads/".date("Y\/m\/").$Upin->json[0];
+					else die(json_encode(["res"=>"Por favor, envie uma imagem válida."]));
+				}else{
+					$publi_image = null;
+				}
+
+
 				$Publi = new Publi;
 
 				if($Publi->create(
 					$_POST["publi_title"],
 					$_POST["publi_content"],
+					$publi_image,
 					0,
-					$user->iduser
+					USER->iduser
 				)){
 					die(json_encode(["res" => 1]));
 				}
@@ -374,7 +399,6 @@
 			// $accepted_origins = array("http://localhost", "http://192.168.1.1", "http://example.com");
 
 			$imageFolder = "uploads/".date("Y\/m\/");
-
 			if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
 
 	  		reset ($_FILES);

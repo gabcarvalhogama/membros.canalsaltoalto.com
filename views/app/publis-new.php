@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 	<head>
-		<title>Nova Empresa ‹ Área de Membros ‹ Canal Salto Alto</title>
+		<title>Nova Publi ‹ Área de Membros ‹ Canal Salto Alto</title>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
@@ -28,13 +28,20 @@
 					<div class="row">
 						<div class="col mb-3">
 							<label for="publi_content">Conteúdo da Publi</label>
-							<textarea name="publi_content" id="publi_content" class="form-control"></textarea>
+							<textarea name="publi_content" id="publi_content" class="form-control" maxlength="350"></textarea>
 							<p><small><em>Limite de 350 caracteres.</em></small></p>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col mb-3">
+							<label for="publi_image">Imagem da Publi</label>
+							<input type="file" class="form-control" id="publi_image" name="publi_image" accept="image/*" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col mb-3 text-center">
-							<input type="submit" value="Cadastrar Publi" class="btn btn-rose btn-medium btn-full" />
+							<input type="submit" value="Cadastrar Publi" class="btn btn-rose btn-rose-light btn-medium btn-full" />
 						</div>
 					</div>
 				</form>

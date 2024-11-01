@@ -64,6 +64,15 @@ class Upin extends Config
 	}
 	
 	public function run(){
+		// Verifica se a pasta de destino existe; se não, cria a pasta
+	    if (!is_dir($this->path)) {
+	        if (!mkdir($this->path, 0755, true)) {
+	            parent::output("Falha ao criar o diretório: {$this->path}");
+	            return;
+	        }
+	    }
+
+	    
 		// Verifica se é um único arquivo e ajusta a estrutura de $_FILES
 		if (is_string($_FILES[$this->req]['name'])) {
 		    // Transforma cada atributo de $_FILES em um array com um único elemento

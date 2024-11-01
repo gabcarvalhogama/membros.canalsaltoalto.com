@@ -1,7 +1,13 @@
+<?php
+	
+	$User = new User;
+	$getUsers = $User->getActiveUsers();
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 	<head>
-		<title>Membros ‹ Painel Administrativo ‹ Canal Salto Alto</title>
+		<title>Membros Ativos ‹ Painel Administrativo ‹ Canal Salto Alto</title>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
@@ -17,8 +23,8 @@
 
 			<div class="admin__dashboard--content">
 				<div class="container">
-					<h1>Membros</h1>
-
+					<h1>Membros Ativos</h1>
+					<p>Atualmente existem <?=$getUsers->rowCount()?> membros ativos.</p>
 					<table class="table table-hover">
 						<thead>
 							<th></th>
@@ -30,8 +36,6 @@
 						<tbody>
 							
 							<?php
-								$User = new User;
-								$getUsers = $User->getUsers();
 
 								if($getUsers->rowCount() > 0):
 									foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $user):

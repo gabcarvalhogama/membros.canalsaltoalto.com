@@ -33,7 +33,7 @@
 
 										foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $user):
 									?>
-									<option <?=  ($company->iduser == $user['iduser']) ? 'selected' : '' ?> value="<?=$user['iduser']?>"><?=$user['firstname']." ".$user['lastname']?></option>
+									<option <?=($company->iduser == $user['iduser']) ? 'selected' : '' ?> value="<?=$user['iduser']?>"><?=$user['firstname']." ".$user['lastname']?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>
@@ -69,7 +69,7 @@
 							</div>
 						</div>
 
-						<address_group style="display: <?=($company->has_place == 0) ? '' : 'block' ?>;">
+						<address_group style="display: <?=($company->has_place == 0) ? 'none' : 'block' ?>;">
 						<div class="row">
 							<div class="col mb-3">
 								<label for="address_zipcode">CEP</label>
@@ -94,7 +94,7 @@
 									<option value=""></option>
 									<?php
 										foreach(User::getCitiesByUf($company->address_state)->fetchAll(PDO::FETCH_ASSOC) as $city)
-											echo '<option '. (($city["idcity"] == $company->city) ? "selected" : "") .' value="'.$city["idcity"].'" data-uf="'.$city["uf"].'"  >'.$city["city"].'</option>';
+											echo '<option '. (($city["idcity"] == $company->address_city) ? "selected" : "") .' value="'.$city["idcity"].'" data-uf="'.$city["uf"].'"  >'.$city["city"].'</option>';
 									?>
 								</select>
 							</div>
@@ -159,8 +159,9 @@
 							</div>
 						</div>
 
-						<div>
-							<input type="submit" value="Atualizar empresa" class="btn btn-rose btn-medium btn-full btn-rounded" />
+						<div class="d-flex flex-row align-items-center">
+							<input type="submit" value="Atualizar empresa" class="btn btn-rose" />
+							<a href="javascript:void(0)" style="margin-left:  20px;color: #000" onclick="Companies.delete(<?=$company->company_id?>)">Apagar empresa</a>
 						</div>
 						<input type="hidden" name="company_id" id="company_id" value="<?=$company->company_id?>">
 					</form>
@@ -170,6 +171,6 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js?<?=uniqid()?>"></script>
 	</body>
 </html>
