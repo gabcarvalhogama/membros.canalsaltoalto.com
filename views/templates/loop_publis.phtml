@@ -12,7 +12,50 @@
 							
 						</div>
 						<div class="publis-list__item--content">
-							<h3><?=$publi_title?></h3>
+							<!-- <h3><?=$publi_title?></h3> -->
 							<?=$publi_content?>
+							<p>
+								
+								<img src="<?=PATH.$publi_image?>" alt="" class="img-responsive" style="width: 100%;border-radius: 5px;" />
+							</p>
+							<div>
+								<?php 
+									if(Publi::isPubliAlreadyLiked($publi_id, USER->iduser)):
+								?>
+								<a href="javascript:void(0)" onclick="App.likePubli(this, <?=$publi_id?>);" class="like active">
+									<?=$likes?> <i class="fa-solid fa-heart"></i> <span>Curtido por você</span>
+								</a>
+								<?php else: ?>
+								<a href="javascript:void(0)" onclick="App.likePubli(this, <?=$publi_id?>);" class="like">
+									<?=$likes?> <i class="fa-regular fa-heart"></i> <span>Toque para curtir</span>
+								</a>
+								<?php endif; ?>
+							</div>
+							<div>
+								<form action="javascript:void(0)" method="post" onsubmit="App.commentPubli(this, <?=$publi_id?>)">
+									<div class="message"></div>
+									<div class="d-flex flex-row align-items-center publi_comment">
+										<img src="/<?=(!empty(USER->profile_photo)) ? USER->profile_photo : 'assets/images/default-pfp.png';?>" style="width: 30px;border-radius: 30px;" alt="" />
+										<input type="text" name="publi_comment" placeholder="Digite seu comentário" />
+										<button><i class="fa-solid fa-arrow-right"></i></button>
+									</div>
+								</form>
+								<?php 
+									$Publi = new Publi;
+									foreach($Publi->getComments($publi_id) as $comment):
+								?>
+									<div class="publi__comment--item">
+										<div class="d-flex flex-row align-items-start">
+											<img src="/<?=(!empty($comment['profile_photo'])) ? $comment['profile_photo'] : 'assets/images/default-pfp.png';?>" style="width: 30px;border-radius: 30px;" alt="" />
+											<div>
+												<h5><?=$comment['firstname']." ".$comment['lastname']?></h5>
+												<div>
+													<?=$comment['comment']?>
+												</div>
+											</div>
+										</div>
+									</div>
+								<?php endforeach; ?>
+							</div>
 						</div>
 					</div>

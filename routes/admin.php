@@ -1,9 +1,25 @@
 <?php 
 	
-	$router->before('GET|POST', '/admin(?!/login$).*', function(){
+	$router->before('GET|POST', '/admin(?!/(login|recover|recover/updatepwd)$).*', function(){
 		$User = new User;
-		if((($User->isUserAuthenticated()) == false OR $User->isUserAMember(  (isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)  ) == 0) AND ($User->isUserAdminByEmail($_SESSION["csa_email"]) == false)) die(header("Location: /admin/login"));
 
+		if(
+			// (
+			// 	($User->isUserAuthenticated()) == false 
+			// 	OR
+			// 	$User->isUserAMember(
+			// 		(isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)
+			// 	) == false
+			// ) 
+
+			// OR
+			
+			
+				($User->isUserAuthenticated()) == false OR 
+				$User->isUserAdminByEmail((isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)) == false)
+			{
+				die(header("Location: /admin/login"));
+			}
 	});
 
 	$router->mount("/admin", function() use ($router){
@@ -32,6 +48,328 @@
 			}
 		});
 
+		$router->get("/recover", function(){
+			require "views/admin/recover.php";
+		});
+
+		$router->post("/recover", function(){
+			if(empty($_POST["recover_email"])){
+				die(json_encode(["res" => "Por favor, informe o e-mail para recuperação do acesso."]));
+			}else{
+				$User = new User;
+				$user = $User->getUserByEmail($_POST["recover_email"]);
+				if($user->rowCount() == 0)
+					die(json_encode(["res" => "Desculpe, não foi possível encontrar este e-mail."]));
+				
+
+				$userData = $user->fetchObject();
+				$token = bin2hex(random_bytes(16));
+				if($User->createPasswordReset($userData->iduser, $token)){
+
+					$Comunications = new Comunications;
+
+					$email_title = "Recupere o seu Acesso - Canal Salto Alto";
+					$content = "<div>
+						<h1>Recupere o seu acesso ao painel administrativo do Canal Salto Alto</h1>
+						<p>Olá, recebemos a sua solicitação para recuperação de senha. Para prosseguir com a redefinição da sua senha, clique no botão a seguir:</p>
+						<a href='https://canalsaltoalto.com/admin/recover/?token=$token'>QUERO REDEFINIR MINHA SENHA</a>
+					</div>";
+					$email_content = Template::render([
+						"email_title" => $email_title,
+						"email_content" => $content 
+					], "email_general");
+
+
+
+ 					$Comunications->sendEmail($userData->email, $email_title, $email_content);
+
+					die(json_encode(["res" => 1]));
+				}else{
+					die(json_encode(["res" => "Desculpe, não foi possível recuperar a sua senha. Entre em contato com nossa equipe de suporte."]));
+				}
+
+			}
+		});
+
+		$router->post("/recover/updatepwd", function(){
+			if(empty($_POST["recovery_token"])){
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o token de recuperação."]));
+			}else if(empty($_POST["recover_password"])){
+				die(json_encode(["res" => "Por favor, informe a nova senha."]));
+			}else if(empty($_POST["recover_confirmation_password"])){
+				die(json_encode(["res" => "Por favor, confirme a sua nova senha."]));
+			}else if(strlen($_POST["recover_password"]) < 8){
+				die(json_encode(["res" => "Por favor, informe uma senha com no mínimo 8 caracteres."]));
+			}else if($_POST["recover_password"] != $_POST["recover_confirmation_password"]){
+				die(json_encode(["res" => "As senhas não conferem! Verifique os dados e tente novamente."]));
+			}else{
+				$User = new User;
+				if($User->isTokenValid($_POST["recovery_token"]) != true)
+					die(json_encode(["res" => "Desculpe, este token já expirou ou foi usado. Acesse a página de recuperação e tente novamente!"]));
+
+
+				$getToken = $User->getToken($_POST["recovery_token"])->fetchObject();
+
+				if($User->updatePassword($getToken->user_id, $_POST["recover_password"])){
+					$User->updateTokenToUsed($_POST["recovery_token"]);
+					die(json_encode(["res" => 1]));
+				}else{
+					die(json_encode(["res" => "Desculpe, não foi possível alterar a sua senha. Verifique com o suporte da plataforma e tente novamente.", $_POST]));
+				}
+			}
+		});
+
+
+
+		#/admin/coupons
+		$router->mount("/coupons", function() use($router){
+			$router->get("/", function(){
+				require "views/admin/coupons.php";
+			});
+
+
+			$router->get("/new", function(){
+				require "views/admin/coupons-new.php";
+			});
+
+			$router->post("/new", function () {
+			    // Validações básicas
+			    if (empty($_POST["coupon_code"])) {
+			        die(json_encode(["res" => "Por favor, informe o código do cupom."]));
+			    }
+			    if (empty($_POST["coupon_discount_type"]) || !in_array($_POST["coupon_discount_type"], ["percent", "fixed"])) {
+			        die(json_encode(["res" => "Por favor, selecione o tipo de desconto válido ('percent' ou 'fixed')."]));
+			    }
+			    if (empty($_POST["coupon_discount_value"])) {
+			        die(json_encode(["res" => "Por favor, informe o valor do desconto."]));
+			    }
+			    if (empty($_POST["expiration_date"])) {
+			        die(json_encode(["res" => "Por favor, informe a data e hora de expiração."]));
+			    }
+
+			    $expirationDate = DateTime::createFromFormat("d/m/Y H:i", $_POST["expiration_date"]);
+			    if (!$expirationDate) {
+			        die(json_encode(["res" => "Data de expiração inválida. Use o formato dd/mm/AAAA HH:mm."]));
+			    }
+
+			    // Validar o valor do desconto
+			    $discountValue = floatval($_POST["coupon_discount_value"]);
+			    if ($discountValue <= 0) {
+			        die(json_encode(["res" => "O valor do desconto deve ser maior que zero."]));
+			    }
+
+
+			    // Instanciar o modelo Cupom e tentar salvar
+			    $Coupon = new Coupon;
+
+			    if($Coupon->getCouponByCode($_POST["coupon_code"])->rowCount() > 0)
+			    	die(json_encode(["res" => "Desculpe, o cupom ".$_POST['coupon_code']." já existe."]));
+
+			    if ($Coupon->create(
+			        $_POST["coupon_code"],
+			        $_POST["coupon_discount_type"],
+			        $discountValue,
+			        $expirationDate->format("Y-m-d H:i"),
+			        (isset($_POST["status"]) ? intval($_POST["status"]) : 1)
+			    )) {
+			        die(json_encode(["res" => 1]));
+			    } else {
+			        die(json_encode(["res" => "Desculpe, não foi possível criar o cupom. Por favor, tente novamente."]));
+			    }
+			});
+
+
+			$router->get("/edit/{coupon_id}", function($coupon_id){
+				$Coupon = new Coupon;
+				$getCoupon = $Coupon->getCouponById($coupon_id);
+
+				if($getCoupon->rowCount() == 0)
+					die(header("Location: /admin/coupons"));
+
+				$coupon = $getCoupon->fetchObject();
+
+				require "views/admin/coupons-edit.php";
+			});
+
+			$router->get("/view/{coupon_id}", function($coupon_id){
+				$Coupon = new Coupon;
+				$getCoupon = $Coupon->getCouponById($coupon_id);
+
+				if($getCoupon->rowCount() == 0)
+					die(header("Location: /admin/coupons"));
+
+				$coupon = $getCoupon->fetchObject();
+
+				require "views/admin/coupons-view.php";
+			});
+		});
+
+
+		#/admin/banners
+		$router->mount("/banners", function() use ($router){
+			$router->get("/", function(){
+				require "views/admin/banners.php";
+			});
+			$router->get("/new", function(){
+				require "views/admin/banners-new.php";
+			});
+			$router->post("/new", function(){
+				if(empty($_POST["position"])){
+				    die(json_encode(["res" => "Por favor, selecione uma posição para o banner."]));
+				} else if(empty($_POST["link"])){
+				    die(json_encode(["res" => "Por favor, informe um link para o banner."]));
+				} else if(empty($_POST["banner_order"])){
+				    die(json_encode(["res" => "Por favor, informe uma ordem para o banner."]));
+				} else if(!isset($_POST["banner_status"])){
+				    die(json_encode(["res" => "Por favor, selecione um status para o banner."]));
+				} else {
+				    // Verificar se as imagens foram enviadas e processá-las
+				    if(isset($_FILES["banner_desktop"]) && !empty($_FILES["banner_desktop"]["name"]) &&
+				       isset($_FILES["banner_mobile"]) && !empty($_FILES["banner_mobile"]["name"])) {
+
+				        $uploadPath = "uploads/" . date("Y/m/");
+
+				        // Instância para upload de banner desktop
+				        $UpinDesktop = new Upin;
+				        $UpinDesktop->get($uploadPath, $_FILES["banner_desktop"]["name"], 10, "jpeg,jpg,png,webp", "banner_desktop", 1);
+				        $UpinDesktop->run();
+
+				        // Instância para upload de banner mobile
+				        $UpinMobile = new Upin;
+				        $UpinMobile->get($uploadPath, $_FILES["banner_mobile"]["name"], 10, "jpeg,jpg,png,webp", "banner_mobile", 1);
+				        $UpinMobile->run();
+
+				        // Verificação de sucesso dos uploads
+				        if($UpinDesktop->res === true && $UpinMobile->res === true) {
+				            $pathDesktop = $uploadPath . $UpinDesktop->json[0];
+				            $pathMobile = $uploadPath . $UpinMobile->json[0];
+				        } else {
+				            die(json_encode(["res" => "Por favor, envie imagens válidas para o banner desktop e mobile."]));
+				        }
+				    } else {
+				        die(json_encode(["res" => "Por favor, envie uma imagem para desktop e uma para mobile."]));
+				    }
+
+				    // Instância para criação do banner
+				    $Banner = new Banner;
+				    if($Banner->create(
+				        $pathDesktop,
+				        $pathMobile,
+				        $_POST["position"],
+				        $_POST["link"],
+				        $_POST["banner_order"],
+				        $_POST["banner_status"],
+				        USER->iduser
+				    )){
+				        die(json_encode(["res" => 1]));
+				    } else {
+				        die(json_encode(["res" => "Desculpe, não foi possível criar o banner. Atualize a página e tente novamente."]));
+				    }
+				}
+			});
+
+			$router->get("/edit/{banner_id}", function($banner_id){
+				$Banner = new Banner;
+				$banner = $Banner->getBannerById($banner_id);
+
+				if(!$banner){
+					header("Location: /admin/banners");
+					exit;
+				}
+
+				require "views/admin/banners-edit.php";
+			});
+			$router->post("/edit/{banner_id}", function($banner_id){
+				if(empty($_POST["banner_id"]))
+				    die(json_encode(["res" => "ID do banner não informado."]));
+
+				// Valida os demais campos
+				if(empty($_POST["position"])){
+				    die(json_encode(["res" => "Por favor, selecione uma posição para o banner."]));
+				} else if(empty($_POST["link"])){
+				    die(json_encode(["res" => "Por favor, informe um link para o banner."]));
+				} else if(empty($_POST["banner_order"])){
+				    die(json_encode(["res" => "Por favor, informe uma ordem para o banner."]));
+				} else if(!isset($_POST["banner_status"])){
+				    die(json_encode(["res" => "Por favor, selecione um status para o banner."]));
+				} else {
+				    $Banner = new Banner;
+				    $banner = $Banner->getBannerById($_POST["banner_id"]); // Função que busca o banner por ID
+
+				    if(!$banner) die(json_encode(["res" => "Banner não encontrado."]));
+
+				    // Define os caminhos das imagens atuais
+				    $pathDesktop = $banner['path_desktop'];
+				    $pathMobile = $banner['path_mobile'];
+
+				    $uploadPath = "uploads/" . date("Y/m/");
+
+				    // Verifica se uma nova imagem para desktop foi enviada e faz o upload
+				    if(isset($_FILES["banner_desktop"]) && !empty($_FILES["banner_desktop"]["name"])) {
+				        $UpinDesktop = new Upin;
+				        $UpinDesktop->get($uploadPath, $_FILES["banner_desktop"]["name"], 10, "jpeg,jpg,png,webp", "banner_desktop", 1);
+				        $UpinDesktop->run();
+
+				        if($UpinDesktop->res === true) {
+				            $pathDesktop = $uploadPath . $UpinDesktop->json[0];
+				        } else {
+				            die(json_encode(["res" => "Erro ao enviar a nova imagem desktop."]));
+				        }
+				    }
+
+				    // Verifica se uma nova imagem para mobile foi enviada e faz o upload
+				    if(isset($_FILES["banner_mobile"]) && !empty($_FILES["banner_mobile"]["name"])) {
+				        $UpinMobile = new Upin;
+				        $UpinMobile->get($uploadPath, $_FILES["banner_mobile"]["name"], 10, "jpeg,jpg,png,webp", "banner_mobile", 1);
+				        $UpinMobile->run();
+
+				        if($UpinMobile->res === true) {
+				            $pathMobile = $uploadPath . $UpinMobile->json[0];
+				        } else {
+				            die(json_encode(["res" => "Erro ao enviar a nova imagem mobile."]));
+				        }
+				    }
+
+				    // Atualiza os dados do banner
+				    if($Banner->update(
+				        $_POST["banner_id"],
+				        $pathDesktop,
+				        $pathMobile,
+				        $_POST["position"],
+				        $_POST["link"],
+				        $_POST["banner_order"],
+				        $_POST["banner_status"],
+				        USER->iduser
+				    )){
+				        die(json_encode(["res" => 1]));
+				    } else {
+				        die(json_encode(["res" => "Desculpe, não foi possível atualizar o banner. Tente novamente."]));
+				    }
+				}
+			});
+
+
+			$router->post("/delete/{banner_id}", function($banner_id){
+				if(empty($banner_id))
+					die(json_encode(["res" => "Desculpe, não foi possível identificar este banner. Atualize a página e tente novamente!"]));
+
+				$Banner = new Banner;
+				$banner = $Banner->getBannerById($banner_id);
+				if(!$banner)
+					die(json_encode(["res" => "Desculpe, não foi possível identificar este banner. Atualize a página e tente novamente!"]));
+
+
+				if($Banner->delete($banner_id))
+					die(json_encode(["res"=> 1]));
+				else
+					die(json_encode(["res" => "Desculpe, não foi possível apagar o banner do banco de dados."]));
+
+			});
+		});
+
+
+
+
 
 		#/admin/posts
 		$router->get("/posts", function(){
@@ -59,6 +397,11 @@
 					die(json_encode(["res" => "Por favor, envie uma imagem de destaque."]));
 				}
 
+				if(!isset($_POST["post_status"]))
+					$status = 0;
+				else
+					$status = intval($_POST["post_status"]);
+
 
 				$Post = new Post;
 
@@ -67,7 +410,8 @@
 					$_POST["post_excerpt"],
 					$_POST["post_content"],
 					$post_featured_image,
-					$_SESSION["csa_email"]
+					$_SESSION["csa_email"],
+					$status
 				)){
 					die(json_encode(["res" => 1]));
 				}else{
@@ -113,6 +457,11 @@
 						$post_featured_image = $_POST["post_actual_featured_image"];
 				}
 
+				if(!isset($_POST["post_status"]))
+					$status = 0;
+				else
+					$status = intval($_POST["post_status"]);
+
 
 				$Post = new Post;
 				if($Post->update(
@@ -121,13 +470,29 @@
 					$_POST["post_excerpt"],
 					$_POST["post_content"],
 					$post_featured_image,
-					$_SESSION["csa_email"]
+					$status
 				)){
 					die(json_encode(["res" => 1]));
 				}else{
 					die(json_encode(["res" => "Desculpe, não foi possível criar o seu post. Atualize a página e tente novamente."]));
 				}
 			}
+		});
+
+		$router->post("/posts/delete/{post_id}", function($post_id){
+			if(empty($post_id))
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o post. Atualize a página e tente novamente!"]));
+
+			$Post = new Post;
+			$getPost = $Post->getPost($post_id);
+			if($getPost->rowCount() == 0)
+				die(json_encode(["res" => "Desculpe, não foi possível encontrar o post. Atualize a página e tente novamente!"]));
+
+			if($Post->delete($post_id))
+				die(json_encode(["res" => 1]));
+			else
+				die(json_encode(["res" => "Desculpe, não foi possível apagar o post. Atualize a página e tente novamente!"]));
+
 		});
 
 
@@ -149,6 +514,9 @@
 				die(json_encode(["res"=>"Por favor, informe uma URL válida para o vídeo em destaque!"]));
 			}else{
 
+				if(!isset($_POST["content_status"]))
+					die(json_encode(["res" => "Desculpe, não foi possível encontrar o status. Atualize a página e tente novamente!"]));
+
 				if(isset($_FILES["content_featured_image"]) AND !empty($_FILES["content_featured_image"]["name"])){
 					$Upin = new Upin;
 					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["content_featured_image"]["name"], 10, "jpeg,jpg,png,webp", "content_featured_image", 1);
@@ -164,9 +532,16 @@
 				// if(($User->isUserAuthenticated()) == false)
 				// 	die(json_encode(["res"=>"Oops, parece que você não tem permissão para isso!"]));
 
+				if(empty($_POST["content_publish_date"])){
+					$published_at = date("Y-m-d H:i:s");
+				}
+				else{
+					$published_at = DateTime::createFromFormat("d/m/Y H:i", $_POST["content_publish_date"])->format("Y-m-d H:i:s");
+				}
+
 
 				$Content = new Content;
-				if($Content->create($_POST["content_title"], $_POST["content_excerpt"], $_POST["content_content"], $content_featured_image, $_POST["content_featured_video_url"], $_SESSION["csa_email"]))
+				if($Content->create($_POST["content_title"], $_POST["content_excerpt"], $_POST["content_content"], $content_featured_image, $_POST["content_featured_video_url"], $_SESSION["csa_email"], $_POST["content_status"], $published_at))
 					die(json_encode(["res" => 1]));
 				else
 					die(json_encode(["res" => "Não foi possível criar este conteúdo. Atualize a página e tente novamente!"]));
@@ -211,9 +586,23 @@
 				}
 
 
+				if(empty($_POST["content_publish_date"])){
+					$published_at = date("Y-m-d H:i:s");
+				}
+				else{
+					$published_at = DateTime::createFromFormat("d/m/Y H:i", $_POST["content_publish_date"])->format("Y-m-d H:i:s");
+				}
+
+
+				if(isset($_POST["content_status"]))
+					$content_status = intval($_POST["content_status"]);
+				else
+					$content_status = 0;
+
+
 
 				$Content = new Content;
-				if($Content->update($content_id, $_POST["content_title"], $_POST["content_excerpt"], $_POST["content_content"], $content_featured_image, $_POST["content_featured_video_url"]))
+				if($Content->update($content_id, $_POST["content_title"], $_POST["content_excerpt"], $_POST["content_content"], $content_featured_image, $_POST["content_featured_video_url"], $content_status, $published_at))
 					die(json_encode(["res" => 1]));
 				else
 					die(json_encode(["res" => "Não foi possível atualizar este conteúdo. Atualize a página e tente novamente!"]));
@@ -475,6 +864,52 @@
 			$notice = $getNotice->fetchObject();
 
 			require "views/admin/notices-edit.php";
+		});
+
+		$router->post("/notices/edit/{notice_id}", function($notice_id){
+			if(empty($notice_id))
+				die(json_encode(["res" => "Desculpe, não foi possível encontrar este aviso."]));
+
+			$Notice = new Notice;
+			if($Notice->getNoticeById($notice_id)->rowCount() == 0)
+				die(json_encode(["res" => "Desculpe, não foi possível encontrar este aviso."]));
+
+
+			if(empty($_POST["notice_title"])){
+				die(json_encode(["res"=>"Por favor, informe o título do aviso!"]));
+			}else if(empty($_POST["notice_content"])){
+				die(json_encode(["res"=>"Por favor, informe o conteúdo do aviso!"]));
+			}else if(!isset($_POST["notice_status"])){
+				die(json_encode(["res" => "Por favor, informe o status do aviso."]));
+			}else if(empty($_POST["notice_publish_date"])){
+				die(json_encode(["res" => "Por favor, informe a data de publicação."]));
+			}else{
+				$Notice = new Notice;
+				if($Notice->update($notice_id, $_POST["notice_title"], $_POST["notice_content"], $_POST["notice_status"], 
+					(date("Y-m-d H:i:s", strtotime($_POST["notice_publish_date"])))
+				))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Não foi possível atualizar este aviso. Atualize a página e tente novamente!"]));
+			}
+		});
+
+		$router->post("/notices/delete/{notice_id}", function($notice_id){
+			if(empty($notice_id))
+				die(json_encode(["res" => "Desculpe, não foi possível encontrar este aviso."]));
+
+
+			$Notice = new Notice;
+			$getNotice = $Notice->getNoticeById($notice_id);
+
+			if($getNotice->rowCount() == 0)
+				die(json_encode(["res" => "Desculpe, não foi possível encontrar este aviso."]));
+
+
+			if($Notice->delete($notice_id))
+				die(json_encode(["res" => 1]));
+			else
+				die(json_encode(["res" => "Desculpe, não foi possível apagar este aviso."]));
 		});
 
 
@@ -808,6 +1243,11 @@
 			        }
 			    }
 
+			    if(!empty($_POST["actual_company_image"]))
+			    	$company_image = $_POST["actual_company_image"];
+			    else
+			    	$company_image = null;
+
 		    	if(isset($_FILES["company_image"]) AND !empty($_FILES["company_image"]["name"])){
 					$Upin = new Upin;
 					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["company_image"]["name"], 10, "jpeg,jpg,png,webp", "company_image", 1);
@@ -815,11 +1255,6 @@
 
 					if($Upin->res === true) $company_image = "uploads/".date("Y\/m\/").$Upin->json[0];
 					else die(json_encode(["res"=>"Por favor, envie uma imagem de destaque válida."]));
-				}else{
-					if(empty($_POST["actual_company_image"]))
-						die(json_encode(["res" => "Algo deu errado com a imagem da empresa. Atualize a página e tente novamente!"]));
-					else
-						$company_image = $_POST["actual_company_image"];
 				}
 
 				$status = (isset($_POST["status"])) ? intval($_POST["status"]) : 2;
@@ -893,21 +1328,38 @@
 		});
 
 		$router->post("/publis/new", function(){
-			if(empty($_POST["publi_title"])){
-				die(json_encode(["res" => "Por favor, informe um título para sua publi."]));
-			}else if(empty($_POST["publi_content"])){
+			if(empty($_POST["publi_content"])){
 				die(json_encode(["res" => "Por favor, informe um conteúdo para sua publi."]));
 			}else if(empty($_POST["publi_creator"])){
 				die(json_encode(["res" => "Por favor, selecione uma dona para esta publi."]));
 			}else{
 
+				if(isset($_FILES["publi_image"]) AND !empty($_FILES["publi_image"]["name"])){
+					
+					$imageFolder = "uploads/".date("Y\/m\/");
+
+					if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
+
+
+					$Upin = new Upin;
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["publi_image"]["name"], 10, "jpeg,jpg,png", "publi_image", 1);
+					$Upin->run();
+
+					if($Upin->res === true) $publi_image = "uploads/".date("Y\/m\/").$Upin->json[0];
+					else die(json_encode(["res"=>"Por favor, envie uma imagem válida."]));
+				}else{
+					$publi_image = null;
+				}
+
+
 				$Publi = new Publi;
 
 				if($Publi->create(
-					$_POST["publi_title"],
 					$_POST["publi_content"],
-					1,
-					$_POST["publi_creator"])){
+					$publi_image,
+					0,
+					USER->iduser
+				)){
 					die(json_encode(["res" => 1]));
 				}
 				else{
@@ -934,11 +1386,30 @@
 		$router->post("/publis/edit/{publi_id}", function($publi_id){
 			if(empty($_POST["publi_creator"])){
 				die(json_encode(["res" => "Por favor, selecione um criador para a publi."]));
-			}else if(empty(trim($_POST["publi_title"]))){
-				die(json_encode(["res" => "Por favor, informe o título da publi."]));
-			}else if(empty(trim($_POST["publi_content"]))){
+			}
+			// else if(empty(trim($_POST["publi_title"]))){
+			// 	die(json_encode(["res" => "Por favor, informe o título da publi."]));
+			// }
+			else if(empty(trim($_POST["publi_content"]))){
 				die(json_encode(["res" => "Por favor, informe um conteúdo para a publi."]));
 			}else{
+
+				if(isset($_FILES["publi_image"]) AND !empty($_FILES["publi_image"]["name"])){
+					
+					$imageFolder = "uploads/".date("Y\/m\/");
+
+					if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
+
+
+					$Upin = new Upin;
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["publi_image"]["name"], 10, "jpeg,jpg,png", "publi_image", 1);
+					$Upin->run();
+
+					if($Upin->res === true) $publi_image = "uploads/".date("Y\/m\/").$Upin->json[0];
+					else die(json_encode(["res"=>"Por favor, envie uma imagem válida."]));
+				}else{
+					$publi_image = null;
+				}
 
 				if(empty($_POST["publi_status"]))
 					$publi_status = 0;
@@ -947,7 +1418,7 @@
 
 				$Publi = new Publi;
 
-				if($Publi->update($publi_id, $_POST["publi_title"], $_POST["publi_content"], $_POST["publi_creator"]))
+				if($Publi->update($publi_id, $_POST["publi_content"], $publi_image, $publi_status, $_POST["publi_creator"]))
 					die(json_encode(["res" => 1]));
 				else
 					die(json_encode(["res" => "Desculpe, não foi possível atualizar a publi."]));
@@ -956,6 +1427,18 @@
 
 		$router->get("/publis/approves", function(){
 			require "views/admin/publis-approves.php";
+		});
+
+		$router->post("/publis/delete/{publi_id}", function($publi_id){
+			if(empty($publi_id)){
+				die(json_encode(["res" => "Desculpe, não foi possível apagar esta publi."]));
+			}else{
+				$Publi = new Publi;
+				if($Publi->delete($publi_id))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Não foi possível apagar esta publi. Atualize a página e tente novamente!"]));
+			}
 		});
 
 		$router->get("/logout", function(){

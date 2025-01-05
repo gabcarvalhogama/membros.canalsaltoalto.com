@@ -177,6 +177,31 @@ const App = {
 			}
 		})
 	},
+	updatePassword: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+
+
+		$.ajax({
+			type: 'post',
+			data: formData,
+			processData: false,
+			contentType: false,
+			url: '/app/profile/change-password',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					window.location = '';
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
 	updateProfilePhoto: function(el){
 		var formData = new FormData();
 		formData.append("f_profile_photo", $(el)[0].files[0]);
@@ -277,6 +302,66 @@ const App = {
 				if(data.res == 1){
 					$(form)[0].reset()
 					message.success(form, "Sua publi foi enviada para aprovação da administradora.");
+				}else{
+					message.error(form, data.res);
+				}
+
+				message.removeInactive(form);
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+	likePubli: function(el, publi_id){
+		$(el).addClass("inactive")
+		$.ajax({
+			type: 'post',
+			data: {},
+			processData: false,
+			contentType: false,
+			url: '/app/publis/'+publi_id+'/like',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					if(data.current == 1){
+						$(el).addClass("active")
+						$(el).find('i').removeClass('fa-regular fa-heart')
+						$(el).find('i').addClass('fa-solid fa-heart')
+						$(el).find('span').text("Curtido por você")
+					}else{
+						$(el).removeClass("active")
+						$(el).find('i').removeClass('fa-solid fa-heart')
+						$(el).find('i').addClass('fa-regular fa-heart')
+						$(el).find('span').text('Toque para curtir')
+					}
+				}else{
+					alert("NOT OK")
+				}
+				$(el).removeClass("inactive")
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				$(el).removeClass("inactive")
+			}
+		})
+	},
+	commentPubli: function(form, publi_id){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+		
+		$.ajax({
+			type: 'post',
+			data: formData,
+			processData: false,
+			contentType: false,
+			url: '/app/publis/'+publi_id+'/comment',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$(form)[0].reset()
+					window.location = ''
 				}else{
 					message.error(form, data.res);
 				}

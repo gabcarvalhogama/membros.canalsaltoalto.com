@@ -34,7 +34,7 @@
 					<div class="row mt-5">
 						<div class="col text-center">
 							<button class="btn btn-rose btn-full mb-2">ENTRAR</button>
-							<a href="<?=PATH?>admin/recover">Esqueci minha senha</a>
+							<a href="<?=PATH?>admin/recover">Recupere sua conta</a>
 						</div>
 					</div>
 				</form>

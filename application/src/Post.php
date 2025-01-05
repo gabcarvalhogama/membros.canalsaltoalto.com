@@ -14,7 +14,7 @@
 		}
 
 
-		public function create($post_title, $post_excerpt, $post_content, $post_featured_image, $created_by_email){
+		public function create($post_title, $post_excerpt, $post_content, $post_featured_image, $created_by_email, $status){
 			$sql = DB::open()->prepare("INSERT INTO csa_posts (
 				title,
 				excerpt,
@@ -23,6 +23,7 @@
 				author,
 				slug,
 				published_at,
+				status,
 				created_at,
 				updated_at
 			) VALUES (
@@ -33,6 +34,7 @@
 				(SELECT iduser FROM csa_users WHERE email = :created_by_email LIMIT 1),
 				:slug,
 				NOW(),
+				:status,
 				NOW(),
 				null
 			)");
@@ -43,11 +45,12 @@
 				":post_content" => $post_content,
 				":post_featured_image" => $post_featured_image,
 				":created_by_email" => filter_var($created_by_email, FILTER_SANITIZE_EMAIL),
-				":slug" => $this->generateSlug($post_title)
+				":slug" => $this->generateSlug($post_title),
+				":status" => intval($status)
 			]);
 		}
 
-		public function update($post_id, $post_title, $post_excerpt, $post_content, $post_featured_image){
+		public function update($post_id, $post_title, $post_excerpt, $post_content, $post_featured_image, $status){
 		    $sql = DB::open()->prepare("
 		        UPDATE csa_posts 
 		        SET 
@@ -55,6 +58,7 @@
 		            excerpt = :post_excerpt,
 		            post_content = :post_content,
 		            featured_image = :post_featured_image,
+		            status = :status,
 		            updated_at = NOW()
 		        WHERE post_id = :post_id
 		    ");
@@ -65,11 +69,22 @@
 		        ":post_excerpt" => $post_excerpt,
 		        ":post_content" => $post_content,
 		        ":post_featured_image" => $post_featured_image,
+		        ":status" => $status
 		    ]);
 		}
 
 
-		public function getPosts($limit = 12, $offset = 0){
+		public function getPosts($limit = 12, $offset = 0, $status = 1){
+			$sql = DB::open()->prepare("SELECT * FROM csa_posts WHERE status = :status ORDER BY published_at DESC LIMIT :limit_posts OFFSET :offset_posts");
+			$sql->bindParam(':limit_posts', $limit, \PDO::PARAM_INT);
+			$sql->bindParam(':offset_posts', $offset, \PDO::PARAM_INT);
+			$sql->bindParam(':status', $status, \PDO::PARAM_INT);
+			$sql->execute();
+
+			return $sql;
+		}
+
+		public function getAllPosts($limit = 12, $offset = 0){
 			$sql = DB::open()->prepare("SELECT * FROM csa_posts ORDER BY published_at DESC LIMIT :limit_posts OFFSET :offset_posts");
 			$sql->bindParam(':limit_posts', $limit, \PDO::PARAM_INT);
 			$sql->bindParam(':offset_posts', $offset, \PDO::PARAM_INT);
@@ -131,5 +146,14 @@
 			return $sql;
 		}
 
+
+		public function delete($post_id){
+			$sql = DB::open()->prepare("DELETE FROM csa_posts WHERE post_id = :post_id");
+			$sql->execute([
+				":post_id" => intval($post_id)
+			]);
+
+			return $sql->rowCount() > 0;
+		}
 
 	}

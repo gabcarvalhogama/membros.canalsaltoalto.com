@@ -29,7 +29,7 @@
 						<thead>
 							<th></th>
 							<th>Nome</th>
-							<th>Assinatura</th>
+							<!-- <th>Assinatura</th> -->
 							<th>Ações</th>
 						</thead>
 
@@ -47,7 +47,7 @@
 								<td class="align-middle">
 									<a href="/admin/members/view/<?=$user['iduser'];?>" style="color: #000"><?=$user['firstname']." ".$user['lastname']?></a>
 								</td>
-								<td class="align-middle">
+								<!-- <td class="align-middle">
 									<?php
 										if(empty($user['starts_at']) OR empty($user['ends_at']))
 											echo "-";
@@ -55,7 +55,7 @@
 											echo date("d/m/Y", strtotime($user['starts_at'])). " até " . date("d/m/Y", strtotime($user['ends_at']));
 
 									?>
-								</td>
+								</td> -->
 								<td class="align-middle">
 									<a href="/admin/members/view/<?=$user['iduser']?>" style="color: #000">Ver<a>
 										| 

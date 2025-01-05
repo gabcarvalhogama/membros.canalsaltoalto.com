@@ -33,7 +33,7 @@
 							?>
 								<tr>
 									<td><?=$notice['notice_title']?></td>
-									<td><?=$notice['published_at']?></td>
+									<td><?=date("d/m/Y H:i", strtotime($notice['published_at']))?></td>
 									<td>
 										<a href="/admin/notices/edit/<?=$notice['idnotice']?>" style="color: #333">Editar</a>
 									</td>

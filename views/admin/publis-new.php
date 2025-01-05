@@ -37,19 +37,20 @@
 								</select>
 							</div>
 						</div>
-
-
-						<div class="row">
-							<div class="col mb-3">
-								<label for="publi_title" class="form-label">Título</label>
-								<input type="text" class="form-control" id="publi_title" name="publi_title" placeholder="" required />
-							</div>
-						</div>
 						<div class="row">
 							<div class="col mb-3">
 								<textarea name="publi_content" id="publi_content" class="form-control"></textarea>
 							</div>
 						</div>
+
+
+					<div class="row">
+						<div class="col mb-3">
+							<label for="publi_image">Imagem da Publi</label>
+							<input type="file" class="form-control" id="publi_image" name="publi_image" accept="image/*" />
+						</div>
+					</div>
+					
 						<div class="row">
 							<div class="col mb-3 text-center">
 								<input type="submit" value="Cadastrar Publi" class="btn btn-rose btn-medium btn-full" />
@@ -71,7 +72,7 @@
 				license_key: 'gpl',
 			   	promotion: false,
 			   	plugins: 'image, link, lists',
-			   	toolbar: 'undo redo | styles | bold italic | numlist bullist | link image | link',
+			   	toolbar: 'undo redo | styles | bold italic | numlist bullist | link',
 			   	menubar: false,
 		       	language: 'pt_BR',
 	         	images_upload_url: '<?=PATH?>upload/image',

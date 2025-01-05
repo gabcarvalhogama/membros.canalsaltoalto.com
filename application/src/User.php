@@ -103,7 +103,8 @@
 			    u.cellphone, 
 			    u.email, 
 			    u.user_type,
-			    (SELECT COUNT(company_id) FROM csa_companies WHERE iduser = u.iduser) as company_counter
+			    (SELECT COUNT(company_id) FROM csa_companies WHERE iduser = u.iduser) as company_counter,
+			    (SELECT ends_at FROM csa_users_memberships um WHERE um.iduser = u.iduser AND um.status = 'paid' AND ends_at > NOW() ORDER BY ends_at DESC LIMIT 1) as membership_ends_at
 			FROM 
 			    csa_users u
 			WHERE u.email = :email
@@ -191,7 +192,7 @@
 		}
 
 		public static function getInactiveMembersCount(){
-			$sql = DB::open()->prepare("SELECT COUNT(idusermembership) as inactive_members_count FROM csa_users_memberships WHERE ends_at <= NOW()");
+			$sql = DB::open()->prepare("SELECT COUNT(idusermembership) as inactive_members_count FROM csa_users_memberships WHERE ends_at >= NOW()");
 			$sql->execute();
 
 			return $sql->fetchObject()->inactive_members_count;
@@ -205,7 +206,6 @@
 
 			return $sql;
 		}
-
 
 		public function updatePhotoByEmail($email, $file_path){
 			$sql = DB::open()->prepare("UPDATE csa_users SET profile_photo = :profile_photo WHERE email = :email");

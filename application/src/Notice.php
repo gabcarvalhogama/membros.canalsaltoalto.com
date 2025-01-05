@@ -23,4 +23,36 @@
 			$sql->execute([":notice_id" => intval($notice_id)]);
 			return $sql;
 		}
+
+
+		public function delete($notice_id){
+			$sql = DB::open()->prepare("DELETE FROM csa_notices WHERE idnotice = :notice_id");
+			$sql->execute([
+				":notice_id" => $notice_id
+			]);
+
+			return $sql->rowCount() > 0;
+		}
+
+		public function update($idnotice, $notice_title, $notice_content, $status, $published_at){
+			$sql = DB::open()->prepare("UPDATE csa_notices 
+				SET notice_title = :notice_title, 
+					notice_content = :notice_content,
+					status = :status,
+					published_at = :published_at,
+					updated_at = NOW()
+
+				WHERE idnotice = :idnotice
+			");
+
+			$sql->execute([
+				":notice_title" => trim(ucfirst($notice_title)),
+				":notice_content" => trim(ucfirst($notice_content)),
+				":status" => intval($status),
+				":published_at" => $published_at,
+				":idnotice" => intval($idnotice)
+			]);
+
+			return $sql->rowCount() > 0;
+		}
 	}

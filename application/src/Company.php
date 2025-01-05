@@ -78,6 +78,44 @@
 		}
 
 
+		public function getCompaniesEnabledAndActiveMembers($limit = 6){
+			$sql = DB::open()->prepare("SELECT 
+			    c.company_id,
+			    c.iduser,
+			    c.company_name,
+			    c.company_description,
+			    c.company_image,
+			    c.has_place,
+			    c.address_zipcode,
+			    c.address_state,
+			    c.address_city,
+			    c.address,
+			    c.address_number,
+			    c.address_neighborhood,
+			    c.address_complement,
+			    c.cellphone,
+			    c.instagram_url,
+			    c.site_url,
+			    c.facebook_url,
+			    c.status,
+			    c.created_at,
+			    c.updated_at,
+			    u.profile_photo,
+			    u.firstname,
+			    u.lastname
+			FROM 
+			    csa_companies c
+			LEFT JOIN 
+			    csa_users u ON c.iduser = u.iduser
+
+			    ORDER BY c.company_name ASC;");
+
+			$sql->execute();
+
+			return $sql;
+		}
+
+
 		public function create($company_owner, $company_name, $company_description, $company_image, $has_place, $address_zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $instagram_url, $site_url, $facebook_url, $status){
 			$sql = DB::open()->prepare("
 	            INSERT INTO csa_companies (

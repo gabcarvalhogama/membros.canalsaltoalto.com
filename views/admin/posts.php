@@ -28,7 +28,7 @@
 						<tbody>
 							<?php
 								$Post = new Post;
-								foreach($Post->getPosts(200)->fetchAll(PDO::FETCH_ASSOC) as $post):
+								foreach($Post->getAllPosts(200)->fetchAll(PDO::FETCH_ASSOC) as $post):
 							?>
 								<tr>
 									<td><?=$post['title']?></td>

@@ -217,7 +217,7 @@
 				$itemData = [
 				    'amount' => str_replace(".", "", number_format($aVistaPrice, 2, '.', '')),
 				    'quantity' => 1,
-				    'description' => 'Membro CSA - Anual'
+				    'description' => 'Comunidade - Canal Salto Alto (1 ano)'
 				];
 
 				$paymentMethod = [

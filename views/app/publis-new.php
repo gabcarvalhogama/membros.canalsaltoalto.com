@@ -2,12 +2,6 @@
 <html lang="pt-BR">
 	<head>
 		<title>Nova Publi ‹ Área de Membros ‹ Canal Salto Alto</title>
-		<meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
-		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
-
-		
 		<?=Template::render(null, "head-tags")?>
 	</head>
 	<body class="app">
@@ -19,12 +13,12 @@
 				<form action="javascript:void(0)" method="post" onsubmit="App.newPubli(this)"  accept-charset="utf-8" enctype="multipart/form-data">
 					<div class="message"></div>
 
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col mb-3">
 							<label for="publi_title" class="form-label">Título</label>
 							<input type="text" class="form-control" id="publi_title" name="publi_title" placeholder="" required />
 						</div>
-					</div>
+					</div> -->
 					<div class="row">
 						<div class="col mb-3">
 							<label for="publi_content">Conteúdo da Publi</label>

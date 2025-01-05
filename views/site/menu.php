@@ -20,13 +20,13 @@
 		<section class="m-5">
 			<div class="container">
 				<div class="row">
-					<div class="col">
+					<div class="col-md-4 mb-3">
 						<a href="https://canalsaltoalto.com/app"><img src="<?=PATH?>assets/images/banner-ja-sou-membro.jpg" alt="" style="max-width: 100%;border-radius: 5px;"></a>
 					</div>
-					<div class="col">
+					<div class="col-md-4 mb-3">
 						<a href="https://canalsaltoalto.com/seja-membro"><img src="<?=PATH?>assets/images/banner-ainda-nao-sou-membro.jpg" alt="" style="max-width: 100%;border-radius: 5px;"></a>
 					</div>
-					<div class="col">
+					<div class="col-md-4 mb-3">
 						<a href="https://canalsaltoalto.com/checkout"><img src="<?=PATH?>assets/images/banner-renovar-assinatura.jpg" alt="" style="border: solid 2px #e54c8e;max-width: 100%;border-radius: 5px;"></a>
 					</div>
 				</div>

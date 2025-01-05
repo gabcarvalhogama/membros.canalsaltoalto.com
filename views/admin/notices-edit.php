@@ -2,10 +2,6 @@
 <html lang="pt-BR">
 	<head>
 		<title>Editando: <?=$notice->notice_title?> ‹ Painel Administrativo ‹ Canal Salto Alto</title>
-		<meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
-		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
 
 		
 		<?=Template::render(null, "head-tags")?>
@@ -18,8 +14,8 @@
 			<div class="admin__dashboard--content">
 				<div class="container">
 					<h1>Editando: <?=$notice->notice_title?></h1>
-					<p class="subtitle">Cadastre um novo aviso na área de membros.</p>
-					<form action="javascript:void(0)" method="post" onsubmit="Admin.updateNotice(this)">
+					<p class="subtitle">Edite o seu aviso no formulário abaixo.</p>
+					<form action="javascript:void(0)" method="post" onsubmit="Admin.Notices.update(this)">
 						<div class="message"></div>
 
 						<div class="row">
@@ -42,19 +38,27 @@
 							<div class="col-md-6 mb-3">
 								<label for="notice_status" class="form-label">Status</label>
 								<select name="notice_status" id="notice_status" class="form-control" required>
-									<option value="0">Rascunho</option>
-									<option value="1">Publicado</option>
+									<option value="0" <?=(($notice->status == 0) ? 'selected' : '')?>>Rascunho</option>
+									<option value="1" <?=(($notice->status == 1) ? 'selected' : '')?>>Publicado</option>
 								</select>
 							</div>
 							<div class="col-md-6 mb-3">
 								<label for="notice_publish_date" class="form-label">Data de Publicação</label>
-								<input type="text" name="notice_publish_date" id="notice_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="Imediato" />
+								<input type="text" name="notice_publish_date" id="notice_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="Imediato" value="<?=date('d/m/Y H:i', strtotime($notice->published_at))?>" />
 							</div>
 						</div>
 
-						<div>
-							<input type="submit" value="Cadastrar aviso" class="btn btn-rose" />
+
+						<div class="form-group row align-items-center">
+							<div class="col-md-6">
+								<input type="submit" value="Atualizar aviso" class="btn btn-rose btn-rose-light btn-full btn-medium" />
+							</div>
+							<div class="col-md-6">
+								<a href="javascript:void(0)" style="color: #000;" onclick="Admin.Notices.delete(<?=$notice->idnotice?>)"><i class="fa-solid fa-trash"></i> Apagar notícia</a>
+							</div>
 						</div>
+
+						<input type="hidden" name="idnotice" id="idnotice" value="<?=$notice->idnotice?>" />
 					</form>
 				</div>
 			</div>
@@ -63,7 +67,7 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/tinymce/tinymce.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js?<?=uniqid()?>"></script>
 		<script type="text/javascript">
 			
 			tinymce.init({

@@ -1,3 +1,9 @@
+<?php 
+	
+	$User = new User;
+	$getUsers = $User->getUsers();
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 	<head>
@@ -18,6 +24,7 @@
 			<div class="admin__dashboard--content">
 				<div class="container">
 					<h1>Membros</h1>
+					<p>Atualmente existem <?=$getUsers->rowCount()?> usuários cadastrados.</p>
 
 					<table class="table table-hover">
 						<thead>
@@ -30,9 +37,6 @@
 						<tbody>
 							
 							<?php
-								$User = new User;
-								$getUsers = $User->getUsers();
-
 								if($getUsers->rowCount() > 0):
 									foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $user):
 							?>

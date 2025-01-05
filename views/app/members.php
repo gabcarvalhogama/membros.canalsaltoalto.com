@@ -19,7 +19,6 @@
 				<div class="members-list">
 					<?php
 						$User = new User;
-
 						$getUsers = $User->getActiveUsers();
 						if($getUsers->rowCount() > 0):
 							foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $member):

@@ -149,7 +149,7 @@
 						<tbody>
 							<?php
 								$Membership = new Membership;
-								$getMemberships = $Membership->getMembershipsByUser(USER->iduser);
+								$getMemberships = $Membership->getMembershipsByUser($user->iduser);
 
 								if($getMemberships->rowCount() > 0):
 									foreach($getMemberships->fetchAll(PDO::FETCH_ASSOC) as $membership):

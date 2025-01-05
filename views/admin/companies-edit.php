@@ -160,7 +160,7 @@
 						</div>
 
 						<div class="d-flex flex-row align-items-center">
-							<input type="submit" value="Atualizar empresa" class="btn btn-rose" />
+							<input type="submit" value="Atualizar empresa" class="btn btn-rose btn-rose-light" />
 							<a href="javascript:void(0)" style="margin-left:  20px;color: #000" onclick="Companies.delete(<?=$company->company_id?>)">Apagar empresa</a>
 						</div>
 						<input type="hidden" name="company_id" id="company_id" value="<?=$company->company_id?>">

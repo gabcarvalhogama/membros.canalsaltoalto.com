@@ -64,13 +64,13 @@
 							</div> -->
 							<div class="col-md-6 mb-3">
 								<label for="content_publish_date" class="form-label">Data de Publicação</label>
-								<input type="text" name="content_publish_date" id="content_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="Imediato" value="<?=date("d/m/Y \à\s H:i", strtotime($content->published_at))?>" />
+								<input type="text" name="content_publish_date" id="content_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="Imediato" value="<?=date("d/m/Y H:i", strtotime($content->published_at))?>" />
 							</div>
 						</div>
 						<input type="hidden" name="content_id" id="content_id" value="<?=$content_id?>">
 
 						<div class="d-flex flex-row align-items-center">
-							<input type="submit" value="Atualizar conteúdo" class="btn btn-rose" />
+							<input type="submit" value="Atualizar conteúdo" class="btn btn-rose  btn-rose-light" />
 							<a href="javascript:void(0)" style="margin-left:  20px;color: #000" onclick="Admin.deleteContent(<?=$content_id?>)">Apagar postagem</a>
 						</div>
 					</form>

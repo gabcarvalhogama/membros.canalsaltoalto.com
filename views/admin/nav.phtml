@@ -1,8 +1,16 @@
 			<div class="admin__dashboard--nav">
 				<p class="text-center"><a href="/admin/"><img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="logo" /></a></p>
 
+				<a href="javascript:void(0)" onclick="$('nav').toggle('fast')"><img src="<?=PATH?>assets/images/icone-menu.svg" alt="" class="admin__dashboard--nav--mobilebtn" /></a>
 				<nav>
 					<ul>
+						<li>
+							<a href="/admin/banners">Banners</a>
+							<ul>
+								<li><a href="/admin/banners">Todos os Banners</a></li>
+								<li><a href="/admin/banners/new">Novo Banner</a></li>
+							</ul>
+						</li>
 						<li>
 							<a href="/admin/posts">Posts</a>
 							<ul>
@@ -61,6 +69,14 @@
 								<li><a href="/admin/companies/">Todas as Empresas</a></li>
 								<li><a href="/admin/companies/new">Nova empresa</a></li>
 								<li><a href="/admin/companies/approves">Aprovações pendentes</a></li>
+							</ul>
+						</li>
+
+						<li>
+							<a href="/admin/coupons">Cupons</a>
+							<ul>
+								<li><a href="/admin/coupons">Todos os cupons</a></li>
+								<li><a href="/admin/coupons/new">Novo cupom</a></li>
 							</ul>
 						</li>
 

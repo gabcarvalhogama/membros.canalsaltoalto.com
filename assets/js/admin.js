@@ -150,6 +150,56 @@ const Admin = {
 		})
 	},
 
+	recover: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+		if($(form).data("inprogress") == 1){
+			$.ajax({
+				type: 'post',
+				data: formData,
+				processData: false,
+				contentType: false,
+				url: '/admin/recover/updatepwd',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						message.success(form, "Sucesso! Sua senha foi alterada com sucesso. Aguarde, você será redirecionada para entrar na conta.");
+						$(form)[0].reset()
+						setTimeout(function(){
+							window.location = "/admin/login";
+						}, 7000);
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		}else{
+			$.ajax({
+				type: 'post',
+				data: formData,
+				processData: false,
+				contentType: false,
+				url: '/admin/recover',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						message.success(form, "Sucesso! Acesse o seu e-mail e clique no link para verificação e alteração da sua senha.");
+						$(form)[0].reset()
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		}
+	},
+
 	addNotice: function(form){
 		$(form).addClass("inactive")
 		message.warning(form, "Carregando, aguarde...");
@@ -240,7 +290,7 @@ const Admin = {
 			success: function(data){
 				if(data.res == 1){
 					window.location = ''
-					message.success(form, "Seu aviso foi atualizado com sucesso!");
+					message.success(form, "Seu conteúdo foi atualizado com sucesso!");
 				}else{
 					message.error(form, data.res);
 				}
@@ -275,6 +325,178 @@ const Admin = {
 				console.log(err)
 			}
 		})
+	},
+
+	// Admin.Banners
+	Banners: {
+		create: function(form){
+			$(form).addClass("inactive")
+			message.warning(form, "Carregando, aguarde...");
+			var formData = new FormData(form);
+			$.ajax({
+				type: 'post',
+				data: formData,
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+				url: '/admin/banners/new',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						$(form)[0].reset()
+						message.success(form, "Seu banner foi criado com sucesso!");
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})		
+		},
+		update: function(form){
+			$(form).addClass("inactive")
+			message.warning(form, "Carregando, aguarde...");
+			var formData = new FormData(form);
+			$.ajax({
+				type: 'post',
+				data: formData,
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+				url: '/admin/banners/edit/' + $('#banner_id').val(),
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						message.success(form, "Seu banner foi atualizado com sucesso!");
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})		
+		},
+
+		delete: function(banner_id){
+			if(confirm("Você realmente deseja apagar este banner?") != true)
+				return false;
+
+
+			const form = $('form');
+			form.addClass("inactive")
+			message.warning(form, "Agpagando banner, aguarde...")
+
+
+			$.ajax({
+				type: 'post',
+				data: {},
+				contentType: false,
+				cache: false,
+				processData: false,
+				url: '/admin/banners/delete/' + banner_id,
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						alert("Seu banner foi apagado com sucesso!");
+						window.location = '/admin/banners';
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		}
+	},
+
+	Notices:  {
+		update: function(form){
+			$(form).addClass("inactive")
+			message.warning(form, "Carregando, aguarde...");
+			var formData = new FormData(form);
+
+			formData.append("notice_content", tinyMCE.get()[0].getContent());
+
+			$.ajax({
+				type: 'post',
+				data: formData,
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+				url: '/admin/notices/edit/'+$('#idnotice').val(),
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						message.success(form, "Seu aviso foi atualizado com sucesso! A página será atualiza em breve...");
+						setTimeout(function(){
+							window.location = "";
+						}, 5000)
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		},
+		delete: function(notice_id){
+			if(confirm("Você realmente deseja apagar este aviso?") != true)
+			return false;
+
+			$.ajax({
+				type: 'post',
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+				url: '/admin/notices/delete/'+notice_id,
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						alert("Sucesso! O seu aviso foi apagado definitivamente.");
+						window.location = '/admin/notices'
+					}else{
+						alert(data.res);
+					}
+				},
+				error: function(err){
+					alert("Algo deu errado, verifique sua internet e tente novamente!")
+					console.log(err)
+				}
+			})
+		}
+	},
+
+	Coupons: {
+		new: function(form){
+			$(form).addClass("inactive")
+			message.warning(form, "Carregando, aguarde...");
+			var formData = new FormData(form);
+
+			$.ajax({
+				type: 'post',
+				data: formData,
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+				url: '/admin/coupons/new',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						$(form)[0].reset()
+						message.success(form, "O cupom foi criado com sucesso!");
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		}
 	}
 };
 
@@ -585,6 +807,32 @@ const Publi = {
 		})
 	},
 
+	delete: function(publi_id){
+		if(confirm("Você realmente deseja apagar essa publi?") != true)
+			return false;
+
+		$.ajax({
+			type: 'post',
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/publis/delete/'+publi_id,
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					alert("Sucesso! A publi foi apagada definitivamente.");
+					window.location = '/admin/publis'
+				}else{
+					alert(data.res);
+				}
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!")
+				console.log(err)
+			}
+		})
+	}
+
 }
 
 
@@ -656,4 +904,35 @@ const Post = {
 		})
 	},
 
+	delete: function(post_id){
+		if(confirm("Você realmente deseja apagar este post?") != true)
+			return false;
+
+
+		const form = $('form');
+		form.addClass("inactive")
+		message.warning(form, "Agpagando post, aguarde...")
+
+
+		$.ajax({
+			type: 'post',
+			data: {},
+			contentType: false,
+			cache: false,
+			processData: false,
+			url: '/admin/posts/delete/' + post_id,
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					alert("Seu post foi apagado com sucesso!");
+					window.location = '/admin/posts';
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	}
 }

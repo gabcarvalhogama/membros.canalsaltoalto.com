@@ -63,6 +63,14 @@
 							</div>
 						</div> -->
 
+						<div class="mb-3 form-group">
+							<label for="post_status">Status</label>
+							<select name="post_status" id="post_status" class="form-control">
+								<option value="0">Rascunho</option>
+								<option value="1">Publicado</option>
+							</select>
+						</div>
+
 						<div>
 							<input type="submit" value="Publicar Post" class="btn btn-rose btn-medium" />
 						</div>

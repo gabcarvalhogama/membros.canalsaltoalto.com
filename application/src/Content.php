@@ -12,12 +12,11 @@
 		    return $slug;
 		}
 
-		public function create($title, $excerpt, $content, $featured_image, $featured_video, $author_email){
+		public function create($title, $excerpt, $content, $featured_image, $featured_video, $author_email, $status, $published_at){
 			$sql = DB::open()->prepare("
 				INSERT INTO csa_contents ()
 
-				VALUES (default, :title, :excerpt, :content, :featured_image, :featured_video, (SELECT iduser FROM csa_users WHERE email = :author_email LIMIT 1), :slug, :term_id, NOW(), NOW(), null)
-
+				VALUES (default, :title, :excerpt, :content, :featured_image, :featured_video, (SELECT iduser FROM csa_users WHERE email = :author_email LIMIT 1), :slug, :term_id, :status, :published_at, NOW(), NOW())
 				");
 			return $sql->execute([
 				":title" => ucfirst(trim($title)),
@@ -26,13 +25,15 @@
 				":featured_image" => $featured_image,
 				":featured_video" => $featured_video,
 				":author_email" => $author_email,
-				"slug" => $this->generateSlug($title),
+				":slug" => $this->generateSlug($title),
 				":term_id" => 0,
+				":status" => intval($status),
+				":published_at" => date("Y-m-d H:i:s", strtotime($published_at))
 			]);
 		}
 
 
-		public function update($content_id, $title, $excerpt, $content, $featured_image, $featured_video){
+		public function update($content_id, $title, $excerpt, $content, $featured_image, $featured_video, $status, $published_at){
 			$sql = DB::open()->prepare("
 				UPDATE csa_contents SET
 				title = :title,
@@ -40,6 +41,8 @@
 				content = :content,
 				featured_image = :featured_image,
 				featured_video = :featured_video,
+				status = :status,
+				published_at = :published_at,
 				updated_at = NOW()
 
 				WHERE idcontent = :content_id
@@ -50,6 +53,8 @@
 				":content" => $content,
 				":featured_image" => $featured_image,
 				":featured_video" => $featured_video,
+				":status" => $status,
+				":published_at" => $published_at,
 				":content_id" => intval($content_id)
 			]);
 		}

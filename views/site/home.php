@@ -16,41 +16,22 @@
 			<!-- Slider main container -->
 			<div class="swiper swiper_hero">
 			  <div class="swiper-wrapper">
-			    <div class="swiper-slide">
-			    	<a href="https://forms.gle/P2qjAyqLjwEvfYW16" target="_blank">
-			    		<img src="<?=PATH?>uploads/2024/10/banner-premio-1600x572.jpeg" class="site__hero--image d-none d-md-block" />
-			    		<img src="<?=PATH?>uploads/2024/10/banner-premio-850x1100.jpeg" class="site__hero--image d-block d-md-none" />
-			    	</a>
-			    </div>
-			    <div class="swiper-slide">
-			    	<a href="https://www.youtube.com/playlist?list=PL7QAaleeNYRztUZvoBAdVH4Oq239rjNnb" target="_blank">
-			    		<img src="<?=PATH?>uploads/2024/08/site-banner-salto-alto-pod.png" class="site__hero--image d-none d-md-block" />
-			    		<img src="<?=PATH?>uploads/2024/08/BANNER-MOBILE-425x425.png" class="site__hero--image d-block d-md-none" />
-			    	</a>
-			    </div>
-			    <div class="swiper-slide">
-			    	<a href="/" target="_blank">
-			    		<img src="<?=PATH?>uploads/2024/08/site-banner-institucional.jpg" class="site__hero--image d-none d-md-block" />
-			    		<img src="<?=PATH?>uploads/2024/08/Banner-1-mobile.jpg" class="site__hero--image d-block d-md-none" />
-			    	</a>
-			    </div>
-			    <div class="swiper-slide">
-			    	<a href="https://canalsaltoalto.com/app/login" target="_blank">
-			    		<img src="<?=PATH?>uploads/2024/08/site-banner-seja-membro.jpg" class="site__hero--image d-none d-md-block" />
-			    		<img src="<?=PATH?>uploads/2024/08/Banner-2-mobile.jpg" class="site__hero--image d-block d-md-none" />
-			    	</a>
-			    </div>
-			    <div class="swiper-slide">
-			    	<a href="https://www.sicoob.com.br/web/sicoobes/para-voce" target="_blank">
-			    		<img src="<?=PATH?>uploads/2024/08/site-banner-sicoob.png" class="site__hero--image d-none d-md-block" />
-			    		<img src="<?=PATH?>uploads/2024/08/BANNER-SICOOB-MOBILE-500x500px.png" class="site__hero--image d-block d-md-none" />
-			    	</a>
-			    </div>
-			  </div>
-			  <!-- If we need pagination -->
-			  <div class="swiper-pagination"></div>
+			  	<?php 
+			  		$Banner = new Banner;
+			  		$getBanners = $Banner->getBannersByPosition('public_home_hero');
 
-			  <!-- If we need navigation buttons -->
+			  		foreach($getBanners->fetchAll(PDO::FETCH_ASSOC) as $banner):
+			  	?>
+			  	 <div class="swiper-slide">
+			    	<a href="<?=$banner['link']?>" target="_blank">
+			    		<img src="<?=PATH.$banner['path_desktop']?>" class="site__hero--image d-none d-md-block" />
+			    		<img src="<?=PATH.$banner['path_mobile']?>" class="site__hero--image d-block d-md-none" />
+			    	</a>
+			    </div>
+
+				<?php endforeach; ?>
+			  </div>
+			  <div class="swiper-pagination"></div>
 			  <div class="swiper-button-prev"></div>
 			  <div class="swiper-button-next"></div>
 			</div>
@@ -58,9 +39,15 @@
 
 		<section class="banner mt-3 mb-3">
 			<div class="container-xl">
-				<a href="https://www.sicoob.com.br/web/sicoobes/para-voce" target="_blank" style="display: block">
-					<img src="<?=PATH?>uploads/2024/07/BANNER-SICOOB-900x100px.png" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
+				<?php 
+			  		$getBanners01 = $Banner->getBannersByPosition('public_home_ad1');
+
+			  		foreach($getBanners01->fetchAll(PDO::FETCH_ASSOC) as $banner):
+			  	?>
+				<a href="<?=$banner['link']?>" target="_blank" style="display: block">
+					<img src="<?=PATH.$banner['path_desktop']?>" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
 				</a>
+				<?php endforeach; ?>
 			</div>
 		</section>
 
@@ -82,9 +69,15 @@
 
 		<section class="banner mt-3 mb-3">
 			<div class="container-xl">
-				<a href="https://wa.me/message/UIAZUSAT7AZNK1" target="_blank" style="display: block">
-					<img src="<?=PATH?>uploads/2024/07/club1.png" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
+				<?php 
+			  		$getBanners02 = $Banner->getBannersByPosition('public_home_ad2');
+
+			  		foreach($getBanners02->fetchAll(PDO::FETCH_ASSOC) as $banner):
+			  	?>
+				<a href="<?=$banner['link']?>" target="_blank" style="display: block">
+					<img src="<?=PATH.$banner['path_desktop']?>" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
 				</a>
+				<?php endforeach; ?>
 			</div>
 		</section>
 
@@ -98,7 +91,7 @@
 					<?php
 						$Post = new Post;
 
-						$posts = $Post->getPosts();
+						$posts = $Post->getPosts(6);
 
 						if($posts->rowCount() > 0):
 							foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post)
@@ -120,7 +113,7 @@
 							<?php
 								$Post = new Post;
 
-								$posts = $Post->getPosts();
+								$posts = $Post->getPosts(6);
 								if($posts->rowCount() > 0){
 									foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post){
 										echo "<div class='swiper-slide'>";
@@ -142,14 +135,20 @@
 
 		<section class="banner mt-3 mb-3">
 			<div class="container-xl">
-				<a href="https://limilk.com.br/" target="_blank" style="display: block">
-					<img src="<?=PATH?>uploads/2024/07/LIMILK.png" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
+				<?php 
+			  		$getBanners03 = $Banner->getBannersByPosition('public_home_ad3');
+
+			  		foreach($getBanners03->fetchAll(PDO::FETCH_ASSOC) as $banner):
+			  	?>
+				<a href="<?=$banner['link']?>" target="_blank" style="display: block">
+					<img src="<?=PATH.$banner['path_desktop']?>" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
 				</a>
+				<?php endforeach; ?>
 			</div>
 		</section>
 
 
-		<section class="companies mt-3 mb-3">
+		<section class="companies mt-5 mb-5">
 			<div class="container-xl">
 				<h2>Essas empresas estão conosco!</h2>
 				<!-- Slider main container -->
@@ -175,7 +174,7 @@
 			</div>
 		</section>
 
-		<section class="newsletter bg-primary p-4">
+		<section class="newsletter bg-primary p-4 mt-5 mb-5">
 			<div class="container-xl">
 				<div class="row align-items-center">
 					<div class="col-md-6">

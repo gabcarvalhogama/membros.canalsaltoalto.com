@@ -30,11 +30,11 @@
 								$Publi = new Publi;
 								foreach($Publi->getPublisByStatus(500, 0)->fetchAll(PDO::FETCH_ASSOC) as $publi):
 							?>
-								<tr>
-									<td><?=$publi['publi_title']?></td>
+								<tr style="vertical-align: middle;">
+									<td style="max-width: 160px"><a href="<?=PATH.$publi['publi_image']?>" target="_blank"><img src="<?=PATH.$publi['publi_image']?>" alt="" class="img-fluid"></a></td>
 									<td><?=date("d/m/Y \à\s H:i", strtotime($publi['created_at']))?></td>
 									<td>
-										<a href="/admin/publis/edit/<?=$publi['publi_id']?>" style="color: #333">Acessar</a>
+										<a href="/admin/publis/edit/<?=$publi['publi_id']?>" style="color: #333">Editar</a>
 									</td>
 								</tr>
 							<?php 

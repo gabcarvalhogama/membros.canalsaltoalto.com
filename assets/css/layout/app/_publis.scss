@@ -3,6 +3,10 @@
 	margin-top: 40px;
 	margin-bottom: 40px;
 	min-height: 60vh;
+	.container-xl{
+		width: 550px;
+		max-width: 100%;
+	}
 }
 
 .publis-list{
@@ -34,7 +38,50 @@
 				margin-bottom: 0;
 				font-size: 1.1rem;
 			}
+			.like{
+				color: #000;
 
+				&.active{
+					color: $primary-color;
+				}
+			}
+
+			.publi_comment{
+				width: 100%;
+				input{
+					width: 100%;
+					border-radius: 50px;
+					border: solid 1px rgb(230,230,230);
+					margin-left: 10px;
+					padding: 5px;
+					padding-left: 10px;
+					height: 40px;
+				}
+				button{
+					background-color: $primary-color;
+					border: none;
+					width: 35px;
+					height: 35px;
+					line-height: 35px;
+					border-radius: 35px;
+					margin-left: -40px;
+				}
+			}
+
+			.publi__comment--item{
+				margin-top: 20px;
+				img{
+					margin-right: 10px;
+				}
+				h5{
+					font-size: .9rem;
+					margin-bottom: 3px;
+				}
+				p{
+					font-size: .9rem;
+					color: rgb(150,150,150);
+				}
+			}
 		}
 	}
 }

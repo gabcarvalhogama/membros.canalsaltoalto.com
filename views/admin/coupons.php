@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 	<head>
-		<title>Publis ‹ Painel Administrativo ‹ Canal Salto Alto</title>
+		<title>Cupons ‹ Painel Administrativo ‹ Canal Salto Alto</title>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
@@ -17,24 +17,32 @@
 
 			<div class="admin__dashboard--content">
 				<div class="container">
-					<h1>Publis</h1>
+					<h1>Todos os Cupons</h1>
 
 					<table class="table">
 						<thead>
 							<th>Título</th>
-							<th>Criado em</th>
-							<th>Ações</th>
+							<th>Desconto</th>
+							<th>Expiração</th>
+							<!-- <th>Ações</th> -->
 						</thead>
 						<tbody>
 							<?php
-								$Publi = new Publi;
-								foreach($Publi->getPublis(200)->fetchAll(PDO::FETCH_ASSOC) as $publi):
+								$Coupon = new Coupon;
+								foreach($Coupon->getCoupons()->fetchAll(PDO::FETCH_ASSOC) as $coupon):
 							?>
-								<tr style="vertical-align: middle;">
-									<td style="max-width: 160px"><a href="<?=PATH.$publi['publi_image']?>" target="_blank"><img src="<?=PATH.$publi['publi_image']?>" alt="" class="img-fluid"></a></td>
-									<td><?=date("d/m/Y \à\s H:i", strtotime($publi['created_at']))?></td>
+								<tr>
+									<td><?=$coupon['code']?></td>
+									<td><?php
+										if($coupon['discount_type'] == 'value')
+											echo "R$ ".$coupon['discount_value'];
+										else
+											echo $coupon['discount_value']."%";
+
+									?></td>
+									<td><?=date("d/m/Y \à\s H:i", strtotime($coupon['expiration_date']))?></td>
 									<td>
-										<a href="/admin/publis/edit/<?=$publi['publi_id']?>" style="color: #333">Editar</a>
+										<!-- <a href="/admin/coupons/edit/<?=$coupon['coupon_id']?>" style="color: #333">Editar</a> -->
 									</td>
 								</tr>
 							<?php 

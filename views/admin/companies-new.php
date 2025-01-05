@@ -142,7 +142,7 @@
 						</div>
 
 						<div>
-							<input type="submit" value="Criar empresa" class="btn btn-rose btn-medium btn-full btn-rounded" />
+							<input type="submit" value="Criar empresa" class="btn btn-rose btn-medium btn-full btn-rounded  btn-rose-light" />
 						</div>
 					</form>
 				</div>

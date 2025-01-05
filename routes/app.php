@@ -1,7 +1,22 @@
 <?php
 	$router->before('GET', '/app(?!/(login|recover)$).*', function(){
 		$User = new User;
-		if((($User->isUserAuthenticated()) == false OR $User->isUserAMember(  (isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)  ) == 0) AND ($User->isUserAdminByEmail($_SESSION["csa_email"]) == false)) die(header("Location: /app/login"));
+		if(
+			(
+				($User->isUserAuthenticated()) == false 
+				OR 
+				$User->isUserAMember(
+					(isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)
+				) == 0
+			) 
+
+			AND (
+				$User->isUserAdminByEmail((isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)) == false)
+		){
+			session_destroy();
+			die(header("Location: /app/login"));
+
+		}
 	});
 	$router->mount("/app", function() use($router){
 
@@ -10,7 +25,7 @@
 		$router->get("/", function() {
 			// if(USER->)
 			// var_dump(USER);
-			if(intval(USER->company_counter) == 0)
+			if(intval(USER->company_counter) == 0 AND USER->user_type != 1)
 				header("Location: /app/welcome/new-company");
 
 			require_once "views/app/index.php";
@@ -296,9 +311,11 @@
 		});
 
 		$router->post("/publis/new", function(){
-			if(empty($_POST["publi_title"])){
-				die(json_encode(["res" => "Por favor, informe um título para sua publi."]));
-			}else if(empty($_POST["publi_content"])){
+			// if(empty($_POST["publi_title"])){
+			// 	die(json_encode(["res" => "Por favor, informe um título para sua publi."]));
+			// }else 
+
+			if(empty($_POST["publi_content"])){
 				die(json_encode(["res" => "Por favor, informe um conteúdo para sua publi."]));
 			}else{
 
@@ -323,7 +340,7 @@
 				$Publi = new Publi;
 
 				if($Publi->create(
-					$_POST["publi_title"],
+					// $_POST["publi_title"],
 					$_POST["publi_content"],
 					$publi_image,
 					0,
@@ -337,6 +354,49 @@
 
 			}
 		});
+
+		$router->post("/publis/{publi_id}/comment", function($publi_id){
+			if(empty($publi_id)){
+				die(json_encode(["res" => "Desculpe, não foi possivel identificar o ID da publi."]));
+			}else if(empty($_POST["publi_comment"])){
+				die(json_encode(["res" => "Por favor, digite o seu comentário!"]));
+			}else{
+
+				$parent_id = (!empty($_POST["parent_id"])) ? intval($_POST["parent_id"]) : null;
+
+				$Publi = new Publi;
+
+				if($Publi->setComment($publi_id, USER->iduser, $_POST["publi_comment"], $parent_id))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Desculpe, não foi possível postar o seu comentário. Atualize o site e tente novamente!"]));
+			}
+		});
+
+		$router->post("/publis/{publi_id}/like", function($publi_id) {
+		    if (empty($publi_id)) {
+		        die(json_encode(["res" => "Desculpe, não foi possível identificar o ID da publicação."]));
+		    }
+
+		    $Publi = new Publi;
+
+		    $likeExists = $Publi->getLike($publi_id, USER->iduser)->rowCount() > 0;
+
+		    if ($likeExists) {
+		        if ($Publi->deleteLike($publi_id, USER->iduser)) {
+		            die(json_encode(["res" => 1, "current" => 0]));
+		        } else {
+		            die(json_encode(["res" => "Desculpe, não foi possível remover o like."]));
+		        }
+		    } else {
+		        if ($Publi->setLike($publi_id, USER->iduser)) {
+		            die(json_encode(["res" => 1, "current" => 1]));
+		        } else {
+		            die(json_encode(["res" => "Desculpe, não foi possível adicionar o like."]));
+		        }
+		    }
+		});
+
 
 		$router->get("/profile", function(){
 			$User = new User;
@@ -429,5 +489,38 @@
 			$User = new User;
 			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
 			require "views/app/profile-companies.php";
+		});
+
+		$router->get("/profile/subscriptions", function(){
+			require "views/app/profile-subscriptions.php";
+		});
+
+		$router->get("/profile/change-password", function(){
+			require "views/app/profile-change-password.php";
+		});
+		$router->post("/profile/change-password", function(){
+			if(empty($_POST["new_password"])){
+				die(json_encode(["res" => "Por favor, digite a nova senha."]));
+			}else if(empty($_POST["r_new_password"])){
+				die(json_encode(["res" => "Por favor, repita a nova senha."]));
+			}else{
+				if(strlen($_POST["new_password"]) < 8)
+					die(json_encode(["res" => "Desculpe, a nova senha deve ter no mínimo 8 caracteres."]));
+
+				if($_POST["new_password"] != $_POST["r_new_password"])
+					die(json_encode(["res" => "Desculpe, as senhas não conferem. Verifique as senhas e tente novamente!"]));
+
+
+				$User = new User;
+
+				if($User->updatePassword(USER->iduser, $_POST["new_password"]) == true){
+					$_SESSION["csa_password"] = $_POST["new_password"];
+					die(json_encode(["res" => 1]));
+				}
+				else{
+					die(json_encode(["res" => "Desculpe, algo deu errado ao atualizar a sua senha. Atualize a página e tente novamente!"]));
+				}
+
+			}
 		});
 	});

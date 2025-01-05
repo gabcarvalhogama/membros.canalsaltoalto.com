@@ -63,12 +63,13 @@
 							</div>
 							<div class="col-md-6 mb-3">
 								<label for="content_publish_date" class="form-label">Data de Publicação</label>
-								<input type="text" name="content_publish_date" id="content_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="Imediato" />
+								<input type="text" name="content_publish_date" id="content_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="dd/mm/aaaa hh:mm" />
+								<small>Deixe em branco para publicar agora.</small>
 							</div>
 						</div>
 
 						<div>
-							<input type="submit" value="Cadastrar conteúdo" class="btn btn-rose btn-medium" />
+							<input type="submit" value="Cadastrar conteúdo" class="btn btn-rose btn-medium  btn-rose-light" />
 						</div>
 					</form>
 				</div>

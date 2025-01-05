@@ -46,7 +46,9 @@
 			    			<div class="row">
 			    				<div class="col">
 			    					<h5 class="card-title text-muted mb-0"><a href="/admin/members/inactive" style="color: #000">Membros Inativos</a></h5>
-			    					<span class="h2 font-weight-bold mb-0"><?=User::getInactiveMembersCount()?></span>
+			    					<span class="h2 font-weight-bold mb-0"><?php
+			    						$User = new User;
+			    						echo $User->getInactiveUsers()->rowCount()?></span>
 			    				</div>
 			    				<div class="col-auto">
 			    					<div class="icon icon-shape bg-primary text-white rounded-circle shadow" style="width: 25px;height: 25px;text-align: center;">
@@ -89,7 +91,7 @@
 					<div class="card mb-3">
 						<div class="card-header-tab card-header">
 							<div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-								<i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"></i> Próximas Expirações
+								<i class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"></i> Expirações nos próximos 15 dias
 							</div>
 						</div>
 

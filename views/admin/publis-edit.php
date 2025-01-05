@@ -39,12 +39,26 @@
 						</div>
 
 
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col mb-3">
 								<label for="publi_title" class="form-label">Título</label>
 								<input type="text" class="form-control" id="publi_title" name="publi_title" placeholder="" value="<?=$publi->publi_title?>" required />
 							</div>
+						</div> -->
+
+
+
+
+						<div class="row align-items-center">
+							<div class="col-md-4 mb-3">
+								<img src="<?=PATH.$publi->publi_image?>" alt="" class="img-fluid" />
+							</div>
+							<div class="col-md-8 mb-3">
+								<label for="publi_image">Imagem da Publi</label>
+								<input type="file" class="form-control" id="publi_image" name="publi_image" accept="image/*" />
+							</div>
 						</div>
+
 						<div class="row">
 							<div class="col mb-3">
 								<textarea name="publi_content" id="publi_content" class="form-control"><?=$publi->publi_content?></textarea>
@@ -62,8 +76,9 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col mb-3 text-center">
-								<input type="submit" value="Atualizar Publi" class="btn btn-rose btn-medium btn-full" />
+							<div class="d-flex mb-3 flex-row align-items-center">
+								<input type="submit" value="Atualizar publi" class="btn btn-rose" />
+								<a href="javascript:void(0)" style="margin-left:  20px;color: #000" onclick="Publi.delete(<?=$publi->publi_id?>)">Apagar publi</a>
 							</div>
 						</div>
 
@@ -76,7 +91,7 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/tinymce/tinymce.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js?<?=uniqid()?>"></script>
 		<script type="text/javascript">
 			
 			tinymce.init({
@@ -84,7 +99,7 @@
 				license_key: 'gpl',
 			   	promotion: false,
 			   	plugins: 'image, link, lists',
-			   	toolbar: 'undo redo | styles | bold italic | numlist bullist | link image | link',
+			   	toolbar: 'undo redo | styles | bold italic | numlist bullist | link',
 			   	menubar: false,
 		       	language: 'pt_BR',
 	         	images_upload_url: '<?=PATH?>upload/image',

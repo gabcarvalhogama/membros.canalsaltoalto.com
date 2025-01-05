@@ -65,9 +65,25 @@
 							</div>
 						</div> -->
 
-						<div>
-							<input type="submit" value="Atualizar post" class="btn btn-rose btn-full btn-medium" />
+
+						<div class="mb-3 form-group">
+							<label for="post_status">Status</label>
+							<select name="post_status" id="post_status" class="form-control">
+								<option value="0" <?=($post->status == 0) ? 'selected' : ''?>>Rascunho</option>
+								<option value="1" <?=($post->status == 1) ? 'selected' : ''?>>Publicado</option>
+							</select>
 						</div>
+
+						<div class="form-group row align-items-center">
+							<div class="col-md-6">
+								<input type="submit" value="Atualizar post" class="btn btn-rose btn-full btn-medium" />
+							</div>
+							<div class="col-md-6">
+								<a href="javascript:void(0)" style="color: #000;" onclick="Post.delete(<?=$post->post_id;?>)"><i class="fa-solid fa-trash"></i> Apagar post</a>
+							</div>
+						</div>
+
+
 
 						<input type="hidden" name="post_id" id="post_id" value="<?=$post->post_id?>">
 					</form>
@@ -78,7 +94,7 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/tinymce/tinymce.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js?<?=uniqid()?>"></script>
 		<script type="text/javascript">
 			
 			tinymce.init({

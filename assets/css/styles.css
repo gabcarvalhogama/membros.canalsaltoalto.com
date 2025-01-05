@@ -26382,6 +26382,11 @@ label, .form-label {
   background-color: #E02978;
   transform: translateY(5px);
 }
+.app .topbar {
+  text-align: center;
+  padding: 5px 10px;
+  background-color: #E54C8E;
+}
 .app .app__header {
   padding: 20px 0;
 }
@@ -26820,6 +26825,10 @@ label, .form-label {
   margin-bottom: 40px;
   min-height: 60vh;
 }
+.app .app__publis .container-xl {
+  width: 550px;
+  max-width: 100%;
+}
 .app .publis-list__item {
   border-radius: 15px;
   background-color: #FFF;
@@ -26847,6 +26856,47 @@ label, .form-label {
   font-weight: bold;
   margin-bottom: 0;
   font-size: 1.1rem;
+}
+.app .publis-list__item--content .like {
+  color: #000;
+}
+.app .publis-list__item--content .like.active {
+  color: #E54C8E;
+}
+.app .publis-list__item--content .publi_comment {
+  width: 100%;
+}
+.app .publis-list__item--content .publi_comment input {
+  width: 100%;
+  border-radius: 50px;
+  border: solid 1px rgb(230, 230, 230);
+  margin-left: 10px;
+  padding: 5px;
+  padding-left: 10px;
+  height: 40px;
+}
+.app .publis-list__item--content .publi_comment button {
+  background-color: #E54C8E;
+  border: none;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 35px;
+  margin-left: -40px;
+}
+.app .publis-list__item--content .publi__comment--item {
+  margin-top: 20px;
+}
+.app .publis-list__item--content .publi__comment--item img {
+  margin-right: 10px;
+}
+.app .publis-list__item--content .publi__comment--item h5, .app .publis-list__item--content .publi__comment--item .h5 {
+  font-size: 0.9rem;
+  margin-bottom: 3px;
+}
+.app .publis-list__item--content .publi__comment--item p {
+  font-size: 0.9rem;
+  color: rgb(150, 150, 150);
 }
 .app .app__profile .container {
   margin-top: 2rem;
@@ -27057,6 +27107,9 @@ label, .form-label {
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
   }
 }
 .admin .admin__dashboard--nav .logo {
@@ -27078,11 +27131,6 @@ label, .form-label {
   margin: 0;
   padding: 0;
 }
-@media screen and (max-width: 1200px) {
-  .admin .admin__dashboard--nav ul {
-    display: none;
-  }
-}
 .admin .admin__dashboard--nav ul li a {
   display: block;
   padding: 10px;
@@ -27100,6 +27148,23 @@ label, .form-label {
   padding-top: 1px !important;
   padding-bottom: 1px !important;
 }
+.admin .admin__dashboard--nav .admin__dashboard--nav--mobilebtn {
+  display: none;
+}
+@media screen and (max-width: 1200px) {
+  .admin .admin__dashboard--nav nav {
+    display: none;
+    position: absolute;
+    top: 120px;
+    background: #000;
+    width: calc(100% - 40px);
+    z-index: 9999999;
+  }
+  .admin .admin__dashboard--nav .admin__dashboard--nav--mobilebtn {
+    display: block;
+    width: 80px;
+  }
+}
 .admin .admin__dashboard--content {
   width: calc(100% - 250px);
   background-color: #FFF;
@@ -27109,6 +27174,19 @@ label, .form-label {
   .admin .admin__dashboard--content {
     width: 100%;
   }
+}
+.admin .admin__dashboard--content a {
+  color: #000 !important;
+}
+.admin .admin__dashboard--content .enabled {
+  padding: 5px;
+  background-color: green;
+  color: #FFF;
+}
+.admin .admin__dashboard--content .disabled {
+  padding: 5px;
+  background-color: red;
+  color: #FFF;
 }
 .admin .admin__dashboard--content .companies-list {
   display: flex;
