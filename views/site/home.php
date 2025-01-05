@@ -156,7 +156,7 @@
 				  <div class="swiper-wrapper">
 				    <?php
 				  		$Company = new Company;
-				  		$companies = $Company->getCompanies();
+				  		$companies = $Company->getCompaniesEnabledAndActiveMembers();
 				  		if($companies->rowCount() > 0):
 				  			foreach($companies->fetchAll(PDO::FETCH_ASSOC) as $company):
 				  	?>

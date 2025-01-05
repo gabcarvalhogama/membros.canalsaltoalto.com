@@ -79,7 +79,7 @@
 
 
 		public function getCompaniesEnabledAndActiveMembers($limit = 6){
-			$sql = DB::open()->prepare("SELECT 
+			$sql = DB::open()->prepare("SELECT DISTINCT
 			    c.company_id,
 			    c.iduser,
 			    c.company_name,
@@ -107,9 +107,18 @@
 			    csa_companies c
 			LEFT JOIN 
 			    csa_users u ON c.iduser = u.iduser
+			LEFT JOIN 
+			    csa_users_memberships um ON u.iduser = um.iduser
+			WHERE 
+			    c.status = 1
+			    AND um.status = 'paid'
+			    AND um.ends_at > NOW()
+			ORDER BY 
+			    c.company_name ASC
+			LIMIT :limit_posts
+			");
 
-			    ORDER BY c.company_name ASC;");
-
+			$sql->bindParam(':limit_posts', $limit, \PDO::PARAM_INT);
 			$sql->execute();
 
 			return $sql;
