@@ -30,7 +30,7 @@
 			LEFT JOIN 
 			    csa_users u ON c.iduser = u.iduser
 
-			    ORDER BY c.company_name ASC;");
+			ORDER BY c.company_name ASC;");
 
 			$sql->execute();
 

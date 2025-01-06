@@ -347,6 +347,24 @@
     		return $sql;
 	    }
 
+	    public function getUserMembershipById($idusermembership){
+	    	$sql = DB::open()->prepare("SELECT * FROM csa_users_memberships WHERE idusermembership = :idusermembership LIMIT 1");
+	    	$sql->execute([
+	    		":idusermembership" => $idusermembership
+    		]);
+
+    		return $sql;
+	    }
+
+	    public function deleteUserMembershipById($idusermembership){
+	    	$sql = DB::open()->prepare("DELETE FROM csa_users_memberships WHERE idusermembership = :idusermembership");
+	    	$sql->execute([
+	    		":idusermembership" => $idusermembership
+    		]);
+
+    		return $sql->rowCount() > 0;
+	    }
+
 
 
 		public static function getStates(){
@@ -450,7 +468,7 @@
 
 
 		public function getActiveUsers($limit = null){
-			$sql = DB::open()->prepare("SELECT 
+			$sql = DB::open()->prepare("SELECT  
 			    u.iduser, 
 			    u.firstname, 
 			    u.lastname, 
@@ -477,13 +495,28 @@
 			FROM 
 			    csa_users u
 			LEFT JOIN 
-			    csa_users_memberships um ON u.iduser = um.iduser AND um.ends_at > NOW()
+			    (
+			        SELECT 
+			            um1.iduser, 
+			            um1.starts_at, 
+			            um1.ends_at, 
+			            um1.membership_id, 
+			            um1.status
+			        FROM 
+			            csa_users_memberships um1
+			        WHERE 
+			            um1.status = 'paid' AND um1.ends_at > NOW()
+			        GROUP BY 
+			            um1.iduser
+			        HAVING 
+			            MIN(um1.starts_at) -- Seleciona o registro mais antigo por usuário
+			    ) um ON u.iduser = um.iduser
 			LEFT JOIN 
 			    csa_memberships m ON um.membership_id = m.membership_id
-
-			WHERE um.status = 'paid' AND u.user_type = 0 AND um.ends_at > NOW()
-
-			ORDER BY u.firstname ASC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
+			WHERE 
+			    u.user_type = 0
+			ORDER BY 
+			    u.firstname ASC". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
 			$sql->execute();
 
 			return $sql;
@@ -525,6 +558,56 @@
 			WHERE um.status = 'paid' AND u.user_type = 0
 
 			ORDER BY um.starts_at DESC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
+			$sql->execute();
+
+			return $sql;
+		}
+		public function getLastUsersWithFirstMembership($limit = null){
+			$sql = DB::open()->prepare("SELECT 
+			    u.iduser, 
+			    u.firstname, 
+			    u.lastname, 
+			    u.profile_photo, 
+			    u.biography,
+			    u.cpf, 
+			    u.birthdate, 
+			    u.zipcode, 
+			    u.address_state, 
+			    u.address_city, 
+			    u.address, 
+			    u.address_number, 
+			    u.address_neighborhood, 
+			    u.address_complement, 
+			    u.cellphone, 
+			    u.email, 
+			    u.user_type, 
+			    u.created_at, 
+			    u.updated_at,
+			    um.starts_at, 
+			    um.ends_at,
+			    m.membership_title,
+			    (SELECT COUNT(company_id) 
+			     FROM csa_companies c 
+			     WHERE c.iduser = u.iduser) as company_counter
+			FROM 
+			    csa_users u
+			LEFT JOIN 
+			    csa_users_memberships um 
+			    ON u.iduser = um.iduser
+			LEFT JOIN 
+			    csa_memberships m 
+			    ON um.membership_id = m.membership_id
+			WHERE 
+			    um.status = 'paid'
+			    AND u.user_type = 0
+			    AND (
+			        SELECT COUNT(*) 
+			        FROM csa_users_memberships um1 
+			        WHERE um1.iduser = u.iduser
+			        AND um1.status = 'paid'
+			    ) = 1
+			ORDER BY 
+			    um.starts_at DESC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
 			$sql->execute();
 
 			return $sql;

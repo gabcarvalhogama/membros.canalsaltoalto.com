@@ -30,6 +30,8 @@
 						$getPubli = $Publi->getPublisByStatus(200, 1);
 						if($getPubli->rowCount() > 0):
 							foreach($getPubli->fetchAll(PDO::FETCH_ASSOC) as $publi):
+								if ((new DateTime())->diff(new DateTime($publi['published_at']))->days > 30 && (new DateTime() > new DateTime($publi['published_at']))) continue;
+
 								$ms+=100;
 								echo Template::render($publi, "loop_publis");
 							endforeach; endif; ?>

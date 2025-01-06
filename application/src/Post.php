@@ -84,6 +84,13 @@
 			return $sql;
 		}
 
+		public function getPostsTotalNumber(){
+			$sql = DB::open()->prepare("SELECT * FROM csa_posts WHERE status = 1");
+			$sql->execute();
+
+			return $sql->rowCount();
+		}
+
 		public function getAllPosts($limit = 12, $offset = 0){
 			$sql = DB::open()->prepare("SELECT * FROM csa_posts ORDER BY published_at DESC LIMIT :limit_posts OFFSET :offset_posts");
 			$sql->bindParam(':limit_posts', $limit, \PDO::PARAM_INT);

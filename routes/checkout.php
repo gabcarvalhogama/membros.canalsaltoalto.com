@@ -5,6 +5,7 @@
 		require "views/site/checkout.php";
 	});
 
+
 	$router->get("/checkout/cities/{uf}", function($uf){
 		if(empty($uf)){
 			die(json_encode(["res" => "Algo deu errado ao obter as cidades. Atualize a página e tente novamente."]));
@@ -149,9 +150,15 @@
 			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
 		}
 
+
+		$Membership = new Membership;
+		$getMembershipPlanById = $Membership->getMembershipPlanById(1);
+
+		$product = $getMembershipPlanById->fetchObject();
 		// Membership Price
-		$aVistaPrice = 199;
-		$cartaoPrice = 238.80;
+		$aVistaPrice = (float) $product->membership_price_incash;
+		$cartaoPrice = (float) $product->membership_price_cc;
+
 
 		$isMemberEligibleForRenewallDiscount = $User->isMemberEligibleForRenewallDiscount($user->iduser);
 

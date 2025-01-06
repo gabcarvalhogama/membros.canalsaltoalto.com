@@ -9,6 +9,23 @@
 	});
 
 	$router->get("/noticias", function(){
+		$Post = new Post;
+
+		$posts = $Post->getPosts(12, 0);
+		$total_posts = $Post->getPostsTotalNumber();
+
+		require "views/site/noticias.php";
+	});
+
+	$router->get("/noticias/page/{page_number}", function($page_number){
+
+		if((int) $page_number < 1)
+			header("Location: /noticias");
+
+		$Post = new Post;
+
+		$posts = $Post->getPosts(12, (($page_number - 1) * 12));
+		$total_posts = $Post->getPostsTotalNumber();
 		require "views/site/noticias.php";
 	});
 

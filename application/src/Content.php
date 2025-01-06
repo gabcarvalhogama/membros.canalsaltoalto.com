@@ -76,6 +76,23 @@
 			return $sql;
 		}
 
+		public function getContentsWithPagination($limit = 12, $offset = 0, $status = 1){
+			$sql = DB::open()->prepare("SELECT * FROM csa_contents WHERE status = :status ORDER BY published_at DESC LIMIT :limit_contents OFFSET :offset_contents");
+			$sql->bindParam(':limit_contents', $limit, \PDO::PARAM_INT);
+			$sql->bindParam(':offset_contents', $offset, \PDO::PARAM_INT);
+			$sql->bindParam(':status', $status, \PDO::PARAM_INT);
+			$sql->execute();
+
+			return $sql;
+		}
+
+		public function getContentsTotalNumber(){
+			$sql = DB::open()->prepare("SELECT * FROM csa_contents ORDER BY published_at DESC");
+			$sql->execute();
+
+			return $sql->rowCount();
+		}
+
 		public function getContentBySlug($slug){
 			$sql = DB::open()->prepare("SELECT c.*, u.firstname, u.lastname, (SELECT COUNT(idcomment) FROM csa_contents_comments WHERE idcontent = c.idcontent) as number_comments FROM csa_contents c LEFT JOIN csa_users u ON c.author = u.iduser WHERE slug = :slug");
 			$sql->execute([

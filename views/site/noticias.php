@@ -14,13 +14,21 @@
 
 		<main class="mt-5 mb-5">
 			<div class="container-xl">
-				<h2>Notícias</h2>
+
+				<?php 
+					$actual_page = (isset($page_number)) ? (int) $page_number : 1;
+					$start = (($actual_page - 1) * 12);
+					
+
+					$pages = ceil($total_posts / 12);	
+					$before = (($actual_page - 1) == 0) ? 1 : $actual_page - 1;
+
+					$after = (($actual_page + 1) >= $pages) ? $pages : $actual_page+1;
+				?>
+				<h2>Notícias <?=((isset($page_number)) ? "| <small>(Página $page_number)</small>" : "")?></h2>
+
 				<div class="post-grid">
 					<?php
-						$Post = new Post;
-
-						$posts = $Post->getPosts(12, 0);
-
 						if($posts->rowCount() > 0):
 							foreach($posts->fetchAll(PDO::FETCH_ASSOC) as $post):
 					?>
@@ -41,7 +49,26 @@
 							<a href="<?=PATH.'post/'.$post['slug']?>" class="post-grid__item--content-cta"><button>CONTINUE LENDO <span>»</span></button></a>
 						</div>
 					</div>
-					<?php endforeach; else: ?>
+					<?php endforeach; ?>
+					
+					<div class="pagination">
+					    <?php if ($actual_page > 1): ?>
+					        <a href="/noticias/page/<?= $before ?>" class="pagination__link">Anterior</a>
+					    <?php endif; ?>
+
+					    <?php for ($i = 1; $i <= $pages; $i++): ?>
+					        <a href="/noticias/page/<?= $i ?>" class="pagination__link <?= $i == $actual_page ? 'active' : '' ?>">
+					            <?= $i ?>
+					        </a>
+					    <?php endfor; ?>
+
+					    <?php if ($actual_page < $pages): ?>
+					        <a href="/noticias/page/<?= $after ?>" class="pagination__link">Próximo</a>
+					    <?php endif; ?>
+					</div>
+
+
+					<?php else: ?>
 					<div class="post-grid__item">
 						<h3>Não foi possível encontrar posts.</h3>
 					</div>

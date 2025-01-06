@@ -15,8 +15,20 @@
 
 		<section class="app__contents">
 			<div class="container-xl">
-				<h2>Nossos <span class="color-primary">conteúdos</span></h2>
-				<div class="contents">
+				<?php 
+					$actual_page = (isset($page_number)) ? (int) $page_number : 1;
+					$start = (($actual_page - 1) * 12);
+					
+
+					$pages = ceil($total_contents / 12);	
+					$before = (($actual_page - 1) == 0) ? 1 : $actual_page - 1;
+
+					$after = (($actual_page + 1) >= $pages) ? $pages : $actual_page+1;
+				?>
+
+
+				<h2>Nossos <span class="color-primary">conteúdos</span> <?=((isset($page_number)) ? "| <small>(Página $page_number)</small>" : "")?></h2>
+				<div class="contents mt-3">
 				<?php
 			  		$Content = new Content;
 			  		$contents = $Content->getContents();
@@ -25,6 +37,21 @@
 			  		endforeach;
 			  	?>
 			    </div>
+			    <div class="pagination">
+				    <?php if ($actual_page > 1): ?>
+				        <a href="/app/contents/page/<?= $before ?>" class="pagination__link">Anterior</a>
+				    <?php endif; ?>
+
+				    <?php for ($i = 1; $i <= $pages; $i++): ?>
+				        <a href="/app/contents/page/<?= $i ?>" class="pagination__link <?= $i == $actual_page ? 'active' : '' ?>">
+				            <?= $i ?>
+				        </a>
+				    <?php endfor; ?>
+
+				    <?php if ($actual_page < $pages): ?>
+				        <a href="/app/contents/page/<?= $after ?>" class="pagination__link">Próximo</a>
+				    <?php endif; ?>
+				</div>
 			</div>
 		</section>
 

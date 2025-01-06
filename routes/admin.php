@@ -998,6 +998,57 @@
 					die(json_encode(["res" => "Desculpe, algo deu errado ao criar o usuário."]));
 			}
 		});
+		$router->post("/members/membership/new", function(){
+			if(empty($_POST["iduser"]))
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o membro. Atualize a página e tente novamente!"]));
+
+			if(empty($_POST["new_membership_value"]))
+				die(json_encode(["res" => "Por favor, preencha o campo de valor."]));
+
+			if(empty($_POST["new_membership_payment_type"]))
+				die(json_encode(["res" => "Por favor, preencha o campo de valor."]));
+
+			if(!in_array($_POST["new_membership_payment_type"], ["pix", "credit_card"]))
+				die(json_encode(["res" => "Por favor, informe um método de pagamento válido."]));
+
+			$dataRecebidaFormatada = str_replace('T', ' ', $_POST["new_membership_ends_at"]);
+			$dataRecebidaDateTime = new DateTime($dataRecebidaFormatada);
+
+			$dataAtual = new DateTime();
+			if ($dataRecebidaDateTime < $dataAtual)
+				die(json_encode(["res" => "Por favor, informe uma data de término maior que a data atual para a assinatura."]));
+
+
+			$Membership = new Membership;
+
+			if($Membership->create(
+				$_POST["iduser"],
+				$_POST["new_membership_product"],
+				$_POST["new_membership_orderid"],
+				null,
+				$_POST["new_membership_payment_type"],
+				$_POST["new_membership_value"],
+				str_replace('T', ' ', $_POST["new_membership_starts_at"]),
+				str_replace('T', ' ', $_POST["new_membership_ends_at"]),
+				'paid'
+			)){
+				die(json_encode(["res" => 1]));
+			}else{
+				die(json_encode(["res" => "Desculpe, não foi possível criar a assinatura para o usuário. Verifique os dados e tente novamente!"]));
+			}
+		});
+
+		$router->post("/members/membership/delete/{idusermembership}", function($idusermembership){
+			if(empty($idusermembership))
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o ID da assinatura."]));
+
+			$User = new User;
+
+			if($User->deleteUserMembershipById($idusermembership))
+				die(json_encode(["res" => 1]));
+			else
+				die(json_encode(["res" => "Desculpe, não foi possível apagar a assinatura."]));
+		});
 
 		$router->get("/members/edit/{user_id}", function($user_id){
 			$User = new User;

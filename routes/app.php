@@ -147,6 +147,11 @@
 
 
 		$router->get("/contents", function(){
+			$Content = new Content;
+			$total_contents = $Content->getContentsTotalNumber();
+			
+			$contents = $Content->getContentsWithPagination(12, 0);
+
 
 			require "views/app/contents.php";
 		});
@@ -160,6 +165,20 @@
 			$object = $content->fetchObject();
 
 			require "views/app/single-content.php";
+		});
+
+		$router->get("/contents/page/{page_number}", function($page_number){
+			if((int) $page_number < 1)
+				header("Location: /app/contents");
+
+			$Content = new Content;
+			
+			$total_contents = $Content->getContentsTotalNumber();
+
+			$contents = $Content->getContentsWithPagination(12, (($page_number - 1) * 12));
+
+
+			require "views/app/contents.php";
 		});
 
 
@@ -282,6 +301,22 @@
 
 		$router->get("/events", function(){
 
+			$Event = new Event;
+			$total_events = $Event->getEventsTotalNumber();
+			
+			$events = $Event->getEventsWithPagination(12, 0);
+			require "views/app/events.php";
+		});
+
+		$router->get("/events/page/{page_number}", function($page_number){
+			if((int) $page_number < 1)
+				header("Location: /app/events");
+
+			$Event = new Event;
+			
+			$total_events = $Event->getEventsTotalNumber();
+
+			$events = $Event->getEventsWithPagination(12, (($page_number - 1) * 12));
 			require "views/app/events.php";
 		});
 

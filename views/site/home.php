@@ -203,7 +203,7 @@
 				  <div class="swiper-wrapper">
 				    <?php
 				  		$User = new User;
-				  		$users = $User->getLastUsersWithMembership(10);
+				  		$users = $User->getLastUsersWithFirstMembership(12);
 				  		if($users->rowCount() > 0):
 				  			foreach($users->fetchAll(PDO::FETCH_ASSOC) as $user_loop):
 				  				if(empty($user_loop["profile_photo"])) continue;
@@ -220,6 +220,9 @@
 
 				  	<?php endforeach; endif; ?>
 				  </div>
+				  
+				  <div class="swiper-button-prev"></div>
+				  <div class="swiper-button-next"></div>
 				</div>
 			</div>
 		</section>

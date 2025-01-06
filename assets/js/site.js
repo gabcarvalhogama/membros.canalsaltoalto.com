@@ -49,6 +49,11 @@ const swiper_members = new Swiper('.swiper_members', {
 			slidesPerView: 4
 		}
 	},
+
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	}
 });
 
 

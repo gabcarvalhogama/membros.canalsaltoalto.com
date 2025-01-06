@@ -85,6 +85,23 @@
 			return $sql;
 		}
 
+		public function getEventsTotalNumber(){
+			$sql = DB::open()->prepare("SELECT * FROM csa_events");
+			$sql->execute();
+
+			return $sql->rowCount();
+		}
+
+		public function getEventsWithPagination($limit = 12, $offset = 0, $status = 1){
+			$sql = DB::open()->prepare("SELECT * FROM csa_events WHERE status = :status ORDER BY event_datetime DESC LIMIT :limit_events OFFSET :offset_events");
+			$sql->bindParam(':limit_events', $limit, \PDO::PARAM_INT);
+			$sql->bindParam(':offset_events', $offset, \PDO::PARAM_INT);
+			$sql->bindParam(':status', $status, \PDO::PARAM_INT);
+			$sql->execute();
+
+			return $sql;
+		}
+
 		public function getEventBySlug($slug){
 			$sql = DB::open()->prepare("SELECT * FROM csa_events WHERE slug = :slug LIMIT 1");
 			$sql->execute([
