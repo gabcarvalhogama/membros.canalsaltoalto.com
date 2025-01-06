@@ -62,13 +62,18 @@
 			    u.profile_photo,
 			    u.firstname,
 			    u.lastname
-			FROM 
-			    csa_companies c
-			LEFT JOIN 
-			    csa_users u ON c.iduser = u.iduser
-
-
-			WHERE status = :status;");
+				FROM 
+				    csa_companies c
+				LEFT JOIN 
+				    csa_users u ON c.iduser = u.iduser
+				LEFT JOIN 
+				    csa_users_memberships um ON u.iduser = um.iduser
+				WHERE 
+				    c.status = :status
+				    AND um.status = 'paid'
+				    AND um.ends_at > NOW()
+				ORDER BY 
+				    c.company_name ASC;");
 
 			$sql->execute([
 				":status" => intval($status)
@@ -76,6 +81,55 @@
 
 			return $sql;
 		}
+
+
+		public function getCompaniesByStatusAndPagination($limit = 12, $offset = 0, $status = 1){
+			$sql = DB::open()->prepare("SELECT 
+			    c.company_id,
+			    c.iduser,
+			    c.company_name,
+			    c.company_description,
+			    c.company_image,
+			    c.has_place,
+			    c.address_zipcode,
+			    c.address_state,
+			    c.address_city,
+			    c.address,
+			    c.address_number,
+			    c.address_neighborhood,
+			    c.address_complement,
+			    c.cellphone,
+			    c.instagram_url,
+			    c.site_url,
+			    c.facebook_url,
+			    c.status,
+			    c.created_at,
+			    c.updated_at,
+			    u.profile_photo,
+			    u.firstname,
+			    u.lastname
+				FROM 
+				    csa_companies c
+				LEFT JOIN 
+				    csa_users u ON c.iduser = u.iduser
+				LEFT JOIN 
+				    csa_users_memberships um ON u.iduser = um.iduser
+				WHERE 
+				    c.status = :status
+				    AND um.status = 'paid'
+				    AND um.ends_at > NOW()
+				ORDER BY 
+				    c.company_name ASC
+				    LIMIT :limit_events OFFSET :offset_events;");
+
+			$sql->bindParam(':limit_events', $limit, \PDO::PARAM_INT);
+			$sql->bindParam(':offset_events', $offset, \PDO::PARAM_INT);
+			$sql->bindParam(':status', $status, \PDO::PARAM_INT);
+			$sql->execute();
+
+			return $sql;
+		}
+
 
 
 		public function getCompaniesEnabledAndActiveMembers($limit = 6){

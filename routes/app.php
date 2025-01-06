@@ -195,8 +195,30 @@
 
 
 		$router->get("/companies", function(){
+	  		$Company = new Company;
+
+	  		$total_companies = $Company->getCompaniesByStatus()->rowCount();
+	  		$companies = $Company->getCompaniesByStatusAndPagination(12, 0, 1);
+
 			require "views/app/companies.php";
 		});
+
+		$router->get("/companies/page/{page_number}", function($page_number){
+
+			if((int) $page_number < 1)
+				header("Location: /app/companies");
+
+			$Company = new Company;
+			
+			$total_companies = $Company->getCompaniesByStatus()->rowCount();
+
+			$companies = $Company->getCompaniesByStatusAndPagination(12, (($page_number - 1) * 12), 1);
+
+
+			require "views/app/companies.php";
+
+		});
+
 
 		$router->get("/companies/new", function(){
 			require "views/app/companies-new.php";

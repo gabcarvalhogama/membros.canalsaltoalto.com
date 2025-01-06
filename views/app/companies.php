@@ -15,21 +15,46 @@
 
 		<section class="app__companies mt-5 mb-5">
 			<div class="container-xl">
+				<?php 
+					$actual_page = (isset($page_number)) ? (int) $page_number : 1;
+					$start = (($actual_page - 1) * 12);
+					
+
+					$pages = ceil($total_companies / 12);	
+					$before = (($actual_page - 1) == 0) ? 1 : $actual_page - 1;
+
+					$after = (($actual_page + 1) >= $pages) ? $pages : $actual_page+1;
+				?>
 				<div class="d-flex flex-column flex-md-row justify-content-between">
-					<h2>Conheça os negócios <span class="color-primary">das membros</span></h2>
+					<h2>Conheça os negócios <span class="color-primary">das membros</span> <?=((isset($page_number)) ? "| <small>(Página $page_number)</small>" : "")?></h2>
 					<div>
 						<a href="/app/companies/new"><button class="btn btn-rose btn-rounded">Cadastre sua empresa</button></a>
 					</div>
 				</div>
 				<div class="companies-list mt-3">
 				<?php
-			  		$Company = new Company;
-			  		$companies = $Company->getCompaniesByStatus(1);
 			  		if($companies->rowCount() > 0):
 			  			foreach($companies->fetchAll(PDO::FETCH_ASSOC) as $company):
 			  				echo Template::render($company, "loop_companies");
 			  			endforeach; endif; ?>
 			    </div>
+
+			    <div class="pagination">
+				    <?php if ($actual_page > 1): ?>
+				        <a href="/app/companies/page/<?= $before ?>" class="pagination__link">Anterior</a>
+				    <?php endif; ?>
+
+				    <?php for ($i = 1; $i <= $pages; $i++): ?>
+				        <a href="/app/companies/page/<?= $i ?>" class="pagination__link <?= $i == $actual_page ? 'active' : '' ?>">
+				            <?= $i ?>
+				        </a>
+				    <?php endfor; ?>
+
+				    <?php if ($actual_page < $pages): ?>
+				        <a href="/app/companies/page/<?= $after ?>" class="pagination__link">Próximo</a>
+				    <?php endif; ?>
+				</div>
+
 			</div>
 		</section>
 

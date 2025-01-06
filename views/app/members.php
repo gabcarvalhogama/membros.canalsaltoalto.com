@@ -16,7 +16,7 @@
 		<section class="app__members mt-5 mb-5">
 			<div class="container-xl">
 				<h2>Conheça <span class="color-primary">nossas membros</span></h2>
-				<div class="members-list">
+				<div class="members-list mt-3">
 					<?php
 						$User = new User;
 						$getUsers = $User->getActiveUsers();
