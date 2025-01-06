@@ -44,9 +44,10 @@
 							</div>
 							<div class="col-md-6 mb-3">
 								<label for="notice_publish_date" class="form-label">Data de Publicação</label>
-								<input type="text" name="notice_publish_date" id="notice_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="Imediato" value="<?=date('d/m/Y H:i', strtotime($notice->published_at))?>" />
+								<input type="text" name="notice_publish_date" id="notice_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="Imediato" value="<?=DateTime::createFromFormat('Y-m-d H:i:s', $notice->published_at)->format('d-m-Y H:i')?>" />
 							</div>
 						</div>
+
 
 
 						<div class="form-group row align-items-center">

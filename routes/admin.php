@@ -843,8 +843,14 @@
 					die(json_encode(["res"=>"Oops, parece que você não tem permissão para isso!"]));
 
 
+				if(empty($_POST["notice_status"]))
+					$notice_status = 0;
+				else
+					$notice_status = intval($_POST["notice_status"]);
+
+
 				$Notice = new Notice;
-				if($Notice->create($_POST["notice_title"], $_POST["notice_content"], $_SESSION["csa_email"]))
+				if($Notice->create($_POST["notice_title"], $_POST["notice_content"], $notice_status, $_SESSION["csa_email"]))
 					die(json_encode(["res" => 1]));
 				else
 					die(json_encode(["res" => "Não foi possível criar este aviso. Atualize a página e tente novamente!"]));
@@ -886,7 +892,9 @@
 			}else{
 				$Notice = new Notice;
 				if($Notice->update($notice_id, $_POST["notice_title"], $_POST["notice_content"], $_POST["notice_status"], 
-					(date("Y-m-d H:i:s", strtotime($_POST["notice_publish_date"])))
+					DateTime::createFromFormat('d/m/Y H:i', $_POST["notice_publish_date"])->format('Y-m-d H:i'),
+
+					// (date("Y-m-d H:i:s", strtotime()))
 				))
 					die(json_encode(["res" => 1]));
 				else

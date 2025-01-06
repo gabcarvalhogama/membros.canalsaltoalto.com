@@ -35,6 +35,7 @@
 				:slug,
 				NOW(),
 				:status,
+				-- :published_at,
 				NOW(),
 				null
 			)");
@@ -46,7 +47,8 @@
 				":post_featured_image" => $post_featured_image,
 				":created_by_email" => filter_var($created_by_email, FILTER_SANITIZE_EMAIL),
 				":slug" => $this->generateSlug($post_title),
-				":status" => intval($status)
+				":status" => intval($status),
+				// ":published_at" => $published_at
 			]);
 		}
 

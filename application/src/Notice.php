@@ -8,12 +8,12 @@
 			return $sql;
 		}
 
-		public function create($notice_title, $notice_content, $user_email){
+		public function create($notice_title, $notice_content, $notice_status, $user_email){
 			$sql = DB::open()->prepare("INSERT INTO csa_notices () VALUES (default, :notice_title, :notice_content, :status, (SELECT iduser FROM csa_users WHERE email = :user_email LIMIT 1), NOW(), NOW(), null)");
 			return $sql->execute([
 				":notice_title" => trim($notice_title),
 				":notice_content" => trim($notice_content),
-				":status" => 1,
+				":status" => $notice_status,
 				":user_email" => $user_email
 			]);
 		}

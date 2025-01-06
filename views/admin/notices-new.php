@@ -37,7 +37,7 @@
 						</div>
 
 
-						<!-- <div class="row">
+						<div class="row">
 							<div class="col-md-6 mb-3">
 								<label for="notice_status" class="form-label">Status</label>
 								<select name="notice_status" id="notice_status" class="form-control" required>
@@ -45,14 +45,14 @@
 									<option value="1">Publicado</option>
 								</select>
 							</div>
-							<div class="col-md-6 mb-3">
+							<!-- <div class="col-md-6 mb-3">
 								<label for="notice_publish_date" class="form-label">Data de Publicação</label>
 								<input type="text" name="notice_publish_date" id="notice_publish_date" class="form-control" data-mask="00/00/0000 00:00" placeholder="Imediato" />
-							</div>
-						</div> -->
+							</div> -->
+						</div>
 
 						<div>
-							<input type="submit" value="Cadastrar aviso" class="btn btn-rose" />
+							<input type="submit" value="Cadastrar aviso" class="btn btn-rose btn-rose-light" />
 						</div>
 					</form>
 				</div>
@@ -62,7 +62,7 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/tinymce/tinymce.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js?<?=uniqid()?>"></script>
 		<!-- <script type="text/javascript">
 			
 			tinymce.init({

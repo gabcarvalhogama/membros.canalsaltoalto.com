@@ -261,6 +261,7 @@ const Admin = {
 
 		formData.append("notice_title", $('#notice_title').val())
 		formData.append("notice_content", $('#notice_content').val());
+		formData.append("notice_status", $('#notice_status').val());
 			
 		$.ajax({
 			type: 'post',
