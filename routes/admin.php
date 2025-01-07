@@ -517,6 +517,15 @@
 				if(!isset($_POST["content_status"]))
 					die(json_encode(["res" => "Desculpe, não foi possível encontrar o status. Atualize a página e tente novamente!"]));
 
+
+
+				if(isset($_POST["content_status"]))
+					$content_status = intval($_POST["content_status"]);
+				else
+					$content_status = 0;
+
+
+
 				if(isset($_FILES["content_featured_image"]) AND !empty($_FILES["content_featured_image"]["name"])){
 					$Upin = new Upin;
 					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["content_featured_image"]["name"], 10, "jpeg,jpg,png,webp", "content_featured_image", 1);
@@ -533,7 +542,10 @@
 				// 	die(json_encode(["res"=>"Oops, parece que você não tem permissão para isso!"]));
 
 				if(empty($_POST["content_publish_date"])){
-					$published_at = date("Y-m-d H:i:s");
+					if($content_status == 0)
+						$published_at = null;
+					else
+						$published_at = date("Y-m-d H:i:s");
 				}
 				else{
 					$published_at = DateTime::createFromFormat("d/m/Y H:i", $_POST["content_publish_date"])->format("Y-m-d H:i:s");
@@ -541,7 +553,7 @@
 
 
 				$Content = new Content;
-				if($Content->create($_POST["content_title"], $_POST["content_excerpt"], $_POST["content_content"], $content_featured_image, $_POST["content_featured_video_url"], $_SESSION["csa_email"], $_POST["content_status"], $published_at))
+				if($Content->create($_POST["content_title"], $_POST["content_excerpt"], $_POST["content_content"], $content_featured_image, $_POST["content_featured_video_url"], $_SESSION["csa_email"], $content_status, $published_at))
 					die(json_encode(["res" => 1]));
 				else
 					die(json_encode(["res" => "Não foi possível criar este conteúdo. Atualize a página e tente novamente!"]));

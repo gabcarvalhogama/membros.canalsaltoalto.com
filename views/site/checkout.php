@@ -19,6 +19,14 @@
 			</hgroup>
 
 
+
+			<?php 
+				$Membership = new Membership;
+				$getPlan = $Membership->getMembershipPlanById(1);
+
+				$plan = $getPlan->fetchObject();
+			?>
+
 			<!-- <div class="row align-items-center">
 				<div class="col-6">
 					<a href="<?=PATH?>"><i class="fa-solid fa-chevron-left"></i> VOLTAR AO INÍCIO</a>
@@ -37,7 +45,7 @@
 						</div>
 						<div class="flex flex-column" style="margin-left: 10px;">
 							<h4 class="font-weight-bold">Acesso de 1 (um) ano à Comunidade Salto Alto</h4>
-							<p class="d-flex flex-row align-items-center font-weight-bold">R$ <span id="priceAvistaValueSelector" data-original="199.00" style="margin-right: 5px;">199,00</span> à vista <br /><small style="margin-left: 10px;color: rgb(150,150,150);">ou 12x de R$ <span id="priceInstallmentsValueSelector" data-original="19.90">19,90</span></small></p>
+							<p class="d-flex flex-row align-items-center font-weight-bold">R$ <span id="priceAvistaValueSelector" data-original="<?=$plan->membership_price_incash?>" style="margin-right: 5px;"><?=Validation::decimalToReal($plan->membership_price_incash)?></span> à vista <br /><small style="margin-left: 10px;color: rgb(150,150,150);">ou 12x de R$ <span id="priceInstallmentsValueSelector" data-original="<?=$plan->membership_price_cc/12?>"><?=Validation::decimalToReal($plan->membership_price_cc/12)?></span></small></p>
 						</div>
 					</div>
 				</div>
@@ -247,18 +255,12 @@
 								<div class="col">
 									<label for="f_cc_installments" class="form-label">Selecione o Parcelamento</label>
 									<select name="f_cc_installments" class="form-control" id="f_cc_installments">
-										<option value="1">À vista (R$ 238,80) s/juros</option>
-			                            <option value="2">2x de R$ 119,40 (R$ 238,80) s/juros</option>
-			                            <option value="3">3x de R$ 79,61 (R$ 238,80) s/juros</option>
-			                            <option value="4">4x de R$ 59,70 (R$ 238,80) s/juros</option>
-			                            <option value="5">5x de R$ 47,77 (R$ 238,80) s/juros</option>
-			                            <option value="6">6x de R$ 39,81 (R$ 238,80) s/juros</option>
-			                            <option value="7">7x de R$ 34,12 (R$ 238,80) s/juros</option>
-			                            <option value="8">8x de R$ 29,85 (R$ 238,80) s/juros</option>
-			                            <option value="9">9x de R$ 26,54 (R$ 238,80) s/juros</option>
-			                            <option value="10">10x de R$ 23,89 (R$ 238,80) s/juros</option>
-			                            <option value="11">11x de R$ 21,71 (R$ 238,80) s/juros</option>
-			                            <option value="12">12x de R$ 19,91 (R$ 238,80) s/juros</option>
+										<option value="1">À vista (R$ <?=Validation::decimalToReal($plan->membership_price_cc)?>) s/juros</option>
+										<?php 
+											for($i = 2; $i <= 12; $i++):
+										?>
+										<option value="<?=$i?>"><?=$i?>x de <?=Validation::decimalToReal($plan->membership_price_cc/$i)?> (R$ <?=Validation::decimalToReal($plan->membership_price_cc)?>) s/juros</option>
+									<?php endfor; ?>
 									</select>
 								</div>
 							</div>
