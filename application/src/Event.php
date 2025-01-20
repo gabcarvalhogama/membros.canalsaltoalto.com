@@ -1,6 +1,6 @@
 <?php
 	class Event{
-		public function create($event_title, $event_excerpt, $event_datetime, $event_poster, $event_content, $created_by_email){
+		public function create($event_title, $event_excerpt, $event_datetime, $event_poster, $event_content, $event_status, $created_by_email){
 			$sql = DB::open()->prepare("
 		        INSERT INTO csa_events (
 		        	idevent,
@@ -37,11 +37,11 @@
 	            ":event_content" => ucfirst(trim($event_content)),
 	            ":slug" => $this->generateSlug(trim($event_title)),
 	            ":created_by_email" => $created_by_email,
-	            ":status" => 0,
+	            ":status" => $event_status,
 		    ]);
 		}
 
-		public function update($idevent, $event_title, $event_excerpt, $event_datetime, $event_poster, $event_content) {
+		public function update($idevent, $event_title, $event_excerpt, $event_datetime, $event_poster, $event_content, $event_status) {
 		    $sql = DB::open()->prepare("
 		        UPDATE csa_events SET
 		            event_title = :event_title,
@@ -49,6 +49,7 @@
 		            event_datetime = :event_datetime,
 		            event_poster = :event_poster,
 		            event_content = :event_content,
+		            status = :event_status,
 		            updated_at = NOW()
 		        WHERE
 		            idevent = :idevent
@@ -60,6 +61,7 @@
 		        ":event_datetime" => $event_datetime,
 		        ":event_poster" => $event_poster,
 		        ":event_content" => ucfirst(trim($event_content)),
+		        ":event_status" => intval($event_status),
 		        ":idevent" => $idevent,
 		    ]);
 		}

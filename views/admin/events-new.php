@@ -51,6 +51,16 @@
 							</div>
 						</div>
 
+						<div class="form-row">
+							<div class="col">
+								<label for="event_status" class="form-label">Status do Evento <span class="text-danger">*</span></label>
+								<select name="event_status" id="event_status" class="form-control">
+									<option value="0">Rascunho</option>
+									<option value="1">Publicado</option>
+								</select>
+							</div>
+						</div>
+
 
 
 						<div>

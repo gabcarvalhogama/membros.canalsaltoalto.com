@@ -760,6 +760,12 @@
 				}
 
 
+				if(empty($_POST["event_status"]))
+					$event_status = 0;
+				else
+					$event_status = intval($_POST["event_status"]);
+
+
 				$Event = new Event;
 				if($Event->create(
 					$_POST["event_title"],
@@ -767,6 +773,7 @@
 					DateTime::createFromFormat('d/m/Y H:i', $_POST["event_datetime"])->format('Y-m-d H:i'),
 					$event_poster,
 					$_POST["event_content"],
+					$event_status,
 					$_SESSION["csa_email"]
 				))
 					die(json_encode(["res" => 1]));
@@ -817,6 +824,11 @@
 						$event_poster = $_POST["event_poster_actual"];
 				}
 
+				if(empty($_POST["event_status"]))
+					$event_status = 0;
+				else
+					$event_status = intval($_POST["event_status"]);
+
 				$Event = new Event;
 
 				if($Event->update(
@@ -825,7 +837,8 @@
 					$_POST["event_excerpt"],
 					DateTime::createFromFormat('d/m/Y H:i', $_POST["event_datetime"])->format('Y-m-d H:i'),
 					$event_poster,
-					$_POST["event_content"]
+					$_POST["event_content"],
+					$event_status
 				))
 					die(json_encode(["res" => 1]));
 				else

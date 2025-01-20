@@ -128,6 +128,11 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="text-center">
+					
+					<a href="/noticias"><button class="btn btn-rose">Veja outras notícias</button></a>
+				</div>
 			</div>
 		</section>
 

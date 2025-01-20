@@ -54,6 +54,13 @@
 								<label for="event_datetime" class="form-label">Data do Evento <span class="text-danger">*</span></label>
 								<input type="text" name="event_datetime" id="event_datetime" class="form-control" data-mask="00/00/0000 00:00" placeholder="DD/MM/AAAA HH:MM"  value="<?=date('d/m/Y H:i', strtotime($event->event_datetime))?>" required />
 							</div>
+							<div class="col mb-3">
+								<label for="event_status" class="form-label">Status do Evento <span class="text-danger">*</span></label>
+								<select name="event_status" id="event_status" class="form-control">
+									<option value="0" <?=($event->status == 0) ? 'selected' : ''?>>Rascunho</option>
+									<option value="1" <?=($event->status == 1) ? 'selected' : ''?>>Publicado</option>
+								</select>
+							</div>
 						</div>
 
 
