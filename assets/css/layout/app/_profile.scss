@@ -30,7 +30,7 @@
 				}
 			}
 			.bio{
-				color: #FFF;
+				color: #333;
 			}
 
 
@@ -81,7 +81,7 @@
 				padding: 20px;
 				border-radius: 10px;
 				width: 100%;
-				color: #FFF;
+				color: #333;
 
 				@include media-breakpoint-down(lg) {
 					border-radius: 0px 0px 5px 5px;

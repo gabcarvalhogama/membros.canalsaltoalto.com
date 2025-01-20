@@ -17,21 +17,32 @@
 		</main>
  -->
 
-		<section class="m-5">
+		<section class="m-5" style="min-height: 50vh;">
 			<div class="container">
+				<h1 class="mb-3 text-center">Escolha uma opção para navegar pelo nosso ecossistema:</h1>
 				<div class="row">
 					<div class="col-md-4 mb-3">
-						<a href="https://canalsaltoalto.com/app"><img src="<?=PATH?>assets/images/banner-ja-sou-membro.jpg" alt="" style="max-width: 100%;border-radius: 5px;"></a>
+						<a href="https://canalsaltoalto.com/app"><img src="<?=PATH?>assets/images/banner-ja-sou-membro.jpg" alt="" class="navigationpage--item" style="max-width: 100%;border-radius: 5px;"></a>
 					</div>
 					<div class="col-md-4 mb-3">
-						<a href="https://canalsaltoalto.com/seja-membro"><img src="<?=PATH?>assets/images/banner-ainda-nao-sou-membro.jpg" alt="" style="max-width: 100%;border-radius: 5px;"></a>
+						<a href="https://canalsaltoalto.com/seja-membro"><img src="<?=PATH?>assets/images/banner-ainda-nao-sou-membro.jpg" alt="" class="navigationpage--item" style="max-width: 100%;border-radius: 5px;"></a>
 					</div>
 					<div class="col-md-4 mb-3">
-						<a href="https://canalsaltoalto.com/checkout"><img src="<?=PATH?>assets/images/banner-renovar-assinatura.jpg" alt="" style="border: solid 2px #e54c8e;max-width: 100%;border-radius: 5px;"></a>
+						<a href="https://canalsaltoalto.com/checkout"><img src="<?=PATH?>assets/images/banner-renovar-assinatura.jpg" alt="" class="navigationpage--item" style="border: solid 2px #e54c8e;max-width: 100%;border-radius: 5px;"></a>
 					</div>
 				</div>
 			</div>
 		</section>
+
+		<style>
+			.navigationpage--item{
+				transition: all 300ms;
+				border: solid 1px #ddd;
+			}
+			.navigationpage--item:hover{
+				transform: translateY(-20px);
+			}
+		</style>
 
 		<?=Template::render(null, "footer_site")?>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>

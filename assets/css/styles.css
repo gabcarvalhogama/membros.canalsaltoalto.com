@@ -26321,8 +26321,8 @@ html, body {
 }
 
 body {
-  background-color: #000;
-  font-family: "Caviar Dreams", Opens Sans, Arial, sans-serif;
+  background-color: #FFF;
+  font-family: Open Sans, Arial, sans-serif;
   font-style: normal;
 }
 
@@ -26349,12 +26349,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 
 .pagination__link.active {
   background-color: #E54C8E;
-  color: #fff;
+  color: #333;
 }
 
 .pagination__link:hover {
   background-color: #E54C8E;
-  color: #fff !important;
+  color: #333 !important;
 }
 
 p {
@@ -26362,7 +26362,7 @@ p {
 }
 
 a {
-  color: #FFF;
+  color: #333;
   text-decoration: none;
 }
 
@@ -26399,7 +26399,7 @@ a {
 .btn-rose:hover, .btn-rose:active, .btn-rose:focus {
   background-color: transparent;
   border-color: #E54C8E;
-  color: #FFF !important;
+  color: #333 !important;
 }
 
 .btn-rose-light {
@@ -26463,9 +26463,6 @@ label, .form-label {
   box-shadow: none;
 }
 
-.site {
-  color: #FFF;
-}
 .site ul {
   list-style: none;
   padding: 0;
@@ -26488,7 +26485,7 @@ label, .form-label {
 }
 .site__header nav a {
   padding: 10px;
-  font-weight: 600;
+  font-weight: normal;
 }
 .site__header .lmenu {
   background-color: #000;
@@ -26536,7 +26533,7 @@ label, .form-label {
   width: calc(33.33% - 20px);
   margin: 10px 10px;
   position: relative;
-  background-color: #FFF;
+  background-color: #f5f5f5;
   border-radius: 5px 5px 5px 5px;
 }
 @media screen and (max-width: 992px) {
@@ -26966,7 +26963,7 @@ label, .form-label {
   transition: all 400ms;
 }
 .app h2, .app .h2 {
-  color: #FFF;
+  color: #333;
   font-weight: 600;
 }
 .app .app__auth {
@@ -27000,7 +26997,7 @@ label, .form-label {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #FFF;
+  color: #333;
 }
 @media (max-width: 575.98px) {
   .app .app__auth--sidebar {
@@ -27086,7 +27083,7 @@ label, .form-label {
   transition: all 400ms;
 }
 .app .app__header .my-profile:hover {
-  color: #FFF;
+  color: #333;
 }
 .app .app__header .my-profile span {
   margin-right: 10px;
@@ -27110,7 +27107,7 @@ label, .form-label {
   align-items: center;
 }
 .app .app__header .my-profile a:hover {
-  color: #FFF;
+  color: #333;
 }
 @media (max-width: 991.98px) {
   .app .app__header .col-btns {
@@ -27133,7 +27130,7 @@ label, .form-label {
 }
 .app .app__welcome {
   padding: 30px;
-  color: #FFF;
+  color: #333;
 }
 .app .app__welcome--box {
   text-align: center;
@@ -27156,7 +27153,7 @@ label, .form-label {
   gap: 20px;
 }
 .app .events__item {
-  background-color: #FFF;
+  background-color: #F5F5F5;
   color: #333;
   width: calc(33.33% - 20px);
   border-radius: 5px;
@@ -27194,7 +27191,7 @@ label, .form-label {
   font-weight: bold;
 }
 .app .app__contents {
-  background-color: #141414;
+  background-color: #f5f5f5;
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -27210,7 +27207,7 @@ label, .form-label {
   }
 }
 .app .contents .contents__item {
-  background-color: #FFF;
+  background-color: #fff;
   color: #333;
   width: calc(33.33% - 20px);
   border-radius: 5px;
@@ -27257,7 +27254,7 @@ label, .form-label {
 .app .companies-list .companies-list__item {
   display: flex;
   flex-direction: row;
-  background-color: #FFF;
+  background-color: #f5f5f5;
   border-radius: 15px;
   padding: 0;
   align-items: center;
@@ -27321,7 +27318,7 @@ label, .form-label {
 }
 .app .app__newCompany form {
   padding: 20px;
-  background-color: #FFF;
+  background-color: #f5f5f5;
   border-radius: 10px;
 }
 .app .members-list {
@@ -27337,7 +27334,7 @@ label, .form-label {
 .app .members-list__item--header {
   display: flex;
   flex-direction: row;
-  color: #FFF;
+  color: #333;
   align-items: center;
   justify-content: space-between;
 }
@@ -27367,7 +27364,7 @@ label, .form-label {
   }
 }
 .app .members-list__item--description {
-  color: #FFF;
+  color: #333;
   margin-top: 20px;
 }
 .app .clubs-list {
@@ -27377,7 +27374,7 @@ label, .form-label {
 .app .clubs-list .clubs-list__item {
   display: flex;
   flex-direction: row;
-  background-color: #FFF;
+  background-color: #f5f5f5;
   border-radius: 15px;
   padding: 0;
   align-items: center;
@@ -27452,19 +27449,19 @@ label, .form-label {
   margin-bottom: 0;
 }
 .app .single-event__hero {
-  color: #FFF;
+  color: #333;
 }
 .app .single-event__content {
   padding-top: 30px;
   padding-bottom: 30px;
-  background-color: #FFF;
+  background-color: #f5f5f5;
 }
 .app .single-event__content a {
   color: #E54C8E;
   font-weight: bold;
 }
 .app .app__publis {
-  color: #fff;
+  color: #333;
   margin-top: 40px;
   margin-bottom: 40px;
   min-height: 60vh;
@@ -27475,7 +27472,7 @@ label, .form-label {
 }
 .app .publis-list__item {
   border-radius: 15px;
-  background-color: #FFF;
+  background-color: #f5f5f5;
   padding: 20px;
   color: #333;
   margin-bottom: 20px;
@@ -27565,7 +27562,7 @@ label, .form-label {
   object-fit: cover;
 }
 .app .app__profile .profile__header .bio {
-  color: #FFF;
+  color: #333;
 }
 .app .app__profile .profile__header--presentation {
   padding-left: 20px;
@@ -27613,7 +27610,7 @@ label, .form-label {
   padding: 20px;
   border-radius: 10px;
   width: 100%;
-  color: #FFF;
+  color: #333;
 }
 @media (max-width: 991.98px) {
   .app .app__profile .profile__section--content {
@@ -27624,7 +27621,7 @@ label, .form-label {
   margin-top: 30px;
   padding-top: 30px;
   padding-bottom: 0px;
-  color: #FFF;
+  color: #333;
 }
 .app .app__footer--logo {
   height: 80px;
@@ -27665,7 +27662,7 @@ label, .form-label {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #FFF;
+  color: #333;
 }
 @media (max-width: 575.98px) {
   .app__auth--sidebar {
@@ -27744,7 +27741,7 @@ label, .form-label {
 .admin .admin__dashboard--nav {
   width: 250px;
   max-width: 100%;
-  color: #FFF;
+  color: #333;
 }
 @media screen and (max-width: 1200px) {
   .admin .admin__dashboard--nav {
@@ -27782,10 +27779,10 @@ label, .form-label {
 }
 .admin .admin__dashboard--nav ul li a:hover {
   background-color: #E54C8E;
-  color: #FFF;
+  color: #333;
 }
 .admin .admin__dashboard--nav ul li ul {
-  background-color: rgb(20, 20, 20);
+  background-color: #f5f5f5;
 }
 .admin .admin__dashboard--nav ul li li a {
   padding-left: 30px;
@@ -27800,7 +27797,7 @@ label, .form-label {
     display: none;
     position: absolute;
     top: 120px;
-    background: #000;
+    background: #f5f5f5;
     width: calc(100% - 40px);
     z-index: 9999999;
   }
@@ -27811,7 +27808,7 @@ label, .form-label {
 }
 .admin .admin__dashboard--content {
   width: calc(100% - 250px);
-  background-color: #FFF;
+  background-color: #f5f5f5;
   padding: 40px;
 }
 @media screen and (max-width: 1200px) {
@@ -27825,12 +27822,12 @@ label, .form-label {
 .admin .admin__dashboard--content .enabled {
   padding: 5px;
   background-color: green;
-  color: #FFF;
+  color: #333;
 }
 .admin .admin__dashboard--content .disabled {
   padding: 5px;
   background-color: red;
-  color: #FFF;
+  color: #333;
 }
 .admin .admin__dashboard--content .companies-list {
   display: flex;
@@ -27840,7 +27837,7 @@ label, .form-label {
 .admin .admin__dashboard--content .companies-list .companies-list__item {
   display: flex;
   flex-direction: row;
-  background-color: #FFF;
+  background-color: #f5f5f5;
   border-radius: 15px;
   padding: 0;
   align-items: center;

@@ -32,9 +32,9 @@
 			</div>
 		</main>
 
-		<section class="app__events mt-4 mb-4">
+		<section class="app__events mt-5 mb-5">
 			<div class="container-xl">
-				<h2>Conheça <span class="color-primary">nossos eventos</span></h2>
+				<h2 class="mb-3">Conheça <span class="color-primary">nossos eventos</span></h2>
 
 				<div class="events-list">
 				<?php
@@ -48,7 +48,7 @@
 		</section>
 
 
-		<section class="app__contents mt-4 mb-4">
+		<section class="app__contents mt-4 mb-4 pt-5 pb-5">
 			<div class="container-xl">
 				<h2>Nossos <span class="color-primary">conteúdos</span></h2>
 				<div class="contents">

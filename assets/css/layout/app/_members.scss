@@ -13,7 +13,7 @@
 		&--header{
 			display: flex;
 			flex-direction: row;
-			color: #FFF;
+			color: #333;
 			align-items: center;
 			justify-content: space-between;
 
@@ -41,7 +41,7 @@
 		}
 
 		&--description{
-			color: #FFF;
+			color: #333;
 			margin-top: 20px;
 		}
 	}
