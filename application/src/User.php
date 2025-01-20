@@ -184,12 +184,21 @@
 		}
 
 
-		public static function getActiveMembersCount(){
-			$sql = DB::open()->prepare("SELECT COUNT(idusermembership) as active_members_count FROM csa_users_memberships WHERE starts_at <= NOW() AND ends_at >= NOW() AND status = 'paid'");
-			$sql->execute();
+		public static function getActiveMembersCount() {
+		    $sql = DB::open()->prepare("
+		        SELECT COUNT(m.idusermembership) as active_members_count
+		        FROM csa_users_memberships m
+		        INNER JOIN csa_users u ON m.iduser = u.iduser
+		        WHERE m.starts_at <= NOW()
+		        AND m.ends_at >= NOW()
+		        AND m.status = 'paid'
+		        AND u.user_type = 0
+		    ");
+		    $sql->execute();
 
-			return $sql->fetchObject()->active_members_count;
+		    return $sql->fetchObject()->active_members_count;
 		}
+
 
 		public static function getInactiveMembersCount(){
 			$sql = DB::open()->prepare("SELECT COUNT(idusermembership) as inactive_members_count FROM csa_users_memberships WHERE ends_at >= NOW()");
@@ -382,53 +391,59 @@
 			return $sql;
 		}
 
-		public function getUsers($limit = null){
-			$sql = DB::open()->prepare("WITH memberships AS (
-			    SELECT 
-			        um.iduser, 
-			        um.starts_at, 
-			        um.ends_at, 
-			        m.membership_title,
-			        ROW_NUMBER() OVER (PARTITION BY um.iduser ORDER BY um.starts_at DESC) AS rn
-			    FROM 
-			        csa_users_memberships um
-			    LEFT JOIN 
-			        csa_memberships m ON um.membership_id = m.membership_id
-			)
-			SELECT 
-			    u.iduser, 
-			    u.firstname, 
-			    u.lastname, 
-			    u.profile_photo, 
-			    u.biography,
-			    u.cpf, 
-			    u.birthdate, 
-			    u.zipcode, 
-			    u.address_state, 
-			    u.address_city, 
-			    u.address, 
-			    u.address_number, 
-			    u.address_neighborhood, 
-			    u.address_complement, 
-			    u.cellphone, 
-			    u.email, 
-			    u.user_type, 
-			    u.created_at, 
-			    u.updated_at,
-			    m.starts_at, 
-			    m.ends_at,
-			    m.membership_title,
-			    (SELECT COUNT(company_id) FROM csa_companies c WHERE c.iduser = u.iduser) AS company_counter
-			FROM 
-			    csa_users u
-			LEFT JOIN 
-			    memberships m ON u.iduser = m.iduser AND m.rn = 1
-			ORDER BY 
-			    u.firstname ASC ". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
-			$sql->execute();
+		public function getUsers($limit = null) {
+		    $limitClause = ($limit !== null && intval($limit) > 0) ? "LIMIT :limit" : "";
 
-			return $sql;
+		    $sql = DB::open()->prepare("
+		        SELECT 
+		            u.iduser, 
+		            u.firstname, 
+		            u.lastname, 
+		            u.profile_photo, 
+		            u.biography,
+		            u.cpf, 
+		            u.birthdate, 
+		            u.zipcode, 
+		            u.address_state, 
+		            u.address_city, 
+		            u.address, 
+		            u.address_number, 
+		            u.address_neighborhood, 
+		            u.address_complement, 
+		            u.cellphone, 
+		            u.email, 
+		            u.user_type, 
+		            u.created_at, 
+		            u.updated_at,
+		            um.starts_at, 
+		            um.ends_at,
+		            m.membership_title,
+		            (SELECT COUNT(*) FROM csa_companies c WHERE c.iduser = u.iduser) AS company_counter
+		        FROM 
+		            csa_users u
+		        LEFT JOIN 
+		            csa_users_memberships um ON um.iduser = u.iduser 
+		            AND um.starts_at = (
+		                SELECT MAX(inner_um.starts_at)
+		                FROM csa_users_memberships inner_um
+		                WHERE inner_um.iduser = u.iduser
+		            )
+		        LEFT JOIN 
+		            csa_memberships m ON um.membership_id = m.membership_id
+		        
+		        ORDER BY 
+		            u.firstname ASC
+		        $limitClause
+		    ");
+
+		    if ($limit !== null && intval($limit) > 0) {
+		        $sql->bindValue(':limit', intval($limit), PDO::PARAM_INT);
+		    }
+
+		    $sql->execute();
+		    return $sql;
 		}
+
 
 		public function getInactiveUsers($limit = null){
 			$sql = DB::open()->prepare("SELECT 
@@ -467,60 +482,61 @@
 
 
 
-		public function getActiveUsers($limit = null){
-			$sql = DB::open()->prepare("SELECT  
-			    u.iduser, 
-			    u.firstname, 
-			    u.lastname, 
-			    u.profile_photo, 
-			    u.biography,
-			    u.cpf, 
-			    u.birthdate, 
-			    u.zipcode, 
-			    u.address_state, 
-			    u.address_city, 
-			    u.address, 
-			    u.address_number, 
-			    u.address_neighborhood, 
-			    u.address_complement, 
-			    u.cellphone, 
-			    u.email, 
-			    u.user_type, 
-			    u.created_at, 
-			    u.updated_at,
-			    um.starts_at, 
-			    um.ends_at,
-			    m.membership_title,
-			    (SELECT COUNT(company_id) FROM csa_companies c WHERE c.iduser = u.iduser AND status = 1) as company_counter
-			FROM 
-			    csa_users u
-			LEFT JOIN 
-			    (
-			        SELECT 
-			            um1.iduser, 
-			            um1.starts_at, 
-			            um1.ends_at, 
-			            um1.membership_id, 
-			            um1.status
-			        FROM 
-			            csa_users_memberships um1
-			        WHERE 
-			            um1.status = 'paid' AND um1.ends_at > NOW()
-			        GROUP BY 
-			            um1.iduser
-			        HAVING 
-			            MIN(um1.starts_at) -- Seleciona o registro mais antigo por usuário
-			    ) um ON u.iduser = um.iduser
-			LEFT JOIN 
-			    csa_memberships m ON um.membership_id = m.membership_id
-			WHERE 
-			    u.user_type = 0
-			ORDER BY 
-			    u.firstname ASC". (((intval($limit) == null) ? "" : "LIMIT {$limit}")));
-			$sql->execute();
+		public function getActiveUsers($limit = null) {
+		    $limitClause = ($limit !== null && intval($limit) > 0) ? "LIMIT :limit" : "";
 
-			return $sql;
+		    $sql = DB::open()->prepare("
+		    	SELECT  
+				    u.iduser, 
+				    u.firstname, 
+				    u.lastname, 
+				    u.profile_photo, 
+				    u.biography,
+				    u.cpf, 
+				    u.birthdate, 
+				    u.zipcode, 
+				    u.address_state, 
+				    u.address_city, 
+				    u.address, 
+				    u.address_number, 
+				    u.address_neighborhood, 
+				    u.address_complement, 
+				    u.cellphone, 
+				    u.email, 
+				    u.user_type, 
+				    u.created_at, 
+				    u.updated_at,
+				    um.starts_at, 
+				    um.ends_at,
+				    m.membership_title,
+				    (SELECT COUNT(company_id) 
+				     FROM csa_companies c 
+				     WHERE c.iduser = u.iduser AND c.status = 1) AS company_counter
+				FROM 
+				    csa_users u
+				INNER JOIN 
+				    csa_users_memberships um ON u.iduser = um.iduser
+				LEFT JOIN 
+				    csa_memberships m ON um.membership_id = m.membership_id
+				WHERE 
+				    um.status = 'paid'
+				    AND um.ends_at > NOW()
+				    AND u.user_type = 0
+				ORDER BY 
+				    u.firstname ASC;
+
+		        $limitClause
+		    ");
+
+		    if ($limit !== null && intval($limit) > 0) {
+		        $sql->bindValue(':limit', intval($limit), PDO::PARAM_INT);
+		    }
+
+		    $sql->execute();
+
+		    return $sql;
 		}
+
 
 
 		public function getLastUsersWithMembership($limit = null){

@@ -140,7 +140,7 @@ a{
 
 @mixin lmenu{
 	.lmenu{
-			background-color: #000;
+			background-color: #FFF;
 			position: fixed;
 			left: 0;
 			top: 0;
@@ -163,7 +163,7 @@ a{
 			}
 
 			ul{
-				border-top: 1px solid rgb(40,40,40);
+				border-top: 1px solid #f5f5f5;
 				margin-top: 20px;
 				li{
 					a{
@@ -171,7 +171,7 @@ a{
 						padding: 20px;
 
 						&:hover, &:active{
-							background-color: rgb(40,40,40);
+							background-color: #f5f5f5;
 						}
 					}
 				}

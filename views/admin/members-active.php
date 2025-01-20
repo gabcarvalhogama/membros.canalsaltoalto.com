@@ -1,7 +1,7 @@
 <?php
 	
 	$User = new User;
-	$getUsers = $User->getActiveUsers();
+	$getUsersActive = $User->getActiveUsers();
 
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
 			<div class="admin__dashboard--content">
 				<div class="container">
 					<h1>Membros Ativos</h1>
-					<p>Atualmente existem <?=$getUsers->rowCount()?> membros ativos.</p>
+					<p>Atualmente existem <?=$getUsersActive->rowCount()?> membros ativos.</p>
 					<table class="table table-hover">
 						<thead>
 							<th></th>
@@ -37,8 +37,8 @@
 							
 							<?php
 
-								if($getUsers->rowCount() > 0):
-									foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $user):
+								if($getUsersActive->rowCount() > 0):
+									foreach($getUsersActive->fetchAll(PDO::FETCH_ASSOC) as $user):
 							?>
 							<tr>
 								<td style="width: auto">

@@ -69,7 +69,7 @@
 			    			<div class="row">
 			    				<div class="col">
 			    					<h5 class="card-title text-muted mb-0">Total de Membros</h5>
-			    					<span class="h2 font-weight-bold mb-0"><?=(User::getActiveMembersCount() + User::getInactiveMembersCount())?></span>
+			    					<span class="h2 font-weight-bold mb-0"><?=(User::getActiveMembersCount() + $User->getInactiveUsers()->rowCount())?></span>
 			    				</div>
 			    				<div class="col-auto">
 			    					<div class="icon icon-shape bg-primary text-white rounded-circle shadow" style="width: 25px;height: 25px;text-align: center;">

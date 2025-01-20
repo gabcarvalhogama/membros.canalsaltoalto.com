@@ -26488,7 +26488,7 @@ label, .form-label {
   font-weight: normal;
 }
 .site__header .lmenu {
-  background-color: #000;
+  background-color: #FFF;
   position: fixed;
   left: 0;
   top: 0;
@@ -26511,7 +26511,7 @@ label, .form-label {
   text-align: center;
 }
 .site__header .lmenu ul {
-  border-top: 1px solid rgb(40, 40, 40);
+  border-top: 1px solid #f5f5f5;
   margin-top: 20px;
 }
 .site__header .lmenu ul li a {
@@ -26519,7 +26519,7 @@ label, .form-label {
   padding: 20px;
 }
 .site__header .lmenu ul li a:hover, .site__header .lmenu ul li a:active {
-  background-color: rgb(40, 40, 40);
+  background-color: #f5f5f5;
 }
 .site__hero--image {
   width: 100%;
@@ -26854,7 +26854,7 @@ label, .form-label {
 }
 
 .checkout {
-  color: #FFF;
+  color: #333;
   padding-bottom: 50px;
 }
 .checkout__header {
@@ -27038,7 +27038,7 @@ label, .form-label {
   padding: 10px;
 }
 .app .app__header .lmenu {
-  background-color: #000;
+  background-color: #FFF;
   position: fixed;
   left: 0;
   top: 0;
@@ -27061,7 +27061,7 @@ label, .form-label {
   text-align: center;
 }
 .app .app__header .lmenu ul {
-  border-top: 1px solid rgb(40, 40, 40);
+  border-top: 1px solid #f5f5f5;
   margin-top: 20px;
 }
 .app .app__header .lmenu ul li a {
@@ -27069,7 +27069,7 @@ label, .form-label {
   padding: 20px;
 }
 .app .app__header .lmenu ul li a:hover, .app .app__header .lmenu ul li a:active {
-  background-color: rgb(40, 40, 40);
+  background-color: #f5f5f5;
 }
 .app .app__header .my-profile {
   cursor: pointer;
@@ -27742,6 +27742,7 @@ label, .form-label {
   width: 250px;
   max-width: 100%;
   color: #333;
+  box-shadow: 2px 2px 4px rgba(150, 150, 150, 0.1);
 }
 @media screen and (max-width: 1200px) {
   .admin .admin__dashboard--nav {

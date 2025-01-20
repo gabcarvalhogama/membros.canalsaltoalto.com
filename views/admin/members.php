@@ -24,7 +24,7 @@
 			<div class="admin__dashboard--content">
 				<div class="container">
 					<h1>Membros</h1>
-					<p>Atualmente existem <?=$getUsers->rowCount()?> usuários cadastrados.</p>
+					<p>Nessa página você encontra a lista de todos os membros cadastrados no sistema, incluindo administradores. Atualmente existem <?=$getUsers->rowCount()?> usuários cadastrados.</p>
 
 					<table class="table table-hover">
 						<thead>

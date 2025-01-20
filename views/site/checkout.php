@@ -12,7 +12,7 @@
 	<body class="checkout">
 
 		<div class="container-xl mt-5 checkout__header">
-			<img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="checkout__header--logo" />
+			<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="checkout__header--logo" />
 			<hgroup>
 				<h1>FINALIZE SUA COMPRA</h1>
 				<h2>Falta pouco para você <br />ter acesso a nossa Comunidade!</h2>
