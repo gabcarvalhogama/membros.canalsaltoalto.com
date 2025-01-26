@@ -15,7 +15,7 @@
 		<div class="admin__auth">
 			
 			<div class="admin__auth--form">
-				<img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="logo" />
+				<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="logo" />
 				<h1>Faça login na área do administrador</h1>
 				<form action="javascript:void(0)" method="get" onsubmit="Admin.login(this)">
 					<div class="message"></div>

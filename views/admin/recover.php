@@ -23,7 +23,7 @@ if(!empty($_GET["token"])){
 		<div class="admin__auth">
 			
 			<div class="admin__auth--form">
-				<img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="logo" />
+				<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="logo" />
 				<h1>Redefina sua senha do painel administrativo</h1>
 
 				<form action="javascript:void(0)" method="get" onsubmit="Admin.recover(this)" data-inprogress="<?=((isset($isTokenValid)) ? $isTokenValid : '')?>">

@@ -266,6 +266,10 @@
 							</div>
 						</div>
 
+						<div>
+							<p>Ao clicar em "Finalize sua Compra" você concorda com os termos da <a style="color: #E54C8E !important; font-weight: bold;" href="https://canalsaltoalto.com/privacidade-e-dados" target="_blank">Política de Privacidade e Consentimento para Tratamento de Dados Pessoais</a> e com os termos da <a style="color: #E54C8E !important; font-weight: bold;" href="https://canalsaltoalto.com/politica-de-bom-uso" target="_blank">Política de Bom Uso do Site e da Rede de Empreendedoras</a>.</p>
+						</div>
+
 						<div class="row">
 							<div class="col">
 								<button type="submit" class="btn btn-rose-light finish-checkout"><i class="fa-solid fa-lock"></i> FINALIZE SUA COMPRA</button>

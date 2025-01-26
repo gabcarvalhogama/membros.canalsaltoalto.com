@@ -16,9 +16,9 @@
 			<div class="container-xl d-flex flex-column align-items-center">
 				<div class="app__welcome--box"> 
 					<div class="app__welcome--box">
-						<img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="app__welcome--logo mb-2" />
+						<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="app__welcome--logo mb-2" />
 						<h2 class="text-center">Sucesso! Aproveite a plataforma.</h2>
-						<p class="text-center text-white">Sua empresa foi cadastrada e enviada para aprovação com sucesso.
+						<p class="text-center ">Sua empresa foi cadastrada e enviada para aprovação com sucesso.
 						<!-- Assista ao vídeo abaixo e a -->
 						Aproveite a nossa super plataforma!</p>
 					</div>

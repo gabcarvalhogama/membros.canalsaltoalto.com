@@ -23,7 +23,7 @@ if(!empty($_GET["token"])){
 		<div class="app__auth">
 			<div class="app__auth--bg" style="background-image: url('<?=PATH?>assets/images/auth-image.jpg');"></div>
 			<div class="app__auth--sidebar">
-				<img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="logo" />
+				<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="logo" />
 				<h1>Recupere o acesso da sua conta</h1>
 				<form action="javascript:void(0)" method="get" onsubmit="App.recover(this)" data-inprogress="<?=((isset($isTokenValid)) ? $isTokenValid : '')?>">
 					<div class="message"></div>

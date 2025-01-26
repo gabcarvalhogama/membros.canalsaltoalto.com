@@ -15,9 +15,9 @@
 		<section class="app__welcome mt-5 mb-5">
 			<div class="container-xl d-flex flex-column align-items-center">
 				<div class="app__welcome--box">
-					<img src="<?=PATH?>assets/images/logo-csa-white.png" alt="Logotipo do Canal Salto Alto" class="app__welcome--logo mb-2" />
+					<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="app__welcome--logo mb-2" />
 					<h2 class="text-center">Seja bem-vinda ao Canal Salto Alto!</h2>
-					<p class="text-center text-white">Você agora faz parte de uma das maiores comunidades de empreendedorismo feminino em Linhares e Região. 
+					<p class="text-center">Você agora faz parte de uma das maiores comunidades de empreendedorismo feminino em Linhares e Região. 
 					<!-- Assista ao vídeo e seja muito bem-vinda! -->
 				</p>
 				</div>

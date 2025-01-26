@@ -26739,6 +26739,13 @@ label, .form-label {
 .site__single-post--bar {
   width: 30%;
 }
+.site__lp-plaintext h1, .site__lp-plaintext .h1 {
+  font-weight: bold;
+}
+.site__lp-plaintext h2, .site__lp-plaintext .h2 {
+  margin-top: 1em;
+  margin-bottom: 0.25em;
+}
 .site__lp-about {
   background-repeat: no-repeat;
   background-size: auto 100%;

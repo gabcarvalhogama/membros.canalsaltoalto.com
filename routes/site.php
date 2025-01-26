@@ -33,6 +33,14 @@
 		require "views/site/quem-somos.php";
 	});
 
+	$router->get("/privacidade-e-dados", function(){
+		require "views/site/privacy-and-data.php";
+	});
+
+	$router->get("/politica-de-bom-uso", function(){
+		require "views/site/good-use.php";
+	});
+
 	$router->get("/menu", function(){
 		require "views/site/menu.php";
 	});
