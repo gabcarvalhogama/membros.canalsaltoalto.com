@@ -1,25 +1,3 @@
-# Checkout
-- Pendente integrar o Tokenize;
-- Funcionar o pagamento;
-
-
-
-
-
-
-
-
-ak_live_Z0vJOVrB36Q5mWHoAIDQnLxlbyREKG
-
-
-
-
-
-
-
-
-
-
 # Routes
 
 / - Home page to site

@@ -27333,7 +27333,7 @@ label, .form-label {
   flex-direction: column;
 }
 .app .members-list__item {
-  background-color: #333;
+  background-color: #F5F5F5;
   margin-bottom: 30px;
   padding: 20px;
   border-radius: 15px;

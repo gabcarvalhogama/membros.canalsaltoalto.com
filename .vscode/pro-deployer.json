@@ -1,0 +1,38 @@
+{
+	"enableStatusBarItem": true,
+	"enableQuickPick": true,
+	"uploadOnSave": false,
+	"autoDelete": false,
+	"checkGitignore": false,
+	"activeTargets": [
+		"My FTP"
+	],
+	"concurrency": 5,
+	"ignore": [
+		".git/**/*",
+		".vscode/**/*"
+	],
+	"include": [],
+	"targets": [
+		{
+			"name": "My FTP",
+			"type": "ftp",
+			"host": "45.132.157.55",
+			"port": 21,
+			"user": "u364550838",
+			"password": "CXd|fg*X09LmO9p>",
+			"dir": "/public_html",
+			"baseDir": "/"
+		},
+		{
+			"name": "My SS",
+			"type": "ftp",
+			"host": "45.132.157.55",
+			"port": 21,
+			"user": "u364550838",
+			"password": "CXd|fg*X09LmO9p>",
+			"dir": "/public_html",
+			"baseDir": "/"
+		}
+	]
+}
