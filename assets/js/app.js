@@ -35,6 +35,9 @@ const message = {
 }
 
 
+
+
+
 const App = {
 	init: function(){
 		if(Swiper){

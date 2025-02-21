@@ -1,3 +1,17 @@
+Implementar apa - https://github.com/andreinwald/webpush-ios-example/tree/main
+
+
+
+=======================================
+
+Public Key:
+BFKilOaMz7IFVGMMiiH1Rf-rCcxswDiOY73pDSKbDkMOob78RnObSlmmqdXbZPtdNeGJk_-rX1alvhfuu1RWOGI
+
+Private Key:
+vyjjq1IEf0UQpxkxJDWWxqFJd_v7jL1G6lEJqbSxa3o
+
+=======================================
+
 # Routes
 
 / - Home page to site
