@@ -8,6 +8,10 @@
 		require "views/site/seja-membro.php";
 	});
 
+	$router->get("/coworking-space", function(){
+		require "views/site/coworking-space.php";
+	});
+
 	$router->get("/noticias", function(){
 		$Post = new Post;
 

@@ -208,7 +208,22 @@
 		}
 
 		public function getNextExpirationMembers($days = 15){
-			$sql = DB::open()->prepare("SELECT um.*, u.firstname, u.lastname, u.profile_photo FROM csa_users_memberships um LEFT JOIN csa_users u ON um.iduser = u.iduser WHERE um.ends_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL :days_int DAY) ORDER BY um.ends_at ASC");
+			$sql = DB::open()->prepare("SELECT 
+					um.*, 
+					u.firstname, 
+					u.lastname, 
+					u.profile_photo 
+				FROM csa_users_memberships um
+				LEFT JOIN csa_users u ON um.iduser = u.iduser
+				LEFT JOIN (
+					SELECT iduser, MAX(ends_at) AS max_ends_at 
+					FROM csa_users_memberships 
+					WHERE ends_at BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL :days_int DAY)
+					GROUP BY iduser
+				) um_max ON um.iduser = um_max.iduser AND um.ends_at = um_max.max_ends_at
+				WHERE um_max.max_ends_at IS NOT NULL
+				ORDER BY um.ends_at ASC;
+");
 			$sql->execute([
 				":days_int" => $days
 			]);
