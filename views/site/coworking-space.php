@@ -31,7 +31,7 @@
 							border-radius: 100px;
 						"><i class="fa-solid fa-ticket"></i> Empreendedoras membros tem 10% de Desconto!</span>
 						</p>
-						<a href=""><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale no WhatsApp</button></a>
+						<a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale no WhatsApp</button></a>
 					</div>
                     <div class="col-md-6">
                         <img src="<?=PATH?>assets/images/photos-coworking-space.png" alt="" style="width: 100%" />
@@ -56,7 +56,7 @@
 					</ul>
 
 					<p>Consulte nossos planos e reserve sua sala comercial agora mesmo!</p>
-					<p><a href=""><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale com a gente no WhatsApp</button></a></p>
+					<p><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale com a gente no WhatsApp</button></a></p>
 				</div>
 			</div>
 		</section>
@@ -78,7 +78,7 @@
 						</ul>
 
 						<p>Garanta seu espaço na loja colaborativa!</p>
-						<p><a href=""><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Saiba mais no WhatsApp</button></a></p>
+						<p><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Saiba mais no WhatsApp</button></a></p>
 					</div>
 					<div class="col-md-4">
 						<img src="<?=PATH?>assets/images/loja-colaborativa.jpeg" alt="" style="width: 100%;border-radius:15px" />
@@ -102,7 +102,7 @@
 						</ul>
 
 						<p>Não perca a chance de trabalhar em um ambiente que valoriza o empreendedorismo feminino e incentiva seu crescimento.</p>
-						<p><a href=""><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Entre em contato agora pelo WhatsApp</button></a></p>
+						<p><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Entre em contato agora pelo WhatsApp</button></a></p>
 					</div>
 				</div>
 			</div>

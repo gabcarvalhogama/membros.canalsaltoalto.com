@@ -42,13 +42,13 @@
 				die(json_encode(["res" => "Por favor, informe sua senha para acesso."]));
 			}else{
 				$User = new User;
-				if($User->login($_POST["login_email"], $_POST["login_password"])){
+				if($User->login(strtolower($_POST["login_email"]), $_POST["login_password"])){
 					$_SESSION["csa_email"] = $_POST["login_email"];
 					$_SESSION["csa_password"] = $_POST["login_password"];
 
 					die(json_encode(["res"=>1]));
 				}else{
-					die(json_encode(["res"=>"O e-mail ou senha estão incorretos. Verifique os dados e tente novamente!"]));
+					die(json_encode(["res"=>"O e-mail ou senha estão incorretos. Verifique os dados e tente novamente! [EA0001]"]));
 				}
 			}
 		});
@@ -63,7 +63,7 @@
 				die(json_encode(["res" => "Por favor, informe o e-mail para recuperação do acesso."]));
 			}else{
 				$User = new User;
-				$user = $User->getUserByEmail($_POST["recover_email"]);
+				$user = $User->getUserByEmail(strtolower($_POST["recover_email"]));
 				if($user->rowCount() == 0)
 					die(json_encode(["res" => "Desculpe, não foi possível encontrar este e-mail."]));
 				
@@ -77,20 +77,27 @@
 					$email_title = "Recupere o seu Acesso - Canal Salto Alto";
 					$content = "<div>
 						<h1>Recupere o seu acesso à Comunidade Canal Salto Alto</h1>
-						<p>Olá, recebemos a sua solicitação para recuperação de senha. Para prosseguir com a redefinição da sua senha, clique no botão a seguir:</p>
+						<p>Olá, recebemos a sua solicitação para recuperação de senha da conta vinculada ao e-mail $userData->email. Para prosseguir com a redefinição da sua senha, clique no botão a seguir:</p>
 						<a href='https://canalsaltoalto.com/app/recover/?token=$token'>QUERO REDEFINIR MINHA SENHA</a>
 					</div>";
 					$email_content = Template::render([
 						"email_title" => $email_title,
-						"email_content" => $content 
+						"email_content" => $content
 					], "email_general");
 
 
 
- 					$Comunications->sendEmail($userData->email, $email_title, $email_content);
+ 					$mail_send = $Comunications->sendEmail($userData->email, $email_title, $email_content);
+
+					if($mail_send == true){
+						Logger::log("INFO", "E-mail de recuperação de senha enviado para ".$userData->email, $userData->iduser);
+					}else{
+						Logger::log("ERROR", "Erro ao enviar e-mail de recuperação para ".$userData->email, $userData->iduser);
+					}
 
 					die(json_encode(["res" => 1]));
 				}else{
+					Logger::log("ERROR", "Erro ao criar token de recuperação de senha para ".$userData->email, $userData->iduser);
 					die(json_encode(["res" => "Desculpe, não foi possível recuperar a sua senha. Entre em contato com nossa equipe de suporte."]));
 				}
 
@@ -261,7 +268,7 @@
 					if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
 
 
-					$Upin->get( $imageFolder, $_FILES["company_image"]["name"], 10, "jpeg,jpg,png", "company_image", 1);
+					$Upin->get( $imageFolder, $_FILES["company_image"]["name"], 10, "gif,jpg,png,jpeg,webp", "company_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $company_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -384,7 +391,7 @@
 
 
 					$Upin = new Upin;
-					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["publi_image"]["name"], 10, "jpeg,jpg,png", "publi_image", 1);
+					$Upin->get( "uploads/".date("Y\/m\/"), $_FILES["publi_image"]["name"], 10, "gif,jpg,png,jpeg,webp", "publi_image", 1);
 					$Upin->run();
 
 					if($Upin->res === true) $publi_image = "uploads/".date("Y\/m\/").$Upin->json[0];
@@ -521,9 +528,8 @@
 	  		reset ($_FILES);
 	  		$temp = current($_FILES);
 	  		if (is_uploaded_file($temp['tmp_name'])){
-			    if (!in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("gif", "jpg", "png"))) {
-			        header("HTTP/1.1 400 Invalid extension.");
-			        return;
+			    if (!in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("gif", "jpg", "png", "jpeg", "webp"))) {
+			        die(json_encode(["res" => "Desculpe, a imagem enviada é inválida."]));
 			    }
 
 			    $filetowrite = $imageFolder . uniqid().".".pathinfo($temp['name'], PATHINFO_EXTENSION);
@@ -533,12 +539,11 @@
 			    	die(json_encode(array('res' => 1, 'path' => $filetowrite)));
 			    }
 			    else{
-			    	die(json_encode(["res" => "Desculpe, algo deu errado ao salvar sua foto de perfil."]));
+			    	die(json_encode(["res" => "Desculpe, não foi possível salvar o arquivo em nosso servidor."]));
 			    }
 
 			  } else {
-			    // Notify editor that the upload failed
-			    header("HTTP/1.1 500 Server Error");
+			    die(json_encode(["res" => "Desculpe, nenhum arquivo foi enviado."]));
 			  }
 		});
 

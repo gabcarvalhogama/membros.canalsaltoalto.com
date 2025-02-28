@@ -18,7 +18,7 @@
 				":neighborhood" => ucfirst(trim($neighborhood)),
 				":complement" => ucfirst(trim($complement)),
 				":cellphone" => preg_replace('/\D/', '', $cellphone),
-				":email" => filter_var($email, FILTER_SANITIZE_EMAIL),
+				":email" => strtolower(filter_var($email, FILTER_SANITIZE_EMAIL)),
 				":password" => Bcrypt::hash($password),
 				":type" => intval($type)
 			]);
@@ -76,7 +76,7 @@
 		public function getUserIdByEmail($email){
 			$sql = DB::open()->prepare("SELECT iduser FROM csa_users WHERE email = :email LIMIT 1");
 			$sql->execute([
-				":email" => filter_var($email, FILTER_SANITIZE_EMAIL)
+				":email" => strtolower(filter_var($email, FILTER_SANITIZE_EMAIL))
 			]);
 
 			return ($sql->rowCount() > 0) ? $sql->fetchObject()->iduser : 0;
@@ -110,7 +110,7 @@
 			WHERE u.email = :email
 			LIMIT 1");
 			$sql->execute([
-				":email" => filter_var($email, FILTER_SANITIZE_EMAIL)
+				":email" => strtolower(filter_var($email, FILTER_SANITIZE_EMAIL))
 			]);
 
 			return $sql;
@@ -235,7 +235,7 @@
 			$sql = DB::open()->prepare("UPDATE csa_users SET profile_photo = :profile_photo WHERE email = :email");
 			return $sql->execute([
 				":profile_photo" => strtolower(trim($file_path)),
-				":email" => filter_var($email, FILTER_SANITIZE_EMAIL)
+				":email" => strtolower(filter_var($email, FILTER_SANITIZE_EMAIL))
 			]);
 		}
 
@@ -243,7 +243,7 @@
 		public function isUserAdminByEmail($email){
 			$sql = DB::open()->prepare("SELECT user_type FROM csa_users WHERE email = :email LIMIT 1");
 			$sql->execute([
-				":email" => filter_var($email, FILTER_SANITIZE_EMAIL)
+				":email" => strtolower(filter_var($email, FILTER_SANITIZE_EMAIL))
 			]);
 
 			return ($sql->rowCount() > 0) ? ( ($sql->fetchObject()->user_type) == 1 ) : 0;
@@ -277,7 +277,7 @@
 			    u.email = :email
 			LIMIT 1;");
 			$sql->execute([
-				":email" => filter_var($email, FILTER_VALIDATE_EMAIL)
+				":email" => strtolower(filter_var($email, FILTER_VALIDATE_EMAIL))
 			]);
 
 			return (($sql->rowCount() > 0));
@@ -303,7 +303,7 @@
 	            u.email = :email
 	        LIMIT 1;");
 			$sql->execute([
-				":email" => filter_var($email, FILTER_VALIDATE_EMAIL)
+				":email" => strtolower(filter_var($email, FILTER_VALIDATE_EMAIL))
 			]);
 
 			$result = $sql->fetch(PDO::FETCH_ASSOC);
@@ -316,7 +316,7 @@
 	        $sql = DB::open()->prepare("SELECT password FROM csa_users WHERE email = :email  
 	            LIMIT 1");
 	        $sql->execute([
-	            ":email" => filter_var($email, FILTER_SANITIZE_EMAIL)
+	            ":email" => strtolower(filter_var($email, FILTER_SANITIZE_EMAIL))
 	        ]);
 	        return ($sql->rowCount() > 0) ? $sql->fetchObject()->password : null;
 	    }
