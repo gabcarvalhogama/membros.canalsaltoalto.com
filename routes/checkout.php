@@ -261,7 +261,7 @@
 
 			case "credit_card":
 				$itemData = [
-				    'amount' => str_replace(".", "", number_format($cartaoPrice, 2, '.', '')),
+				    'amount' => (intval($_POST["f_cc_installments"]) == 1) ? str_replace(".", "", number_format($aVistaPrice, 2, '.', '')) : str_replace(".", "", number_format($cartaoPrice, 2, '.', '')),
 				    'quantity' => 1,
 				    'description' => 'Comunidade - Canal Salto Alto (1 ano)',
 				    'code' => 0

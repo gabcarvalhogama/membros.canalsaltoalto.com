@@ -1,5 +1,5 @@
 		<div class="topbar">
-			ASSINATURA ATÉ <?=date("d/m/Y", strtotime(USER->membership_ends_at))?>
+			ASSINATURA ATÉ <?=(!empty(USER->membership_ends_at)) ? date("d/m/Y", strtotime(USER->membership_ends_at)) : "INDEFINIDO"; ?>
 		</div>
 		<header class="app__header">
 			<div class="container-xl">

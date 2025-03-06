@@ -255,11 +255,11 @@
 								<div class="col">
 									<label for="f_cc_installments" class="form-label">Selecione o Parcelamento</label>
 									<select name="f_cc_installments" class="form-control" id="f_cc_installments">
-										<option value="1">À vista (R$ <?=Validation::decimalToReal($plan->membership_price_cc)?>) s/juros</option>
+										<option value="1">À vista (R$ <?=Validation::decimalToReal($plan->membership_price_incash)?>) s/juros</option>
 										<?php 
 											for($i = 2; $i <= 12; $i++):
 										?>
-										<option value="<?=$i?>"><?=$i?>x de <?=Validation::decimalToReal($plan->membership_price_cc/$i)?> (R$ <?=Validation::decimalToReal($plan->membership_price_cc)?>) s/juros</option>
+										<option value="<?=$i?>"><?=$i?>x de <?=Validation::decimalToReal($plan->membership_price_cc/$i)?> (R$ <?=Validation::decimalToReal($plan->membership_price_cc)?>) c/juros</option>
 									<?php endfor; ?>
 									</select>
 								</div>

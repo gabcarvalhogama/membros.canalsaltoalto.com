@@ -12,7 +12,7 @@
 
 			try {
 			    //Server settings
-			    // $mail->SMTPDebug = fasle;                      //Enable verbose debug output
+			    // $mail->SMTPDebug = false;                      //Enable verbose debug output
 			    $mail->isSMTP();                                            //Send using SMTP
 			    $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
 			    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -37,9 +37,11 @@
 
 			    $mail->send();
 
+				error_log("Recovery message sent to {$destination}");
 			    return true;
 			} catch (Exception $e) {
-			    return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+			    return false;
+				error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
 			}
 		}
 	}

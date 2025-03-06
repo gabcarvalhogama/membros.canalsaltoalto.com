@@ -25,7 +25,7 @@
 		$router->get("/", function() {
 			// if(USER->)
 			// var_dump(USER);
-			if(intval(USER->company_counter) == 0 AND USER->user_type != 1)
+			if(!empty(USER->company_counter) AND intval(USER->company_counter) == 0 AND !empty(USER->user_type) AND USER->user_type != 1)
 				header("Location: /app/welcome/new-company");
 
 			require_once "views/app/index.php";
@@ -51,6 +51,11 @@
 					die(json_encode(["res"=>"O e-mail ou senha estão incorretos. Verifique os dados e tente novamente! [EA0001]"]));
 				}
 			}
+		});
+
+		$router->get("/logout", function(){
+			session_destroy();
+			header("Location: /app/login");
 		});
 
 
@@ -124,9 +129,11 @@
 				$getToken = $User->getToken($_POST["recovery_token"])->fetchObject();
 
 				if($User->updatePassword($getToken->user_id, $_POST["recover_password"])){
+					Logger::log("INFO", "Senha alterada com sucesso para ".$getToken->user_id, $getToken->user_id);
 					$User->updateTokenToUsed($_POST["recovery_token"]);
 					die(json_encode(["res" => 1]));
 				}else{
+					Logger::log("ERROR", "Erro ao atualizar a senha para ".$getToken->user_id, $getToken->user_id);
 					die(json_encode(["res" => "Desculpe, não foi possível alterar a sua senha. Verifique com o suporte da plataforma e tente novamente."]));
 				}
 			}
