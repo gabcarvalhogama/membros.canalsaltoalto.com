@@ -11,7 +11,10 @@
 
 			<div class="admin__dashboard--content">
 				<div class="container">
-					<h1>Todos os Banners</h1>
+					<div class="d-flex flex-row align-items-center justify-content-between mb-3">
+						<h1>Todos os Banners</h1>
+						<a href="/admin/banners/new"><button class="btn btn-rose btn-rose-light">+ adicionar</button></a>
+					</div>
 
 					<table class="table">
 						<thead>

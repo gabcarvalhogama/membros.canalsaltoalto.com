@@ -23,7 +23,7 @@
 				<h1><?=$object->title?></h1>
 				<ul class="d-flex flex-wrap site__single-post--terms">
 					<li><a href="#"><i class="fa-solid fa-user"></i> <?=$object->firstname." ".$object->lastname?></a></li>
-					<li><a href="#"><i class="fa-solid fa-calendar"></i> <?=date('d/m/Y \à\s H:i', strtotime($object->published_at))?></a></li>
+					<li><a href="#"><i class="fa-solid fa-calendar"></i> <?=(!empty($object->published_at)) ? date('d/m/Y \à\s H:i', strtotime($object->published_at)) : "";?></a></li>
 					<li><a href="#comments"><i class="fa-solid fa-calendar"></i> <?php 
 						if($object->number_comments == 0 OR $object->number_comments > 1) echo "$object->number_comments comentários";
 						else echo "$object->number_comments comentário";?></a></li>

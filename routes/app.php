@@ -69,8 +69,10 @@
 			}else{
 				$User = new User;
 				$user = $User->getUserByEmail(strtolower($_POST["recover_email"]));
-				if($user->rowCount() == 0)
+				if($user->rowCount() == 0){
+					Logger::log("ERROR", "E-mail não encontrado para recuperação de senha - ".$_POST["recover_email"], null);
 					die(json_encode(["res" => "Desculpe, não foi possível encontrar este e-mail."]));
+				}
 				
 
 				$userData = $user->fetchObject();

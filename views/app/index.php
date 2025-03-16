@@ -18,11 +18,25 @@
 			<div class="swiper">
 			  <div class="swiper-wrapper">
 			    <div class="swiper-slide">
-			    	<div class="container-xl">
+			    	<!-- <div class="container-xl">
 			    		<a href="javascript:void(0)">
 			    			<img src="<?=PATH?>assets/images/app-banner-bem-vinda.jpg" class="app__hero--image" />
 			    		</a>
-			    	</div>
+			    	</div> -->
+					<?php 
+						$Banner = new Banner;
+						$getBanners = $Banner->getBannersByPosition('app_home_hero');
+
+						foreach($getBanners->fetchAll(PDO::FETCH_ASSOC) as $banner):
+					?>
+					<div class="swiper-slide">
+						<a href="<?=$banner['link']?>" target="_blank">
+							<img src="<?=PATH.$banner['path_desktop']?>" class="app__hero--image d-none d-md-block" />
+							<img src="<?=PATH.$banner['path_mobile']?>" class="app__hero--image d-block d-md-none" />
+						</a>
+					</div>
+
+					<?php endforeach; ?>
 			    </div>
 			  </div>
 			  <div class="swiper-pagination"></div>

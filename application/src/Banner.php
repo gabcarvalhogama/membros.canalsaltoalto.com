@@ -4,7 +4,8 @@
 			"public_home_hero" => "Página Inicial - Hero",
 			"public_home_ad1" => "Página Inicial - Espaço 1",
 			"public_home_ad2" => "Página Inicial - Espaço 2",
-			"public_home_ad3" => "Página Inicial - Espaço 3"
+			"public_home_ad3" => "Página Inicial - Espaço 3",
+			"app_home_hero" => "App - Hero"
 		);
 
 		public function getBanners(){

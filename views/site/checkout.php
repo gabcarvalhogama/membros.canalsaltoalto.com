@@ -209,6 +209,12 @@
 				<form-step id="payment">
 					<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutPayment(this)" data-pagarmecheckout-form>
 						<div class="message"></div>
+
+						<div class="mb-3 col">
+							<label for="f_fiscal_cpf" class="form-label">CPF *</label>
+							<input type="text" class="form-control" id="f_fiscal_cpf" name="f_fiscal_cpf" placeholder="CPF" required data-mask="000.000.000-00" tabindex="6" />
+						</div>
+						
 						<div class="checkout__payment">
 							<p>Selecione a melhor forma de pagamento</p>
 							<div class="checkout__payment--item d-flex" onclick="Checkout.changePayment(this, 'pix')">

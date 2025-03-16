@@ -150,6 +150,9 @@
 			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
 		}
 
+		if(empty($_POST["f_fiscal_cpf"]) OR !User::validateCPF($_POST["f_fiscal_cpf"])){
+			die(json_encode(["res"=>"Por favor, informe um C.P.F. válido para pagamento.", "step" => "payment"]));
+		}
 
 		$Membership = new Membership;
 		$getMembershipPlanById = $Membership->getMembershipPlanById(1);
@@ -207,7 +210,7 @@
 		    'name' => $user->firstname . " ".$user->lastname,
 		    'type' => 'individual',
 		    'email' => $user->email,
-		    'document' => $user->cpf,
+			'document' => preg_replace('/\D/', '', $_POST["f_fiscal_cpf"]),
 		    'document_type' => 'CPF',
 		    'phones' => [
                 'home_phone' => [

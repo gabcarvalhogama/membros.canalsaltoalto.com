@@ -213,19 +213,19 @@ const Checkout = {
 		this.changeStep('#enterpreneur', '#coupon')
 	},
 
-	updateInstallments: function(new_value){
-		var html = `<option value="1">À vista (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="2">2x de R$ ${(new_value/2).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="3">3x de R$ ${(new_value/3).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="4">4x de R$ ${(new_value/4).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="5">5x de R$ ${(new_value/5).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="6">6x de R$ ${(new_value/6).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="7">7x de R$ ${(new_value/7).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="8">8x de R$ ${(new_value/8).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="9">9x de R$ ${(new_value/9).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="10">10x de R$ ${(new_value/10).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="11">11x de R$ ${(new_value/11).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>
-                    <option value="12">12x de R$ ${(new_value/12).toFixed(2)} (R$ ${new_value.toFixed(2)}) s/juros</option>`;
+	updateInstallments: function(newPriceAvista, new_value){
+		var html = `<option value="1">À vista (R$ ${newPriceAvista}) s/juros</option>
+                    <option value="2">2x de R$ ${(new_value/2).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="3">3x de R$ ${(new_value/3).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="4">4x de R$ ${(new_value/4).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="5">5x de R$ ${(new_value/5).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="6">6x de R$ ${(new_value/6).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="7">7x de R$ ${(new_value/7).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="8">8x de R$ ${(new_value/8).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="9">9x de R$ ${(new_value/9).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="10">10x de R$ ${(new_value/10).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="11">11x de R$ ${(new_value/11).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>
+                    <option value="12">12x de R$ ${(new_value/12).toFixed(2)} (R$ ${new_value.toFixed(2)}) c/juros</option>`;
 
                   $('#f_cc_installments').html(html)
 
@@ -265,14 +265,14 @@ const Checkout = {
 
 						var newPriceInstallments = (priceInstallmentsValueSelector*(1-(data.coupon.discount_value/100))).toFixed(2);
 						$('#priceInstallmentsValueSelector').text(newPriceInstallments)
-						Checkout.updateInstallments(newPriceInstallments * 12)
+						Checkout.updateInstallments(newPriceAvista, newPriceInstallments * 12)
 					}else{
 						var newPriceAvista = (priceAvista - data.coupon.discount_value).toFixed(2);
 						$('#priceAvistaValueSelector').text(newPriceAvista)
 						
 						var newPriceInstallments = (priceInstallmentsValueSelector-data.coupon.discount_value).toFixed(2);
 						$('#priceInstallmentsValueSelector').text(newPriceInstallments)
-						Checkout.updateInstallments(newPriceInstallments * 12)
+						Checkout.updateInstallments(newPriceAvista, newPriceInstallments * 12)
 					}
 					Checkout.processData(form)
 
