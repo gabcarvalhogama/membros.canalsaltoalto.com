@@ -155,7 +155,7 @@
 
 		<section class="companies mt-5 mb-5">
 			<div class="container-xl">
-				<h2>Essas empresas estão conosco!</h2>
+				<h2>Empresas da nossa rede!</h2>
 				<!-- Slider main container -->
 				<div class="swiper swiper_companies">
 				  <div class="swiper-wrapper">

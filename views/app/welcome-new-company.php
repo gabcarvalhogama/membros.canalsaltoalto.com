@@ -139,7 +139,6 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
-		<!-- <script type="text/javascript" src="<?=PATH?>assets/js/checkout.js?<?=uniqid()?>"></script> -->
 		<script type="text/javascript" src="<?=PATH?>assets/js/app.js?<?=uniqid()?>"></script>
 	</body>
 </html>

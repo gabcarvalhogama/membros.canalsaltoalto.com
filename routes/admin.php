@@ -948,7 +948,10 @@
 
 
 		$router->get("/members", function(){
-			require "views/admin/members.php";
+			require "views/admin/members-test.php";
+		});
+		$router->get("/members-test", function(){
+			require "views/admin/members-test.php";
 		});
 
 		$router->get("/members/new", function(){

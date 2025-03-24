@@ -25,6 +25,40 @@
 				<div class="container">
 					<h1>Membros</h1>
 					<p>Nessa página você encontra a lista de todos os membros cadastrados no sistema, incluindo administradores. Atualmente existem <?=$getUsers->rowCount()?> usuários cadastrados.</p>
+
+                    <form method="GET" action="">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="start_date">Data de Início:</label>
+                                    <input type="date" id="start_date" name="start_date" class="form-control" value="<?= isset($_GET['start_date']) ? $_GET['start_date'] : '' ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="end_date">Data de Fim:</label>
+                                    <input type="date" id="end_date" name="end_date" class="form-control" value="<?= isset($_GET['end_date']) ? $_GET['end_date'] : '' ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-2 align-self-end">
+                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <?php
+                    if (isset($_GET['start_date']) && isset($_GET['end_date']) && !empty($_GET['start_date']) && !empty($_GET['end_date'])) {
+                        $startDate = $_GET['start_date'];
+                        $endDate = $_GET['end_date'];
+
+                        $filteredUsers = array_filter($getUsers->fetchAll(PDO::FETCH_ASSOC), function($user) use ($startDate, $endDate) {
+                            return (!empty($user['ends_at']) && $user['ends_at'] >= $startDate && $user['ends_at'] <= $endDate);
+                        });
+                    } else {
+                        $filteredUsers = $getUsers->fetchAll(PDO::FETCH_ASSOC);
+                    }
+                    ?>
+
 					<table class="table table-hover">
 						<thead>
 							<th></th>
@@ -36,8 +70,8 @@
 						<tbody>
 							
 							<?php
-								if($getUsers->rowCount() > 0):
-									foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $user):
+								if(count($filteredUsers) > 0):
+									foreach($filteredUsers as $user):
 							?>
 							<tr>
 								<td style="width: auto">

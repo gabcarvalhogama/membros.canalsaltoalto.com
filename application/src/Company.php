@@ -132,7 +132,7 @@
 
 
 
-		public function getCompaniesEnabledAndActiveMembers($limit = 6){
+		public function getCompaniesEnabledAndActiveMembers($limit = 12){
 			$sql = DB::open()->prepare("SELECT DISTINCT
 			    c.company_id,
 			    c.iduser,
@@ -167,8 +167,9 @@
 			    c.status = 1
 			    AND um.status = 'paid'
 			    AND um.ends_at > NOW()
+				AND c.company_image IS NOT NULL
 			ORDER BY 
-			    c.company_name ASC
+			    c.created_at DESC
 			LIMIT :limit_posts
 			");
 
