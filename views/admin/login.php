@@ -11,6 +11,7 @@
 		<?=Template::render(null, "head-tags")?>
 	</head>
 	<body class="admin">
+	<?=Template::render(null, "after-body-tags")?>
 
 		<div class="admin__auth">
 			

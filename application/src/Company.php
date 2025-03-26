@@ -38,7 +38,7 @@
 		}
 
 		public function getCompaniesByStatus($status = 1){
-			$sql = DB::open()->prepare("SELECT 
+			$sql = DB::open()->prepare("SELECT DISTINCT 
 			    c.company_id,
 			    c.iduser,
 			    c.company_name,
@@ -84,7 +84,7 @@
 
 
 		public function getCompaniesByStatusAndPagination($limit = 12, $offset = 0, $status = 1){
-			$sql = DB::open()->prepare("SELECT 
+			$sql = DB::open()->prepare("SELECT DISTINCT
 			    c.company_id,
 			    c.iduser,
 			    c.company_name,
@@ -231,7 +231,7 @@
 	            ":company_description" => ucfirst(trim($company_description)),
 	            ":company_image" => $company_image,
 	            ":has_place" => intval($has_place),
-	            ":address_zipcode" => $address_zipcode,
+	            ":address_zipcode" => ($address_zipcode == "") ? NULL : preg_replace('/\D/', '', $address_zipcode),
 	            ":address_state" => $address_state,
 	            ":address_city" => $address_city,
 	            ":address" => ucfirst(trim($address)),
@@ -255,6 +255,15 @@
 
 			return $sql;
 		}
+		public function getCompanyByIdAndUser($company_id, $user_id){
+			$sql = DB::open()->prepare("SELECT * FROM csa_companies WHERE company_id = :company_id AND iduser = :user_id LIMIT 1");
+			$sql->execute([
+				":company_id" => intval($company_id),
+				":user_id" => intval($user_id)
+			]);
+
+			return $sql;
+		}
 
 
 		public function update($company_id, $company_owner, $company_name, $company_description, $company_image, $has_place, $address_zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $instagram_url, $site_url, $facebook_url, $status) {
@@ -265,7 +274,7 @@
 	                iduser = :company_owner,
 	                company_name = :company_name,
 	                company_description = :company_description,
-	                company_image = :company_image,
+	                company_image = IFNULL(:company_image, company_image),
 	                has_place = :has_place,
 	                address_zipcode = :address_zipcode,
 	                address_state = :address_state,
@@ -290,7 +299,7 @@
 	            ":company_description" => ucfirst(trim($company_description)),
 	            ":company_image" => $company_image,
 	            ":has_place" => intval($has_place),
-	            ":address_zipcode" => $address_zipcode,
+				":address_zipcode" => ($address_zipcode == "") ? NULL : preg_replace('/\D/', '', $address_zipcode),
 	            ":address_state" => $address_state,
 	            ":address_city" => $address_city,
 	            ":address" => ucfirst(trim($address)),

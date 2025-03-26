@@ -295,7 +295,7 @@
 				    $_POST["company_name"],
 				    $_POST["company_description"],
 				    $company_image,
-				    ($_POST["has_place"]) ?? null,
+				    ($_POST["has_place"] == 'on'),
 				    ($_POST["address_zipcode"]) ?? null,
 				    ($_POST["address_state"]) ?? null,
 				    ($_POST["address_city"]) ?? $_POST["address_city"],
@@ -312,6 +312,109 @@
 		    		die(json_encode(["res" => 1]));
 		    	else
 		    		die(json_encode(["res" => "Desculpe, algo deu errado ao tentar criar a empresa. Atualize a página e tente novamente!"]));
+
+
+		    }
+		});
+
+		$router->get("/companies/edit/{company_id}", function($company_id){
+			$Company = new Company;
+			$company = $Company->getCompanyByIdAndUser($company_id, USER->iduser);
+
+			if($company->rowCount() == 0) header("Location: /app/companies");
+
+			$company = $company->fetchObject();
+
+			require "views/app/companies-edit.php";
+		});
+
+		$router->post("/companies/edit/{company_id}", function($company_id){
+			if(empty($company_id)){
+				Logger::log("ERROR", "Erro ao enviar atualizar Company, requisição sem company_id para ".USER->iduser, USER->iduser);
+				die(json_encode(["res" => "Desculpe, não foi possível identificar a empresa a ser atualizada."]));
+			}
+
+			if (empty($_POST["company_name"])) {
+		        die(json_encode(["res" => "Por favor, informe o nome da empresa!"]));
+		    }else if (empty($_POST["company_description"])) {
+		        die(json_encode(["res" => "Por favor, informe a descrição da empresa!"]));
+		    }else if (empty($_POST["cellphone"])) {
+		        die(json_encode(["res" => "Por favor, informe o celular!"]));
+		    }else if (!empty($_POST["instagram_url"]) && !filter_var($_POST["instagram_url"], FILTER_VALIDATE_URL)) {
+		        die(json_encode(["res" => "Por favor, informe uma URL válida para o Instagram!"]));
+		    }
+		    else if (!empty($_POST["site_url"]) && !filter_var($_POST["site_url"], FILTER_VALIDATE_URL)) {
+		        die(json_encode(["res" => "Por favor, informe uma URL válida para o site!"]));
+		    }
+		    else if (!empty($_POST["facebook_url"]) && !filter_var($_POST["facebook_url"], FILTER_VALIDATE_URL)) {
+		        die(json_encode(["res" => "Por favor, informe uma URL válida para o Facebook!"]));
+		    }else{
+		    	if (isset($_POST["has_place"]) && $_POST["has_place"] == 'on') {
+			        if (empty($_POST["address_zipcode"])) {
+			            die(json_encode(["res" => "Por favor, informe o CEP!"]));
+			        }else if (empty($_POST["address_state"])) {
+			            die(json_encode(["res" => "Por favor, informe o estado!"]));
+			        }else if (empty($_POST["address_city"])) {
+			            die(json_encode(["res" => "Por favor, informe a cidade!"]));
+			        }else if (empty($_POST["address"])) {
+			            die(json_encode(["res" => "Por favor, informe o endereço!"]));
+			        }else if (empty($_POST["address_number"])) {
+			            die(json_encode(["res" => "Por favor, informe o número do endereço!"]));
+			        }
+			    }
+
+		    	if(isset($_FILES["company_image"]) AND !empty($_FILES["company_image"]["name"])){
+					$Upin = new Upin;
+
+					$imageFolder = "uploads/".date("Y\/m\/");
+
+					if (!file_exists($imageFolder)) mkdir($imageFolder, 0777, true);
+
+
+					$Upin->get( $imageFolder, $_FILES["company_image"]["name"], 10, "gif,jpg,png,jpeg,webp", "company_image", 1);
+					$Upin->run();
+
+					if($Upin->res === true) $company_image = "uploads/".date("Y\/m\/").$Upin->json[0];
+					else die(json_encode(["res"=>"Por favor, envie uma imagem de destaque válida."]));
+				}else{
+					// die(json_encode(["res" => "Por favor, envie uma imagem de destaque."]));
+					$company_image = null;
+				}
+
+		    	$Company = new Company;
+
+				if($Company->getCompanyByIdAndUser($company_id, USER->iduser)->rowCount() == 0){
+					die(json_encode(["res" => "Desculpe, você não tem permissão para atualizar a empresa. Atualize sua página e tente novamente!"]));
+				}
+
+
+
+
+		    	$User = new User;
+
+		    	if($Company->update(
+					$company_id,
+		    		$User->getUserIdByEmail($_SESSION["csa_email"]),
+				    $_POST["company_name"],
+				    $_POST["company_description"],
+				    $company_image,
+				    ($_POST["has_place"] == 'on'),
+				    ($_POST["address_zipcode"]) ?? null,
+				    ($_POST["address_state"]) ?? null,
+				    ($_POST["address_city"]) ?? $_POST["address_city"],
+				    ($_POST["address"]) ?? $_POST["address"],
+				    ($_POST["address_number"]) ?? $_POST["address_number"],
+				    ($_POST["address_neighborhood"]) ?? $_POST["address_neighborhood"],
+				    ($_POST["address_complement"]) ?? $_POST["address_complement"],
+				    ($_POST["cellphone"]) ?? $_POST["cellphone"],
+				    ($_POST["instagram_url"]) ?? $_POST["instagram_url"],
+				    ($_POST["site_url"]) ?? $_POST["site_url"],
+				    ($_POST["facebook_url"]) ?? $_POST["facebook_url"],
+				    2
+		    	))
+		    		die(json_encode(["res" => 1]));
+		    	else
+		    		die(json_encode(["res" => "Desculpe, algo deu errado ao tentar atualizar a empresa. Atualize a página e tente novamente!"]));
 
 
 		    }

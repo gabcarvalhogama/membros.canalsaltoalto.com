@@ -36,7 +36,7 @@
 					<div class="row">
 						<div class="col mb-3">
 							<label for="company_image">Imagem em destaque</label>
-							<input type="file" name="company_image" id="company_image" class="form-control" accept="image/*" />
+							<input type="file" name="company_image" id="company_image" class="form-control" accept="image/*" required />
 						</div>
 					</div>
 

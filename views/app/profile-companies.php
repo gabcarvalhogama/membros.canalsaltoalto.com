@@ -67,7 +67,10 @@
 					  					<li><a href="<?=$company["site_url"]?>" target="_blank"><i class="fa-solid fa-link"></i></a></li>
 					  					<?php endif; ?>
 					  				</ul>
-					  				<h3 class="mt-3"><?=$company["company_name"]?></h3>
+					  				<h3 class="mt-3"><?=$company["company_name"]?>
+										<?php if($company['iduser'] == USER->iduser): ?>
+											<small style="font-size: 14px;"><a href="/app/companies/edit/<?=$company['company_id']?>"><i class="fa-solid fa-pen"></i> Editar</a></small>
+										<?php endif; ?></h3>
 					  				<div class="description"><?=$company["company_description"]?></div>
 					  				<div class="d-flex flex-row align-items-center mt-2">
 					  					<a href="https://wa.me/55<?=$company["cellphone"]?>" target="_blank"><button class="btn btn-rose btn-rounded"><i class="fa-brands fa-whatsapp"></i> <?=$company["cellphone"]?></button></a>
@@ -76,6 +79,10 @@
 					  						<span class="p-2 d-block">by <?=$company["firstname"]." ".$company["lastname"]?></span>
 					  					</div>
 					  				</div>
+									
+
+									
+
 					  			</div>
 					  		</div>
 						<?php endforeach; else: ?>
