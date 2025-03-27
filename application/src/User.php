@@ -283,6 +283,31 @@
 			return (($sql->rowCount() > 0));
 	    }
 
+		public function isUserActiveMember($email){
+	    	$sql = DB::open()->prepare("SELECT
+			    um.iduser,
+			    um.membership_id,
+			    um.starts_at,
+			    um.ends_at,
+			    um.status,
+			    CASE
+			        WHEN um.starts_at <= NOW() AND um.ends_at >= NOW() THEN TRUE
+			        ELSE FALSE
+			    END AS is_valid_member
+			FROM
+			    csa_users_memberships um
+			LEFT JOIN
+			    csa_users u ON u.iduser = um.iduser
+			WHERE
+			    u.email = :email
+			LIMIT 1;");
+			$sql->execute([
+				":email" => strtolower(filter_var($email, FILTER_VALIDATE_EMAIL))
+			]);
+
+			return (($sql->rowCount() > 0));
+	    }
+
 	    public function isMemberEligibleForRenewallDiscount($email){
 	    	$sql = DB::open()->prepare("SELECT
             um.iduser,

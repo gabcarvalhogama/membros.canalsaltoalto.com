@@ -382,5 +382,5 @@
 		
 		$membership = $getMembership->fetchAll(PDO::FETCH_OBJ)[0];
 
-		die(json_encode(["res" => 1, "status" => $membership->status]));
+		die(json_encode(["res" => 1, "status" => $membership->status, "payment_value" => $membership->payment_value]));
 	});

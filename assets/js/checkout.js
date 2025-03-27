@@ -321,7 +321,7 @@ const Checkout = {
 
 						Checkout.changeLabel("Agora é só fazer o pagamento do <br/>Pix abaixo e aguardar!")
 					}else{
-
+						// alert("Desculpe, não foi possível gerar o QR Code.")
 					}
 					Checkout.checkPayment()
 
@@ -363,6 +363,14 @@ const Checkout = {
 						Checkout.changeStep(null, '#checkouting-pix_paid')
 
 						Checkout.changeLabel("Sucesso! Seu pagamento <br />foi confirmado.")
+
+						window.dataLayer = window.dataLayer || [];
+						dataLayer.push({
+							'event': 'purchase',
+							'ecommerce': {
+							'value': data.payment_value
+							}
+						});
 
 						setTimeout(function(){
 							window.location = "/app/welcome";

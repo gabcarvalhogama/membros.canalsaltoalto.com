@@ -28,7 +28,7 @@
 				<div class="d-flex flex-column flex-md-row justify-content-between">
 					<h2>Conheça os negócios <span class="color-primary">das membros</span> <?=((isset($page_number)) ? "| <small>(Página $page_number)</small>" : "")?></h2>
 					<div class="d-flex flex-row align-items-center">
-						<a href="/app/members/<?=USER->iduser?>/companies" class="me-3">Minhas empresas</a>
+						<a href="/app/members/<?=USER->iduser?>/companies" class="me-3">Editar minhas empresas</a>
 						<a href="/app/companies/new"><button class="btn btn-rose btn-rounded">Cadastre sua empresa</button></a>
 					</div>
 				</div>

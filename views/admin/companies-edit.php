@@ -23,6 +23,20 @@
 					<form action="javascript:void(0)" method="post" onsubmit="Companies.update(this)"  accept-charset="utf-8" enctype="multipart/form-data">
 						<div class="message"></div>
 
+						
+
+						<div class="row">
+							<div class="col mb-3">
+								<label for="status" class="form-label">Status da Empresa</label>
+								<select name="status" id="status" class="form-control" required>
+									<option value="0" <?=($company->status == "0") ? "selected" : ""?> >Desativada</option>
+									<option value="1" <?=($company->status == "1") ? "selected" : ""?>>Ativada</option>
+									<option value="2" <?=($company->status == "2") ? "selected" : ""?>>Pendente (Nova Empresa)</option>
+									<option value="3" <?=($company->status == "3") ? "selected" : ""?>>Pendente (Edição)</option>
+								</select>
+							</div>
+						</div>
+
 						<div class="row">
 							<div class="col mb-3">
 								<label for="company_owner" class="form-label">Dona da empresa</label>
@@ -146,17 +160,6 @@
 							<div class="col mb-3">
 								<label for="facebook_url" class="form-label">Facebook</label>
 								<input type="text" class="form-control" id="facebook_url" name="facebook_url" placeholder="" value="<?=$company->facebook_url?>" />
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col mb-3">
-								<label for="status" class="form-label">Status da Empresa</label>
-								<select name="status" id="status" class="form-control" required>
-									<option value="0" <?=($company->status == "0") ? "selected" : ""?> >Desativada</option>
-									<option value="1" <?=($company->status == "1") ? "selected" : ""?>>Ativada</option>
-									<option value="2" <?=($company->status == "2") ? "selected" : ""?>>Pendente</option>
-								</select>
 							</div>
 						</div>
 

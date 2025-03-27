@@ -410,7 +410,7 @@
 				    ($_POST["instagram_url"]) ?? $_POST["instagram_url"],
 				    ($_POST["site_url"]) ?? $_POST["site_url"],
 				    ($_POST["facebook_url"]) ?? $_POST["facebook_url"],
-				    2
+				    3
 		    	))
 		    		die(json_encode(["res" => 1]));
 		    	else

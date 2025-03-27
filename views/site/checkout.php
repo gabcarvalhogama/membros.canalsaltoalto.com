@@ -10,6 +10,7 @@
 		<?=Template::render(null, "head-tags")?>
 	</head>
 	<body class="checkout">
+		<?=Template::render(null, "after-body-tags")?>
 
 		<div class="container-xl mt-5 checkout__header">
 			<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="checkout__header--logo" />

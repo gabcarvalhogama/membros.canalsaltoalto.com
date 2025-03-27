@@ -24,7 +24,8 @@
 			    c.updated_at,
 			    u.profile_photo,
 			    u.firstname,
-			    u.lastname
+			    u.lastname,
+				u.email
 			FROM 
 			    csa_companies c
 			LEFT JOIN 
@@ -72,12 +73,56 @@
 				    c.status = :status
 				    AND um.status = 'paid'
 				    AND um.ends_at > NOW()
+					AND u.user_type = 0
 				ORDER BY 
 				    c.company_name ASC;");
 
 			$sql->execute([
 				":status" => intval($status)
 			]);
+
+			return $sql;
+		}
+
+		public function getCompaniesPendingApproval(){
+			$sql = DB::open()->prepare("SELECT DISTINCT 
+			    c.company_id,
+			    c.iduser,
+			    c.company_name,
+			    c.company_description,
+			    c.company_image,
+			    c.has_place,
+			    c.address_zipcode,
+			    c.address_state,
+			    c.address_city,
+			    c.address,
+			    c.address_number,
+			    c.address_neighborhood,
+			    c.address_complement,
+			    c.cellphone,
+			    c.instagram_url,
+			    c.site_url,
+			    c.facebook_url,
+			    c.status,
+			    c.created_at,
+			    c.updated_at,
+			    u.profile_photo,
+			    u.firstname,
+			    u.lastname
+				FROM 
+				    csa_companies c
+				LEFT JOIN 
+				    csa_users u ON c.iduser = u.iduser
+				LEFT JOIN 
+				    csa_users_memberships um ON u.iduser = um.iduser
+				WHERE 
+				    (c.status = 2 OR c.status = 3)
+				    AND um.status = 'paid'
+				    AND um.ends_at > NOW()
+				ORDER BY 
+				    c.company_name ASC;");
+
+			$sql->execute();
 
 			return $sql;
 		}
@@ -118,6 +163,7 @@
 				    c.status = :status
 				    AND um.status = 'paid'
 				    AND um.ends_at > NOW()
+					AND u.user_type = 0
 				ORDER BY 
 				    c.company_name ASC
 				    LIMIT :limit_events OFFSET :offset_events;");

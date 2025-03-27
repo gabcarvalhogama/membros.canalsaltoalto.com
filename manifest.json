@@ -1,5 +1,22 @@
 {
     "name": "Canal Salto Alto",
-    "start_url": "https://canalsaltoalto.com/app",
-    "display": "minimal-ui"
-}
+    "short_name": "Salto Alto",
+    "start_url": "/app",
+    "display": "window-controls-overlay",
+    "display_override": ["window-control-overlay", "minimal-ui"],
+    "background_color": "#ffffff",
+    "theme_color": "#E54C8E",
+    "icons": [
+      {
+        "src": "/assets/images/icon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/assets/images/icon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+  }
+  

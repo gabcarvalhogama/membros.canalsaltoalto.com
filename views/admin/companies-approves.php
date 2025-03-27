@@ -30,7 +30,7 @@
 						<tbody>
 							<?php
 								$Company = new Company;
-								$getCompany = $Company->getCompaniesByStatus(2);
+								$getCompany = $Company->getCompaniesPendingApproval(2);
 
 								if($getCompany->rowCount() > 0):
 									foreach($getCompany->fetchAll(PDO::FETCH_ASSOC) as $company):
@@ -38,7 +38,14 @@
 							<tr>
 								<td class="align-middle"><img src="/<?=$company['company_image']?>" alt="" style="width: 80px;" /></td>
 								<td class="align-middle">
-									<?=$company['company_name']?>
+									<?=$company['company_name']?> <small style="border-radius: 50px;border: solid 1px #E54C8E;padding: 5px 10px;color: #E54C8E;">
+										<?php 
+											if($company['status'] == 2)
+												echo "Nova empresa";
+											else if($company['status'] == 3)
+												echo "Edição pendente";
+										?>
+									</small>
 								</td>
 								<td class="align-middle">
 									<?=$company['firstname']." ".$company['lastname']?>
