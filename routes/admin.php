@@ -1086,6 +1086,40 @@
 				die(json_encode(["res" => "Desculpe, não foi possível apagar a assinatura."]));
 		});
 
+
+		# /members/consulting/new
+		$router->post("/members/consulting/new", function(){
+			if(empty($_POST["user_id"]))
+				die(json_encode(["res" => "Por favor, informe o ID do Usuário."]));
+			
+			if(empty($_POST["consulting_date"]))
+				die(json_encode(["res" => "Por favor, informe a data da consultoria."]));
+			
+			// if(empty($_POST["consulting_observation"]))
+
+			$Consulting = new Consulting;
+			$create = $Consulting->create($_POST["user_id"], $_POST["consulting_date"], $_POST["consulting_observation"]);
+
+			if($create === true)
+				die(json_encode(["res" => 1]));
+			else
+				die(json_encode(["res" => "Desculpe, não foi possível criar a consultoria."]));
+		});
+
+		$router->post("/members/consulting/delete/{user_consulting_id}", function($user_consulting_id){
+			if(empty($user_consulting_id))
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o ID da consultoria."]));
+
+			$Consulting = new Consulting;
+
+			if($Consulting->deleteConsultingById($user_consulting_id))
+				die(json_encode(["res" => 1]));
+			else
+				die(json_encode(["res" => "Desculpe, não foi possível apagar a consultoria."]));
+		});
+
+
+
 		$router->get("/members/edit/{user_id}", function($user_id){
 			$User = new User;
 			$getUser = $User->getUserById($user_id);
@@ -1527,6 +1561,16 @@
 					die(json_encode(["res" => "Não foi possível apagar esta publi. Atualize a página e tente novamente!"]));
 			}
 		});
+
+
+		$router->mount("/reports", function() use ($router){
+			$router->get("/", function() {});
+
+			$router->get("/birthdays", function(){
+				require_once "views/admin/reports-birthdays.php";
+			});
+		});
+
 
 		$router->get("/logout", function(){
 			session_destroy();

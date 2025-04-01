@@ -200,6 +200,37 @@
 
 					  		endif; ?>
 					</div>
+
+
+					<div class="mt-5 d-flex align-items-center">
+						<h2>Consultorias Realizadas</h2>
+						<button class="ms-md-3 btn btn-rose btn-rounded btn-rose-light" data-bs-toggle="modal" data-bs-target="#addConsultingModal">Cadastrar consultoria</button>
+					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<td>Data</td>
+								<td>Observações</td>
+								<td>Ações</td>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+                                $Consulting = new Consulting;
+                                $getConsulting = $Consulting->getConsultingByUserId($user->iduser);
+                                if($getConsulting->rowCount() > 0):
+                                    foreach($getConsulting->fetchAll(PDO::FETCH_ASSOC) as $consulting):
+                            ?>
+                                <tr>
+                                    <td><?=$consulting['consulting_date']?></td>
+                                    <td><?=ucfirst($consulting['consulting_observation'])?></td>
+                                    <td><a href="javascript:void(0)" onclick="Admin.deleteConsulting(<?=$consulting['user_consulting_id']?>)">Apagar</a></td>
+                                </tr>
+                            <?php endforeach; else: ?>
+                                <tr><td colspan="6">Nenhum registro encontrado.</td></tr>
+                            <?php endif; ?>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -256,6 +287,38 @@
 		      		<input type="hidden" name="iduser" value="<?=$user->iduser?>" />	
 		      		<div class="form-group mt-3">
 		      			<button type="submit" class=" btn btn-rose btn-rounded btn-rose-light">Cadastrar assinatura</button>
+		      		</div>
+		      	</form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="modal" id="addConsultingModal" tabindex="-1" role="dialog" aria-labelledby="addConsultingModal" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">Cadastre uma nova consultoria</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<form action="javascript:void(0)" method="post" accept-charset="utf-8" onsubmit="Admin.newConsulting(this)">
+		      		<div class="message"></div>
+		      		<div class="form-group">
+		      			<label for="consulting_date" class="form-label">Data da Consultoria</label>
+						<input type="date" class="form-control" id="consulting_date" name="consulting_date" required />
+		      		</div>
+
+					  <div class="form-group">
+		      			<label for="consulting_observation" class="form-label">Observações da Consultoria</label>
+						<textarea name="consulting_observation" id="consulting_observation" class="form-control"></textarea>
+		      		</div>
+
+		      		<input type="hidden" name="user_id" value="<?=$user->iduser?>" />	
+		      		<div class="form-group mt-3">
+		      			<button type="submit" class=" btn btn-rose btn-rounded btn-rose-light">Cadastrar consultoria</button>
 		      		</div>
 		      	</form>
 		      </div>

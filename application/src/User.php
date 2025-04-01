@@ -436,43 +436,47 @@
 
 		    $sql = DB::open()->prepare("
 		        SELECT 
-		            u.iduser, 
-		            u.firstname, 
-		            u.lastname, 
-		            u.profile_photo, 
-		            u.biography,
-		            u.cpf, 
-		            u.birthdate, 
-		            u.zipcode, 
-		            u.address_state, 
-		            u.address_city, 
-		            u.address, 
-		            u.address_number, 
-		            u.address_neighborhood, 
-		            u.address_complement, 
-		            u.cellphone, 
-		            u.email, 
-		            u.user_type, 
-		            u.created_at, 
-		            u.updated_at,
-		            um.starts_at, 
-		            um.ends_at,
-		            m.membership_title,
-		            (SELECT COUNT(*) FROM csa_companies c WHERE c.iduser = u.iduser) AS company_counter
-		        FROM 
-		            csa_users u
-		        LEFT JOIN 
-		            csa_users_memberships um ON um.iduser = u.iduser 
-		            AND um.starts_at = (
-		                SELECT MAX(inner_um.starts_at)
-		                FROM csa_users_memberships inner_um
-		                WHERE inner_um.iduser = u.iduser
-		            )
-		        LEFT JOIN 
-		            csa_memberships m ON um.membership_id = m.membership_id
-		        
-		        ORDER BY 
-		            u.firstname ASC
+				u.iduser, 
+				u.firstname, 
+				u.lastname, 
+				u.profile_photo, 
+				u.biography,
+				u.cpf, 
+				u.birthdate, 
+				u.zipcode, 
+				u.address_state, 
+				u.address_city, 
+				u.address, 
+				u.address_number, 
+				u.address_neighborhood, 
+				u.address_complement, 
+				u.cellphone, 
+				u.email, 
+				u.user_type, 
+				u.created_at, 
+				u.updated_at,
+				um.starts_at, 
+				um.ends_at,
+				m.membership_title,
+				(SELECT COUNT(*) FROM csa_companies c WHERE c.iduser = u.iduser) AS company_counter,
+				CASE 
+					WHEN um.iduser IS NOT NULL THEN '1'
+					ELSE '0'
+				END AS is_member
+			FROM 
+				csa_users u
+			LEFT JOIN 
+				(
+					SELECT um1.* 
+					FROM csa_users_memberships um1
+					WHERE um1.ends_at > NOW() 
+					AND um1.status = 'paid'
+				) um ON um.iduser = u.iduser
+			LEFT JOIN 
+				csa_memberships m ON um.membership_id = m.membership_id
+			ORDER BY 
+				u.firstname ASC
+
 		        $limitClause
 		    ");
 

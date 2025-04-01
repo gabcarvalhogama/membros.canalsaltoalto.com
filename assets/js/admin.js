@@ -151,6 +151,61 @@ const Admin = {
 	},
 
 
+	newConsulting: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+
+
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/members/consulting/new',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$(form)[0].reset()
+					message.success(form, "A consultoria foi adicionada com sucesso.");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+
+	deleteConsulting: function(user_consulting_id){
+		if(confirm("Você realmente deseja apagar essa consultoria?") != true)
+			return false;
+
+		$.ajax({
+			type: 'post',
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/members/consulting/delete/'+user_consulting_id,
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					alert("Consultoria apagada com sucesso.")
+					window.location.reload();
+				}else{
+					alert(data.res);
+				}
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!")
+				console.log(err)
+			}
+		})
+	},
+
+
 	loadCities: function(el){
 		$(el).attr("disabled");
 		$.ajax({

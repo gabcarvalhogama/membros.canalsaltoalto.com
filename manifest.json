@@ -2,8 +2,8 @@
     "name": "Canal Salto Alto",
     "short_name": "Salto Alto",
     "start_url": "/app",
-    "display": "window-controls-overlay",
-    "display_override": ["window-control-overlay", "minimal-ui"],
+    "display": "minimal-ui",
+    "display_override": ["minimal-ui"],
     "background_color": "#ffffff",
     "theme_color": "#E54C8E",
     "icons": [

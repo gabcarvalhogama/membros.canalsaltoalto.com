@@ -98,7 +98,7 @@
 								</div>
 								<div class="col-md-6">
 									<label for="f_city" class="form-label address-fields">Cidade</label>
-									<select name="f_city" id="f_city" class="form-control" required>
+									<select name="f_city" id="address_city" class="form-control" required>
 										<?php 
 											foreach(User::getCitiesByUf($user->address_state)->fetchAll(PDO::FETCH_ASSOC) as $city):
 										?>

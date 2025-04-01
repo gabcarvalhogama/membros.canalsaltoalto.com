@@ -4,6 +4,7 @@
 	"uploadOnSave": false,
 	"autoDelete": false,
 	"checkGitignore": false,
+	"timeout": 10,
 	"activeTargets": [
 		"My FTP"
 	],
