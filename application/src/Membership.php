@@ -1,6 +1,31 @@
 <?php 
 	class Membership{
 
+		public function getMemberships(){
+			$sql = DB::open()->prepare("SELECT 
+				um.idusermembership,
+				um.order_id,
+				um.coupon_id,
+				um.payment_method,
+				um.payment_value,
+				um.starts_at,
+				um.ends_at,
+				um.status,
+				um.created_at,
+				u.iduser,
+				u.firstname,
+				u.lastname,
+				u.profile_photo,
+				m.membership_title
+				FROM csa_users_memberships um
+				LEFT JOIN csa_users u 
+				ON um.iduser = u.iduser
+				LEFT JOIN csa_memberships m ON um.membership_id = m.membership_id
+				ORDER BY starts_at DESC");
+			$sql->execute();
+			return $sql;
+		}
+
 		public function getMembershipByOrderId($order_id){
 			$sql = DB::open()->prepare("SELECT * FROM csa_users_memberships WHERE order_id = :order_id LIMIT 1");
 			$sql->execute([

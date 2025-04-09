@@ -1569,6 +1569,10 @@
 			$router->get("/birthdays", function(){
 				require_once "views/admin/reports-birthdays.php";
 			});
+
+			$router->get("/orders", function(){
+				require_once "views/admin/reports-orders.php";
+			});
 		});
 
 
