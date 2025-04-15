@@ -31,6 +31,15 @@
 							<input type="password" class="form-control" id="login_password" name="login_password" placeholder="Sua senha" required />
 						</div>
 					</div>
+
+					<div class="row mb-3">
+						<div class="col">
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" id="remember_me" name="remember_me">
+								<label class="form-check-label" for="remember_me">Manter-me conectada</label>
+							</div>
+						</div>
+					</div>
 					<div class="row mt-5">
 						<div class="col text-center">
 							<button class="btn btn-rose btn-full mb-2">ENTRAR</button>

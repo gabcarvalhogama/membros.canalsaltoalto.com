@@ -1,6 +1,38 @@
 <?php
-	$router->before('GET', '/app(?!/(login|recover)$).*', function(){
+	$router->before('GET|POST', '/app(?!/(login|recover)$).*', function(){
 		$User = new User;
+		
+		// Verifica o cookie "manter conectado" se não estiver autenticado
+		if(!$User->isUserAuthenticated() && !empty($_COOKIE['csa_remember'])){
+			list($email, $token) = explode(':', $_COOKIE['csa_remember'], 2);
+			
+			if($User->verifyRememberToken($email, $token)){
+				// Usa o novo método de login por token
+				if($User->loginWithRememberToken($email)){
+					// Token válido, usuário logado
+					
+					// Rotaciona o token para maior segurança (opcional)
+					$newToken = $User->generateRememberToken();
+					$User->deleteRememberToken($email, $token);
+					$User->saveRememberToken($email, $newToken);
+					
+					setcookie(
+						'csa_remember',
+						$email . ':' . $newToken,
+						time() + 60 * 60 * 24 * 30,
+						'/',
+						'',
+						true,
+						true
+					);
+				}
+			} else {
+				// Token inválido, remove o cookie
+				setcookie('csa_remember', '', time() - 3600, '/');
+			}
+		}
+		
+		// Sua verificação original continua aqui
 		if(
 			(
 				($User->isUserAuthenticated()) == false 
@@ -9,13 +41,11 @@
 					(isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)
 				) == 0
 			) 
-
 			AND (
 				$User->isUserAdminByEmail((isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)) == false)
 		){
 			session_destroy();
 			die(header("Location: /app/login"));
-
 		}
 	});
 	$router->mount("/app", function() use($router){
@@ -45,7 +75,23 @@
 				if($User->login(strtolower($_POST["login_email"]), $_POST["login_password"])){
 					$_SESSION["csa_email"] = $_POST["login_email"];
 					$_SESSION["csa_password"] = $_POST["login_password"];
-
+					
+					// Se marcou "manter conectado"
+					if(!empty($_POST["remember_me"])){
+						$token = $User->generateRememberToken();
+						if($User->saveRememberToken($_POST["login_email"], $token)){
+							setcookie(
+								'csa_remember',
+								$_POST["login_email"] . ':' . $token,
+								time() + 60 * 60 * 24 * 30, // 30 dias
+								'/',
+								'',
+								true,  // HTTPS only
+								true   // HTTP Only (sem acesso via JS)
+							);
+						}
+					}
+					
 					die(json_encode(["res"=>1]));
 				}else{
 					die(json_encode(["res"=>"O e-mail ou senha estão incorretos. Verifique os dados e tente novamente! [EA0001]"]));
@@ -54,8 +100,17 @@
 		});
 
 		$router->get("/logout", function(){
+			$User = new User;
+			
+			// Remove o token "manter conectado" se existir
+			if(!empty($_COOKIE['csa_remember'])){
+				list($email, $token) = explode(':', $_COOKIE['csa_remember'], 2);
+				$User->deleteRememberToken($email, $token);
+				setcookie('csa_remember', '', time() - 3600, '/');
+			}
+			
 			session_destroy();
-			header("Location: /app/login");
+			die(header("Location: /app/login"));
 		});
 
 

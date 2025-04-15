@@ -253,10 +253,19 @@
 
 	    
 	    public function isUserAuthenticated(){
-	        if (session_status() == PHP_SESSION_NONE) session_start();
-	        
-	        return (!empty($_SESSION["csa_email"]) AND !empty($_SESSION["csa_password"])) ? $this->login($_SESSION["csa_email"], $_SESSION["csa_password"]) : false;
-	    }
+			if (session_status() == PHP_SESSION_NONE) session_start();
+			
+			// Verifica login normal (com senha)
+			if(!empty($_SESSION["csa_email"]) && !empty($_SESSION["csa_password"])){
+				return $this->login($_SESSION["csa_email"], $_SESSION["csa_password"]);
+			}
+			// Verifica se está autenticado via token (sem senha)
+			elseif(!empty($_SESSION["csa_email"]) && !empty($_SESSION["csa_user_id"])){
+				return true; // Já foi validado pelo token
+			}
+			
+			return false;
+		}
 
 	    public function isUserAMember($email){
 	    	$sql = DB::open()->prepare("SELECT
@@ -349,10 +358,78 @@
 	    public function login($email, $password){
 	        return $this->checkPasswordHashed($password, $this->getPasswordByEmail($email));
 	    }
+
+		public function loginWithRememberToken($email) {
+			if (session_status() == PHP_SESSION_NONE) session_start();
+			
+			// Verifica se o email existe e obtém os dados básicos do usuário
+			$sql = DB::open()->prepare("SELECT iduser, email FROM csa_users WHERE email = :email LIMIT 1");
+			$sql->execute([":email" => strtolower(filter_var($email, FILTER_VALIDATE_EMAIL))]);
+			
+			if ($sql->rowCount() > 0) {
+				$user = $sql->fetchObject();
+				$_SESSION["csa_email"] = $user->email;
+				
+				// Aqui você pode armazenar o ID do usuário também se precisar
+				$_SESSION["csa_user_id"] = $user->iduser;
+				
+				// Não armazenamos a senha na sessão para login por token
+				return true;
+			}
+			
+			return false;
+		}
 	    
 	    public function checkPasswordHashed($password, $dbPassword){
 	        return Bcrypt::check($password, $dbPassword);
 	    }
+
+
+		// Na classe User
+		public function generateRememberToken() {
+			return bin2hex(random_bytes(32));
+		}
+
+		public function saveRememberToken($email, $token) {
+			$token_hash = hash('sha256', $token);
+			$expiry = date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 30); // 30 dias
+			
+			$sql = DB::open()->prepare("INSERT INTO csa_remember_tokens 
+									(email, token_hash, expires_at) 
+									VALUES (:email, :token_hash, :expires_at)");
+			return $sql->execute([
+				':email' => strtolower(filter_var($email, FILTER_VALIDATE_EMAIL)),
+				':token_hash' => $token_hash,
+				':expires_at' => $expiry
+			]);
+		}
+
+		public function verifyRememberToken($email, $token) {
+			$token_hash = hash('sha256', $token);
+			
+			$sql = DB::open()->prepare("SELECT id FROM csa_remember_tokens 
+									WHERE email = :email 
+									AND token_hash = :token_hash 
+									AND expires_at > NOW()");
+			$sql->execute([
+				':email' => strtolower(filter_var($email, FILTER_VALIDATE_EMAIL)),
+				':token_hash' => $token_hash
+			]);
+			
+			return $sql->rowCount() > 0;
+		}
+
+		public function deleteRememberToken($email, $token) {
+			$token_hash = hash('sha256', $token);
+			
+			$sql = DB::open()->prepare("DELETE FROM csa_remember_tokens 
+									WHERE email = :email 
+									AND token_hash = :token_hash");
+			return $sql->execute([
+				':email' => strtolower(filter_var($email, FILTER_VALIDATE_EMAIL)),
+				':token_hash' => $token_hash
+			]);
+		}
 
 
 	    public function addMembership($iduser, $membership_id, $order_id, $coupon_id, $payment_method, $payment_value, $starts_at, $ends_at, $status){
