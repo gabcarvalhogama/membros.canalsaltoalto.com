@@ -7,6 +7,7 @@
 			    c.company_name,
 			    c.company_description,
 			    c.company_image,
+				c.company_category_id,
 			    c.has_place,
 			    c.address_zipcode,
 			    c.address_state,
@@ -45,6 +46,7 @@
 			    c.company_name,
 			    c.company_description,
 			    c.company_image,
+				c.company_category_id,
 			    c.has_place,
 			    c.address_zipcode,
 			    c.address_state,
@@ -91,6 +93,7 @@
 			    c.company_name,
 			    c.company_description,
 			    c.company_image,
+				c.company_category_id,
 			    c.has_place,
 			    c.address_zipcode,
 			    c.address_state,
@@ -135,6 +138,7 @@
 			    c.company_name,
 			    c.company_description,
 			    c.company_image,
+				c.company_category_id,
 			    c.has_place,
 			    c.address_zipcode,
 			    c.address_state,
@@ -177,6 +181,58 @@
 		}
 
 
+		public function getCompaniesByStatusCategoryAndPagination($limit = 12, $offset = 0, $status = 1, $company_category_id){
+			$sql = DB::open()->prepare("SELECT DISTINCT
+			    c.company_id,
+			    c.iduser,
+			    c.company_name,
+			    c.company_description,
+			    c.company_image,
+				c.company_category_id,
+			    c.has_place,
+			    c.address_zipcode,
+			    c.address_state,
+			    c.address_city,
+			    c.address,
+			    c.address_number,
+			    c.address_neighborhood,
+			    c.address_complement,
+			    c.cellphone,
+			    c.instagram_url,
+			    c.site_url,
+			    c.facebook_url,
+			    c.status,
+			    c.created_at,
+			    c.updated_at,
+			    u.profile_photo,
+			    u.firstname,
+			    u.lastname
+				FROM 
+				    csa_companies c
+				LEFT JOIN 
+				    csa_users u ON c.iduser = u.iduser
+				LEFT JOIN 
+				    csa_users_memberships um ON u.iduser = um.iduser
+				WHERE 
+				    c.status = :status
+				    AND um.status = 'paid'
+				    AND um.ends_at > NOW()
+					AND u.user_type = 0
+					AND c.company_category_id = :company_category_id
+				ORDER BY 
+				    c.company_name ASC
+				    LIMIT :limit_events OFFSET :offset_events;");
+
+			$sql->bindParam(':limit_events', $limit, \PDO::PARAM_INT);
+			$sql->bindParam(':offset_events', $offset, \PDO::PARAM_INT);
+			$sql->bindParam(':status', $status, \PDO::PARAM_INT);
+			$sql->bindParam(':company_category_id', $company_category_id, \PDO::PARAM_INT);
+			$sql->execute();
+
+			return $sql;
+		}
+
+
 
 		public function getCompaniesEnabledAndActiveMembers($limit = 12){
 			$sql = DB::open()->prepare("SELECT DISTINCT
@@ -185,6 +241,7 @@
 			    c.company_name,
 			    c.company_description,
 			    c.company_image,
+				c.company_category_id,
 			    c.has_place,
 			    c.address_zipcode,
 			    c.address_state,
@@ -234,6 +291,7 @@
 	                company_name,
 	                company_description,
 	                company_image,
+					company_category_id,
 	                has_place,
 	                address_zipcode,
 	                address_state,
@@ -254,6 +312,7 @@
 	                :company_name,
 	                :company_description,
 	                :company_image,
+					null,
 	                :has_place,
 	                :address_zipcode,
 	                :address_state,
@@ -368,6 +427,7 @@
 			    c.company_name,
 			    c.company_description,
 			    c.company_image,
+				c.company_category_id,
 			    c.has_place,
 			    c.address_zipcode,
 			    c.address_state,
@@ -407,6 +467,7 @@
 			    c.company_name,
 			    c.company_description,
 			    c.company_image,
+				c.company_category_id,
 			    c.has_place,
 			    c.address_zipcode,
 			    c.address_state,
@@ -438,6 +499,12 @@
 				":status" => intval($status)
 			]);
 
+			return $sql;
+		}
+
+		public function getCompaniesCategories(){
+			$sql = DB::open()->prepare("SELECT * FROM csa_companies_categories ORDER BY category_name ASC;");
+			$sql->execute();
 			return $sql;
 		}
 

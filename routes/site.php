@@ -41,6 +41,42 @@
 		require "views/site/quem-somos.php";
 	});
 
+	$router->get("/guia-de-empreendedoras", function(){
+		$Company = new Company;
+		$total_companies = $Company->getCompaniesByStatus()->rowCount();
+		
+		
+		$category_id = isset($_GET['category']) ? (int) $_GET['category'] : null;
+
+		if ($category_id) {
+			$companies = $Company->getCompaniesByStatusCategoryAndPagination(12, 0, 1, $category_id);
+		} else {
+			$companies = $Company->getCompaniesByStatusAndPagination(12, 0, 1);
+		}
+
+
+		require "views/site/guia-de-empreendedoras.php";
+	});
+	$router->get("/guia-de-empreendedoras/page/{page_number}", function($page_number){
+		if((int) $page_number < 1)
+			header("Location: /guia-de-empreendedoras");
+
+		$Company = new Company;
+		
+		$total_companies = $Company->getCompaniesByStatus()->rowCount();
+
+
+		$category_id = isset($_GET['category']) ? (int) $_GET['category'] : null;
+		if ($category_id) {
+			$companies = $Company->getCompaniesByStatusCategoryAndPagination(12, (($page_number - 1) * 12), 1, $category_id);
+		} else {
+			$companies = $Company->getCompaniesByStatusAndPagination(12, (($page_number - 1) * 12), 1);
+		}
+
+
+		require "views/site/guia-de-empreendedoras.php";
+	});
+
 	$router->get("/privacidade-e-dados", function(){
 		require "views/site/privacy-and-data.php";
 	});

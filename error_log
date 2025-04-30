@@ -37,3 +37,89 @@ Stack trace:
 #4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
 #5 {main}
   thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php on line 9
+[30-Apr-2025 02:07:15 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function rowCount() on null in /home/u364550838/domains/canalsaltoalto.com/public_html/views/site/guia-de-empreendedoras.php:47
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php(45): require()
+#1 [internal function]: {closure}()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#6 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/views/site/guia-de-empreendedoras.php on line 47
+[30-Apr-2025 02:07:29 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function rowCount() on null in /home/u364550838/domains/canalsaltoalto.com/public_html/views/site/guia-de-empreendedoras.php:40
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php(45): require()
+#1 [internal function]: {closure}()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#6 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/views/site/guia-de-empreendedoras.php on line 40
+[30-Apr-2025 02:07:54 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function rowCount() on null in /home/u364550838/domains/canalsaltoalto.com/public_html/views/site/guia-de-empreendedoras.php:40
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php(45): require()
+#1 [internal function]: {closure}()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#6 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/views/site/guia-de-empreendedoras.php on line 40
+[30-Apr-2025 02:08:42 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function getCompaniesByStatus() on null in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php:45
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php on line 45
+[30-Apr-2025 02:11:12 America/Sao_Paulo] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string - int in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php:60
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php on line 60
+[30-Apr-2025 02:11:27 America/Sao_Paulo] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string - int in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php:60
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php on line 60
+[30-Apr-2025 02:11:51 America/Sao_Paulo] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string - int in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php:60
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php on line 60
+[30-Apr-2025 02:29:34 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to undefined method Company::getCompaniesByStatusCategoryAndPagination() in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php:69
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php on line 69
+[30-Apr-2025 02:29:41 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.category_id' in 'WHERE' in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Company.php:225
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Company.php(225): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php(69): Company->getCompaniesByStatusCategoryAndPagination()
+#2 [internal function]: {closure}()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#7 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Company.php on line 225
