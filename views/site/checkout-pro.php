@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 	<head>
-		<title>Canal Salto Alto - Seja Membro</title>
+		<title>Plano PRO | Canal Salto Alto - Seja Membro</title>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
@@ -23,18 +23,10 @@
 
 			<?php 
 				$Membership = new Membership;
-				$getPlan = $Membership->getMembershipPlanById($plan_id);
+				$getPlan = $Membership->getMembershipPlanById(2);
 
 				$plan = $getPlan->fetchObject();
 			?>
-
-			<!-- <div class="row align-items-center">
-				<div class="col-6">
-					<a href="<?=PATH?>"><i class="fa-solid fa-chevron-left"></i> VOLTAR AO INÍCIO</a>
-				</div>
-				<div class="col-6 d-flex justify-content-end">
-				</div>
-			</div> -->
 		</div>
 
 		<div class="container-xl checkout__content">
@@ -45,9 +37,7 @@
 							<!-- <img src="<?=PATH?>/uploads/2024/07/banner-plataforma-membros.jpg" style="width: 125px;" /> -->
 						</div>
 						<div class="flex flex-column" style="margin-left: 10px;">
-							<h4 class="font-weight-bold">
-								<?=$plan->membership_title?>
-							</h4>
+							<h4 class="font-weight-bold">Plano PRO</h4>
 							<p class="d-flex flex-row align-items-center font-weight-bold">R$ <span id="priceAvistaValueSelector" data-original="<?=$plan->membership_price_incash?>" style="margin-right: 5px;"><?=Validation::decimalToReal($plan->membership_price_incash)?></span> à vista <br /><small style="margin-left: 10px;color: rgb(150,150,150);">ou 12x de R$ <span id="priceInstallmentsValueSelector" data-original="<?=$plan->membership_price_cc/12?>"><?=Validation::decimalToReal($plan->membership_price_cc/12)?></span></small></p>
 						</div>
 					</div>
@@ -231,7 +221,6 @@
 						</div>
 
 						<input type="hidden" name="f_payment_method" id="f_payment_method" />
-						<input type="hidden" name="f_plan" id="f_plan" value="<?=$plan->membership_id?>" />
 
 						<div class="checkout__creditcard">
 							<div class="row mb-3">

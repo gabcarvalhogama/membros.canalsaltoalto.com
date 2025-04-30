@@ -1,3 +1,39 @@
 [29-Apr-2025 16:59:16 UTC] Recovery message sent to gabriel@hatoria.com
 [29-Apr-2025 14:00:04 America/Sao_Paulo] Recovery message sent to gabriel@hatoria.com
 [29-Apr-2025 16:34:52 America/Sao_Paulo] Recovery message sent to gabriel@hatoria.com
+[30-Apr-2025 00:45:44 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required 'views/site/seja-membro-v2.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php:12
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php on line 12
+[30-Apr-2025 00:45:47 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required 'views/site/seja-membro-v2.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php:12
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php on line 12
+[30-Apr-2025 00:45:48 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required 'views/site/seja-membro-v2.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php:12
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/site.php on line 12
+[30-Apr-2025 01:29:11 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required 'views/site/checkout-vip.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php:9
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php on line 9

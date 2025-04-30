@@ -2,6 +2,22 @@
 	
 	// Checkout
 	$router->get("/checkout", function(){
+		$plan_id = 1;
+		require "views/site/checkout.php";
+	});
+
+	$router->get("/checkout/vip", function(){
+		$plan_id = 1;
+		require "views/site/checkout.php";
+	});
+
+	$router->get("/checkout/pro", function(){
+		$plan_id = 2;
+		require "views/site/checkout.php";
+	});
+
+	$router->get("/checkout/masterclass", function(){
+		$plan_id = 3;
 		require "views/site/checkout.php";
 	});
 
@@ -154,8 +170,14 @@
 			die(json_encode(["res"=>"Por favor, informe um C.P.F. válido para pagamento.", "step" => "payment"]));
 		}
 
+		if(!in_array($_POST["f_plan"], [1,2,3])){
+			die(json_encode(["res"=>"Desculpe, não foi possível identificar o plano selecionado. Atualize a página e tente novamente.", "step" => "payment"]));
+		}
+
+		$plan_id = intval($_POST["f_plan"]);
+
 		$Membership = new Membership;
-		$getMembershipPlanById = $Membership->getMembershipPlanById(1);
+		$getMembershipPlanById = $Membership->getMembershipPlanById($plan_id);
 
 		$product = $getMembershipPlanById->fetchObject();
 		// Membership Price
@@ -227,7 +249,7 @@
 				$itemData = [
 				    'amount' => str_replace(".", "", number_format($aVistaPrice, 2, '.', '')),
 				    'quantity' => 1,
-				    'description' => 'Comunidade - Canal Salto Alto (1 ano)'
+				    'description' => $product->membership_title.' -  Canal Salto Alto (1 ano)'
 				];
 
 				$paymentMethod = [
@@ -267,7 +289,7 @@
 				$itemData = [
 				    'amount' => (intval($_POST["f_cc_installments"]) == 1) ? str_replace(".", "", number_format($aVistaPrice, 2, '.', '')) : str_replace(".", "", number_format($cartaoPrice, 2, '.', '')),
 				    'quantity' => 1,
-				    'description' => 'Comunidade - Canal Salto Alto (1 ano)',
+				    'description' => $product->membership_title.' -  Canal Salto Alto (1 ano)',
 				    'code' => 0
 				];
 
