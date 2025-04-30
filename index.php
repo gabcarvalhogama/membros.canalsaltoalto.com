@@ -1,4 +1,7 @@
 <?php
+	error_reporting(E_ERROR);
+	date_default_timezone_set('America/Sao_Paulo');
+
 	require_once "application/autoload.php";
 
 	define("PATH", "https://canalsaltoalto.com/");

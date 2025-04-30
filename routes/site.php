@@ -54,7 +54,7 @@
 		$Post = new Post;
 
 		$post = $Post->getPostBySlug($post_slug);
-		if($post->rowCount() == 0) header("404");
+		if($post->rowCount() == 0) die(header("Location: /"));
 
 		$object = $post->fetchObject();
 

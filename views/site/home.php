@@ -31,7 +31,6 @@
 
 				<?php endforeach; ?>
 			  </div>
-			  <div class="swiper-pagination"></div>
 			  <div class="swiper-button-prev"></div>
 			  <div class="swiper-button-next"></div>
 			</div>
@@ -237,9 +236,9 @@
 
 
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/site.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/site.js?<?=uniqid()?>"></script>
 	</body>
 </html>

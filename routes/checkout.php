@@ -258,7 +258,8 @@
 				    	die(json_encode(["res" => "Desculpe, não foi possível gerar o QR Code.", "step" => "payment"]));
 				    }
 				} else {
-			    	die(json_encode(["res" => "Erro ao criar o pedido:" . $orderResponse->message,  "step" => "payment"]));
+			    	die(json_encode(["res" => "Erro ao criar o pedido: " . Checkout::translate($orderResponse->message),  "step" => "payment"]));
+					
 				}
 			break;
 

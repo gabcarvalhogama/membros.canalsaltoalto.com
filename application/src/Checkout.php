@@ -1,8 +1,9 @@
 <?php
 class Checkout {
 
-    private $api_key = 'sk_58b436886817489dbd5dd21075068a36:';
-    // private $api_key = 'sk_test_a44dbc37771547dfb5a6017fda8d3e46:';
+    // private $api_key = 'sk_58b436886817489dbd5dd21075068a36:';
+    // private $api_key = 'sk_9a9a8f03b64f42919c6341edd4e9243e:'; // API V5
+    private $api_key = 'sk_test_a44dbc37771547dfb5a6017fda8d3e46:'; // API V4
     private $base_url = 'https://api.pagar.me/core/v5/orders';
 
     public function createOrder($customerData, $paymentMethod, $itemData) {
@@ -21,6 +22,9 @@ class Checkout {
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            // CURLINFO_HEADER_OUT => true,
+            // CURLOPT_HEADER => true,
+            CURLOPT_VERBOSE => true,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => [
@@ -31,6 +35,9 @@ class Checkout {
         ]);
 
         $response = curl_exec($curl);
+
+
+        // var_dump($response);
 
         // var_dump(curl_getinfo($curl));
 
@@ -71,8 +78,10 @@ class Checkout {
     public static function translate($msg){
         if($msg == "The number field is not a valid card number")
             return "O número do cartão enviado não é válido";
+        else if($msg == "Authorization has been denied for this request.")
+            return "A autorização foi negada para esta requisição";
         else
-            return "";
+            return $msg;
     }
 }
 ?>
