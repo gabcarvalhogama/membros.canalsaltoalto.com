@@ -82,7 +82,7 @@
 									foreach($comments->fetchAll(PDO::FETCH_ASSOC) as $comment):
 								?>
 
-								<div class="comments__item">
+								<div class="comments__item mb-2">
 									<h3><?=$comment['user_name']?> às <?=date('d/m/Y \à\s H:i', strtotime($comment['created_at']))?></h3>
 									<div class="comments__item--comment">
 										<?=$comment['comment']?>
