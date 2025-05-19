@@ -280,7 +280,7 @@
 				    	die(json_encode(["res" => "Desculpe, não foi possível gerar o QR Code.", "step" => "payment"]));
 				    }
 				} else {
-			    	die(json_encode(["res" => "Erro ao criar o pedido: " . Checkout::translate($orderResponse->message),  "step" => "payment"]));
+			    	die(json_encode(["res" => "Erro ao criar o pedido: " . Checkout::translate($orderResponse->message),  "step" => "payment", $_SERVER]));
 					
 				}
 			break;
@@ -340,13 +340,18 @@
 
 				        die(json_encode(["res" => 1, "order_id" => $orderResponse->id]));
 					}else{
-				    	die(json_encode(["res" => "Desculpe, o cartão retornou um erro. Verifique seus dados e tente novamente!", $orderResponse, "step" => "payment"]));
+						$message = (!empty($orderResponse->charges[0]->last_transaction->acquirer_message)) ? ": ".$orderResponse->charges[0]->last_transaction->acquirer_message : '';
+				    	die(json_encode(["res" => "Desculpe, o cartão retornou um erro".$message.". Verifique seus dados e tente novamente!", "step" => "payment"]));
 					}
 				} else {
-					$arr = get_object_vars($orderResponse->errors);
-					// $arr = reset($arr);
-					$arr = current($arr);
-			    	die(json_encode(["res" => "Erro ao criar o pedido: " . Checkout::translate($arr[0]), "step" => "payment"]));
+
+					$msg_error = $orderResponse->message;
+
+					if(!empty($orderResponse->errors)){
+						$msg_error = $orderResponse->errors[0];
+					}
+					
+			    	die(json_encode(["res" => "Erro ao criar o pedido: " . Checkout::translate($msg_error), "step" => "payment"]));
 				}
 			break;
 

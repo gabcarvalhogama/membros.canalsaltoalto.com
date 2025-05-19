@@ -1,5 +1,5 @@
 <?php
-	$router->before('GET|POST', '/app(?!/(login|recover)$).*', function(){
+	$router->before('GET|POST', '/app(?!/(login|recover|recover/updatepwd)$).*', function(){
 		$User = new User;
 		
 		// Verifica o cookie "manter conectado" se não estiver autenticado

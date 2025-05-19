@@ -39,7 +39,8 @@
 		        address_number = COALESCE(:address_number, address_number),
 		        address_neighborhood = COALESCE(:address_neighborhood, address_neighborhood),
 		        address_complement = COALESCE(:address_complement, address_complement),
-		        cellphone = COALESCE(:cellphone, cellphone)
+		        cellphone = COALESCE(:cellphone, cellphone),
+				updated_at = NOW()
 		    WHERE iduser = :iduser");
 
 		    return $sql->execute([

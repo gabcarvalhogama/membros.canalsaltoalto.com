@@ -1,9 +1,8 @@
 <?php
 class Checkout {
 
-    private $api_key = 'sk_58b436886817489dbd5dd21075068a36:';
     // private $api_key = 'sk_9a9a8f03b64f42919c6341edd4e9243e:'; // API V5
-    // private $api_key = 'sk_test_a44dbc37771547dfb5a6017fda8d3e46:'; // API V4
+    private $api_key = 'sk_84da368a865944e798e1473d93dcd119:'; // API V6
     private $base_url = 'https://api.pagar.me/core/v5/orders';
 
     public function createOrder($customerData, $paymentMethod, $itemData) {
@@ -36,12 +35,15 @@ class Checkout {
 
         $response = curl_exec($curl);
 
-
         // var_dump($response);
+
+
+        // var_dump(curl_getinfo($curl, CURLINFO_HTTP_CODE));
 
         // var_dump(curl_getinfo($curl));
 
         $err = curl_error($curl);
+
 
         curl_close($curl);
 
