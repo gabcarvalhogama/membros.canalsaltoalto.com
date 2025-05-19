@@ -83,6 +83,15 @@
 			return ($sql->rowCount() > 0) ? $sql->fetchObject()->iduser : 0;
 		}
 
+		public static function getUserIdByEmail2($email){
+			$sql = DB::open()->prepare("SELECT iduser FROM csa_users WHERE email = :email LIMIT 1");
+			$sql->execute([
+				":email" => strtolower(filter_var($email, FILTER_SANITIZE_EMAIL))
+			]);
+
+			return ($sql->rowCount() > 0) ? $sql->fetchObject()->iduser : 0;
+		}
+
 		public function getUserByEmail($email){
 			$sql = DB::open()->prepare("SELECT 
 			    u.iduser, 

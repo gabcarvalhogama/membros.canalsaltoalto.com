@@ -91,6 +91,7 @@
 							);
 						}
 					}
+					Logger::log("INFO", "Usuário logou no sistema - ".$_POST["login_email"], User::getUserIdByEmail2($_POST["login_email"]));
 					
 					die(json_encode(["res"=>1]));
 				}else{
