@@ -1,5 +1,44 @@
-console.log('Swiper disponível?', typeof Swiper !== 'undefined');
 function initSwiper() {
+	if(Swiper){
+		$(".swiper").each(function () {
+			let web_slider = $(this)[0];
+			let optionsData = web_slider.dataset;
+			if(!optionsData) return;
+			let options = {
+				loop: true,
+				spaceBetween: optionsData.slidespace,
+				breakpoints: {
+					320: {
+						slidesPerView: optionsData.smview
+					},
+					768: {
+						slidesPerView: optionsData.mdview
+					},
+					1024: {
+						slidesPerView: optionsData.lgview
+					},
+					1366: {
+						slidesPerView: optionsData.xlview
+					}
+				},
+				autoplay: optionsData.autoplay ? {
+					delay: optionsData.autoplayDelay || 3000,
+					disableOnInteraction: false
+				} : false,
+				pagination: optionsData.pagination ? {
+					el: '.swiper-pagination',
+					clickable: true
+				} : false,
+				navigation: optionsData.navigation ? {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev'
+				} : false
+			};
+			
+			new Swiper(web_slider, options);
+		});
+	}
+	
 	const swiper_hero = new Swiper('.swiper_hero', {
 		direction: 'horizontal',
 		// loop: true,
@@ -67,37 +106,6 @@ function initSwiper() {
 		}
 	});
 	
-	const swiper_reviews = new Swiper('.swiper_reviews', {
-		direction: 'horizontal',
-		loop: true,
-		slidesPerView: 4,
-		spaceBetween: 30,
-	
-		breakpoints: {
-			798: {
-				slidesPerView: 1
-			},
-			1024: {
-				slidesPerView: 2
-			},
-			1366: {
-				slidesPerView: 4
-			}
-		},
-	
-		navigation: {
-			nextEl: '.swiper_reviews .swiper-button-next',
-			prevEl: '.swiper_reviews .swiper-button-prev',
-		}
-	});
-
-	//  // Event listeners for custom behavior
-	//  document.querySelector('.swiper-button-next').addEventListener('click', () => {
-	// 	swiper_hero.slideNext();
-	//   });
-	//   document.querySelector('.swiper-button-prev').addEventListener('click', () => {
-	// 	swiper_hero.slidePrev();
-	//   });
 }
 // Ou se estiver usando jQuery:
 $(document).ready(function() {

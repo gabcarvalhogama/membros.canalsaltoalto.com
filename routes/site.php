@@ -126,3 +126,75 @@
 			}
 		}
 	});
+
+
+	// $router->get("/map-files", function(){
+	// 	// Configurações do banco de dados
+	// 	$dbHost = 'localhost';
+	// 	$dbName = 'dbname';
+	// 	$dbUser = 'root';
+	// 	$dbPass = '';
+
+	// 	// Caminho da pasta uploads
+	// 	$uploadsDir = 'uploads';
+	// 	echo "<pre>";
+	// 	try {
+	// 		// Conexão com o banco de dados
+	// 		$pdo = new PDO("mysql:host=$dbHost;dbname=$dbName;charset=utf8", $dbUser, $dbPass);
+	// 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+	// 		// Preparar a query de inserção
+	// 		$stmt = $pdo->prepare("INSERT INTO csa_medias (path, attributes, created_at) VALUES (:path, :attributes, :created_at)");
+
+	// 		// Função para percorrer diretórios recursivamente
+	// 		function scanDirectory($dir, $pdo, $stmt) {
+	// 			$files = scandir($dir);
+				
+	// 			foreach ($files as $file) {
+	// 				if ($file == '.' || $file == '..') {
+	// 					continue;
+	// 				}
+					
+	// 				$path = $dir . '/' . $file;
+					
+	// 				if (is_dir($path)) {
+	// 					scanDirectory($path, $pdo, $stmt);
+	// 				} else {
+	// 					// Obter informações do arquivo
+	// 					$relativePath = str_replace(__DIR__, '', $path);
+	// 					$fileStats = stat($path);
+	// 					$fileSize = $fileStats['size'];
+	// 					$fileMtime = date('Y-m-d H:i:s', $fileStats['mtime']);
+						
+	// 					// Criar atributos (pode ser personalizado conforme necessidade)
+	// 					$attributes = json_encode([
+	// 						'size' => $fileSize,
+	// 						'mime_type' => mime_content_type($path),
+	// 						'file_name' => $file
+	// 					]);
+						
+	// 					// Inserir no banco de dados
+	// 					$stmt->execute([
+	// 						':path' => $relativePath,
+	// 						':attributes' => $attributes,
+	// 						':created_at' => $fileMtime
+	// 					]);
+						
+	// 					echo "Arquivo registrado: " . $relativePath . "\n";
+	// 				}
+	// 			}
+	// 		}
+
+	// 		// Iniciar a varredura
+	// 		scanDirectory($uploadsDir, $pdo, $stmt);
+
+	// 		echo "Processo concluído com sucesso!\n";
+
+	// 	} catch (PDOException $e) {
+	// 		die("Erro no banco de dados: " . $e->getMessage());
+	// 	} catch (Exception $e) {
+	// 		die("Erro: " . $e->getMessage());
+	// 	}
+		
+	// 	echo "</pre>";
+	// });

@@ -53,6 +53,38 @@ const App = {
 					prevEl: '.swiper-button-prev',
 				},
 			});
+
+			$(".swiper").each(function () {
+				let web_slider = $(this)[0];
+				let optionsData = web_slider.dataset;
+				if(!optionsData) return;
+				let options = {
+					loop: true,
+					spaceBetween: optionsData.slidespace,
+					breakpoints: {
+						320: {
+							slidesPerView: optionsData.smview
+						},
+						768: {
+							slidesPerView: optionsData.mdview
+						}
+					},
+					autoplay: optionsData.autoplay ? {
+						delay: optionsData.autoplayDelay || 3000,
+						disableOnInteraction: false
+					} : false,
+					pagination: optionsData.pagination ? {
+						el: '.swiper-pagination',
+						clickable: true
+					} : false,
+					navigation: optionsData.navigation ? {
+						nextEl: '.swiper-button-next',
+						prevEl: '.swiper-button-prev'
+					} : false
+				};
+				
+				new Swiper(web_slider, options);
+			});
 		}
 	},
 	login: function(form){

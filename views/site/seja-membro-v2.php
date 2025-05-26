@@ -18,7 +18,7 @@
 					<div class="col-md-6">
 						<h1 class="fs-1">SEJA BEM-VINDA EMPREENDEDORA!</h1>
 						<p class="lead">A partir de agora, você vai conhecer um pouco mais sobre a rede de empreendedoras mais completa e inovadora do Espírito Santo.</p>
-						<a href="/checkout" class="btn btn-rose btn-rounded btn-medium">QUERO SER MEMBRO</a>
+						<a href="#plans" class="btn btn-rose btn-rounded btn-medium">QUERO SER MEMBRO</a>
 					</div>
 					<div class="col-md-6">
 						<iframe width="980" height="500" style="max-width:  100%;border-radius: 10px;" src="https://www.youtube.com/embed/ERrRshiMc8Y?si=tpi62am4OPUl42QP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -72,6 +72,66 @@
 				<h2 class="text-center mb-4 fs-1">O que é o Canal Salto Alto?</h2>
 				<p class="text-center">O Canal Salto Alto é uma comunidade de empreendedoras e nosso propósito é <strong>UNIR MULHERES E IMPULSIONAR NEGÓCIOS.</strong></p>
 				<p class="text-center">Oferecemos um ecossistema completo e inovador com ações para fomentar o empreendedorismo, seja no digital em vários canais de comunicação próprios - como site de notícias, plataforma de membros, canal no Youtube, redes sociais - ou em eventos presenciais, como workshops, encontros, cafés com networking e feiras de negócios.</p>
+			</div>
+			<div class="swiper" data-slidespace="20" data-smview="1" data-mdview="2" data-lgview="3" data-xlview="4" data-autoplay="true">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-1.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-2.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-3.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-4.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-5.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-6.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-7.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-8.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-9.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-10.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-11.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-12.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-13.jpeg');"></div>
+					</div>
+					<div class="swiper-slide">
+						<div style="height: 200px; width: 100%; border-radius: 5px; background-size: cover; background-position: center;
+						background-image: url('<?=PATH?>assets/images/salespage-14.jpeg');"></div>
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -211,7 +271,7 @@
 		<section class="container-xl my-5 py-5">
 			<h2 class="text-center mb-5">OLHE O QUE ELAS DIZEM SOBRE NÓS</h2>
 			
-			<div class="swiper swiper_reviews">
+			<div class="swiper swiper_reviews" data-slidespace="20" data-smview="1" data-mdview="2" data-lgview="4" data-xlview="4" data-autoplay="true">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<div class="card h-100">
@@ -265,7 +325,7 @@
 			</div>
 		</section>
 
-		<section class="py-5" style="background-color: #fff8f8;">
+		<section class="py-5" style="background-color: #fff8f8;" id="plans">
 			<div class="container-xl">
 				<h2 class="text-center mb-5">NOSSOS PLANOS</h2>
 				
