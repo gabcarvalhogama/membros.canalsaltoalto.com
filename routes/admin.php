@@ -130,6 +130,12 @@
 		});
 
 
+		#/admin/medias
+		$router->mount("/medias", function() use ($router){
+			$router->get("/", function(){
+				require_once "views/admin/medias.php";
+			});
+		});
 
 		#/admin/coupons
 		$router->mount("/coupons", function() use($router){
