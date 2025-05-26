@@ -473,6 +473,11 @@
 
 
 
+		$router->get("/consultancies", function(){
+			require_once "views/app/consultancies.php";
+		});
+
+
 		$router->get("/members", function(){
 
 			require "views/app/members.php";

@@ -27436,6 +27436,11 @@ label, .form-label {
   background-color: #f5f5f5;
   border-radius: 10px;
 }
+.app .app__consultancies {
+  background-color: #f5f5f5;
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
 .app .members-list {
   display: flex;
   flex-direction: column;
@@ -27600,6 +27605,10 @@ label, .form-label {
 }
 .app .publis-list__item--header img {
   margin-right: 20px;
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;
+  object-fit: cover;
 }
 .app .publis-list__item--header .profile-name {
   font-size: 1.2rem;
