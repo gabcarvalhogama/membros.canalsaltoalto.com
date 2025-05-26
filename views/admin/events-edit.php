@@ -72,6 +72,13 @@
 
 						<input type="hidden" name="idevent" id="idevent" value="<?=$event->idevent?>" />
 					</form>
+
+					<div class="d-flex align-items-center mt-5">
+						<a href="<?=$result->getDataUri()?>" download><img src="<?=$result->getDataUri()?>" alt="QR Code" style="width: 150px;max-width: 100%" /></a>
+						<div class="label ms-2">
+							<p>Toque no QR Code para baixar o arquivo e usar nos eventos.</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -32,7 +32,6 @@
 			}
 		}
 		
-		// Sua verificação original continua aqui
 		if(
 			(
 				($User->isUserAuthenticated()) == false 
@@ -44,17 +43,13 @@
 			AND (
 				$User->isUserAdminByEmail((isset($_SESSION["csa_email"]) ? $_SESSION["csa_email"] : null)) == false)
 		){
+			$origin = isset($_SERVER['REDIRECT_URL']) ? '?redirect='.$_SERVER['REDIRECT_URL'] : '';
 			session_destroy();
-			die(header("Location: /app/login"));
+			die(header("Location: /app/login".$origin));
 		}
 	});
 	$router->mount("/app", function() use($router){
-
-		
-
 		$router->get("/", function() {
-			// if(USER->)
-			// var_dump(USER);
 			if(!empty(USER->company_counter) AND intval(USER->company_counter) == 0 AND !empty(USER->user_type) AND USER->user_type != 1)
 				header("Location: /app/welcome/new-company");
 
@@ -515,6 +510,49 @@
 
 			$events = $Event->getEventsWithPagination(12, (($page_number - 1) * 12));
 			require "views/app/events.php";
+		});
+
+		
+
+		$router->get("/events/checkin/{qrcode_uuid}", function($qrcode_uuid){
+			$Event = new Event;
+			$event = $Event->getEventByQRCode($qrcode_uuid);
+
+			if($event->rowCount() == 0){
+				header("Location: /app/events");
+				exit();
+			}
+
+			$event = $event->fetchObject();
+
+			$event_checkin = $Event->getCheckinByEventAndUserId($event->idevent, USER->iduser);
+
+			require_once "views/app/events-checkin.php";
+
+		});
+		$router->post("/events/checkin/{qrcode_uuid}", function($qrcode_uuid){
+			if(empty($qrcode_uuid)){
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o evento."]));
+			}
+
+			$Event = new Event;
+			$getEvent = $Event->getEventByQRCode($qrcode_uuid);
+
+			if($getEvent->rowCount() == 0){
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o evento."]));
+			}
+
+			$event = $getEvent->fetchObject();
+
+			if($Event->getCheckinByEventAndUserId($event->idevent, USER->iduser)->rowCount() > 0){
+				die(json_encode(["res" => "Você já realizou check-in neste evento!"]));
+			}
+
+			if($Event->doEventCheckin($event->idevent, USER->iduser)){
+				die(json_encode(["res" => 1]));
+			}else{
+				die(json_encode(["res" => "Desculpe, não foi possível realizar o check-in neste evento. Verifique os dados e tente novamente!"]));
+			}
 		});
 
 		$router->get("/events/{slug}", function($slug){

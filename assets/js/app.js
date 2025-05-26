@@ -69,7 +69,14 @@ const App = {
 			dataType: 'json',
 			success: function(data){
 				if(data.res == 1){
-					window.location = '/app';
+					const params = new URLSearchParams(window.location.search);
+					const redirectUrl = params.get('redirect');
+
+					if (redirectUrl && redirectUrl.startsWith('/')) {
+						window.location.href = redirectUrl;
+					} else {
+						window.location.href = '/app';
+					}
 				}else{
 					message.error(form, data.res);
 				}
@@ -401,6 +408,34 @@ const App = {
 			},
 			error: function(err){
 				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+
+	doEventCheckin: function(el, qrcode_uuid, user_id){
+		$(el).addClass("inactive")
+		
+		$.ajax({
+			type: 'post',
+			data: {
+				user_id: user_id
+			},
+			processData: false,
+			contentType: false,
+			url: '/app/events/checkin/'+qrcode_uuid,
+			dataType: 'json',
+			success: function(data){
+				console.log(data)
+				if(data.res == 1){
+					// window.location.reload();
+				}else{
+					alert(data.res)
+				}
+				$(el).removeClass("inactive")
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!")
+				$(el).removeClass("inactive")
 			}
 		})
 	}

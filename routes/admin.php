@@ -1,4 +1,14 @@
 <?php 
+
+	use Endroid\QrCode\Color\Color;
+	use Endroid\QrCode\Encoding\Encoding;
+	use Endroid\QrCode\ErrorCorrectionLevel;
+	use Endroid\QrCode\QrCode;
+	use Endroid\QrCode\Label\Label;
+	use Endroid\QrCode\Logo\Logo;
+	use Endroid\QrCode\RoundBlockSizeMode;
+	use Endroid\QrCode\Writer\PngWriter;
+	use Endroid\QrCode\Writer\ValidationException;
 	
 	$router->before('GET|POST', '/admin(?!/(login|recover|recover/updatepwd)$).*', function(){
 		$User = new User;
@@ -785,6 +795,20 @@
 
 		});
 
+		$router->get("/events/{idevent}/qrcode", function($idevent){
+			$Event = new Event;
+			$getEvent = $Event->getEventById($idevent);
+
+			if($getEvent->rowCount() == 0){
+				header("Location: /admin/events");
+				exit;
+			}
+
+			$event = $getEvent->fetchObject();
+
+			
+		});
+
 		$router->get("/events/edit/{idevent}", function($idevent){
 			$Event = new Event;
 			$getEvent = $Event->getEventById($idevent);
@@ -795,6 +819,20 @@
 			}
 
 			$event = $getEvent->fetchObject();
+
+
+			$writer = new PngWriter();
+			$qrCode = new QrCode(
+				data: 'https://canalsaltoalto.com/app/events/checkin/'.$event->qrcode_uuid,
+				encoding: new Encoding('UTF-8'),
+				errorCorrectionLevel: ErrorCorrectionLevel::Low,
+				size: 1080,
+				margin: 10,
+				roundBlockSizeMode: RoundBlockSizeMode::Margin,
+				foregroundColor: new Color(0, 0, 0),
+				backgroundColor: new Color(255, 255, 255)
+			);
+			$result = $writer->write($qrCode);
 
 			require "views/admin/events-edit.php";
 		});

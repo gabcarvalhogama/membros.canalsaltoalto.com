@@ -24,6 +24,7 @@
 		            :slug,
 		            (SELECT iduser FROM csa_users WHERE email = :created_by_email LIMIT 1),
 		            :status,
+					UUID(),
 		            NOW(),
 		            null
 		        )
@@ -122,6 +123,45 @@
 			return $sql;
 		}
 
+		public function getEventByQRCode($qrcode_uuid){
+			$sql = DB::open()->prepare("SELECT * FROM csa_events WHERE qrcode_uuid = :qrcode_uuid LIMIT 1");
+			$sql->execute([
+				":qrcode_uuid" => $qrcode_uuid
+			]);
+
+			return $sql;
+		}
+
+		public function getCheckinByEventAndUserId($idevent, $iduser){
+			$sql = DB::open()->prepare("SELECT * FROM csa_events_checkins WHERE event_id = :idevent AND user_id = :iduser LIMIT 1");
+			$sql->execute([
+				":idevent" => $idevent,
+				":iduser" => $iduser
+			]);
+
+			return $sql;
+		}
+
+		public function doEventCheckin($idevent, $iduser){
+			$sql = DB::open()->prepare("
+				INSERT INTO csa_events_checkins (
+					events_checkin_id,
+					event_id,
+					user_id,
+					checkin_at
+				) VALUES (
+					default,
+					:idevent,
+					:iduser,
+					NOW()
+				)
+			");
+
+			return $sql->execute([
+				":idevent" => $idevent,
+				":iduser" => $iduser
+			]);
+		}
 
 
 		
