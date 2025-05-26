@@ -18,10 +18,17 @@
                 <div style="width: 500px;max-width: 100%;margin: 50px auto;">
                     <img src="<?=PATH.$event->event_poster?>" alt="" style="width: 100%;border-radius: 5px;">
                     
-                    <?php
-                        if($event_checkin->rowCount() > 0):
+                    <?php if($event_checkin->rowCount() > 0): ?>
+                    <h1 class="fs-2 mt-3">Olá, <?=USER->firstname?>, você realizou check-in neste evento!</h1>
+                    <p>O check-in foi realizado com sucesso no evento.</p>
+                    
+                    <?php elseif(strtotime($event->event_datetime) < strtotime('today')):
                     ?>
-                    <h1 class="fs-2 mt-3">Olá, <?=USER->firstname?>, você já realizou check-in neste evento!</h1>
+                    <h1 class="fs-2 mt-3">Olá, <?=USER->firstname?>, o evento já passou!</h1>
+                    <p>O check-in deve ser realizado no mesmo dia do evento.</p>
+                    <?php elseif(strtotime($event->event_datetime) > strtotime('today')): ?>
+                    <h1 class="fs-2 mt-3">Olá, <?=USER->firstname?>, o evento ainda não começou!</h1>
+                    <p>O check-in deve ser realizado no mesmo dia do evento.</p>
                     <?php else: ?>
                     <h1 class="fs-2 mt-3">Olá, <?=USER->firstname?>, você está prestes a realizar <strong>check-in</strong> no evento!</h1>
                     <p>Para fazer check-in no evento, toque no botão abaixo e aguarde.</p>

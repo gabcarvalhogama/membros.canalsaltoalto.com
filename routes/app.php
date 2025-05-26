@@ -548,6 +548,14 @@
 				die(json_encode(["res" => "Você já realizou check-in neste evento!"]));
 			}
 
+			if (strtotime($event->event_datetime) < strtotime('today')) {
+				die(json_encode(["res" => "Desculpe, este evento já ocorreu e não é mais possível realizar o check-in."]));
+			}
+
+			if (strtotime($event->event_datetime) > strtotime('today')) {
+				die(json_encode(["res" => "Desculpe, o evento ainda não ocorreu, o check-in só pode ser realizado no dia do evento."]));
+			}
+
 			if($Event->doEventCheckin($event->idevent, USER->iduser)){
 				die(json_encode(["res" => 1]));
 			}else{

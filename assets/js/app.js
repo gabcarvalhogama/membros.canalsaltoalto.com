@@ -427,7 +427,7 @@ const App = {
 			success: function(data){
 				console.log(data)
 				if(data.res == 1){
-					// window.location.reload();
+					window.location.reload();
 				}else{
 					alert(data.res)
 				}
