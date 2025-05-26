@@ -26326,6 +26326,10 @@ body {
   font-style: normal;
 }
 
+.site__salespage, .site__salespage p {
+  font-family: "Caviar Dreams", sans-serif;
+}
+
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   font-family: "Caviar Dreams";
 }
@@ -26855,7 +26859,7 @@ label, .form-label {
 .site__lp-counter--col h3, .site__lp-counter--col .h3 {
   font-weight: bold;
   margin-bottom: 0px;
-  font-size: 4vw;
+  font-size: 2.5rem;
 }
 .site__lp-counter--col span {
   font-size: 1.1rem;
@@ -26864,6 +26868,40 @@ label, .form-label {
   .site__lp-counter--col {
     width: 100%;
     margin-bottom: 30px;
+  }
+}
+.site__salespage .pilares h3, .site__salespage .pilares .h3 {
+  display: flex;
+  align-items: center;
+}
+.site__salespage .pilares h3 i, .site__salespage .pilares .h3 i {
+  font-size: 0.6em;
+  margin-right: 10px;
+}
+.site__salespage .box-gradient-gray {
+  background-image: linear-gradient(45deg, #ffffff, #ededed);
+  border-radius: 5px;
+}
+.site__salespage .about-tati img {
+  border-radius: 0px 5px 5px 0px;
+}
+@media (max-width: 767.98px) {
+  .site__salespage .about-tati img {
+    border-radius: 5px;
+  }
+}
+.site__salespage .about-tati .box {
+  border-radius: 5px 0px 0px 5px;
+  display: flex;
+  flex-direction: row;
+}
+@media (max-width: 767.98px) {
+  .site__salespage .about-tati .box {
+    flex-direction: column;
+    border-radius: 0px 5px 5px 0px;
+  }
+  .site__salespage .about-tati .box img {
+    width: 100%;
   }
 }
 .site .companies--item__content {

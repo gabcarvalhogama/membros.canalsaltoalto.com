@@ -66,6 +66,30 @@ function initSwiper() {
 			prevEl: '.swiper_members .swiper-button-prev',
 		}
 	});
+	
+	const swiper_reviews = new Swiper('.swiper_reviews', {
+		direction: 'horizontal',
+		loop: true,
+		slidesPerView: 4,
+		spaceBetween: 30,
+	
+		breakpoints: {
+			798: {
+				slidesPerView: 1
+			},
+			1024: {
+				slidesPerView: 2
+			},
+			1366: {
+				slidesPerView: 4
+			}
+		},
+	
+		navigation: {
+			nextEl: '.swiper_reviews .swiper-button-next',
+			prevEl: '.swiper_reviews .swiper-button-prev',
+		}
+	});
 
 	//  // Event listeners for custom behavior
 	//  document.querySelector('.swiper-button-next').addEventListener('click', () => {

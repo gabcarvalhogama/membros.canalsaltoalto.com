@@ -215,7 +215,8 @@
 			h3{
 				font-weight: bold;
 				margin-bottom: 0px;
-				font-size: 4vw;
+				font-size: 2.5rem;
+
 			}
 			span{
 				font-size: 1.1rem;
@@ -228,6 +229,44 @@
 			&--col{
 				width: 100%;
 				margin-bottom: 30px;
+			}
+		}
+	}
+
+	&__salespage{
+		.pilares{
+			h3{
+				display: flex;
+				align-items: center;
+				i{
+					font-size: 0.6em;
+					margin-right: 10px;
+				}
+			}
+		}
+		.box-gradient-gray{
+			background-image: linear-gradient(45deg, #ffffff, #ededed);
+			border-radius: 5px;
+		}
+
+		.about-tati{
+			img{
+				border-radius: 0px 5px 5px 0px;
+				@include media-breakpoint-down(md) {
+					border-radius: 5px;
+				}
+			}
+			.box{
+				border-radius: 5px 0px 0px 5px;
+				display: flex;
+				flex-direction: row;
+				@include media-breakpoint-down(md) {
+					flex-direction: column;
+					border-radius: 0px 5px 5px 0px;
+					img{
+						width: 100%;
+					}
+				}
 			}
 		}
 	}
