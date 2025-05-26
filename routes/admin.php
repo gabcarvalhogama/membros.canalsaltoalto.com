@@ -135,6 +135,42 @@
 			$router->get("/", function(){
 				require_once "views/admin/medias.php";
 			});
+
+			$router->get("/view/{media_id}", function($media_id){
+				$Media = new Media;
+				$getMedia = $Media->getMediaById($media_id);
+
+				if($getMedia->rowCount() == 0)
+					die(json_encode(["res" => "Desculpe, não foi possível encontrar este mídia."]));
+
+				$media = $getMedia->fetchAll(PDO::FETCH_ASSOC)[0];
+
+				$media["attributes"] = json_decode($media['attributes'], true);
+				die(json_encode(["res" => 1, "media" => $media]));
+			});
+
+			$router->post("/edit", function(){
+				if(empty($_POST["media_id"]))
+					die(json_encode(["res" => "Desculpe, não foi possível identificar a mídia."]));
+
+				$Media = new Media;
+				$media = $Media->getMediaById($_POST["media_id"]);
+				if($media->rowCount() == 0)
+					die(json_encode(["res" => "Desculpe, não foi possível encontrar esta mídia."]));
+
+				$media = $media->fetchObject();
+
+				$attributes = json_decode($media->attributes, true);
+
+				$attributes['alt'] = !empty($_POST["media_alt"]) ? $_POST['media_alt'] : '';
+				
+				if($Media->updateMedia($_POST["media_id"], json_encode($attributes))){
+					die(json_encode(["res" => 1]));
+				}
+				else{
+					die(json_encode(["res" => "Desculpe, não foi possível atualizar a mídia. Atualize a página e tente novamente!"]));
+				}
+			});
 		});
 
 		#/admin/coupons

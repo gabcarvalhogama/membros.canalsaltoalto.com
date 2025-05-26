@@ -437,6 +437,62 @@ const Admin = {
 		})
 	},
 
+	// Admin.Medias
+	Medias: {
+		viewMedia: function(media_id){
+			$.ajax({
+				type: 'get',
+				url: '/admin/medias/view/' + media_id,
+				dataType: 'json',
+				success: function(data){
+					console.log(data);
+					if(data.res == 1){
+						var domain =`https://${window.location.host}/`
+						// $('#viewMedia .modal-body').html(data.media);
+						$('#mediaPath').attr("src", domain+data.media.path);
+						$('#mediaUrl').val(domain+data.media.path);
+						$('#mediaAlt').val(data.media.attributes.alt);
+						$('#mediaId').val(data.media.media_id);
+						$('#viewMedia').modal('show');
+					}else{
+						alert(data.res);
+					}
+				},
+				error: function(err){
+					alert("Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+			console.log("Viewing media with ID: " + media_id);
+		},
+		updateMedia: function(form){
+			$(form).addClass("inactive")
+			message.warning(form, "Carregando, aguarde...");
+			var formData = new FormData(form);
+			formData.append("media_id", $('#mediaId').val());
+			formData.append("media_alt", $('#mediaAlt').val());
+
+			$.ajax({
+				type: 'post',
+				data: formData,
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+				url: '/admin/medias/edit',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						message.success(form, "A mídia foi atualizada com sucesso!");
+						// $('#viewMedia').modal('hide');
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		}
+	},
 	// Admin.Banners
 	Banners: {
 		create: function(form){
