@@ -64,7 +64,7 @@
 
 		public function updatePassword($iduser, $password){
 			$sql = DB::open()->prepare("UPDATE csa_users SET 
-		        password = :password
+		        password = :password, updated_at = NOW()
 		    WHERE iduser = :iduser");
 
 		    return $sql->execute([

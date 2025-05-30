@@ -201,36 +201,68 @@
 					  		endif; ?>
 					</div>
 
+					<section>
+						<div class="mt-5 d-flex align-items-center">
+							<h2>Consultorias Realizadas</h2>
+							<button class="ms-md-3 btn btn-rose btn-rounded btn-rose-light" data-bs-toggle="modal" data-bs-target="#addConsultingModal">Cadastrar consultoria</button>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									<td>Data</td>
+									<td>Observações</td>
+									<td>Ações</td>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+									$Consulting = new Consulting;
+									$getConsulting = $Consulting->getConsultingByUserId($user->iduser);
+									if($getConsulting->rowCount() > 0):
+										foreach($getConsulting->fetchAll(PDO::FETCH_ASSOC) as $consulting):
+								?>
+									<tr>
+										<td><?=$consulting['consulting_date']?></td>
+										<td><?=ucfirst($consulting['consulting_observation'])?></td>
+										<td><a href="javascript:void(0)" onclick="Admin.deleteConsulting(<?=$consulting['user_consulting_id']?>)">Apagar</a></td>
+									</tr>
+								<?php endforeach; else: ?>
+									<tr><td colspan="6">Nenhum registro encontrado.</td></tr>
+								<?php endif; ?>
+							</tbody>
+						</table>
+					</section>
 
-					<div class="mt-5 d-flex align-items-center">
-						<h2>Consultorias Realizadas</h2>
-						<button class="ms-md-3 btn btn-rose btn-rounded btn-rose-light" data-bs-toggle="modal" data-bs-target="#addConsultingModal">Cadastrar consultoria</button>
-					</div>
-					<table class="table">
-						<thead>
-							<tr>
-								<td>Data</td>
-								<td>Observações</td>
-								<td>Ações</td>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-                                $Consulting = new Consulting;
-                                $getConsulting = $Consulting->getConsultingByUserId($user->iduser);
-                                if($getConsulting->rowCount() > 0):
-                                    foreach($getConsulting->fetchAll(PDO::FETCH_ASSOC) as $consulting):
-                            ?>
-                                <tr>
-                                    <td><?=$consulting['consulting_date']?></td>
-                                    <td><?=ucfirst($consulting['consulting_observation'])?></td>
-                                    <td><a href="javascript:void(0)" onclick="Admin.deleteConsulting(<?=$consulting['user_consulting_id']?>)">Apagar</a></td>
-                                </tr>
-                            <?php endforeach; else: ?>
-                                <tr><td colspan="6">Nenhum registro encontrado.</td></tr>
-                            <?php endif; ?>
-						</tbody>
-					</table>
+					<section>
+						<div class="mt-5 d-flex align-items-center">
+							<h2>Participação em Eventos</h2>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									<td>Evento</td>
+									<td>Check-In</td>
+									<!-- <td>Ações</td> -->
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+									$Event = new Event;
+									$getCheckInByUser = $Event->getCheckInByUser($user->iduser);
+									if($getCheckInByUser->rowCount() > 0):
+										foreach($getCheckInByUser->fetchAll(PDO::FETCH_ASSOC) as $checkin):
+								?>
+									<tr>
+										<td><?=$checkin['event_title']?></td>
+										<td><?=date("d/m/Y \à\s H:i", strtotime($checkin['checkin_at']))?></td>
+									</tr>
+								<?php endforeach; else: ?>
+									<tr><td colspan="6">Nenhum registro encontrado.</td></tr>
+								<?php endif; ?>
+							</tbody>
+						</table>
+					</section>
+					
 				</div>
 			</div>
 		</div>

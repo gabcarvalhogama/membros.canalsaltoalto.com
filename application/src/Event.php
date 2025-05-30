@@ -142,6 +142,21 @@
 			return $sql;
 		}
 
+		public function getCheckInByUser($iduser){
+			$sql = DB::open()->prepare("
+				SELECT cec.*, ce.event_title
+				FROM csa_events_checkins cec
+				LEFT JOIN csa_events ce ON ce.idevent = cec.event_id
+				WHERE cec.user_id = :iduser
+				ORDER BY cec.checkin_at DESC
+			");
+			$sql->execute([
+				":iduser" => $iduser
+			]);
+
+			return $sql;
+		}
+
 		public function doEventCheckin($idevent, $iduser){
 			$sql = DB::open()->prepare("
 				INSERT INTO csa_events_checkins (

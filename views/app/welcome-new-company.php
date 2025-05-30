@@ -54,14 +54,14 @@
 						<address_group style="display: none;">
 						<div class="row">
 							<div class="col mb-3">
-								<label for="address_zipcode">CEP</label>
+								<label for="address_zipcode">CEP <small class="text-danger">*</small></label>
 								<input type="text" class="form-control" id="address_zipcode" name="address_zipcode" data-mask="00.000-000" />
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-6 mb-3">
-								<label for="address_state" class="form-label">Estado</label>
+								<label for="address_state" class="form-label">Estado <small class="text-danger">*</small></label>
 								<select name="address_state" id="address_state" class="form-control address-fields" onchange="App.loadCities(this)">
 									<option value="">Selecione uma opção</option>
 									<?php
@@ -71,7 +71,7 @@
 								</select>
 							</div>
 							<div class="col-md-6 mb-3">
-								<label for="address_city" class="form-label address-fields">Cidade</label>
+								<label for="address_city" class="form-label address-fields">Cidade <small class="text-danger">*</small></label>
 								<select name="address_city" id="address_city" class="form-control">
 									<option value="">Selecione um estado</option>
 								</select>
@@ -80,18 +80,18 @@
 
 						<div class="row">
 							<div class="col-md-8 mb-3">
-								<label for="address" class="form-label address-fields">Endereço</label>
+								<label for="address" class="form-label address-fields">Endereço <small class="text-danger">*</small></label>
 								<input type="text" class="form-control" id="address" name="address" placeholder="Av., Rua, etc." />
 							</div>
 							<div class="col-md-4 mb-3">
-								<label for="address_number" class="form-label address-fields">Número</label>
+								<label for="address_number" class="form-label address-fields">Número <small class="text-danger">*</small></label>
 								<input type="text" class="form-control" id="address_number" name="address_number" placeholder="" />
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-md-6 mb-3">
-								<label for="address_neighborhood" class="form-label address-fields">Seu Bairro</label>
+								<label for="address_neighborhood" class="form-label address-fields">Seu Bairro <small class="text-danger">*</small></label>
 								<input type="text" class="form-control" id="address_neighborhood" name="address_neighborhood" placeholder="" />
 							</div>
 							<div class="col-md-6 mb-3">
@@ -104,7 +104,7 @@
 						<div class="row">
 							<div class="col mb-3">
 								<label for="cellphone" class="form-label">Celular <small class="text-danger">*</small></label>
-								<input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="" />
+								<input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="" required />
 							</div>
 						</div>
 
