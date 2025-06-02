@@ -51,16 +51,17 @@
 
 						<div class="site__single-post--comments" id="#comments">
 							<h3>Deixe um Comentário</h3>
-							<p>Faça parte da discursão sobre essa postagem, deixe um comentário falando o que você pensou!</p>
-							<form onsubmit="Post.comment(this);" method="post" action="javascript:void(0)" accept-charset="utf-8">
-								<div class="row">
+							<p><strong><?=USER->firstname?></strong>, faça parte da discursão sobre essa postagem, deixe um comentário falando o que você pensou!</p>
+							<form onsubmit="App.commentContent(this, <?=$object->idcontent?>);" method="post" action="javascript:void(0)" accept-charset="utf-8">
+								<div class="message"></div>
+								<!-- <div class="row">
 									<div class="mb-3 col">
 									  <input type="text" class="form-control" id="name" name="name" placeholder="Seu nome" required />
 									</div>
 									<div class="mb-3 col">
 									  <input type="email" class="form-control" id="email" name="email" placeholder="Seu e-mail" required />
 									</div>
-								</div>
+								</div> -->
 								<div class="row mb-3"> 
 									<div class="col">
 										<textarea class="form-control" id="comment__field" name="comment" placeholder="Digite seu comentário..."></textarea>
@@ -71,7 +72,7 @@
 										<button class="btn btn-rose">Postar comentário</button>
 									</div>
 								</div>
-								<input type="hidden" name="post_id" value="<?=$object->idcontent?>" />
+								<input type="hidden" name="content_id" value="<?=$object->idcontent?>" />
 							</form>
 
 
@@ -83,7 +84,7 @@
 								?>
 
 								<div class="comments__item mb-2">
-									<h3><?=$comment['user_name']?> às <?=date('d/m/Y \à\s H:i', strtotime($comment['created_at']))?></h3>
+									<h3><?=$comment['firstname']?> às <?=date('d/m/Y \à\s H:i', strtotime($comment['created_at']))?></h3>
 									<div class="comments__item--comment">
 										<?=$comment['comment']?>
 									</div>
@@ -154,7 +155,7 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
-		<script type="text/javascript" src="<?=PATH?>assets/js/site.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/app.js"></script>
 		<script type="text/javascript">
 			
 			const swiper = new Swiper('.swiper', {

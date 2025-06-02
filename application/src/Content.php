@@ -103,13 +103,34 @@
 		}
 
 		public function getComments($idcontent){
-			$sql = DB::open()->prepare("SELECT * FROM csa_contents_comments WHERE idcontent = :idcontent ORDER BY created_at DESC");
+			$sql = DB::open()->prepare("
+				SELECT cc.*, u.firstname, u.lastname 
+				FROM csa_contents_comments cc 
+				LEFT JOIN csa_users u 
+					ON cc.user_id = u.iduser
+				WHERE 
+					idcontent = :idcontent AND 
+					is_approved = 1 
+				ORDER BY created_at DESC
+			");
 			$sql->execute([
 				":idcontent" => intval($idcontent)
 			]);
 
 			return $sql;
 		}
+
+
+		public function createComment($idcontent, $user_id, $comment, $is_approved){
+			$sql = DB::open()->prepare("INSERT INTO csa_contents_comments (idcomment, idcontent, user_id, comment, is_approved, created_at) VALUES (default, :idcontent, :user_id, :comment, :is_approved, NOW())");
+			return $sql->execute([
+				":idcontent" => intval($idcontent),
+				":user_id" => $user_id,
+				":comment" => $comment,
+				":is_approved" => $is_approved
+			]);
+		}	
+
 		public function getRelatedContents($limit = 12, $actual_content){
 			$sql = DB::open()->prepare("SELECT * FROM csa_contents WHERE idcontent != :actual_content ORDER BY published_at DESC LIMIT :limit_contents");
 			$sql->bindParam(':actual_content', $actual_content, \PDO::PARAM_INT);

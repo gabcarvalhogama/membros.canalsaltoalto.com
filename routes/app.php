@@ -234,6 +234,21 @@
 			require "views/app/single-content.php";
 		});
 
+		$router->post("/content/{content_id}/comment", function($content_id){
+			if(empty($content_id)){
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o ID do conteúdo."]));
+			}else if(empty($_POST["comment"])){
+				die(json_encode(["res" => "Por favor, digite o seu comentário!"]));
+			}else{
+				$Content = new Content;
+
+				if($Content->createComment($content_id, USER->iduser, addslashes(htmlspecialchars($_POST["comment"])), 1))
+					die(json_encode(["res" => 1]));
+				else
+					die(json_encode(["res" => "Desculpe, não foi possível postar o seu comentário. Atualize o site e tente novamente!"]));
+			}
+		});
+
 		$router->get("/contents/page/{page_number}", function($page_number){
 			if((int) $page_number < 1)
 				header("Location: /app/contents");

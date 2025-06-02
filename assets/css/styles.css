@@ -27224,6 +27224,10 @@ label, .form-label {
 .app .app__header .my-profile a:hover {
   color: #333;
 }
+.app .app__header .col-btns {
+  display: flex;
+  gap: 10px;
+}
 @media (max-width: 991.98px) {
   .app .app__header .col-btns {
     display: flex;
@@ -27233,6 +27237,20 @@ label, .form-label {
     margin-left: 30px;
     font-size: 2em;
   }
+}
+.app .app__header .btn-diamonds {
+  gap: 10px;
+  padding: 5px 10px;
+  border: solid 1px #ddd;
+  border-radius: 50px;
+  cursor: default;
+}
+.app .app__header .btn-diamonds img {
+  height: 20px;
+}
+.app .app__header .btn-diamonds span {
+  font-family: "Caviar Dreams";
+  font-size: 1.1rem;
 }
 .app .app__hero--image {
   width: 100%;

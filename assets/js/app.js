@@ -269,7 +269,6 @@ const App = {
 		})
 	},
 
-
 	newCompany: function(form){
 		$(form).addClass("inactive")
 		message.warning(form, "Carregando, aguarde...");
@@ -468,6 +467,35 @@ const App = {
 			error: function(err){
 				alert("Algo deu errado, verifique sua internet e tente novamente!")
 				$(el).removeClass("inactive")
+			}
+		})
+	},
+
+	
+	commentContent: function(form, content_id){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+		
+		$.ajax({
+			type: 'post',
+			data: formData,
+			processData: false,
+			contentType: false,
+			url: '/app/content/'+content_id+'/comment',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$(form)[0].reset()
+					window.location = ''
+				}else{
+					message.error(form, data.res);
+				}
+
+				message.removeInactive(form);
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
 			}
 		})
 	}
