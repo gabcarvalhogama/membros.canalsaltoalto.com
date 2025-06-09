@@ -1,2 +1,94 @@
 [29-May-2025 02:35:39 America/Sao_Paulo] Recovery message sent to meryhelmer@hotmail.com
 [29-May-2025 14:54:07 America/Sao_Paulo] Recovery message sent to meryhelmer@hotmail.com
+[29-May-2025 15:51:48 America/Sao_Paulo] Recovery message sent to meryhelmer@hotmail.com
+[29-May-2025 19:05:48 America/Sao_Paulo] Recovery message sent to neiaperoba@gmail.com
+[02-Jun-2025 01:22:22 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'csa_contents_comments.user_id' in 'ON' in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Content.php:109
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Content.php(109): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/views/app/single-content.php(81): Content->getComments()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/app.php(234): require('/home/u36455083...')
+#3 [internal function]: {closure}()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#7 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#8 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Content.php on line 109
+[02-Jun-2025 01:22:30 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'csa_contents_comments.user_id' in 'ON' in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Content.php:109
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Content.php(109): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/views/app/single-content.php(81): Content->getComments()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/app.php(234): require('/home/u36455083...')
+#3 [internal function]: {closure}()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#7 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#8 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Content.php on line 109
+[07-Jun-2025 11:57:57 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php:33
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php(33): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/admin.php(822): Event->create()
+#2 [internal function]: {closure}()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#7 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php on line 33
+[07-Jun-2025 11:58:38 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php:33
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php(33): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/admin.php(822): Event->create()
+#2 [internal function]: {closure}()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#7 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php on line 33
+[07-Jun-2025 11:58:58 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php:33
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php(33): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/admin.php(822): Event->create()
+#2 [internal function]: {closure}()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#7 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php on line 33
+[07-Jun-2025 12:06:20 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php:33
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php(33): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/admin.php(822): Event->create()
+#2 [internal function]: {closure}()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#7 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php on line 33
+[09-Jun-2025 10:03:23 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php:33
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php(33): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/admin.php(822): Event->create()
+#2 [internal function]: {closure}()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#7 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php on line 33
+[09-Jun-2025 10:03:37 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1 in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php:33
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php(33): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/admin.php(822): Event->create()
+#2 [internal function]: {closure}()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#7 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php on line 33

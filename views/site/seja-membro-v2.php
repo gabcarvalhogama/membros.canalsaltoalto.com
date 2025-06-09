@@ -275,7 +275,7 @@
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<div class="card h-100">
-							<img src="<?=PATH?>assets/images/depoimento-ana-rita-nico.jpeg" class="card-img-top" alt="Depoimento">
+							<img src="<?=PATH?>assets/images/depoimento-ana-rita-nico.jpg" class="card-img-top" alt="Depoimento">
 							<div class="card-body">
 								<p class="card-text">"Participar do Canal Salto Alto tem sido muito positivo, pois pertencer a esse grupo de mulheres empreendedoras tem gerado conexões para os meus negócios, além de compartilharmos experiências e valores e, ainda evoluirmos juntas. Por isso indico o Canal Salto Alto. Ele é uma excelente rede de apoio e de contatos!"</p>
 								<p><strong>Ana Rita Nico – Empresária Contábil</strong></p>
@@ -285,18 +285,24 @@
 					
 					<div class="swiper-slide">
 						<div class="card h-100">
-							<img src="https://placehold.co/1066x1600" class="card-img-top" alt="Depoimento">
+							<img src="<?=PATH?>assets/images/depoimento-lislye.jpg" class="card-img-top" alt="Depoimento">
 							<div class="card-body">
-								<p class="card-text">"Graças ao networking que fiz no Canal Salto Alto, meu negócio cresceu 300% em um ano. Sou muito grata!"</p>
+								<p class="card-text">"Participar do canal é incrível, trocar experiências, aprendizados e viver emoções com mulheres  empreendedoras da nossa linda cidade.
+Me conecto, pois temos interesses semelhantes, ouvimos histórias de sucesso e desafios que me leva a muita reflexão. 
+Promovo é claro o meu  negócio. Recebo também apoio e incentivo. E sempre estou compartilhando oportunidades. 
+Tenho orgulho desse grupo!"</p>
+								<p><strong>Líslye Perini - Líder Avon/Natura</strong></p>
 							</div>
 						</div>
 					</div>
 					
 					<div class="swiper-slide">
 						<div class="card h-100">
-							<img src="https://placehold.co/1066x1600" class="card-img-top" alt="Depoimento">
+							<img src="<?=PATH?>assets/images/depoimento-anne-fraga.jpg" class="card-img-top" alt="Depoimento">
 							<div class="card-body">
-								<p class="card-text">"As mentorias me ajudaram a organizar minhas finanças e hoje tenho um negócio muito mais saudável financeiramente."</p>
+								<p class="card-text">"Participar do Canal Salto Alto não é somente estar com mulheres que empreendem. É fazer parte de um grupo que "junto" se desenvolve constantemente por meio de ações que o canal disponibiliza!
+Amo fazer parte deste grupo por que a medida que ele cresce, cresço também!"</p>
+								<p><strong>Anne Fraga - Consultoria de Imagem e Estilo</strong></p>
 							</div>
 						</div>
 					</div>

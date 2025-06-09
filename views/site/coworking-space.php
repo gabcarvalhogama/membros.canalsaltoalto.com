@@ -24,7 +24,7 @@
 							padding: 5px 10px;
 							border: solid 1px #E54C8E;
 							border-radius: 100px;
-						"><i class="fa-solid fa-tag"></i> Planos Flexíveis a partir de R$ 45,00 e Planos Fixos a partir de R$ 600,00</span>
+						"><i class="fa-solid fa-tag"></i> Planos Flexíveis a partir de R$ 40,50 e Planos Fixos a partir de R$ 540,00</span>
 							<span style="
 							padding: 5px 10px;
 							border: solid 1px #E54C8E;
@@ -60,10 +60,117 @@
 				</div>
 			</div>
 		</section>
+		
+
+		<section class="plaintext mt-5 mb-5 site__lp-plaintext">
+			<div class="container-xl text-center">
+				<h2>Nossos Planos</h2>
+				<div>
+					<h3 class="fs-3">Planos Flexíveis</h3>
+					<div class="row g-3 mb-5 justify-content-center">
+						<div class="col-12 col-md-4">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
+								<h4 class="color-primary"><strong>1 HORA</strong></h4>
+								<p>R$ 40,50 para membros</p>
+								<p>R$ 45,00 para não membros</p>
+							</div>
+						</div>
+						<div class="col-12 col-md-4">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
+								<h4 class="color-primary"><strong>MEIO PERÍODO (5 horas corridas)</strong></h4>
+								<p>R$ 90,00 para membros</p>
+								<p>R$ 100,00 para não membros</p>
+							</div>
+						</div>
+						<div class="col-12 col-md-4">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
+								<h4 class="color-primary"><strong>DIÁRIA (10 horas corridas)</strong></h4>
+								<p>R$ 157,50 para membros</p>
+								<p>R$ 175,00 para não membros</p>
+							</div>
+						</div>
+						<p><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale com a gente no WhatsApp</button></a></p>
+					</div>
+				</div>
+
+				<div>
+					<h3 class="fs-3">Planos Fixos</h3>
+					<p>(Contrato mínimo de 6 meses)</p>
+					<div class="row g-3 justify-content-center">
+						<div class="col-md-4">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
+								<h4 class="color-primary"><strong>PLANO 1</strong></h4>
+								<p>R$ 540,00 mensal - para membros</p>
+								<p>R$ 600,00 mensal - para não membros</p>
+								<p><small>1 dia por semana ou 2 meios períodos por semana (total de 10h por semana, aproximadamente 40h/mês)</small></p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
+								<h4 class="color-primary"><strong>PLANO 2</strong></h4>
+								<p>R$ 720,00 mensal – para membros</p>
+								<p>R$ 800,00 mensal - para não membros</p>
+								<p><small>2 dias por semana (20h/semana, aproximadamente 80h/mês)</small></p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
+								<h4 class="color-primary"><strong>PLANO 3</strong></h4>
+								<p>R$ 900,00 mensal – para membros</p>
+								<p>R$ 1.000,00 mensal – para não membros</p>
+								<p><small>3 dias por semana (30h/semana, aproximadamente 120h/mês)</small></p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
+								<h4 class="color-primary"><strong>PLANO 4</strong></h4>
+								<p>R$ 1.080,00 mensal – para membros</p>
+								<p>R$ 1.200,00 mensal – para não membros</p>
+								<p><small>4 dias por semana (40h/semana, aproximadamente 160h/mês)</small></p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
+								<h4 class="color-primary"><strong>PLANO 5</strong></h4>
+								<p>R$ 1.350,00 mensal – para membros</p>
+								<p>R$ 1.500,00 mensal – para não membros<br>
+								<p><small>5 dias por semana (50h/semana, aproximadamente 200h/mês)</small></p>
+							</div>
+						</div>
+					</div>
+					<p class="mt-4"><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale com a gente no WhatsApp</button></a></p>
+
+					<p class="mt-4"><em>Pagamentos em cartão de crédito terão acréscimo de taxa (favor consultar)</em></p>
+					<p><em>Não há crédito de horas ou desconto em valores em caso de feriados no mês, os valores e horários são fixos.</em></p>
+				</div>
+			</div>
+		</section>
 
 		
 
 		<section class="plaintext mt-5 mb-5 site__lp-plaintext">
+			<div class="container-xl">
+				<div class="row">
+					<div class="col-md-6">
+						<img src="<?=PATH?>assets/images/" alt="">
+					</div>
+					<div class="col-md-6">
+						<h2>Regras</h2>
+						<ul>
+							<li><i class="fa-solid fa-check"></i> Quem não é empreendedora membro do Canal Salto Alto precisa fazer um cadastro com alguns dados pessoais que vamos solicitar;</li>
+							<li><i class="fa-solid fa-check"></i> Em caso de não realização do atendimento agendado nos PLANOS FLEXÍVEIS, o aviso deve ser feito com até 24h de antecedência em nosso whatsapp. Dessa forma você pode remarcar dentro de 7 dias ou ter 50% do investimento de volta;</li>
+							<li><i class="fa-solid fa-check"></i> Não devolvemos o valor total do investimento para atendimentos não realizados, conforme situação acima;</li>
+							<li><i class="fa-solid fa-check"></i> Não podemos ter atrasos no final do atendimento devido aos atendimentos seguintes, se ocorrer atrasos, após o tempo de 10 minutos será cobrada mais uma hora de uso do espaço;</li>
+							<li><i class="fa-solid fa-check"></i> Pagamentos realizados no cartão de crédito terão acréscimo da taxa do cartão. Favor consultar antes de realizar o agendamento;</li>
+							<li><i class="fa-solid fa-check"></i> Nos PLANOS FIXOS não há crédito de horas ou desconto em valores em caso de feriados no mês, os valores e horários são fixos;</li>
+							<li><i class="fa-solid fa-check"></i> Os PLANOS FIXOS precisam de contrato mínimo de 6 meses.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- <section class="plaintext mt-5 mb-5 site__lp-plaintext">
 			<div class="container-xl">
 				<div class="row align-items-center">
 					<div class="col-md-8">
@@ -85,7 +192,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 
 		<section class="plaintext mt-5 mb-5 site__lp-plaintext">

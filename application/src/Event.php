@@ -12,6 +12,7 @@
 		            slug,
 		            created_by,
 		            status,
+					qrcode_uuid,
 		            created_at,
 		            updated_at
 		        ) VALUES (
