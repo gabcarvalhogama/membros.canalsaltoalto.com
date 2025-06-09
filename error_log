@@ -92,3 +92,14 @@ Stack trace:
 #6 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
 #7 {main}
   thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/Event.php on line 33
+[09-Jun-2025 10:27:27 America/Sao_Paulo] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'u364550838_csa.csa_user_diamond' doesn't exist in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/User.php:201
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/User.php(201): PDOStatement->execute()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/app.php(584): User::addDiamond()
+#2 [internal function]: {closure}()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#6 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#7 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/application/src/User.php on line 201

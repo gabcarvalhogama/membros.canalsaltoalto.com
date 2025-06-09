@@ -581,6 +581,7 @@
 			}
 
 			if($Event->doEventCheckin($event->idevent, USER->iduser)){
+				User::addDiamond(USER->iduser, 50.00, $event->idevent, "event_checkin", null);
 				die(json_encode(["res" => 1]));
 			}else{
 				die(json_encode(["res" => "Desculpe, não foi possível realizar o check-in neste evento. Verifique os dados e tente novamente!"]));

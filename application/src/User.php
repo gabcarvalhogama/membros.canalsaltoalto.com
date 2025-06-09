@@ -196,6 +196,18 @@
 		}
 
 
+		public static function addDiamond($user_id, $diamond_value, $diamond_origin_id, $diamond_origin_type, $diamond_observation){
+			$sql = DB::open()->prepare("INSERT INTO csa_user_diamonds () VALUES (default, :user_id, :diamond_value, :diamond_origin_id, :diamond_origin_type, :diamond_observation, NOW())");
+			$sql->execute([
+				":diamond_value" => floatval($diamond_value),
+				":diamond_origin_id" => intval($diamond_origin_id),
+				":diamond_origin_type" => strtolower(trim($diamond_origin_type)),
+				":diamond_observation" => ($diamond_observation) ? ucfirst(trim($diamond_observation)) : null,
+				":user_id" => intval($user_id)
+			]);
+		}
+
+
 		public static function getActiveMembersCount() {
 		    $sql = DB::open()->prepare("
 		        SELECT COUNT(m.idusermembership) as active_members_count
