@@ -308,6 +308,10 @@
 			    csa_users u ON u.iduser = um.iduser
 			WHERE
 			    u.email = :email
+				AND 
+				um.status = 'paid'
+				AND um.ends_at > NOW()
+				AND u.user_type = 0
 			LIMIT 1;");
 			$sql->execute([
 				":email" => strtolower(filter_var($email, FILTER_VALIDATE_EMAIL))

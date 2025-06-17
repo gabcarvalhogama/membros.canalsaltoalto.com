@@ -77,6 +77,10 @@
 						<a href="<?=$result->getDataUri()?>" download><img src="<?=$result->getDataUri()?>" alt="QR Code" style="width: 150px;max-width: 100%" /></a>
 						<div class="label ms-2">
 							<p>Toque no QR Code para baixar o arquivo e usar nos eventos.</p>
+							<small>
+								<p>Link para checkin:</p>
+								<?='https://canalsaltoalto.com/app/events/checkin/'.$event->qrcode_uuid?>
+							</small>
 						</div>
 					</div>
 				</div>

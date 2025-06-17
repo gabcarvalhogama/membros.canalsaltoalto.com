@@ -15,7 +15,7 @@
 		<main class="mt-3 mb-5">
 			<div class="container-xl">
 				<div class="row align-items-center">
-					<div class="col-md-6">
+					<div class="col-md-6 mb-4">
 						<h1 class="fs-1">SEJA BEM-VINDA EMPREENDEDORA!</h1>
 						<p class="lead">A partir de agora, você vai conhecer um pouco mais sobre a rede de empreendedoras mais completa e inovadora do Espírito Santo.</p>
 						<a href="#plans" class="btn btn-rose btn-rounded btn-medium">QUERO SER MEMBRO</a>
@@ -171,7 +171,7 @@
 						<img src="<?=PATH?>uploads/2024/12/676081e61ed80.jpeg" alt="Ação Canal Salto Alto" class="img-fluid rounded">
 					</div>
 					<div class="mb-3">
-						<img src="<?=PATH?>uploads/2024/10/670998a162b72.jpg" alt="Ação Canal Salto Alto" class="img-fluid rounded">
+						<img src="<?=PATH?>assets/images/lp-tati-front-view.jpeg" alt="Ação Canal Salto Alto" class="img-fluid rounded">
 					</div>
 				</div>
 			</div>
@@ -188,7 +188,7 @@
 						<p><em>"Pra mim o Canal Salto Alto é muito mais que um canal para criar networking entre empreendedoras, ele ajuda a transformar vidas com o resgate da autoestima e o desenvolvimento pessoal e profissional, para que elas sejam as protagonistas da sua própria história".</em></p>
 					</div>
 					<div>
-						<img src="<?=PATH?>assets/images/csa-tati-photo.jpg" class="d-block" alt="Tati Serafim">
+						<img src="<?=PATH?>assets/images/csa-tati-photo.jpg" class="d-block" alt="Tati Serafim" style="max-width: 250px">
 					</div>
 				</div>
 			</div>
@@ -262,7 +262,7 @@
 				</div>
 				
 				<div class="text-center mt-4">
-					<p class="lead">Não perca a chance de fazer parte dessa comunidade incrível! Junte-se ao Canal Salto Alto e transforme sua jornada empreendedora. O seu sucesso começa aqui!</p>
+					<p class="lead fs-2" style="font-weight: bold;">Não perca a chance de fazer parte dessa comunidade incrível! Junte-se ao Canal Salto Alto e transforme sua jornada empreendedora. O seu sucesso começa aqui!</p>
 					<a href="/checkout" class="btn btn-rose btn-rounded btn-medium mt-3">QUERO SER MEMBRO</a>
 				</div>
 			</div>
@@ -309,18 +309,20 @@ Amo fazer parte deste grupo por que a medida que ele cresce, cresço também!"</
 					
 					<div class="swiper-slide">
 						<div class="card h-100">
-							<img src="https://placehold.co/1066x1600" class="card-img-top" alt="Depoimento">
+							<img src="<?=PATH?>assets/images/depoimento-patricia-boldrini.jpg" class="card-img-top" alt="Depoimento">
 							<div class="card-body">
-								<p class="card-text">"Participar dos eventos presenciais foi transformador para minha autoestima e para meu negócio. Recomendo a todas!"</p>
+								<p class="card-text">"Participar do Canal Salto Alto trouxe muitas conexões nos negócios e na vida pessoal. A troca de experiências é sempre muito positivo, pois aprendemos mais umas com as outras. Indico o Canal Salto Alto para mulheres que querem sair da sua zona de conforto e alavancar cada vez mais sua carreira e vida pessoal."</p>
+								<p><strong>Patrícia Boldrini - Sigma Personalizados</strong></p>
 							</div>
 						</div>
 					</div>
 					
 					<div class="swiper-slide">
 						<div class="card h-100">
-							<img src="https://placehold.co/1066x1600" class="card-img-top" alt="Depoimento">
+							<img src="<?=PATH?>assets/images/depoimento-lharissa.jpg" class="card-img-top" alt="Depoimento">
 							<div class="card-body">
-								<p class="card-text">"Participar dos eventos presenciais foi transformador para minha autoestima e para meu negócio. Recomendo a todas!"</p>
+								<p class="card-text">"Ser membro do Canal Salto Alto é investir no meu negócio. Através do Canal Salto Alto pude me conectar a outras empreendedoras, trazer novas clientes para o meu negócio, adquirir e compartilhar conhecimento e fazer muito network. Por esses motivos eu sempre digo: faça parte você também!"</p>
+								<p><strong>Lharissa de Almeida - Advogada</strong></p>
 							</div>
 						</div>
 					</div>
@@ -343,75 +345,81 @@ Amo fazer parte deste grupo por que a medida que ele cresce, cresço também!"</
 								<h3 class="mb-0">Plano Vip</h3>
 							</div>
 							<div class="card-body">
-								<h4 class="text-center mb-4">12x R$ 29,90<br>ou R$ 299,00 à vista</h4>
+								<h4 class="text-center" style="line-height: 1.25em;">12x R$ 29,90<br>ou R$ 299,00 à vista</h4>
+								<small class="text-center d-block mb-4">1 ano de acesso</small>
 								<ul class="list-group list-group-flush">
-									<li class="list-group-item">Acesso à Plataforma de Membros</li>
-									<li class="list-group-item">Grupo Vip de Whatsapp</li>
-									<li class="list-group-item">Acesso aos eventos exclusivos do Canal Salto Alto (cada evento tem o seu valor de ingresso)</li>
-									<li class="list-group-item">Desconto nos eventos abertos do Canal Salto Alto</li>
-									<li class="list-group-item">Desconto em nossos parceiros</li>
-									<li class="list-group-item">Desconto no Coworking Space</li>
-									<li class="list-group-item">Desconto em serviços de marketing</li>
-									<li class="list-group-item">Post de Membros em nossas redes sociais e site</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Acesso à Plataforma de Membros com conteúdos exclusivos, ferramentas de networking e divulgação</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Acesso ao Grupo Vip de Whatsapp</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> 1 análise de perfil das redes sociais da sua empresa com a equipe da Tati Serafim</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> 1 Post de Membros em nossas redes sociais e site</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Divulgação da sua empresa na Plataforma de Membros, no telão de eventos e na recepção da nossa sede</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Acesso aos eventos exclusivos do Canal Salto Alto (cada evento tem o seu valor de ingresso)</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Desconto nos eventos abertos do Canal Salto Alto</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Desconto em nossos parceiros</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Desconto no Coworking Space</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Desconto em serviços de marketing oferecidos pela equipe da Tati Serafim</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Gameficação: quanto mais você participa, mais recebe diamantes rosas e troca por benefícios</li>
+									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> E muito mais!</li>
 								</ul>
 							</div>
 							<div class="card-footer text-center">
-								<a href="/checkout/vip" class="btn btn-rose btn-rounded">QUERO ESSE PLANO</a>
+								<a href="/checkout" class="btn btn-rose btn-rounded">QUERO ESSE PLANO</a>
 							</div>
 						</div>
 					</div>
+
+					
 					
 					<!-- Plano Pro -->
-					<div class="col-md-4 mb-4">
+					<div class="col-md-4 mb-4" style="opacity: 0.3;filter: grayscale(100%);cursor: inherit;">
 						<div class="card h-100">
 							<div class="card-header bg-primary text-white text-center py-3">
-								<h3 class="mb-0">Plano Pro</h3>
+								<h3 class="mb-0">Em breve</h3>
 							</div>
 							<div class="card-body">
-								<h4 class="text-center mb-4">12x R$ 59,90<br>ou R$ 499,00 à vista</h4>
+								<h4 class="text-center mb-4">12x R$ 0,00<br>ou R$ 0,00 à vista</h4>
 								<ul class="list-group list-group-flush">
-									<li class="list-group-item">Acesso à Plataforma de Membros</li>
-									<li class="list-group-item">Grupo Vip de Whatsapp</li>
-									<li class="list-group-item">Acesso aos eventos exclusivos do Canal Salto Alto (cada evento tem o seu valor de ingresso)</li>
-									<li class="list-group-item">Desconto nos eventos abertos do Canal Salto Alto</li>
-									<li class="list-group-item">Desconto em nossos parceiros</li>
-									<li class="list-group-item">Desconto no Coworking Space</li>
-									<li class="list-group-item">Desconto em serviços de Marketing</li>
-									<li class="list-group-item">Post de Membros em nossas Redes Sociais e Site</li>
-									<li class="list-group-item">1 sessão de Consultoria de Mídia Social</li>
-									<li class="list-group-item">1 sessão de Consultoria de Finanças</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
 								</ul>
 							</div>
 							<div class="card-footer text-center">
-								<a href="/checkout/pro" class="btn btn-rose btn-rounded">QUERO ESSE PLANO</a>
+								<!-- <a href="javascript:void(0)" class="btn btn-rose btn-rounded">EM BREVE</a> -->
 							</div>
 						</div>
 					</div>
 					
 					<!-- Plano Masterclass -->
-					<div class="col-md-4 mb-4">
+					<div class="col-md-4 mb-4 d-none d-md-block" style="opacity: 0.3;filter: grayscale(100%);cursor: inherit;">
 						<div class="card h-100">
 							<div class="card-header bg-primary text-white text-center py-3">
-								<h3 class="mb-0">Plano Masterclass</h3>
+								<h3 class="mb-0">Em breve</h3>
 							</div>
 							<div class="card-body">
-								<h4 class="text-center mb-4">12x R$ 99,90<br>ou R$ 999,00 à vista</h4>
+								<h4 class="text-center mb-4">12x R$ 0,00<br>ou R$ 0,00 à vista</h4>
 								<ul class="list-group list-group-flush">
-									<li class="list-group-item">Acesso à Plataforma de Membros</li>
-									<li class="list-group-item">Grupo Vip de Whatsapp</li>
-									<li class="list-group-item">Acesso aos eventos exclusivos do Canal Salto Alto (cada evento tem o seu valor de ingresso)</li>
-									<li class="list-group-item">Desconto nos eventos abertos do Canal Salto Alto</li>
-									<li class="list-group-item">Desconto em nossos parceiros</li>
-									<li class="list-group-item">Desconto no Coworking Space</li>
-									<li class="list-group-item">Desconto em serviços de Marketing</li>
-									<li class="list-group-item">Post de Membros em nossas Redes Sociais e Site</li>
-									<li class="list-group-item">1 sessão de Consultoria de Mídia Social</li>
-									<li class="list-group-item">1 sessão de Consultoria de Finanças</li>
-									<li class="list-group-item">10 aulas Master Class Marketing com Propósito e Oratória para Vídeos com a Tati Serafim</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
+									<li class="list-group-item">Em breve</li>
 								</ul>
 							</div>
 							<div class="card-footer text-center">
-								<a href="/checkout/masterclass" class="btn btn-rose btn-rounded">QUERO ESSE PLANO</a>
+								<!-- <a href="javascript:void(0)" class="btn btn-rose btn-rounded">EM BREVE</a> -->
 							</div>
 						</div>
 					</div>

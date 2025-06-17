@@ -5,12 +5,12 @@
 	});
 
 	$router->get("/seja-membro", function(){
-		require "views/site/seja-membro.php";
-	});
-
-	$router->get("/seja-membro-v2", function(){
 		require "views/site/seja-membro-v2.php";
 	});
+
+	// $router->get("/seja-membro-v2", function(){
+	// 	require "views/site/seja-membro-v2.php";
+	// });
 
 	$router->get("/coworking-space", function(){
 		require "views/site/coworking-space.php";
