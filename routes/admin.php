@@ -1650,6 +1650,10 @@
 				require_once "views/admin/reports-birthdays.php";
 			});
 
+			$router->get("/ranking", function(){
+				require_once "views/admin/reports-ranking.php";
+			});
+
 			$router->get("/orders", function(){
 				require_once "views/admin/reports-orders.php";
 			});

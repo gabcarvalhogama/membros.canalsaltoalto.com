@@ -263,6 +263,49 @@
 						</table>
 					</section>
 					
+
+					<section>
+						<div class="mt-5 d-flex align-items-center">
+							<h2>Diamantes</h2>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									<td>Diamantes</td>
+									<td>Tipo</td>
+									<td>Observações</td>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+									$User = new User;
+									$getDiamondByUserId = $User->getDiamondByUserId($user->iduser);
+									if($getDiamondByUserId->rowCount() > 0):
+										foreach($getDiamondByUserId->fetchAll(PDO::FETCH_ASSOC) as $diamond):
+								?>
+									<tr>
+										<td><?=$diamond['diamond_value']?></td>
+										<td>
+											<?=$diamond['diamond_origin_type']?>
+											<?php
+												if($diamond['diamond_origin_type'] == 'event_checkin'){
+													$Event = new Event;
+													$event = $Event->getEventById($diamond['diamond_origin_id']);
+													if($event->rowCount() > 0){
+														$event = $event->fetch(PDO::FETCH_OBJ);
+														echo ' - <a href="'.PATH.'app/events/'.$event->slug.'">'.$event->event_title.'</a>';
+													}
+												}
+											?>
+										</td>
+										<td><?=$diamond['diamond_observation']?></td>
+									</tr>
+								<?php endforeach; else: ?>
+									<tr><td colspan="6">Nenhum registro encontrado.</td></tr>
+								<?php endif; ?>
+							</tbody>
+						</table>
+					</section>
 				</div>
 			</div>
 		</div>

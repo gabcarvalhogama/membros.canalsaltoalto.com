@@ -207,6 +207,15 @@
 			]);
 		}
 
+		public function getDiamondByUserId($user_id){
+			$sql = DB::open()->prepare("SELECT * FROM csa_user_diamonds WHERE user_id = :user_id ORDER BY created_at DESC");
+			$sql->execute([
+				":user_id" => intval($user_id)
+			]);
+
+			return $sql;
+		}
+
 
 		public static function getActiveMembersCount() {
 		    $sql = DB::open()->prepare("
@@ -592,6 +601,29 @@
 		    $sql->execute();
 		    return $sql;
 		}
+
+
+		public function getUsersByDiamonds() {
+		    $sql = DB::open()->prepare("
+		        SELECT 
+				u.iduser, 
+				u.firstname, 
+				u.lastname, 
+				u.profile_photo,
+				(SELECT SUM(diamond_value) 
+				 FROM csa_user_diamonds ud 
+				 WHERE ud.user_id = u.iduser) AS diamonds
+			FROM 
+				csa_users u
+			ORDER BY 
+				diamonds DESC
+		    ");
+
+		    $sql->execute();
+		    return $sql;
+		}
+
+		
 
 
 		public function getInactiveUsers($limit = null){
