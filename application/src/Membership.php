@@ -26,6 +26,14 @@
 			return $sql;
 		}
 
+		public static function getPaidMembershipsByUserEmail($email){
+			$sql = DB::open()->prepare("SELECT um.* FROM csa_users_memberships um LEFT JOIN csa_users u ON um.iduser = u.iduser WHERE u.email = :email AND um.status = 'paid' ORDER BY um.starts_at DESC;");
+			$sql->execute([
+				":email" => $email
+			]);
+			return $sql;
+		}
+
 		public function getMembershipByOrderId($order_id){
 			$sql = DB::open()->prepare("SELECT * FROM csa_users_memberships WHERE order_id = :order_id LIMIT 1");
 			$sql->execute([

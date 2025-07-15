@@ -57,6 +57,11 @@
 
 	 					$Comunications->sendEmail($email, $email_title, $email_content);
 
+						
+						if(Membership::getPaidMembershipsByUserEmail($email)->rowCount() > 1)
+							User::addDiamond(User::getUserIdByEmail2($email), 100, null, "renewal", null);
+						
+
 
 
 			        	die(json_encode(["res" => 1]));
