@@ -17,9 +17,18 @@
 			<div class="container-xl">
                 <div style="width: 1200px;max-width: 100%">
                     <h1>Consultorias</h1>
-                    <div>
+					<p>Olá empreendedora membro!</p>
+					<p>Temos abaixo os serviços disponíveis em nossa aba de CONSULTORIAS. Eles estarão habilitados para você de acordo com a sua assinatura de membro.</p>
+					<p>Este é mais um benefício que estamos oferecendo para você dar um SALTO ALTO na vida e nos negócios e conquistar o extraordinário. APROVEITE!</p>
+					<p>Para acessar o benefício, clique no botão referente a ele, preencha o formulário e siga as instruções contidas no formulário. Caso precise, estaremos disponíveis em nosso whatsapp para te auxiliar. BORA CRESCER JUNTAS?! 🚀🚀🚀</p>
+                    <div class="mb-3">
                         <a href="https://forms.gle/7CCex8QxMoBVdTae7" target="_blank">
                             <img src="<?=PATH?>assets/images/banner-consultoria-analise-instagram.png" alt="" style="width: 100%" />
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://wa.me/5527996959895" target="_blank">
+                            <img src="<?=PATH?>assets/images/banner-sessao-orientacao.png" alt="" style="width: 100%" />
                         </a>
                     </div>
                 </div>

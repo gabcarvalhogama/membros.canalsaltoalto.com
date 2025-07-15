@@ -44,7 +44,7 @@
 									$video2 = str_replace("youtu.be", "youtube.com/embed", $video1);
 
 
-									echo '<iframe width="560" height="480" style="border-radius: 10px" src="'.($video2).'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+									echo '<iframe id="ytmainplayer" width="560" height="480" style="border-radius: 10px" src="'.($video2).'?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
 								}
 							?>
 						</div>
@@ -155,6 +155,7 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
+		<script src="https://www.youtube.com/iframe_api"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/app.js"></script>
 		<script type="text/javascript">
 			
@@ -162,6 +163,52 @@
 				direction: 'horizontal',
 				spaceBetween: 20,
 			});
+
+			let player;
+			let videoDuration = 0;
+			let eightyPercentReached = false;
+
+			function onYouTubeIframeAPIReady() {
+				player = new YT.Player('ytmainplayer', {
+				events: {
+					'onReady': onPlayerReady,
+					'onStateChange': onPlayerStateChange
+				}
+				});
+			}
+
+			function onPlayerReady(event) {
+				videoDuration = player.getDuration();
+				// Opcional: você pode iniciar automaticamente se quiser
+				// event.target.playVideo();
+			}
+
+			function onPlayerStateChange(event) {
+				if (event.data == YT.PlayerState.PLAYING && !eightyPercentReached) {
+					checkProgress();
+				}
+			}
+
+			function checkProgress() {
+				const interval = setInterval(() => {
+				const currentTime = player.getCurrentTime();
+				const percentWatched = (currentTime / videoDuration) * 100;
+
+				if (percentWatched >= 80 && !eightyPercentReached) {
+					eightyPercentReached = true;
+					clearInterval(interval);
+					console.log("🎯 O usuário assistiu 80% do vídeo!");
+
+					// Aqui você pode disparar um evento personalizado ou enviar para analytics, por exemplo:
+					// sendAnalyticsEvent();
+				}
+
+				// Se o vídeo terminar, encerra o intervalo
+				if (player.getPlayerState() === YT.PlayerState.ENDED) {
+					clearInterval(interval);
+				}
+				}, 1000);
+			}
 		</script>
 
 	</body>
