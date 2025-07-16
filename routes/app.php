@@ -831,6 +831,11 @@
 		});
 
 
+		$router->get("/ranking", function(){
+			require "views/app/ranking.php";
+		});
+
+
 
 		// $router->get("/test/20293029302", function(){
 		// 	// Teste de rota para verificação de funcionamento do sistema

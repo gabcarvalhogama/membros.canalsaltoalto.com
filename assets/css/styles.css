@@ -26339,6 +26339,21 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
   height: auto;
 }
 
+.btn-diamonds {
+  gap: 10px;
+  padding: 5px 10px;
+  border: solid 1px #ddd;
+  border-radius: 50px;
+  cursor: default;
+}
+.btn-diamonds img {
+  height: 20px;
+}
+.btn-diamonds span {
+  font-family: "Caviar Dreams";
+  font-size: 1.1rem;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -27243,20 +27258,6 @@ label, .form-label {
     font-size: 2em;
   }
 }
-.app .app__header .btn-diamonds {
-  gap: 10px;
-  padding: 5px 10px;
-  border: solid 1px #ddd;
-  border-radius: 50px;
-  cursor: default;
-}
-.app .app__header .btn-diamonds img {
-  height: 20px;
-}
-.app .app__header .btn-diamonds span {
-  font-family: "Caviar Dreams";
-  font-size: 1.1rem;
-}
 .app .app__hero--image {
   width: 100%;
 }
@@ -27489,6 +27490,9 @@ label, .form-label {
   .app .members-list__item--header .photo_title {
     align-items: baseline !important;
   }
+}
+.app .members-list__item.ranking .members-list__item--header .btn-diamonds span {
+  display: block;
 }
 .app .members-list__item .logo {
   width: 80px;

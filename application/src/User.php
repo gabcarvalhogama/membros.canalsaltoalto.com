@@ -692,7 +692,8 @@
 				    m.membership_title,
 				    (SELECT COUNT(company_id) 
 				     FROM csa_companies c 
-				     WHERE c.iduser = u.iduser AND c.status = 1) AS company_counter
+				     WHERE c.iduser = u.iduser AND c.status = 1) AS company_counter,
+					(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = u.iduser) as diamonds
 				FROM 
 				    csa_users u
 				INNER JOIN 
@@ -718,6 +719,61 @@
 		    return $sql;
 		}
 
+		public function getActiveUsersOrderByDiamonds($limit = null) {
+		    $limitClause = ($limit !== null && intval($limit) > 0) ? "LIMIT :limit" : "";
+
+		    $sql = DB::open()->prepare("
+		    	SELECT  
+				    u.iduser, 
+				    u.firstname, 
+				    u.lastname, 
+				    u.profile_photo, 
+				    u.biography,
+				    u.cpf, 
+				    u.birthdate, 
+				    u.zipcode, 
+				    u.address_state, 
+				    u.address_city, 
+				    u.address, 
+				    u.address_number, 
+				    u.address_neighborhood, 
+				    u.address_complement, 
+				    u.cellphone, 
+				    u.email, 
+				    u.user_type, 
+				    u.created_at, 
+				    u.updated_at,
+				    um.starts_at, 
+				    um.ends_at,
+				    m.membership_title,
+				    (SELECT COUNT(company_id) 
+				     FROM csa_companies c 
+				     WHERE c.iduser = u.iduser AND c.status = 1) AS company_counter,
+					(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = u.iduser) as diamonds
+				FROM 
+				    csa_users u
+				INNER JOIN 
+				    csa_users_memberships um ON u.iduser = um.iduser
+				LEFT JOIN 
+				    csa_memberships m ON um.membership_id = m.membership_id
+				WHERE 
+				    um.status = 'paid'
+				    AND um.ends_at > NOW()
+				    AND u.user_type = 0
+				ORDER BY 
+				    diamonds DESC;
+
+		        $limitClause
+		    ");
+
+		    if ($limit !== null && intval($limit) > 0) {
+		        $sql->bindValue(':limit', intval($limit), PDO::PARAM_INT);
+		    }
+
+		    $sql->execute();
+
+		    return $sql;
+		}
 
 
 		public function getLastUsersWithMembership($limit = null){
