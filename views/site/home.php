@@ -50,21 +50,7 @@
 			</div>
 		</section>
 
-		<section class="banners mt-4 mb-1">
-			<div class="container-xl">
-				<div class="d-flex flex-column flex-md-row flex-wrap justify-content-between">
-					<div class="banner-item">
-						<a href="https://canalsaltoalto.com/app" target="_blank"><img src="<?=PATH?>uploads/2024/07/banner-plataforma-membros.jpg" alt="" style="width: 100%;"></a>
-					</div>
-					<div class="banner-item">
-						<a href="https://www.youtube.com/c/CanalSaltoAlto" target="_blank"><img src="<?=PATH?>uploads/2024/07/banner-canal-youtube.jpg" alt="" style="width: 100%;"></a>
-					</div>
-					<div class="banner-item">
-						<a href="https://canalsaltoalto.com/guia-de-empreendedoras/" target="_blank"><img src="<?=PATH?>uploads/2024/07/Banner-guia-de-empreendedoras.jpg" alt="" style="width: 100%;"></a>
-					</div>
-				</div>
-			</div>
-		</section>
+		
 
 		<section class="banner mt-3 mb-3">
 			<div class="container-xl">
@@ -227,6 +213,22 @@
 				  
 				  <div class="swiper-button-prev"></div>
 				  <div class="swiper-button-next"></div>
+				</div>
+			</div>
+		</section>
+
+		<section class="banners mt-4 mb-1">
+			<div class="container-xl">
+				<div class="d-flex flex-column flex-md-row flex-wrap justify-content-between">
+					<div class="banner-item">
+						<a href="https://canalsaltoalto.com/app" target="_blank"><img src="<?=PATH?>assets/images/banner-plataforma.png" alt="" style="width: 100%;"></a>
+					</div>
+					<div class="banner-item">
+						<a href="https://www.youtube.com/c/CanalSaltoAlto" target="_blank"><img src="<?=PATH?>assets/images/banner-canal-youtube.png" alt="" style="width: 100%;"></a>
+					</div>
+					<div class="banner-item">
+						<a href="https://canalsaltoalto.com/guia-de-empreendedoras/" target="_blank"><img src="<?=PATH?>assets/images/banner-guia-empreendedoras.png" alt="" style="width: 100%;"></a>
+					</div>
 				</div>
 			</div>
 		</section>

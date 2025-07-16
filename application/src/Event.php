@@ -180,5 +180,14 @@
 		}
 
 
+		public function getCheckinsByEventId($idevent){
+			$sql = DB::open()->prepare("SELECT * FROM csa_events_checkins WHERE event_id = :idevent");
+			$sql->execute([
+				":idevent" => $idevent
+			]);
+
+			return $sql;
+		}
+
 		
 	}

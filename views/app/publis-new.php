@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 	<head>
 		<title>Nova Publi ‹ Área de Membros ‹ Canal Salto Alto</title>
-		<?=Template::render(null, "head-tags")?>
+		<?=Template::render(["is_private_area" => true], "head-tags")?>
 	</head>
 	<body class="app">
 		<?=Template::render(null, "header_app")?>

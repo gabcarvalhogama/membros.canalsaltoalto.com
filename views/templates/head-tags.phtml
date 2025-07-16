@@ -26,3 +26,20 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-TW27R8HZ');</script>
         <!-- End Google Tag Manager -->
+
+
+        <?php if(isset($is_private_area) && $is_private_area): ?>
+            <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+            <script>
+            window.OneSignalDeferred = window.OneSignalDeferred || [];
+            OneSignalDeferred.push(async function(OneSignal) {
+                await OneSignal.init({
+                appId: "fbd0925d-d9e9-4ad1-b628-29d2fdce12b7",
+                safari_web_id: "web.onesignal.auto.313afc18-65a3-4cb5-bd8a-eabd69c6e4d8",
+                notifyButton: {
+                    enable: true,
+                },
+                });
+            });
+            </script>
+        <?php endif; ?>

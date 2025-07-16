@@ -112,7 +112,9 @@
 				remove_script_host: false,
          	  	image_dimensions: false,
          	  	image_class_list: [
-		            {title: 'Responsive', value: 'img-responsive'}
+		            {title: 'Responsive', value: 'img-responsive'},
+					{ title: 'Bordas arredondadas', value: 'img-rounded'},
+					{ title: 'Largura total + Altura Dinâmica', value: 'img-fullwidth' },
 		        ]
 			});
 

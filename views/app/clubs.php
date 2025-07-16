@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
 		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
 		
-		<?=Template::render(null, "head-tags")?>
+		<?=Template::render(["is_private_area" => true], "head-tags")?>
 	</head>
 	<body class="app">
 		<?=Template::render(null, "header_app")?>

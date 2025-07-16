@@ -5,11 +5,18 @@
             "Canalsaltoalto\\Membros\\": "src/"
         }
     },
+    "repositories": [
+        {
+        "type": "vcs",
+        "url": "https://github.com/OneSignal/onesignal-php-api.git"
+        }
+    ],
     "require": {
         "bramus/router": "^1.6",
         "guzzlehttp/guzzle": "^7.8",
         "pagarme/pagarme-php": "^4.3",
         "phpmailer/phpmailer": "^6.9",
-        "endroid/qr-code": "^6.0"
+        "endroid/qr-code": "^6.0",
+        "onesignal/onesignal-php-api": "*@dev"
     }
 }

@@ -829,4 +829,32 @@
 
 			}
 		});
+
+
+
+		// $router->get("/test/20293029302", function(){
+		// 	// Teste de rota para verificação de funcionamento do sistema
+		// 	// Pode ser removido depois que tudo estiver funcionando corretamente
+			
+		// 	$Event = new Event;
+
+		// 	$events = $Event->getCheckinsByEventId(55);
+		// 	if($events->rowCount() > 0){
+		// 		foreach($events as $event){
+		// 			$event = (object) $event;
+		// 			echo "<pre>";
+
+		// 			// var_dump($event);
+
+		// 			User::addDiamond($event->user_id, 50.00, $event->event_id, "event_checkin", null);
+		// 			echo "Diamantes adicionados para o usuário ".$event->user_id." no evento ".$event->event_id." com sucesso!";
+
+
+		// 			echo "</pre>";
+		// 		}
+		// 	}
+
+
+		// 	exit();
+		// });
 	});

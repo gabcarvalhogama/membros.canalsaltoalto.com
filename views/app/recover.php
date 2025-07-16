@@ -16,7 +16,7 @@ if(!empty($_GET["token"])){
 		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
 
 		
-		<?=Template::render(null, "head-tags")?>
+		<?=Template::render(["is_private_area" => true], "head-tags")?>
 	</head>
 	<body class="app">
 
