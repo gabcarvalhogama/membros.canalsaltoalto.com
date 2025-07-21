@@ -9,9 +9,26 @@
 		a{
 			padding: 10px;
 		}
+
+		li:hover .submenu{
+			display: block;
+		}
 	}
 
 	@include lmenu;
+
+	.submenu{
+		display: none;
+		position: absolute;
+		background: #f9f9f9;
+		border-radius: 0px 0px 5px 5px;
+		margin-top: 10px;
+		li{
+			a{
+				padding: 20px;
+			}
+		}
+	}
 
 	.my-profile{
 		cursor: pointer;
