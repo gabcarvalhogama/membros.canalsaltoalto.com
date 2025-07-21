@@ -186,8 +186,8 @@
 
 		<section class="members mt-3 mb-3">
 			<div class="container-xl">
-				<h2>Sejam bem-vindas! ❤</h2>
-				<p>Nossas mais novas membros do Canal Salto Alto.</p>
+				<h2>Empreendedoras membros ❤</h2>
+				<p>Que estão chegando ou renovando sua assinatura!</p>
 				<!-- Slider main container -->
 				<div class="swiper swiper_members">
 				  <div class="swiper-wrapper">
