@@ -21,7 +21,7 @@
 						<a href="#plans" class="btn btn-rose btn-rounded btn-medium">QUERO SER MEMBRO</a>
 					</div>
 					<div class="col-md-6">
-						<iframe width="980" height="500" style="max-width:  100%;border-radius: 10px;" src="https://www.youtube.com/embed/ERrRshiMc8Y?si=tpi62am4OPUl42QP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<iframe width="980" height="500" style="max-width:  100%;border-radius: 10px;" src="https://www.youtube.com/embed/yQGwUE0aP4Q?si=tpi62am4OPUl42QP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 					</div>
 				</div>
 			</div>

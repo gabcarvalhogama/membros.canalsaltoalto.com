@@ -955,10 +955,14 @@
 
 
 				$Notice = new Notice;
-				if($Notice->create($_POST["notice_title"], $_POST["notice_content"], $notice_status, $_SESSION["csa_email"]))
+				if($Notice->create($_POST["notice_title"], $_POST["notice_content"], $notice_status, $_SESSION["csa_email"])){
+
+					
+					// echo $response;
 					die(json_encode(["res" => 1]));
-				else
+				}else{
 					die(json_encode(["res" => "Não foi possível criar este aviso. Atualize a página e tente novamente!"]));
+				}
 			}
 		});
 
@@ -1180,10 +1184,12 @@
 			$Consulting = new Consulting;
 			$create = $Consulting->create($_POST["user_id"], $_POST["consulting_date"], $_POST["consulting_observation"]);
 
-			if($create === true)
+			if($create === true){
+				User::addDiamond($_POST["user_id"], 50.00, null, "consulting_new", "Você ganhou 1 diamante por agendar uma consultoria com o Canal Salto Alto.");
 				die(json_encode(["res" => 1]));
-			else
+			}else{
 				die(json_encode(["res" => "Desculpe, não foi possível criar a consultoria."]));
+			}
 		});
 
 		$router->post("/members/consulting/delete/{user_consulting_id}", function($user_consulting_id){

@@ -128,6 +128,24 @@
 	});
 
 
+
+	// $router->get("/test-289283928", function(){
+	// 	// Teste de rota para verificar se o servidor está funcionando corretamente
+	// 	echo "Rota de teste funcionando!";
+
+	// 	$notifier = new PushNotification('fbd0925d-d9e9-4ad1-b628-29d2fdce12b7', 'Basic os_v2_app_7pijexoz5ffndnrifhjp3tqsw6lgquyi3ugunzfbz5xtnchc4g4ilegadhaezuqsmrteug64objqtipzpoo5w4wu5bqkxdjkxtok7vq');
+
+	// 	$notifier->setPayload([
+	// 		'contents' => ['en' => 'Em breve, as novas inscrições estarão suspensas. Toque no botão e faça a sua inscrição agora!'],
+	// 		'included_segments' => ['All'],
+	// 		'url' => 'https://canalsaltoalto.com/checkout',
+	// 		'name' => 'Últimas horas!'
+	// 	]);
+
+	// 	$response = $notifier->sendNotification();
+	// 	Logger::log("OneSignal Notification Response: " . json_encode($response), 'onesignal');
+	// });
+
 	// $router->get("/map-files", function(){
 	// 	// Configurações do banco de dados
 	// 	$dbHost = 'localhost';

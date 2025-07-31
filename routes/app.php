@@ -242,10 +242,14 @@
 			}else{
 				$Content = new Content;
 
-				if($Content->createComment($content_id, USER->iduser, addslashes(htmlspecialchars($_POST["comment"])), 1))
+				if($Content->createComment($content_id, USER->iduser, addslashes(htmlspecialchars($_POST["comment"])), 1)){
+					
+					
+					User::addDiamond(USER->iduser, 10.00, $content_id, "content_comment", null);
 					die(json_encode(["res" => 1]));
-				else
+				}else{
 					die(json_encode(["res" => "Desculpe, não foi possível postar o seu comentário. Atualize o site e tente novamente!"]));
+				}
 			}
 		});
 

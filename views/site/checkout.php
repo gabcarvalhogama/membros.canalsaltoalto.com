@@ -66,7 +66,10 @@
 								<a href="/app/recover" style="display: none;color: #000" id="f_auth_password_forgot">Esqueci minha senha</a>
 							</div>
 						</div>
-						<div class="row">
+
+						<div class="g-recaptcha" data-sitekey="6Lftp5UrAAAAAB7qNeVSOpAqOHoXxY08RP7OGmew"></div>
+
+						<div class="row mt-3">
 							<div class="col">
 								<button class="btn btn-rose-light btn-next">AVANÇAR PARA PRÓXIMA ETAPA</buton>
 							</div>
@@ -330,6 +333,8 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 		<!-- <script src="https://checkout.pagar.me/v1/tokenizecard.js" data-pagarmecheckout-app-id="pk_test_ZgALAN5IKBH50K1N"></script> -->
 		<script type="text/javascript" src="<?=PATH?>assets/js/checkout.js?<?=uniqid()?>"></script>
 		<!-- <script type="text/javascript">

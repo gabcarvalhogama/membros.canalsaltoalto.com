@@ -1,24 +1,47 @@
 <?php
+
+	function checkSuspendSubscription(){
+		if (new DateTime() > new DateTime('2025-07-31 23:59:59')) {
+				header("Location: /suspended-subscriptions");
+				exit;
+			}
+	}
+
+
+	$router->get("/suspended-subscriptions", function(){
+		require "views/site/suspended-subscriptions.php";
+	});
 	
 	// Checkout
 	$router->get("/checkout", function(){
+		    
+		checkSuspendSubscription();
+
 		$plan_id = 1;
 		require "views/site/checkout.php";
 	});
 
 	$router->get("/checkout/vip", function(){
+		checkSuspendSubscription();
 		$plan_id = 1;
 		require "views/site/checkout.php";
 	});
 
 	$router->get("/checkout/pro", function(){
+		checkSuspendSubscription();
 		$plan_id = 2;
 		require "views/site/checkout.php";
 	});
 
 	$router->get("/checkout/masterclass", function(){
+		checkSuspendSubscription();
 		$plan_id = 3;
 		require "views/site/checkout.php";
+	});
+
+
+	$router->get("/checkout/renewall", function(){
+		
 	});
 
 
@@ -40,6 +63,22 @@
 		if(empty($_POST["f_auth_email"])){
 			die(json_encode(["res" => "Por favor, informe o seu e-mail para começar."]));
 		}else{
+			$response = $_POST['g-recaptcha-response'];
+			$secret = "6Lftp5UrAAAAAJ8S5U76thjU_qlUQ_rQddrLRvQY";
+			if (empty($response)) {
+				die(json_encode(["res" => "Por favor, complete o reCAPTCHA para continuar.", "recaptcha_error" => 1]));
+			}
+
+
+			$verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secret}&response={$response}");
+			$captcha_success = json_decode($verify);
+
+			if (!$captcha_success->success)
+				die(json_encode(["res" => "Por favor, complete o reCAPTCHA corretamente.", "recaptcha_error" => 1]));
+
+
+
+
 			$User = new User;
 
 			if($User->getUserByEmail($_POST["f_auth_email"])->rowCount() > 0){

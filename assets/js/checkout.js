@@ -181,15 +181,20 @@ const Checkout = {
 				url: '/checkout/check-email',
 				dataType: 'json',
 				success: function(data){
-					if(data.res == 1 && data.has_email == 1){
-						$('#f_auth_password, #f_auth_password_forgot').fadeIn('fast')
-						$('#f_auth_password').focus()
-						Checkout.changeLabel("Seja bem-vinda de volta! <br />Informe sua senha.")
+					if(data.recaptcha_error == 1){
+						message.error(form, data.res);
+						return false;
 					}else{
-						$('#f_email').val(email)
-						Checkout.changeStep(null, '#enterpreneur')
+						if(data.res == 1 && data.has_email == 1){
+							$('#f_auth_password, #f_auth_password_forgot').fadeIn('fast')
+							$('#f_auth_password').focus()
+							Checkout.changeLabel("Seja bem-vinda de volta! <br />Informe sua senha.")
+						}else{
+							$('#f_email').val(email)
+							Checkout.changeStep(null, '#enterpreneur')
 
-						Checkout.changeLabel("Fale um pouco mais <br/>sobre você!")
+							Checkout.changeLabel("Fale um pouco mais <br/>sobre você!")
+						}
 					}
 				},
 				error: function(err){

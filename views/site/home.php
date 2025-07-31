@@ -164,7 +164,7 @@
 			</div>
 		</section>
 
-		<section class="newsletter bg-primary p-4 mt-5 mb-5">
+		<!-- <section class="newsletter bg-primary p-4 mt-5 mb-5">
 			<div class="container-xl">
 				<div class="row align-items-center">
 					<div class="col-md-6">
@@ -180,7 +180,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 
 

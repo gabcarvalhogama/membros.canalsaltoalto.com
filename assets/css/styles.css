@@ -26520,6 +26520,8 @@ label, .form-label {
   min-height: 100vh;
   z-index: 99;
   display: none;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 .site__header .lmenu--header {
   padding: 20px;
@@ -27189,6 +27191,8 @@ label, .form-label {
   min-height: 100vh;
   z-index: 99;
   display: none;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 .app .app__header .lmenu--header {
   padding: 20px;
@@ -28100,5 +28104,3 @@ label, .form-label {
     flex-direction: column;
   }
 }
-
-/*# sourceMappingURL=styles.css.map */
