@@ -2,15 +2,15 @@
 
 class PushNotification
 {
-    private string $appId;
-    private string $authorization;
+    private string $appId = "fbd0925d-d9e9-4ad1-b628-29d2fdce12b7";
+    private string $authorization = "Basic os_v2_app_7pijexoz5ffndnrifhjp3tqsw6lgquyi3ugunzfbz5xtnchc4g4ilegadhaezuqsmrteug64objqtipzpoo5w4wu5bqkxdjkxtok7vq";
     private array $payload = [];
 
-    public function __construct(string $appId, string $authorization)
-    {
-        $this->appId = $appId;
-        $this->authorization = $authorization;
-    }
+    // public function __construct(string $appId, string $authorization)
+    // {
+    //     $this->appId = $appId;
+    //     $this->authorization = $authorization;
+    // }
 
     public function setPayload(array $data): void
     {

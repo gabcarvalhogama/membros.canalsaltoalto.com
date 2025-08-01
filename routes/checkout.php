@@ -41,7 +41,7 @@
 
 
 	$router->get("/checkout/renewall", function(){
-		
+		require_once "views/site/checkout-renewall.php";
 	});
 
 

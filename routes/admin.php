@@ -957,8 +957,19 @@
 				$Notice = new Notice;
 				if($Notice->create($_POST["notice_title"], $_POST["notice_content"], $notice_status, $_SESSION["csa_email"])){
 
-					
-					// echo $response;
+					$notifier = new PushNotification();
+
+					$notifier->setPayload([
+						'contents' => ['en' => $_POST["notice_content"]],
+						'included_segments' => ['All'],
+						'url' => 'https://canalsaltoalto.com/app/notices',
+						'name' => 'Novo aviso | Canal Salto Alto'
+					]);
+
+					$response = $notifier->sendNotification();
+					Logger::log("OneSignal Notification Response: " . json_encode($response), 'onesignal');
+
+
 					die(json_encode(["res" => 1]));
 				}else{
 					die(json_encode(["res" => "Não foi possível criar este aviso. Atualize a página e tente novamente!"]));
