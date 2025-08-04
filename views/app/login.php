@@ -44,6 +44,8 @@
 						<div class="col text-center">
 							<button class="btn btn-rose btn-full mb-2">ENTRAR</button>
 							<a href="<?=PATH?>app/recover">Esqueci minha senha</a>
+							<br><br>
+							<a href="<?=PATH?>checkout/renewall">Quero renovar minha conta</a>
 						</div>
 					</div>
 				</form>

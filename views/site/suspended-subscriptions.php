@@ -18,12 +18,12 @@
 					<div class="app__welcome--box">
 						<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="app__welcome--logo mb-2" />
 						<h2 class="text-center">Assinaturas Suspensas!</h2>
-						<p class="text-center ">Novas assinaturas para a Comunidade Salto Alto estão suspensas por tempo indeterminado.</p>
+						<p class="text-center ">Novas assinaturas para a Comunidade Salto Alto estão suspensas e retornarão na próxima temporada.</p>
 					</div>
 					<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/gQkW1HIWAZo?si=MZdKmwcCeOa7Fop0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
 
 					<div class="app__welcome--box mt-3">
-						<p>Clique no botão para acessar nosso instagram:</p>
+						<p>A data de retorno será anunciada no Instagram. Clique no botão para acessar:</p>
 						<a href="http://instagram.com/canalsaltoalto" class="btn btn-rose">Acessar instagram agora</a>
 					</div>
 				</div>
