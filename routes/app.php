@@ -280,6 +280,11 @@
 		});
 
 
+		$router->get("/extras", function(){
+			require "views/app/extras.php";
+		});
+
+
 		$router->get("/companies", function(){
 	  		$Company = new Company;
 

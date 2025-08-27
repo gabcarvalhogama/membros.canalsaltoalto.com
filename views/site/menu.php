@@ -28,7 +28,7 @@
 						<a href="https://canalsaltoalto.com/seja-membro"><img src="<?=PATH?>assets/images/banner-ainda-nao-sou-membro.jpg" alt="" class="navigationpage--item" style="max-width: 100%;border-radius: 5px;"></a>
 					</div>
 					<div class="col-md-4 mb-3">
-						<a href="https://canalsaltoalto.com/checkout"><img src="<?=PATH?>assets/images/banner-renovar-assinatura.jpg" alt="" class="navigationpage--item" style="border: solid 2px #e54c8e;max-width: 100%;border-radius: 5px;"></a>
+						<a href="https://canalsaltoalto.com/checkout/renewall"><img src="<?=PATH?>assets/images/banner-renovar-assinatura.jpg" alt="" class="navigationpage--item" style="border: solid 2px #e54c8e;max-width: 100%;border-radius: 5px;"></a>
 					</div>
 				</div>
 			</div>

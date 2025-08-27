@@ -14,14 +14,15 @@
 			    //Server settings
 			    // $mail->SMTPDebug = false;                      //Enable verbose debug output
 			    $mail->isSMTP();                                            //Send using SMTP
-			    $mail->Host       = 'smtp-relay.brevo.com';                     //Set the SMTP server to send through
+			    $mail->Host       = 'email-smtp.sa-east-1.amazonaws.com';                     //Set the SMTP server to send through
 			    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-			    $mail->Username   = '8793f1001@smtp-brevo.com';                     //SMTP username
-			    $mail->Password   = '4PFxwzRCykIQEK3s';                               //SMTP password
+			    $mail->Username   = 'AKIARME3IPVFRI24RDFN';                     //SMTP username
+			    $mail->Password   = 'BJj3vctlccrPUg4pN+z3VOT+qIhZU3wxUghw5/WP3DMk';                               //SMTP password
 			    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
 			    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 			    $mail->CharSet = "UTF-8";
 
+				
 
 			    //Recipients
 			    $mail->setFrom('naoresponda@canalsaltoalto.com', 'Canal Salto Alto');

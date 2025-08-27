@@ -1,7 +1,7 @@
 <?php 
 	
 	$User = new User;
-	$getUsers = $User->getUsers();
+	$getUsers = $User->getAllUsersWithLastSubscription();
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +53,11 @@
                         $endDate = $_GET['end_date'];
 
                         $filteredUsers = array_filter($getUsers->fetchAll(PDO::FETCH_ASSOC), function($user) use ($startDate, $endDate) {
-                            return (!empty($user['ends_at']) && $user['ends_at'] >= $startDate && $user['ends_at'] <= $endDate);
+                            return (
+								!empty($user['ends_at']) 
+								&& $user['ends_at'] >= $startDate 
+								&& $user['ends_at'] <= $endDate
+							);
                         });
                     } else {
                         $filteredUsers = $getUsers->fetchAll(PDO::FETCH_ASSOC);
