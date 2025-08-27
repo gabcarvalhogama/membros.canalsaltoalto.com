@@ -10,6 +10,9 @@
 	use Endroid\QrCode\Writer\PngWriter;
 	use Endroid\QrCode\Writer\ValidationException;
 	
+	use PhpOffice\PhpSpreadsheet\Spreadsheet;
+	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+	
 	$router->before('GET|POST', '/admin(?!/(login|recover|recover/updatepwd)$).*', function(){
 		$User = new User;
 
@@ -720,7 +723,6 @@
 
 			}
 		});
-
 		$router->get("/clubs/edit/{club_id}", function($club_id){
 			$Club = new Club;
 			$getClub = $Club->getClubById($club_id);
@@ -734,7 +736,6 @@
 
 			require "views/admin/clubs-edit.php";
 		});
-
 		$router->post("/clubs/edit/{club_id}", function($club_id){
 			if(empty($_POST["club_id"])){
 				die(json_encode(["res" => "Por favor, atualize a página e tente novamente!"]));
@@ -762,7 +763,6 @@
 					die(json_encode(["res"=>"Desculpe, não foi possivel atualizar este clube. Atualize a página e tente novamente!"]));
 			}
 		});
-
 		$router->post("/clubs/delete/{club_id}", function($club_id){
 			if(empty($club_id)){
 				die(json_encode(["res" => "Desculpe, não foi possível apagar este clube."]));
@@ -1043,10 +1043,59 @@
 
 
 		$router->get("/members", function(){
-			require "views/admin/members-test.php";
+			require "views/admin/members.php";
 		});
-		$router->get("/members-test", function(){
-			require "views/admin/members-test.php";
+
+		$router->get("/members/export", function(){
+
+			$User = new User;
+			$users = $User->getUsers();
+
+			$spreadsheet = new Spreadsheet();
+			$sheet = $spreadsheet->getActiveSheet();
+
+			// Cabeçalhos
+			$headers = [
+				'Nome', 'Sobrenome', 'C.P.F.', 'Data de Nascimento', 'CEP', 'Estado',
+				'Cidade', 'Endereço', 'Número', 'Bairro', 'Complemento', 'Celular',
+				'E-mail', 'Data de Cadastro', 'Status'
+			];
+
+			$sheet->fromArray($headers, NULL, 'A1');
+
+			// Dados
+			$row = 2;
+			while($user = $users->fetchObject()) {
+				$sheet->fromArray([
+					$user->firstnae,
+					$user->lastname,
+					$user->cpf,
+					$user->birthdate,
+					$user->zipcode,
+					$user->address_state_name,
+					$user->address_city_name,
+					$user->address,
+					$user->address_number,
+					$user->address_neighborhood,
+					$user->address_complement,
+					$user->cellphone,
+					$user->email,
+					($user->created_at == null) ? "" : date("d/m/Y H:i", strtotime($user->created_at)),
+					($user->is_member == 1) ? "Ativo" : "Inativo"
+				], NULL, 'A'.$row);
+				$row++;
+			}
+
+			$filename = "membros-".date("YmdHis").".xlsx";
+
+			// Headers para download
+			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment; filename="'.$filename.'"');
+			header('Cache-Control: max-age=0');
+
+			$writer = new Xlsx($spreadsheet);
+			$writer->save('php://output');
+			exit;
 		});
 
 		$router->get("/members/new", function(){
@@ -1578,6 +1627,21 @@
 					0,
 					USER->iduser
 				)){
+
+					$Comunications = new Comunications;
+					$email_title = "Nova publi cadastrada - Canal Salto Alto";
+					$content = "<div>
+						<p>Uma nova publi foi cadastrada e está aguardando aprovação. Clique no botão a seguir para verificar as publis pendentes:</p>
+						<a href='https://canalsaltoalto.com/admin/publis/approves'>VERIFICAR PUBLIS NO PAINEL</a>
+					</div>";
+					$email_content = Template::render([
+						"email_title" => $email_title,
+						"email_content" => $content 
+					], "email_general");
+ 					$Comunications->sendEmail("faleconoscosaltoalto@gmail.com", $email_title, $email_content);
+
+					
+
 					die(json_encode(["res" => 1]));
 				}
 				else{

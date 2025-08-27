@@ -17,6 +17,7 @@
         "pagarme/pagarme-php": "^4.3",
         "phpmailer/phpmailer": "^6.9",
         "endroid/qr-code": "^6.0",
-        "onesignal/onesignal-php-api": "*@dev"
+        "onesignal/onesignal-php-api": "*@dev",
+        "phpoffice/phpspreadsheet": "^5.0"
     }
 }

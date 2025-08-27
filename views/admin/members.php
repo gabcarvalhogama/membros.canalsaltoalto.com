@@ -1,7 +1,7 @@
 <?php 
 	
 	$User = new User;
-	$getUsers = $User->getUsers();
+	$getUsers = $User->getAllUsersWithLastSubscription();
 
 ?>
 <!DOCTYPE html>
@@ -26,6 +26,36 @@
 				<div class="container">
 					<h1>Membros</h1>
 					<p>Nessa página você encontra a lista de todos os membros cadastrados no sistema, incluindo administradores. Atualmente existem <?=$getUsers->rowCount()?> usuários cadastrados.</p>
+
+                    <form method="GET" action="">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="flex flex-row align-items-center">
+									<input type="date" id="start_date" name="start_date" value="<?= isset($_GET['start_date']) ? $_GET['start_date'] : '' ?>"> - 
+									<input type="date" id="end_date" name="end_date" value="<?= isset($_GET['end_date']) ? $_GET['end_date'] : '' ?>">
+									<button type="submit" class="btn btn-primary">Filtrar</button>
+								</div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <?php
+                    if (isset($_GET['start_date']) && isset($_GET['end_date']) && !empty($_GET['start_date']) && !empty($_GET['end_date'])) {
+                        $startDate = $_GET['start_date'];
+                        $endDate = $_GET['end_date'];
+
+                        $filteredUsers = array_filter($getUsers->fetchAll(PDO::FETCH_ASSOC), function($user) use ($startDate, $endDate) {
+                            return (
+								!empty($user['ends_at']) 
+								&& $user['ends_at'] >= $startDate 
+								&& $user['ends_at'] <= $endDate
+							);
+                        });
+                    } else {
+                        $filteredUsers = $getUsers->fetchAll(PDO::FETCH_ASSOC);
+                    }
+                    ?>
+
 					<table class="table table-hover">
 						<thead>
 							<th></th>
@@ -37,8 +67,8 @@
 						<tbody>
 							
 							<?php
-								if($getUsers->rowCount() > 0):
-									foreach($getUsers->fetchAll(PDO::FETCH_ASSOC) as $user):
+								if(count($filteredUsers) > 0):
+									foreach($filteredUsers as $user):
 							?>
 							<tr>
 								<td style="width: auto">
@@ -74,6 +104,8 @@
 		</div>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/daterangepicker.min.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/moment.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
 	</body>
