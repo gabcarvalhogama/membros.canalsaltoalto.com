@@ -32,7 +32,7 @@
 						  		foreach($getBanners->fetchAll(PDO::FETCH_ASSOC) as $banner):
 							?>
 								<tr>
-									<td><img src="<?=PATH.$banner['path_desktop'];?>" alt="" class="img-fluid"></td>
+									<td><img src="<?=PATH.$banner['path_desktop'];?>" alt="" class="img-fluid" style="max-width: 400px;"></td>
 									<td><?=$Banner->positions[$banner['position']]?></td>
 									<td><a href="<?=$banner['link']?>" target="_blank" style="color: #000"><?=$banner['link']?></a></td>
 									<td>

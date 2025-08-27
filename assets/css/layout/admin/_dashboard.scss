@@ -19,7 +19,8 @@
 		width: 250px;
 		max-width: 100%;
 		color: #333;
-		box-shadow: 2px 2px 4px rgba(150, 150, 150, .1);
+		box-shadow: 10px 0px 20px 0px rgb(0, 0, 0, 0.05);
+		z-index: 3;
 		@media screen and (max-width: 1200px){
 			width: 100%;
 			display: flex;
