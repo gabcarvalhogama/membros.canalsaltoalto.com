@@ -82,7 +82,7 @@
 			</div>
 		</section> -->
 
-		<section class="app__notices mt-4 mb-4">
+		<!-- <section class="app__notices mt-4 mb-4">
 			<div class="container-xl">
 				<h2>Nossos <span class="color-primary">avisos</span></h2>
 				<?php
@@ -92,7 +92,7 @@
 			  			echo Template::render($notice, "loop_notices");
 			  	?>
 			</div>
-		</section>
+		</section> -->
 
 
 
