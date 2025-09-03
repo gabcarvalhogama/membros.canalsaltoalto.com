@@ -35,4 +35,6 @@
 
 	include "routes/pagarme.php";
 
+	include "routes/webhook.php";
+
 	$router->run();

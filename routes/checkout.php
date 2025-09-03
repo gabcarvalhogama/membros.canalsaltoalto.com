@@ -401,6 +401,11 @@
 	});
 
 
+	$router->get("/checkout/success", function(){
+		require_once "views/site/checkout-success.php";
+	});
+
+
 	$router->post("/checkout/check-coupon", function(){
 		if(empty($_POST["f_coupon"])){
 			die(json_encode(["res" => "Desculpe, o cupom enviado é inválido."]));
