@@ -14,10 +14,10 @@
 			    //Server settings
 			    // $mail->SMTPDebug = false;                      //Enable verbose debug output
 			    $mail->isSMTP();                                            //Send using SMTP
-			    $mail->Host       = 'email-smtp.sa-east-1.amazonaws.com';                     //Set the SMTP server to send through
+			    $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
 			    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-			    $mail->Username   = 'AKIARME3IPVFRI24RDFN';                     //SMTP username
-			    $mail->Password   = 'BJj3vctlccrPUg4pN+z3VOT+qIhZU3wxUghw5/WP3DMk';                               //SMTP password
+			    $mail->Username   = 'naoresponda@canalsaltoalto.com';                     //SMTP username
+			    $mail->Password   = 'V&K:@!+2y';                               //SMTP password
 			    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
 			    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 			    $mail->CharSet = "UTF-8";
