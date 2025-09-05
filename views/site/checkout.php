@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 	<head>
-		<title>Canal Salto Alto - Seja Membro</title>
+		<title>Renovação - Seja Membro - Canal Salto Alto</title>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
@@ -15,26 +15,19 @@
 		<div class="container-xl mt-5 checkout__header">
 			<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="checkout__header--logo" />
 			<hgroup>
-				<h1>FINALIZE SUA COMPRA</h1>
-				<h2>Falta pouco para você <br />ter acesso a nossa Comunidade!</h2>
+				<h1>RENOVE SUA ASSINATURA</h1>
+				<h2>Falta pouco para você <br />voltar a ter acesso a nossa Comunidade!</h2>
 			</hgroup>
 
 
 
 			<?php 
+                $plan_id = 1;
 				$Membership = new Membership;
 				$getPlan = $Membership->getMembershipPlanById($plan_id);
 
 				$plan = $getPlan->fetchObject();
 			?>
-
-			<!-- <div class="row align-items-center">
-				<div class="col-6">
-					<a href="<?=PATH?>"><i class="fa-solid fa-chevron-left"></i> VOLTAR AO INÍCIO</a>
-				</div>
-				<div class="col-6 d-flex justify-content-end">
-				</div>
-			</div> -->
 		</div>
 
 		<div class="container-xl checkout__content">
@@ -42,7 +35,6 @@
 				<div class="checkout__content--price">
 					<div class="d-flex flex-row align-items-center">
 						<div style="width: 80px; height: 80px;border-radius: 5px;background: #E54C8E;">
-							<!-- <img src="<?=PATH?>/uploads/2024/07/banner-plataforma-membros.jpg" style="width: 125px;" /> -->
 						</div>
 						<div class="flex flex-column" style="margin-left: 10px;">
 							<h4 class="font-weight-bold">
@@ -62,8 +54,8 @@
 						</div>
 						<div class="row mb-3">
 							<div class="col">
-								<input type="password" style="display: none" class="form-control" id="f_auth_password" name="f_auth_password" placeholder="Digite a sua senha" tabindex="1" />
-								<a href="/app/recover" style="display: none;color: #000" id="f_auth_password_forgot">Esqueci minha senha</a>
+								<input type="password" class="form-control mb-2" id="f_auth_password" name="f_auth_password" placeholder="Digite a sua senha" tabindex="1" />
+								<a href="/app/recover" style="color: #000" id="f_auth_password_forgot">Esqueci minha senha</a>
 							</div>
 						</div>
 
@@ -220,64 +212,6 @@
 							<label for="f_fiscal_cpf" class="form-label">CPF *</label>
 							<input type="text" class="form-control" id="f_fiscal_cpf" name="f_fiscal_cpf" placeholder="CPF" required data-mask="000.000.000-00" tabindex="6" />
 						</div>
-						
-						<div class="checkout__payment">
-							<p>Selecione a melhor forma de pagamento</p>
-							<div class="checkout__payment--item d-flex" onclick="Checkout.changePayment(this, 'pix')">
-								<span class="mr-1_5">Pague via Pix</span>
-								<img src="<?=PATH?>assets/images/logo-pix-horizontal.svg" class="pix" alt="" />
-							</div>
-							<div class="checkout__payment--item d-flex" onclick="Checkout.changePayment(this, 'credit_card')">
-								<span class="mr-1_5">Pague via Cartão de Crédito</span>
-								<img src="<?=PATH?>assets/images/logo-cc-horizontal.svg" class="cc" alt="" />
-							</div>
-						</div>
-
-						<input type="hidden" name="f_payment_method" id="f_payment_method" />
-						<input type="hidden" name="f_plan" id="f_plan" value="<?=$plan->membership_id?>" />
-
-						<div class="checkout__creditcard">
-							<div class="row mb-3">
-								<div class="col">
-									<label for="f_cc_holdername" class="form-label">Nome no Cartão</label>
-									<input type="text" class="form-control" id="f_cc_holdername" data-pagarmecheckout-element="holder_name" name="f_cc_holdername" placeholder="" />
-								</div>
-							</div>
-							<div class="row mb-3">
-								<div class="col">
-									<label for="f_cc_number" class="form-label">Número do Cartão de Crédito</label>
-									<input type="text" class="form-control" id="f_cc_number" data-pagarmecheckout-element="number" name="f_cc_number" placeholder="" data-mask="0000 0000 0000 0000" />
-								    <span  data-pagarmecheckout-element="brand"></span>
-								</div>
-							</div>
-
-							<div class="row mb-3">
-								<div class="col-md-6">
-									<label for="f_cc_expirationdate" class="form-label">Data de Validade</label>
-									<input type="text" class="form-control" id="f_cc_expirationdate" name="f_cc_expirationdate" value="DD/AA" data-mask="00/00" onkeyup="Checkout.updateExpirationDates(this.value)" />
-									<input type="hidden" id="f_cc_expirationdate_month" data-pagarmecheckout-element="exp_month" />
-									<input type="hidden" id="f_cc_expirationdate_year" data-pagarmecheckout-element="exp_year" />
-								</div>
-								<div class="col-md-6">
-									<label for="f_cc_cvv" class="form-label">CVV</label>
-									<input type="text" class="form-control" id="f_cc_cvv" name="f_cc_cvv" maxlength="3" data-pagarmecheckout-element="cvv" />
-								</div>
-							</div>
-
-							<div class="row mb-3">
-								<div class="col">
-									<label for="f_cc_installments" class="form-label">Selecione o Parcelamento</label>
-									<select name="f_cc_installments" class="form-control" id="f_cc_installments">
-										<option value="1">À vista (R$ <?=Validation::decimalToReal($plan->membership_price_incash)?>) s/juros</option>
-										<?php 
-											for($i = 2; $i <= 12; $i++):
-										?>
-										<option value="<?=$i?>"><?=$i?>x de <?=Validation::decimalToReal($plan->membership_price_cc/$i)?> (R$ <?=Validation::decimalToReal($plan->membership_price_cc)?>) c/juros</option>
-									<?php endfor; ?>
-									</select>
-								</div>
-							</div>
-						</div>
 
 						<div>
 							<p>Ao clicar em "Finalize sua Compra" você concorda com os termos da <a style="color: #E54C8E !important; font-weight: bold;" href="https://canalsaltoalto.com/privacidade-e-dados" target="_blank">Política de Privacidade e Consentimento para Tratamento de Dados Pessoais</a> e com os termos da <a style="color: #E54C8E !important; font-weight: bold;" href="https://canalsaltoalto.com/politica-de-bom-uso" target="_blank">Política de Bom Uso do Site e da Rede de Empreendedoras</a>.</p>
@@ -288,6 +222,7 @@
 								<button type="submit" class="btn btn-rose-light finish-checkout"><i class="fa-solid fa-lock"></i> FINALIZE SUA COMPRA</button>
 							</div>
 						</div>
+						<input type="hidden" name="f_plan" value="<?=$plan->membership_id?>" />
 					</form>
 				</form-step>
 

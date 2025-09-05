@@ -205,70 +205,12 @@
 
 				<!-- # Pagamento -->
 				<form-step id="payment">
-					<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutPayment(this)" data-pagarmecheckout-form>
+					<form action="javascript:void(0)" method="post" onsubmit="Checkout.checkoutPayment(this)">
 						<div class="message"></div>
 
 						<div class="mb-3 col">
 							<label for="f_fiscal_cpf" class="form-label">CPF *</label>
 							<input type="text" class="form-control" id="f_fiscal_cpf" name="f_fiscal_cpf" placeholder="CPF" required data-mask="000.000.000-00" tabindex="6" />
-						</div>
-						
-						<div class="checkout__payment">
-							<p>Selecione a melhor forma de pagamento</p>
-							<div class="checkout__payment--item d-flex" onclick="Checkout.changePayment(this, 'pix')">
-								<span class="mr-1_5">Pague via Pix</span>
-								<img src="<?=PATH?>assets/images/logo-pix-horizontal.svg" class="pix" alt="" />
-							</div>
-							<div class="checkout__payment--item d-flex" onclick="Checkout.changePayment(this, 'credit_card')">
-								<span class="mr-1_5">Pague via Cartão de Crédito</span>
-								<img src="<?=PATH?>assets/images/logo-cc-horizontal.svg" class="cc" alt="" />
-							</div>
-						</div>
-
-						<input type="hidden" name="f_payment_method" id="f_payment_method" />
-						<input type="hidden" name="f_plan" id="f_plan" value="<?=$plan->membership_id?>" />
-
-						<div class="checkout__creditcard">
-							<div class="row mb-3">
-								<div class="col">
-									<label for="f_cc_holdername" class="form-label">Nome no Cartão</label>
-									<input type="text" class="form-control" id="f_cc_holdername" data-pagarmecheckout-element="holder_name" name="f_cc_holdername" placeholder="" />
-								</div>
-							</div>
-							<div class="row mb-3">
-								<div class="col">
-									<label for="f_cc_number" class="form-label">Número do Cartão de Crédito</label>
-									<input type="text" class="form-control" id="f_cc_number" data-pagarmecheckout-element="number" name="f_cc_number" placeholder="" data-mask="0000 0000 0000 0000" />
-								    <span  data-pagarmecheckout-element="brand"></span>
-								</div>
-							</div>
-
-							<div class="row mb-3">
-								<div class="col-md-6">
-									<label for="f_cc_expirationdate" class="form-label">Data de Validade</label>
-									<input type="text" class="form-control" id="f_cc_expirationdate" name="f_cc_expirationdate" value="DD/AA" data-mask="00/00" onkeyup="Checkout.updateExpirationDates(this.value)" />
-									<input type="hidden" id="f_cc_expirationdate_month" data-pagarmecheckout-element="exp_month" />
-									<input type="hidden" id="f_cc_expirationdate_year" data-pagarmecheckout-element="exp_year" />
-								</div>
-								<div class="col-md-6">
-									<label for="f_cc_cvv" class="form-label">CVV</label>
-									<input type="text" class="form-control" id="f_cc_cvv" name="f_cc_cvv" maxlength="3" data-pagarmecheckout-element="cvv" />
-								</div>
-							</div>
-
-							<div class="row mb-3">
-								<div class="col">
-									<label for="f_cc_installments" class="form-label">Selecione o Parcelamento</label>
-									<select name="f_cc_installments" class="form-control" id="f_cc_installments">
-										<option value="1">À vista (R$ <?=Validation::decimalToReal($plan->membership_price_incash)?>) s/juros</option>
-										<?php 
-											for($i = 2; $i <= 12; $i++):
-										?>
-										<option value="<?=$i?>"><?=$i?>x de <?=Validation::decimalToReal($plan->membership_price_cc/$i)?> (R$ <?=Validation::decimalToReal($plan->membership_price_cc)?>) c/juros</option>
-									<?php endfor; ?>
-									</select>
-								</div>
-							</div>
 						</div>
 
 						<div>
@@ -280,6 +222,8 @@
 								<button type="submit" class="btn btn-rose-light finish-checkout"><i class="fa-solid fa-lock"></i> FINALIZE SUA COMPRA</button>
 							</div>
 						</div>
+
+						<input type="hidden" name="f_plan" value="<?=$plan->membership_id?>" />
 					</form>
 				</form-step>
 
@@ -327,18 +271,6 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-		<!-- <script src="https://checkout.pagar.me/v1/tokenizecard.js" data-pagarmecheckout-app-id="pk_test_ZgALAN5IKBH50K1N"></script> -->
 		<script type="text/javascript" src="<?=PATH?>assets/js/checkout.js?<?=uniqid()?>"></script>
-		<!-- <script type="text/javascript">
-			function success(data) {
-        	};
-    
-        	function fail(error) {
-        		alert("Error")
-            	console.error(error);
-        	};
-    
-        	PagarmeCheckout.init(success,fail)
-		</script> -->
 	</body>
 </html>

@@ -298,8 +298,6 @@ const Checkout = {
 		});
 	},
 	checkoutPayment: function(form){
-		// $(form).addClass("inactive")
-		// message.warning(form, "Carregando, aguarde...");
 		Checkout.changeStep(null, "#checkout__loading")
 	
 		var object = this.payload;
@@ -318,22 +316,16 @@ const Checkout = {
 			url: '/checkout',
 			dataType: 'json',
 			success: function(data){
-				if(data.res == 1){
-					if(data.qr_code != null){
-						$('#pixImage').attr("src", data.qr_code_url)
-						$('#pixField').val(data.qr_code)
-						Checkout.changeStep(null, "#checkouting-pix_pending")
-
-						Checkout.changeLabel("Agora é só fazer o pagamento do <br/>Pix abaixo e aguardar!")
-					}else{
-						// alert("Desculpe, não foi possível gerar o QR Code.")
-					}
-					Checkout.checkPayment()
-
-				}else{
-					Checkout.changeStep(null, "#"+data.step)
-					alert(data.res);
-				}
+				console.log(data)
+                if(data.res == 1){
+                    setTimeout(function(){
+                        window.location = data.checkout_url;
+                        // console.log(data.checkout_url)
+                    }, 3000);
+                }else{
+                    alert(data.res)
+                    Checkout.changeStep(null, "#"+data.step)
+                }
 
 			},
 			error: function(err){
