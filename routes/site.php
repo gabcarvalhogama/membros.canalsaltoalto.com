@@ -124,3 +124,10 @@
 		}
 	});
 
+
+
+	// $router->get("/test/evo", function(){
+	// 	$EvolutionAPI = new EvolutionAPI();
+	// 	$response = $EvolutionAPI->sendTextMessage('5527998031679', 'Teste de envio de mensagem via API do Evo');
+	// });
+

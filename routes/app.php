@@ -143,9 +143,12 @@
 						"email_content" => $content
 					], "email_general");
 
-
-
  					$mail_send = $Comunications->sendEmail($userData->email, $email_title, $email_content);
+
+					
+					$EvolutionAPI = new EvolutionAPI();
+					$content_message = "Olá, $userData->firstname! Recebemos sua solicitação para recuperação de senha. Acesse o link para redefinir sua senha: https://canalsaltoalto.com/app/recover/?token=$token";
+					$response = $EvolutionAPI->sendTextMessage("55$userData->cellphone", $content_message);
 
 					if($mail_send == true){
 						Logger::log("INFO", "E-mail de recuperação de senha enviado para ".$userData->email, $userData->iduser);
