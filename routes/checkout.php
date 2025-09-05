@@ -44,6 +44,10 @@
 		require_once "views/site/checkout-renewall.php";
 	});
 
+	$router->get("/checkout/newpay", function(){
+		require_once "views/site/checkout-newpay.php";
+	});
+
 
 	$router->get("/checkout/cities/{uf}", function($uf){
 		if(empty($uf)){
@@ -397,6 +401,207 @@
 			default:
 				die(json_encode(["res" => "Por favor, selecione uma forma de pagamento válida.", "step" => "payment"]));
 				exit;
+		}
+	});
+
+
+	$router->post("/checkout.newpay", function(){
+		$User = new User;
+		if(($User->isUserAuthenticated()) == false){
+			if(empty($_POST["f_firstname"])){
+				die(json_encode(["res"=>"Por favor, informe seu nome!", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_lastname"])){
+				die(json_encode(["res"=>"Por favor, informe seu sobrenome.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_cpf"])){
+				die(json_encode(["res"=>"Por favor, informe seu C.P.F.", "step" => "enterpreneur"]));
+			}else if(!User::validateCPF($_POST["f_cpf"])){
+				die(json_encode(["res"=>"Por favor, informe um C.P.F. válido.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_birthdate"])){
+				die(json_encode(["res"=>"Por favor, informe sua data de nascimento.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_zipcode"])){
+				die(json_encode(["res"=>"Por favor, informe um CEP válido.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_state"])){
+				die(json_encode(["res"=>"Por favor, informe o seu estado.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_city"])){
+				die(json_encode(["res"=>"Por favor, informe sua cidade.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_address"])){
+				die(json_encode(["res"=>"Por favor, informe seu endereço.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_neighborhood"])){
+				die(json_encode(["res"=>"Por favor, informe o seu bairro.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_cellphone"])){
+				die(json_encode(["res"=>"Por favor, informe seu celular.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_email"])){
+				die(json_encode(["res"=>"Por favor, informe o seu e-mail.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_password"])){
+				die(json_encode(["res"=>"Por favor, informe uma senha.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_rpassword"])){
+				die(json_encode(["res"=>"Por favor, repita sua senha.", "step" => "enterpreneur"]));
+			}else if($_POST["f_password"] != $_POST["f_rpassword"]){
+				die(json_encode(["res"=>"As senhas digitadas não combinam.", "step" => "enterpreneur"]));
+			}else if(empty($_POST["f_payment_method"])){
+				die(json_encode(["res"=>"Por favor, selecione uma forma de pagamento válida.", "step" => "payment"]));
+			}else{
+				if($_POST["f_payment_method"] == "cc"){
+					if(empty($_POST["f_cc_number"])){
+						die(json_encode(["res"=>"Por favor, informe os números do Cartão de Crédito.", "step" => "payment"]));
+					}else if(empty($_POST["f_cc_holdername"])){
+						die(json_encode(["res"=>"Por favor, informe o Nome Completo que está no Cartão de Crédito.", "step" => "payment"]));
+					}else if(empty($_POST["f_cc_expirationdate"])){
+						die(json_encode(["res"=>"Por favor, informe a data de expiração do Cartão de Crédito.", "step" => "payment"]));
+					}else if(!(DateTime::createFromFormat('m/y', $_POST["f_cc_expirationdate"]) && DateTime::createFromFormat('m/y', $_POST["f_cc_expirationdate"])->format('m/y') === $_POST["f_cc_expirationdate"] && DateTime::createFromFormat('m/y', $_POST["f_cc_expirationdate"]) > new DateTime('last day of previous month'))){
+						die(json_encode(["res"=>"Por favor, verifique a data de validade do Cartão de Crédito.", "step" => "payment"]));
+					}else if(empty($_POST["f_cc_cvv"])){
+						die(json_encode(["res"=>"Por favor, informe o CVV do Cartão de Crédito.", "step" => "payment"]));
+					}
+				}
+
+				if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
+					die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur"]));
+				
+
+				$isUserCreated =  $User->create(
+					(isset($_POST["f_firstname"])) ? $_POST["f_firstname"] : null,
+					(isset($_POST["f_lastname"])) ? $_POST["f_lastname"] : null,
+					(isset($_POST["f_cpf"])) ? $_POST["f_cpf"] : null,
+					(isset($_POST["f_birthdate"])) ? $_POST["f_birthdate"] : null,
+					(isset($_POST["f_zipcode"])) ? $_POST["f_zipcode"] : null,
+					(isset($_POST["f_state"])) ? $_POST["f_state"] : null,
+					(isset($_POST["f_city"])) ? $_POST["f_city"] : null,
+					(isset($_POST["f_address"])) ? $_POST["f_address"] : null,
+					(isset($_POST["f_address_number"])) ? $_POST["f_address_number"] : null,
+					(isset($_POST["f_neighborhood"])) ? $_POST["f_neighborhood"] : null,
+					(isset($_POST["f_complement"])) ? $_POST["f_complement"] : null,
+					(isset($_POST["f_cellphone"])) ? $_POST["f_cellphone"] : null,
+					(isset($_POST["f_email"])) ? $_POST["f_email"] : null,
+					(isset($_POST["f_password"])) ? $_POST["f_password"] : null,
+					0
+				);
+
+				if(!$isUserCreated)
+					die(json_encode(["res"=>"Algo deu errado ao criar o seu usuário. Atualize a página e tente novamente!", "step" => "enterpreneur"]));
+
+				$user = $User->getUserByEmail($_POST["f_email"])->fetchObject();
+				$_SESSION["csa_email"] = $_POST["f_email"];
+				$_SESSION["csa_password"] = $_POST["f_password"];
+			}
+		}else{
+			// no needing for check fields emptynesses 'cause user is already authenticated
+			$user = $User->getUserByEmail($_SESSION["csa_email"])->fetchObject();
+		}
+
+		// if(empty($_POST["f_fiscal_cpf"]) OR !User::validateCPF($_POST["f_fiscal_cpf"])){
+		// 	die(json_encode(["res"=>"Por favor, informe um C.P.F. válido para pagamento.", "step" => "payment"]));
+		// }
+
+		$_POST["f_plan"] = 1; // forcing plan to 1 - VIP
+		if(!in_array($_POST["f_plan"], [1,2,3])){
+			die(json_encode(["res"=>"Desculpe, não foi possível identificar o plano selecionado. Atualize a página e tente novamente.", "step" => "payment"]));
+		}
+
+		$plan_id = intval($_POST["f_plan"]);
+
+		$Membership = new Membership;
+		$getMembershipPlanById = $Membership->getMembershipPlanById($plan_id);
+
+		$product = $getMembershipPlanById->fetchObject();
+		// Membership Price
+		$aVistaPrice = (float) $product->membership_price_incash;
+		$cartaoPrice = (float) $product->membership_price_cc;
+
+
+		$isMemberEligibleForRenewallDiscount = $User->isMemberEligibleForRenewallDiscount($user->iduser);
+
+
+		$coupon_id = null;
+		if(!empty($_POST["f_coupon"])){
+
+			$Coupon = new Coupon;
+
+			$coupon = $Coupon->getCouponByCode($_POST["f_coupon"]);
+
+			if($coupon->rowCount() == 0)
+				die(json_encode(["res" => "Desculpe, o cupom informado não foi encontrado."]));
+
+			$couponObj = $coupon->fetchObject();
+
+			// if($couponObj->expiration_date )
+			$current_date = new DateTime();
+
+			// Convertendo a string recebida do MySQL para um objeto DateTime
+			$expiration_date_obj = new DateTime($couponObj->expiration_date);
+
+			if ($current_date > $expiration_date_obj)
+				die(json_encode(["res" => "Desculpe, o cupom informado já expirou."]));
+
+
+			if($couponObj->discount_type == "percent"){
+				$aVistaPrice = ($aVistaPrice*(1-($couponObj->discount_value/100)));
+				$cartaoPrice = ($cartaoPrice*(1-($couponObj->discount_value/100)));
+			}else{
+				$aVistaPrice = ($aVistaPrice - $couponObj->discount_value);
+				$cartaoPrice = ($cartaoPrice - $couponObj->discount_value);
+			}
+		}
+
+
+		if(empty($user->cellphone)) $phone_number = "27996959895";
+		else $phone_number = $user->cellphone;
+
+
+		$order_nsu = date("YmdHis").rand(1000,9999);
+
+		$payout = [
+			"handle" => "canal-salto-alto",
+			"redirect_url" => "https://canalsaltoalto.com/checkout/success",
+			"webhook_url" => "https://canalsaltoalto.com/webhook/payment/confirmation", 
+			"order_nsu" => $order_nsu,
+			"items" => [
+				[
+					"quantity" => 1,
+					"price" => str_replace(".", "", (string) ($aVistaPrice * 100)),
+					"description" => "Assinatura - Canal Salto Alto"
+				]
+			],
+			"customer" => [
+				"name" => $user->firstname . " ".$user->lastname,
+				"email" => $user->email,
+				"phone_number" => "+55".$phone_number
+			]
+		];
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, [
+			CURLOPT_URL => "https://api.infinitepay.io/invoices/public/checkout/links",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_POSTFIELDS => json_encode($payout),
+			CURLOPT_HTTPHEADER => [
+				"Content-Type: application/json"
+			]
+		]);
+
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+
+		curl_close($curl);
+
+		if ($err) {
+			die(json_encode(["res" => "Erro:" . $err]));
+		} else {
+			$response = json_decode($response);
+			if(!empty($response->url)){
+
+				$User->addMembership($user->iduser, 1, $order_nsu, $coupon_id, 'infinitepay', $aVistaPrice, null, null, 'pending');
+
+				die(json_encode(["res" => 1, "checkout_url" => $response->url]));
+			}else{
+				die(json_encode(["res" => "Desculpe, não foi possível iniciar o pagamento. Tente novamente mais tarde ou entre em contato conosco."]));
+			}
 		}
 	});
 

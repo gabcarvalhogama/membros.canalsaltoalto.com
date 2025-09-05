@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<title>Checkout com Sucesso ‹ Área de Membros ‹ Canal Salto Alto</title>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
+		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
+
+		
+		<?=Template::render(["is_private_area" => true], "head-tags")?>
+	</head>
+	<body class="app">
+
+		<section class="app__welcome mt-5 mb-5">
+			<div class="container-xl d-flex flex-column align-items-center">
+				<div class="app__welcome--box">
+					<img src="<?=PATH?>assets/images/logo-csa.png" alt="Logotipo do Canal Salto Alto" class="app__welcome--logo mb-2" />
+					<h2 class="text-center">Seja bem-vinda ao Canal Salto Alto!</h2>
+					<p class="text-center">Sua compra foi confirmada com sucesso e você agora faz parte de uma das maiores comunidades de empreendedorismo feminino em Linhares e Região. 
+				</p>
+				</div>
+				<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/gQkW1HIWAZo?si=MZdKmwcCeOa7Fop0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+
+				<div class="app__welcome--box mt-3">
+					<p>Clique no botão a seguir para entrar na sua conta, cadastrar sua empresa e começar a explorar o ecossistema preparado para você!</p>
+					<a href="/app/welcome" class="btn btn-rose">Quero entrar na plataforma</a>
+				</div>
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/app.js"></script>
+	</body>
+</html>
