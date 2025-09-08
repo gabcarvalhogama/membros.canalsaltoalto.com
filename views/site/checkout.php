@@ -52,10 +52,17 @@
 								<input type="email" class="form-control" id="f_auth_email" name="f_auth_email" placeholder="Ex.: meuemail@gmail.com" required tabindex="1" />
 							</div>
 						</div>
-						<div class="row mb-3">
+						<!-- <div class="row mb-3">
 							<div class="col">
 								<input type="password" class="form-control mb-2" id="f_auth_password" name="f_auth_password" placeholder="Digite a sua senha" tabindex="1" />
 								<a href="/app/recover" style="color: #000" id="f_auth_password_forgot">Esqueci minha senha</a>
+							</div>
+						</div> -->
+						
+						<div class="row mb-3">
+							<div class="col">
+								<input type="password" style="display: none" class="form-control" id="f_auth_password" name="f_auth_password" placeholder="Digite a sua senha" tabindex="1" />
+								<a href="/app/recover" style="display: none;color: #000" id="f_auth_password_forgot">Esqueci minha senha</a>
 							</div>
 						</div>
 
@@ -269,19 +276,6 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-		<!-- <script src="https://checkout.pagar.me/v1/tokenizecard.js" data-pagarmecheckout-app-id="pk_test_ZgALAN5IKBH50K1N"></script> -->
 		<script type="text/javascript" src="<?=PATH?>assets/js/checkout.js?<?=uniqid()?>"></script>
-		<!-- <script type="text/javascript">
-			function success(data) {
-        	};
-    
-        	function fail(error) {
-        		alert("Error")
-            	console.error(error);
-        	};
-    
-        	PagarmeCheckout.init(success,fail)
-		</script> -->
 	</body>
 </html>

@@ -439,23 +439,7 @@
 				die(json_encode(["res"=>"Por favor, repita sua senha.", "step" => "enterpreneur"]));
 			}else if($_POST["f_password"] != $_POST["f_rpassword"]){
 				die(json_encode(["res"=>"As senhas digitadas não combinam.", "step" => "enterpreneur"]));
-			}else if(empty($_POST["f_payment_method"])){
-				die(json_encode(["res"=>"Por favor, selecione uma forma de pagamento válida.", "step" => "payment"]));
 			}else{
-				if($_POST["f_payment_method"] == "cc"){
-					if(empty($_POST["f_cc_number"])){
-						die(json_encode(["res"=>"Por favor, informe os números do Cartão de Crédito.", "step" => "payment"]));
-					}else if(empty($_POST["f_cc_holdername"])){
-						die(json_encode(["res"=>"Por favor, informe o Nome Completo que está no Cartão de Crédito.", "step" => "payment"]));
-					}else if(empty($_POST["f_cc_expirationdate"])){
-						die(json_encode(["res"=>"Por favor, informe a data de expiração do Cartão de Crédito.", "step" => "payment"]));
-					}else if(!(DateTime::createFromFormat('m/y', $_POST["f_cc_expirationdate"]) && DateTime::createFromFormat('m/y', $_POST["f_cc_expirationdate"])->format('m/y') === $_POST["f_cc_expirationdate"] && DateTime::createFromFormat('m/y', $_POST["f_cc_expirationdate"]) > new DateTime('last day of previous month'))){
-						die(json_encode(["res"=>"Por favor, verifique a data de validade do Cartão de Crédito.", "step" => "payment"]));
-					}else if(empty($_POST["f_cc_cvv"])){
-						die(json_encode(["res"=>"Por favor, informe o CVV do Cartão de Crédito.", "step" => "payment"]));
-					}
-				}
-
 				if($User->getUserByEmail($_POST["f_email"])->rowCount() > 0)
 					die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur"]));
 				
@@ -536,11 +520,11 @@
 
 
 			if($couponObj->discount_type == "percent"){
-				$aVistaPrice = ($aVistaPrice*(1-($couponObj->discount_value/100)));
-				$cartaoPrice = ($cartaoPrice*(1-($couponObj->discount_value/100)));
+				$aVistaPrice = round($aVistaPrice*(1-($couponObj->discount_value/100)), 2);
+				// $cartaoPrice = ($cartaoPrice*(1-($couponObj->discount_value/100)));
 			}else{
-				$aVistaPrice = ($aVistaPrice - $couponObj->discount_value);
-				$cartaoPrice = ($cartaoPrice - $couponObj->discount_value);
+				$aVistaPrice = round($aVistaPrice - $couponObj->discount_value, 2	);
+				// $cartaoPrice = ($cartaoPrice - $couponObj->discount_value);
 			}
 		}
 
@@ -566,7 +550,7 @@
 			"customer" => [
 				"name" => $user->firstname . " ".$user->lastname,
 				"email" => $user->email,
-				"phone_number" => "+55".$phone_number
+				// "phone_number" => "+55".$phone_number
 			]
 		];
 
