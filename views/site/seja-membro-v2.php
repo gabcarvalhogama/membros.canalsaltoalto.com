@@ -345,7 +345,7 @@ Amo fazer parte deste grupo por que a medida que ele cresce, cresço também!"</
 								<h3 class="mb-0">Plano Vip</h3>
 							</div>
 							<div class="card-body">
-								<h4 class="text-center" style="line-height: 1.25em;">12x R$ 29,90<br>ou R$ 299,00 à vista</h4>
+								<h4 class="text-center" style="line-height: 1.25em;">12x R$ 49,90<br>ou R$ 499,00 à vista</h4>
 								<small class="text-center d-block mb-4">1 ano de acesso</small>
 								<ul class="list-group list-group-flush">
 									<li class="list-group-item"><i class="fa-solid fa-check color-primary"></i> Acesso à Plataforma de Membros com conteúdos exclusivos, ferramentas de networking e divulgação</li>

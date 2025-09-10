@@ -537,7 +537,7 @@
 
 		$payout = [
 			"handle" => "canal-salto-alto",
-			"redirect_url" => "https://canalsaltoalto.com/app/welcome",
+			"redirect_url" => "https://canalsaltoalto.com/checkout/payment-success",
 			"webhook_url" => "https://canalsaltoalto.com/webhook/payment/confirmation", 
 			"order_nsu" => $order_nsu,
 			"items" => [
@@ -587,6 +587,115 @@
 			}else{
 				die(json_encode(["res" => "Desculpe, não foi possível iniciar o pagamento. Tente novamente mais tarde ou entre em contato conosco."]));
 			}
+		}
+	});
+
+
+	$router->get("/checkout/payment-success", function(){
+
+		if(empty($_GET["order_nsu"])){
+			http_response_code(400);
+			die(json_encode(["msg" => "Webhook received: order not found."]));
+		}
+
+		$Membership = new Membership;
+		$getMembership = $Membership->getMembershipByOrderId($_GET["order_nsu"]);
+
+		if($getMembership->rowCount() < 1)
+			die(json_encode(["msg" => "Webhook received: order not found."]));
+
+
+		$payout = [
+			"handle" => "canal-salto-alto",
+			"external_order_nsu" => $_GET['order_nsu'] ?? "",
+			"transaction_nsu" => $_GET['transaction_nsu'] ?? "",
+			"slug" => $_GET['slug'] ?? ""
+		];
+		$curl = curl_init();
+		curl_setopt_array($curl, [
+			CURLOPT_URL => "https://api.infinitepay.io/invoices/public/checkout/payment_check/canal-salto-alto",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 30,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_POSTFIELDS => json_encode($payout),
+			CURLOPT_HTTPHEADER => [
+				"Content-Type: application/json"
+			],
+		]);
+
+		$response = curl_exec($curl);
+
+
+		$err = curl_error($curl);
+
+		curl_close($curl);
+
+		if ($err) {
+				die(header("Location: /checkout/error?msg=Erro ao processar o pagamento: " . $err));
+		} else {
+			$response = json_decode($response);
+			if(!empty($response->paid) AND $response->paid == true){
+				die(header("Location: /checkout/success"));
+			}else{
+				die(header("Location: /checkout/error?msg=Não foi possível confirmar o pagamento. Aguarde alguns minutos e tente novamente ou entre em contato conosco."));
+			}
+		}
+
+
+
+		$membership = $getMembership->fetchObject();
+
+		$User = new User;
+		$getUser = $User->getUserById($membership->iduser);
+		if($getUser->rowCount() < 1)
+			die(json_encode(["msg" => "Webhook received: user not found."]));
+
+		$user = $getUser->fetchObject();
+
+
+		$starts_at = date("Y-m-d H:i:s");
+		$dateTime = new DateTime($starts_at);
+		$dateTime->add(new DateInterval('P365D'));
+		$ends_at = $dateTime->format('Y-m-d H:i:s');
+
+		if($User->updateMembershipByOrderId($_GET["order_nsu"], 'paid', $starts_at, $ends_at)){
+			$name = $user->firstname;
+			$email = $user->email;
+			$Comunications = new Comunications;
+			$email_title = "Seja bem-vinda! - Canal Salto Alto";
+			$content = "<div>
+				<h1>Seja bem-vinda à Comunidade Canal Salto Alto</h1>
+				<p>Olá <b>$name</b>, parabéns por dar mais um SALTO ALTO em seu empreendedorismo se tornando membro do Canal Salto Alto.</p>
+				<p>Somos um canal de aprendizado e conexão com outras empreendedoras. Aqui o seu sucesso depende muito da sua participação nas ações que criamos, seja no digital e no presencial.</p>
+
+				<p>Quanto mais você se conectar, mais se desenvolve, conhece novas pessoas e divulga o seu trabalho.</p>
+
+				<p>Fique ligada! A Plataforma de Membros é nosso maior canal de comunicação.</p>
+
+				<p>Você agora é uma membro ativa da Comunidade Canal Salto Alto. Clique no botão abaixo e acesse a plataforma:</p>
+				<a href='https://canalsaltoalto.com/app' style='display: block;padding: 20px;border-radius: 5px;background-color: #E54C8E;color: #000;width: 100%;'>ACESSE A PLATAFORMA AGORA</a>
+			</div>";
+			$email_content = Template::render([
+				"email_title" => $email_title,
+				"email_content" => $content 
+			], "email_general");
+
+
+			$Comunications->sendEmail($email, $email_title, $email_content);
+
+			
+			if(Membership::getPaidMembershipsByUserEmail($email)->rowCount() > 1)
+				User::addDiamond(User::getUserIdByEmail2($email), 100, null, "renewal", null);
+			
+
+			
+			die(header("Location: /checkout/success"));
+		}
+		else{
+			die(header("Location: /checkout/error?msg=Não foi possível atualizar o status da sua assinatura. Entre em contato conosco."));
 		}
 	});
 

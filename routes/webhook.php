@@ -28,6 +28,8 @@
 
 
             $membership = $getMembership->fetchObject();
+            if($membership->status == "paid")
+                die(json_encode(["msg" => "Webhook received: membership already paid."]));
             // if($data["paid_amount"] < $membership->price)
             //     die(json_encode(["msg" => "Webhook received: paid amount is less than membership price."]));
 

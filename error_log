@@ -1,0 +1,72 @@
+[28-Aug-2025 10:08:37 America/Sao_Paulo] Recovery message sent to gabriel@hatoria.com
+[28-Aug-2025 19:06:22 America/Sao_Paulo] Recovery message sent to agmarab@gmail.com
+[02-Sep-2025 15:21:30 America/Sao_Paulo] Recovery message sent to vanusacaliare567@gmail.com
+[02-Sep-2025 15:21:42 America/Sao_Paulo] Recovery message sent to vanusacaliare567@gmail.com
+[02-Sep-2025 17:09:36 America/Sao_Paulo] Recovery message sent to vanusacaliare567@gmail.com
+[02-Sep-2025 17:12:35 America/Sao_Paulo] Recovery message sent to vanusacaliare567@gmail.com
+[02-Sep-2025 17:17:33 America/Sao_Paulo] Recovery message sent to vanusacaliare567@gmail.com
+[02-Sep-2025 17:23:58 America/Sao_Paulo] Recovery message sent to vanusacaliare567@gmail.com
+[02-Sep-2025 17:30:07 America/Sao_Paulo] Recovery message sent to vanusacaliare567@gmail.com
+[02-Sep-2025 17:47:59 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[02-Sep-2025 17:49:22 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[03-Sep-2025 00:01:33 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[03-Sep-2025 00:29:48 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[03-Sep-2025 00:29:56 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[03-Sep-2025 13:52:50 America/Sao_Paulo] PHP Fatal error:  Uncaught TypeError: substr(): Argument #2 ($offset) must be of type int, string given in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php:579
+Stack trace:
+#0 /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php(579): substr()
+#1 [internal function]: {closure}()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#5 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(38): Bramus\Router\Router->run()
+#6 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php on line 579
+[03-Sep-2025 16:06:59 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required 'views/site/checkout-success.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php:747
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(40): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php on line 747
+[03-Sep-2025 16:07:22 America/Sao_Paulo] Recovery message sent to gabriel@hatoria.com
+[03-Sep-2025 16:24:52 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required 'views/site/checkout-success.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php:747
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(40): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php on line 747
+[03-Sep-2025 18:10:44 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Failed opening required 'views/site/checkout-success.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php:747
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(458): call_user_func_array()
+#2 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(440): Bramus\Router\Router->invoke()
+#3 /home/u364550838/domains/canalsaltoalto.com/public_html/application/vendor/bramus/router/src/Bramus/Router/Router.php(287): Bramus\Router\Router->handle()
+#4 /home/u364550838/domains/canalsaltoalto.com/public_html/index.php(40): Bramus\Router\Router->run()
+#5 {main}
+  thrown in /home/u364550838/domains/canalsaltoalto.com/public_html/routes/checkout.php on line 747
+[03-Sep-2025 18:27:39 America/Sao_Paulo] Recovery message sent to gabriel@hatoria.com
+[03-Sep-2025 22:04:13 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[03-Sep-2025 22:06:10 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[03-Sep-2025 22:07:23 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[05-Sep-2025 00:08:39 America/Sao_Paulo] Recovery message sent to patysampaio.po@gmail.com
+[05-Sep-2025 10:00:51 America/Sao_Paulo] Recovery message sent to gabriel@hatoria.com
+[05-Sep-2025 14:24:38 America/Sao_Paulo] Recovery message sent to faleconoscosaltoalto@gmail.com
+[05-Sep-2025 14:45:14 America/Sao_Paulo] Recovery message sent to lorriana15fazolo@gmail.com
+[08-Sep-2025 09:04:37 America/Sao_Paulo] Recovery message sent to gabriel@juridicopro.com
+[08-Sep-2025 12:21:18 America/Sao_Paulo] Recovery message sent to gabriel@juridicopro.com
+[08-Sep-2025 12:22:35 America/Sao_Paulo] Recovery message sent to gabriel@juridicopro.com
+[08-Sep-2025 12:29:29 America/Sao_Paulo] Recovery message sent to gabriel@juridicopro.com
+[08-Sep-2025 16:52:12 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[08-Sep-2025 17:07:02 America/Sao_Paulo] Recovery message sent to lorriana15fazolo@gmail.com
+[08-Sep-2025 17:11:30 America/Sao_Paulo] Recovery message sent to vanusa.caliare567@gmail.com
+[08-Sep-2025 17:58:00 America/Sao_Paulo] Recovery message sent to lorriana15fazolo@gmail.com
+[08-Sep-2025 18:18:55 America/Sao_Paulo] Recovery message sent to gabriel.carvalhogama2000@gmail.com
+[08-Sep-2025 20:58:42 America/Sao_Paulo] Recovery message sent to renatadelevedove@gmail.com
+[08-Sep-2025 20:58:58 America/Sao_Paulo] Recovery message sent to renatadelevedove@gmail.com
+[10-Sep-2025 09:31:10 America/Sao_Paulo] Recovery message sent to faleconoscosaltoalto@gmail.com
