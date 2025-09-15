@@ -151,9 +151,10 @@
 		<section class="plaintext mt-5 mb-5 site__lp-plaintext">
 			<div class="container-xl">
 				<div class="row">
-					<div class="col-md-6">
-						<img src="<?=PATH?>assets/images/" alt="">
+					<div class="col-md-4">
+						<img src="<?=PATH?>assets/images/coworking-space.jpeg" alt="" class="img-fluid" style="border-radius: 15px;" />
 					</div>
+					<div class="col-md-2"></div>
 					<div class="col-md-6">
 						<h2>Regras</h2>
 						<ul>
@@ -215,6 +216,46 @@
 			</div>
 		</section>
 
+
+	
+		<section class="plaintext mt-5 mb-5 site__lp-plaintext">
+			<div class="container-xl">
+				<div class="row align-items-center justify-content-center">
+					<div class="col-md-4">
+						<div class="swiper" data-smview="1" data-mdview="1" data-lgview="1" data-xlview="1" data-autoplay="true" data-pagination="true" data-navigation="true">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<img src="<?=PATH?>assets/images/coworking-space-evento-recepcao-1.jpeg" alt="" style="width: 100%; border-radius: 15px;" />
+								</div>
+								<div class="swiper-slide">
+									<img src="<?=PATH?>assets/images/coworking-space-evento-recepcao-2.jpeg" alt="" style="width: 100%; border-radius: 15px;" />
+								</div>
+								<div class="swiper-slide">
+									<img src="<?=PATH?>assets/images/coworking-space-evento-recepcao-3.jpeg" alt="" style="width: 100%; border-radius: 15px;" />
+								</div>
+								<div class="swiper-slide">
+									<img src="<?=PATH?>assets/images/coworking-space-evento-recepcao-4.jpeg" alt="" style="width: 100%; border-radius: 15px;" />
+								</div>
+							</div>
+							<div class="swiper-pagination"></div>
+
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>							
+						</div>
+					</div>
+					<div class="col-md-8">
+						<h2>Eventos na Recepção</h2>
+						<p><small>Até 15 pessoas.</small></p>
+
+						<ul class="reset">
+							<li>Sábado – 8h às 12h: <strong>R$ 175,00</strong></li>
+							<li>Sábado – 13h às 17h: <strong>R$ 200,00</strong></li>
+							<li>Sábado – 08h às 17h: <strong>R$ 350,00</strong></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
 
 
 
