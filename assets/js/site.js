@@ -1,6 +1,8 @@
 function initSwiper() {
 	if(Swiper){
+		console.log("Swiper carregado");
 		$(".swiper").each(function () {
+			console.log("Iniciando swiper");
 			let web_slider = $(this)[0];
 			let optionsData = web_slider.dataset;
 			if(!optionsData) return;
@@ -26,14 +28,15 @@ function initSwiper() {
 					disableOnInteraction: false
 				} : false,
 				pagination: optionsData.pagination ? {
-					el: '.swiper-pagination',
-					clickable: true
+					el: '.swiper-pagination'
 				} : false,
 				navigation: optionsData.navigation ? {
 					nextEl: '.swiper-button-next',
 					prevEl: '.swiper-button-prev'
 				} : false
 			};
+
+			console.log(options);	
 			
 			new Swiper(web_slider, options);
 		});

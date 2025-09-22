@@ -46,6 +46,20 @@
 			</div>
 		</main>
 
+		<section class="banner mt-3 mb-3">
+			<div class="container-xl">
+				<?php 
+			  		$getBanners01 = $Banner->getBannersByPosition('app_below_hero');
+
+			  		foreach($getBanners01->fetchAll(PDO::FETCH_ASSOC) as $banner):
+			  	?>
+				<a href="<?=$banner['link']?>" target="_blank" style="display: block">
+					<img src="<?=PATH.$banner['path_desktop']?>" alt="" class="img-fluid" style="width: 100%;display: block;border-radius: 5px;" />
+				</a>
+				<?php endforeach; ?>
+			</div>
+		</section>
+
 		<section class="app__events mt-5 mb-5">
 			<div class="container-xl">
 				<h2 class="mb-3">Conheça <span class="color-primary">nossos eventos</span></h2>

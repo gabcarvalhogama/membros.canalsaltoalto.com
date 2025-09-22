@@ -44,11 +44,12 @@
 						<div class="form-group mb-3">
 							<label for="position">Posição <small class="text-danger">*</small></label>
 							<select name="position" id="position" class="form-control" required>
+
 								<?php
 									$Banner = new Banner;
-									foreach($Banner->positions as $key => $value):
+									foreach($Banner->getPositions() as $position):
 								?>
-								<option <?=(($banner['position'] == $key) ? 'selected' : '')?> value="<?=$key?>"><?=$value?></option>
+								<option <?=(($banner['position'] == $position['position_value']) ? 'selected' : '')?> value="<?=$position['position_value']?>"><?=$position['position_title']?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>

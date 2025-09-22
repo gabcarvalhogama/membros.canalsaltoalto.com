@@ -5,7 +5,8 @@
 			"public_home_ad1" => "Página Inicial - Espaço 1",
 			"public_home_ad2" => "Página Inicial - Espaço 2",
 			"public_home_ad3" => "Página Inicial - Espaço 3",
-			"app_home_hero" => "App - Hero"
+			"app_home_hero" => "App - Hero",
+			"app_below_hero" => "App - Abaixo do Hero"
 		);
 
 		public function getBanners(){
@@ -13,6 +14,13 @@
 			$sql->execute();
 
 			return $sql;
+		}
+
+		public function getPositions(){
+			$sql = DB::open()->prepare("SELECT * FROM csa_banners_positions ORDER BY position_title ASC");
+			$sql->execute();
+
+			return $sql->rowCount() > 0 ? $sql->fetchAll(PDO::FETCH_ASSOC) : [];
 		}
 
 		public function getBannersByPosition($position = ''){

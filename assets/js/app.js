@@ -155,7 +155,7 @@ const App = {
 				dataType: 'json',
 				success: function(data){
 					if(data.res == 1){
-						message.success(form, "Sucesso! Acesse o seu e-mail e clique no link para verificação e alteração da sua senha.");
+						message.success(form, "Sucesso! Acesse o seu e-mail ou WhatsApp e clique no link para verificação e alteração da sua senha.");
 						$(form)[0].reset()
 					}else{
 						message.error(form, data.res);

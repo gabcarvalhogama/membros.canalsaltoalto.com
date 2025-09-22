@@ -29,9 +29,9 @@
 							<select name="position" id="position" class="form-control" required>
 								<?php
 									$Banner = new Banner;
-									foreach($Banner->positions as $key => $value):
+									foreach($Banner->getPositions() as $position):
 								?>
-								<option value="<?=$key?>"><?=$value?></option>
+								<option value="<?=$position['position_value']?>"><?=$position['position_title']?></option>
 								<?php endforeach; ?>
 							</select>
 						</div>
