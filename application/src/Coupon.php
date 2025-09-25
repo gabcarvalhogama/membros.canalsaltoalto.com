@@ -24,6 +24,31 @@
 	        return $sql->rowCount() > 0;
 		}
 
+
+		public function update($coupon_id, $code, $discount_type, $discount_value, $expiration_date, $status){
+			$sql = DB::open()->prepare(
+				"UPDATE csa_coupons 
+				 SET code = :code, 
+					 discount_type = :discount_type, 
+					 discount_value = :discount_value, 
+					 expiration_date = :expiration_date, 
+					 status = :status, 
+					 updated_at = NOW() 
+				 WHERE coupon_id = :coupon_id"
+			);
+
+			$sql->execute([
+				":code" => $code,
+				":discount_type" => $discount_type,
+				":discount_value" => $discount_value,
+				":expiration_date" => $expiration_date,
+				":status" => isset($status) ? intval($status) : 1,
+				":coupon_id" => intval($coupon_id)
+			]);
+
+			return $sql->rowCount() > 0;
+		}
+
 		public function getCouponByCode($coupon){
 			$sql = DB::open()->prepare("SELECT * FROM csa_coupons WHERE code = :code LIMIT 1");
 			$sql->execute([
@@ -41,5 +66,15 @@
 			]);
 
 			return $sql;
+		}
+
+
+		public function couponAlreadyExists($coupon, $coupon_id){
+			$sql = DB::open()->prepare("SELECT COUNT(*) FROM csa_coupons WHERE code = :code AND coupon_id != :coupon_id");
+			$sql->execute([
+				":code" => strtoupper($coupon),
+				":coupon_id" => intval($coupon_id)
+			]);
+			return $sql->fetchColumn() > 0;
 		}
 	}

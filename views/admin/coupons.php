@@ -43,7 +43,7 @@
 									?></td>
 									<td><?=date("d/m/Y \à\s H:i", strtotime($coupon['expiration_date']))?></td>
 									<td>
-										<!-- <a href="/admin/coupons/edit/<?=$coupon['coupon_id']?>" style="color: #333">Editar</a> -->
+										<a href="/admin/coupons/edit/<?=$coupon['coupon_id']?>" style="color: #333">Editar</a>
 									</td>
 								</tr>
 							<?php 

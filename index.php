@@ -37,4 +37,6 @@
 
 	include "routes/webhook.php";
 
+	include "routes/track.php";
+
 	$router->run();

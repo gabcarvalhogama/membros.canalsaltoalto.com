@@ -192,8 +192,8 @@
 			    if (empty($_POST["coupon_code"])) {
 			        die(json_encode(["res" => "Por favor, informe o código do cupom."]));
 			    }
-			    if (empty($_POST["coupon_discount_type"]) || !in_array($_POST["coupon_discount_type"], ["percent", "fixed"])) {
-			        die(json_encode(["res" => "Por favor, selecione o tipo de desconto válido ('percent' ou 'fixed')."]));
+			    if (empty($_POST["coupon_discount_type"]) || !in_array($_POST["coupon_discount_type"], ["percent", "value"])) {
+			        die(json_encode(["res" => "Por favor, selecione o tipo de desconto válido ('percent' ou 'value')."]));
 			    }
 			    if (empty($_POST["coupon_discount_value"])) {
 			        die(json_encode(["res" => "Por favor, informe o valor do desconto."]));
@@ -244,6 +244,53 @@
 				$coupon = $getCoupon->fetchObject();
 
 				require "views/admin/coupons-edit.php";
+			});
+
+			$router->post("/edit/{coupon_id}", function($coupon_id){
+			    if (empty($_POST["coupon_code"])) {
+			        die(json_encode(["res" => "Por favor, informe o código do cupom."]));
+			    }
+			    if (empty($_POST["coupon_discount_type"]) || !in_array($_POST["coupon_discount_type"], ["percent", "value"])) {
+			        die(json_encode(["res" => "Por favor, selecione o tipo de desconto válido ('percent' ou 'value')."]));
+			    }
+			    if (empty($_POST["coupon_discount_value"])) {
+			        die(json_encode(["res" => "Por favor, informe o valor do desconto."]));
+			    }
+			    if (empty($_POST["expiration_date"])) {
+			        die(json_encode(["res" => "Por favor, informe a data e hora de expiração."]));
+			    }
+
+			    $expirationDate = DateTime::createFromFormat("d/m/Y H:i", $_POST["expiration_date"]);
+			    if (!$expirationDate) {
+			        die(json_encode(["res" => "Data de expiração inválida. Use o formato dd/mm/AAAA HH:mm."]));
+			    }
+
+			    // Validar o valor do desconto
+			    $discountValue = floatval($_POST["coupon_discount_value"]);
+			    if ($discountValue <= 0) {
+			        die(json_encode(["res" => "O valor do desconto deve ser maior que zero."]));
+			    }
+
+
+			    // Instanciar o modelo Cupom e tentar salvar
+			    $Coupon = new Coupon;
+
+				if($Coupon->couponAlreadyExists($_POST["coupon_code"], $coupon_id))
+			    	die(json_encode(["res" => "Desculpe, o cupom ".$_POST['coupon_code']." já existe."]));
+
+			    if ($Coupon->update(
+			    	$coupon_id,
+			        $_POST["coupon_code"],
+			        $_POST["coupon_discount_type"],
+			        $discountValue,
+			        $expirationDate->format("Y-m-d H:i"),
+			        (isset($_POST["status"]) ? intval($_POST["status"]) : 1)
+			    )) {
+			        die(json_encode(["res" => 1]));
+			    } else {
+			        die(json_encode(["res" => "Desculpe, não foi possível atualizar o cupom. Por favor, tente novamente."]));
+			    }
+
 			});
 
 			$router->get("/view/{coupon_id}", function($coupon_id){

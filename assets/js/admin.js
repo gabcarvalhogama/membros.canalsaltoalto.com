@@ -662,7 +662,35 @@ const Admin = {
 					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
 				}
 			})
-		}
+		},
+		update: function(form){
+			$(form).addClass("inactive")
+			message.warning(form, "Carregando, aguarde...");
+			var formData = new FormData(form);
+
+			$.ajax({
+				type: 'post',
+				data: formData,
+	            contentType: false,
+	            cache: false,
+	            processData:false,
+				url: '/admin/coupons/edit/'+$('#coupon_id').val(),
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						message.success(form, "Seu cupom foi atualizado com sucesso! A página será atualiza em breve...");
+						setTimeout(function(){
+							window.location = "";
+						}, 5000)
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		},
 	}
 };
 
