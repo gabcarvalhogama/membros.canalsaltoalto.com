@@ -28,7 +28,12 @@
 					<div class="row mb-3">
 						<div class="col">
 							<label for="login_password" class="form-label">Senha</label>
-							<input type="password" class="form-control" id="login_password" name="login_password" placeholder="Sua senha" required />
+							<div class="input-group">
+								<input type="password" class="form-control" id="login_password" name="login_password" placeholder="Sua senha" required />
+								<button class="btn btn-outline-secondary" type="button" id="togglePassword" style="border-color: #CECECE; background-color: #E4E4E4;">
+									<i class="fas fa-eye" id="eyeIcon"></i>
+								</button>
+							</div>
 						</div>
 					</div>
 
@@ -57,5 +62,22 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/app.js"></script>
+		
+		<script>
+			$(document).ready(function() {
+				$('#togglePassword').click(function() {
+					const passwordField = $('#login_password');
+					const eyeIcon = $('#eyeIcon');
+					
+					if (passwordField.attr('type') === 'password') {
+						passwordField.attr('type', 'text');
+						eyeIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+					} else {
+						passwordField.attr('type', 'password');
+						eyeIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

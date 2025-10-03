@@ -26882,6 +26882,32 @@ label, .form-label {
   box-shadow: none;
 }
 
+.input-group .btn-outline-secondary {
+  border-left: none;
+}
+.input-group .btn-outline-secondary:hover, .input-group .btn-outline-secondary:focus, .input-group .btn-outline-secondary:active {
+  background-color: #E4E4E4;
+  border-color: #CECECE;
+  color: #333;
+  box-shadow: none;
+}
+
+.input-group .form-control {
+  border-right: none;
+}
+.input-group .form-control:focus {
+  border-right: none;
+  box-shadow: none;
+}
+
+.input-group .form-control:focus + .btn-outline-secondary {
+  border-color: #CECECE;
+}
+
+#togglePassword:hover {
+  transform: none !important;
+}
+
 .site ul {
   list-style: none;
   padding: 0;

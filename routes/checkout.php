@@ -44,9 +44,9 @@
 		require_once "views/site/checkout-renewall.php";
 	});
 
-	$router->get("/checkout/newpay", function(){
-		require_once "views/site/checkout-newpay.php";
-	});
+	// $router->get("/checkout/newpay", function(){
+	// 	require_once "views/site/checkout-newpay.php";
+	// });
 
 
 	$router->get("/checkout/cities/{uf}", function($uf){
@@ -498,6 +498,9 @@
 
 
 		$coupon_id = null;
+		$coupon_code = null;
+		$coupon_discount_type = null;
+		$coupon_discount_value = null;
 		if(!empty($_POST["f_coupon"])){
 
 			$Coupon = new Coupon;
@@ -517,6 +520,11 @@
 
 			if ($current_date > $expiration_date_obj)
 				die(json_encode(["res" => "Desculpe, o cupom informado já expirou."]));
+
+			$coupon_id = $couponObj->coupon_id;
+			$coupon_code = $couponObj->code;
+			$coupon_discount_type = $couponObj->discount_type;
+			$coupon_discount_value = $couponObj->discount_value;
 
 
 			if($couponObj->discount_type == "percent"){
@@ -581,7 +589,7 @@
 			$response = json_decode($response);
 			if(!empty($response->url)){
 
-				$User->addMembership($user->iduser, 1, $order_nsu, $coupon_id, 'infinitepay', $aVistaPrice, null, null, 'pending');
+				$User->addMembership($user->iduser, 1, $order_nsu, $coupon_id, $coupon_code, $coupon_discount_type, $coupon_discount_value, 'infinitepay', $aVistaPrice, null, null, 'pending');
 
 				die(json_encode(["res" => 1, "checkout_url" => $response->url]));
 			}else{

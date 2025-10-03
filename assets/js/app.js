@@ -101,6 +101,11 @@ const App = {
 			dataType: 'json',
 			success: function(data){
 				if(data.res == 1){
+					// Google Tag Manager – login event
+					dataLayer.push({
+						event: 'login',
+						method: 'email' // adjust if you track other login methods
+					});
 					const params = new URLSearchParams(window.location.search);
 					const redirectUrl = params.get('redirect');
 

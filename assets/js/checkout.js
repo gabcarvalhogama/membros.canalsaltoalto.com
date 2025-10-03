@@ -316,8 +316,8 @@ const Checkout = {
 			url: '/checkout',
 			dataType: 'json',
 			success: function(data){
-				console.log(data)
                 if(data.res == 1){
+					
                     setTimeout(function(){
                         window.location = data.checkout_url;
                         // console.log(data.checkout_url)

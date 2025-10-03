@@ -12,3 +12,31 @@ label, .form-label{
 		box-shadow: none;
 	}
 }
+
+// Estilos para o toggle de senha
+.input-group .btn-outline-secondary {
+	border-left: none;
+	&:hover, &:focus, &:active {
+		background-color: #E4E4E4;
+		border-color: #CECECE;
+		color: #333;
+		box-shadow: none;
+	}
+}
+
+.input-group .form-control {
+	border-right: none;
+	&:focus {
+		border-right: none;
+		box-shadow: none;
+	}
+}
+
+.input-group .form-control:focus + .btn-outline-secondary {
+	border-color: #CECECE;
+}
+
+
+#togglePassword:hover{
+	transform: none !important;
+}
