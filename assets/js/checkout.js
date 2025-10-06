@@ -317,10 +317,12 @@ const Checkout = {
 			dataType: 'json',
 			success: function(data){
                 if(data.res == 1){
-					
+                    window.dataLayer = window.dataLayer || [];
+                    dataLayer.push({
+                        'event': 'begin_checkout'
+                    });
                     setTimeout(function(){
                         window.location = data.checkout_url;
-                        // console.log(data.checkout_url)
                     }, 3000);
                 }else{
                     alert(data.res)
