@@ -28043,6 +28043,37 @@ label, .form-label {
 .app .app__notices .notices__item > p {
   margin-bottom: 0;
 }
+.app .app__tutorials {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.app .app__tutorials h2, .app .app__tutorials .h2 {
+  margin-bottom: 20px;
+}
+.app .app__tutorials .tutorials__item {
+  padding: 20px;
+  background-color: #FFF;
+  border-radius: 5px;
+  border: solid 1px #d1d1d1;
+  position: relative;
+  margin-bottom: 30px;
+}
+.app .app__tutorials .tutorials__item--date {
+  margin-top: -10px;
+}
+.app .app__tutorials .tutorials__item--date span {
+  padding: 5px 10px;
+  border-radius: 50px;
+  background-color: #E54C8E;
+}
+.app .app__tutorials .tutorials__item h3, .app .app__tutorials .tutorials__item .h3 {
+  margin-bottom: 0.1em;
+  font-weight: bold;
+  margin-top: 0.3em;
+}
+.app .app__tutorials .tutorials__item > p {
+  margin-bottom: 0;
+}
 .app .single-event__hero {
   color: #333;
 }

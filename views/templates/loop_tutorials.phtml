@@ -1,0 +1,12 @@
+<div class="tutorials__item">
+	<!-- <div class="tutorials__item--date"><span><?=date("d/m/Y \à\s H:i", strtotime($published_at))?></span></div> -->
+	<div class="row align-items-center">
+        <div class="col-md-8">
+            <a href="/app/tutorial/<?=$tutorial_id?>"><h3><?=$tutorial_title?></h3></a>
+            <?=rtrim(mb_substr(strip_tags($tutorial_content), 0, 100))?>...
+        </div>
+        <div class="col-md-4">
+            <a href="/app/tutorial/<?=$tutorial_id?>" class="text-primary">Continue lendo ></a>
+        </div>
+    </div>
+</div>

@@ -277,6 +277,22 @@
 		});
 
 
+		$router->get("/tutorials", function(){
+			require "views/app/tutorials.php";
+		});
+		
+		$router->get("/tutorial/{tutorial_id}", function($tutorial_id){
+			$Tutorial = new Tutorial;
+
+			$tutorial = $Tutorial->get($tutorial_id);
+			if($tutorial->rowCount() == 0) header("404");
+
+			$object = $tutorial->fetchObject();
+
+			require "views/app/single-tutorial.php";
+		});
+
+
 		$router->get("/clubs", function(){
 
 			require "views/app/clubs.php";
