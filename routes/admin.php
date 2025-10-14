@@ -977,6 +977,109 @@
 
 
 
+
+		# /tutorials
+		$router->mount("/tutorials", function() use ($router){
+			$router->get("", function(){
+				require "views/admin/tutorials.php";
+			});
+
+			$router->get("/new", function(){
+				require "views/admin/tutorials-new.php";
+			});
+			$router->post("/new", function(){
+				if(empty($_POST["tutorial_title"])){
+					die(json_encode(["res"=>"Por favor, informe o título do tutorial!"]));
+				}else if(empty($_POST["tutorial_content"])){
+					die(json_encode(["res"=>"Por favor, informe o conteúdo do tutorial!"]));
+				}else{
+					$User = new User;
+					if(($User->isUserAuthenticated()) == false)
+						die(json_encode(["res"=>"Oops, parece que você não tem permissão para isso!"]));
+
+					if(empty($_POST["tutorial_status"]))
+						$tutorial_status = 0;
+					else
+						$tutorial_status = intval($_POST["tutorial_status"]);
+
+
+					if(empty($_POST["tutorial_publish_date"]))
+						$tutorial_publish_date = date("Y-m-d H:i");
+					else
+						$tutorial_publish_date = DateTime::createFromFormat('d/m/Y H:i', $_POST["tutorial_publish_date"])->format('Y-m-d H:i');
+
+
+
+					$Tutorial = new Tutorial;
+					if($Tutorial->create($_POST["tutorial_title"], $_POST["tutorial_content"], (User::getUserIdByEmail2($_SESSION["csa_email"])), $tutorial_status, $tutorial_publish_date))
+						die(json_encode(["res" => 1]));
+					else
+						die(json_encode(["res" => "Não foi possível criar este tutorial. Atualize a página e tente novamente!"]));
+				}
+			});
+
+
+			$router->get("/edit/{tutorial_id}", function($tutorial_id){
+				$Tutorial = new Tutorial;
+				$getTutorial = $Tutorial->get($tutorial_id);
+
+				if($getTutorial->rowCount() == 0){
+					header("Location: /admin/tutorials");
+					exit;
+				}
+
+				$tutorial = $getTutorial->fetchObject();
+
+				require "views/admin/tutorials-edit.php";
+			});
+
+			$router->post("/edit/{tutorial_id}", function($tutorial_id){
+				if(empty($tutorial_id))
+					die(json_encode(["res" => "Desculpe, não foi possível encontrar este tutorial."]));
+
+				$Tutorial = new Tutorial;
+				if($Tutorial->get($tutorial_id)->rowCount() == 0)
+					die(json_encode(["res" => "Desculpe, não foi possível encontrar este tutorial."]));
+
+				if(empty($_POST["tutorial_title"])){
+					die(json_encode(["res"=>"Por favor, informe o título do tutorial!"]));
+				}else if(empty($_POST["tutorial_content"])){
+					die(json_encode(["res"=>"Por favor, informe o conteúdo do tutorial!"]));
+				}else if(!isset($_POST["tutorial_status"])){
+					die(json_encode(["res" => "Por favor, informe o status do tutorial."]));
+				}else if(empty($_POST["tutorial_publish_date"])){
+					die(json_encode(["res" => "Por favor, informe a data de publicação."]));
+				}else{
+					$Tutorial = new Tutorial;
+					if($Tutorial->update($tutorial_id, $_POST["tutorial_title"], $_POST["tutorial_content"], $_POST["tutorial_status"], 
+						DateTime::createFromFormat('d/m/Y H:i', $_POST["tutorial_publish_date"])->format('Y-m-d H:i'),
+					))
+						die(json_encode(["res" => 1]));
+					else
+						die(json_encode(["res" => "Não foi possível atualizar este tutorial. Atualize a página e tente novamente!"]));
+				}
+			});
+
+
+			$router->post("/delete/{tutorial_id}", function($tutorial_id){
+				if (empty($tutorial_id)) {
+					die(json_encode(["res" => "Desculpe, não foi possível identificar o tutorial."]));
+				}
+
+				$Tutorial = new Tutorial;
+				if ($Tutorial->get($tutorial_id)->rowCount() == 0) {
+					die(json_encode(["res" => "Desculpe, não foi possível encontrar este tutorial."]));
+				}
+
+				if ($Tutorial->delete($tutorial_id)) {
+					die(json_encode(["res" => 1]));
+				} else {
+					die(json_encode(["res" => "Não foi possível apagar este tutorial. Atualize a página e tente novamente!"]));
+				}
+			});
+		});
+
+
 		$router->get("/notices", function(){
 			require "views/admin/notices.php";
 		});

@@ -691,6 +691,87 @@ const Admin = {
 				}
 			})
 		},
+	},
+	
+
+	Tutorials: {
+		new: function(form){
+			$(form).addClass("inactive")
+			message.warning(form, "Carregando, aguarde...");
+			var formData = new FormData(form);
+			formData.append("tutorial_content", tinyMCE.get()[0].getContent());
+
+			$.ajax({
+				type: 'post',
+				data: formData,
+				contentType: false,
+				cache: false,
+				processData:false,
+				url: '/admin/tutorials/new',
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						$(form)[0].reset()
+						message.success(form, "O tutorial foi criado com sucesso!");
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		},
+		update: function(form){
+			$(form).addClass("inactive")
+			message.warning(form, "Carregando, aguarde...");
+			var formData = new FormData(form);
+			formData.append("tutorial_content", tinyMCE.get()[0].getContent());
+
+			$.ajax({
+				type: 'post',
+				data: formData,
+				contentType: false,
+				cache: false,
+				processData:false,
+				url: '/admin/tutorials/edit/'+$('#tutorial_id').val(),
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						message.success(form, "O tutorial foi criado com sucesso!");
+					}else{
+						message.error(form, data.res);
+					}
+				},
+				error: function(err){
+					message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+				}
+			})
+		},
+		delete: function(tutorial_id){
+			if(confirm("Você realmente deseja apagar este tutorial?") != true)
+				return false;
+
+			$.ajax({
+				type: 'post',
+				contentType: false,
+				cache: false,
+				processData:false,
+				url: '/admin/tutorials/delete/'+tutorial_id,
+				dataType: 'json',
+				success: function(data){
+					if(data.res == 1){
+						alert("Sucesso! O seu TUTORIAL foi apagado definitivamente.");
+						window.location = '/admin/tutorials'
+					}else{
+						alert(data.res);
+					}
+				},
+				error: function(err){
+					alert("Algo deu errado, verifique sua internet e tente novamente!")
+				}
+			})
+		}
 	}
 };
 
