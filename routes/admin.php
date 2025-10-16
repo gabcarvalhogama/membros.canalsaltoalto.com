@@ -992,6 +992,8 @@
 					die(json_encode(["res"=>"Por favor, informe o título do tutorial!"]));
 				}else if(empty($_POST["tutorial_content"])){
 					die(json_encode(["res"=>"Por favor, informe o conteúdo do tutorial!"]));
+				}else if(empty($_POST["tutorial_order"])){
+					die(json_encode(["res"=>"Por favor, informe a ordem do tutorial!"]));
 				}else{
 					$User = new User;
 					if(($User->isUserAuthenticated()) == false)
@@ -1011,7 +1013,7 @@
 
 
 					$Tutorial = new Tutorial;
-					if($Tutorial->create($_POST["tutorial_title"], $_POST["tutorial_content"], (User::getUserIdByEmail2($_SESSION["csa_email"])), $tutorial_status, $tutorial_publish_date))
+					if($Tutorial->create($_POST["tutorial_title"], $_POST["tutorial_content"], intval($_POST["tutorial_order"]), (User::getUserIdByEmail2($_SESSION["csa_email"])), $tutorial_status, $tutorial_publish_date))
 						die(json_encode(["res" => 1]));
 					else
 						die(json_encode(["res" => "Não foi possível criar este tutorial. Atualize a página e tente novamente!"]));
@@ -1049,9 +1051,11 @@
 					die(json_encode(["res" => "Por favor, informe o status do tutorial."]));
 				}else if(empty($_POST["tutorial_publish_date"])){
 					die(json_encode(["res" => "Por favor, informe a data de publicação."]));
+				}else if(empty($_POST["tutorial_order"])){
+					die(json_encode(["res"=>"Por favor, informe a ordem do tutorial!"]));
 				}else{
 					$Tutorial = new Tutorial;
-					if($Tutorial->update($tutorial_id, $_POST["tutorial_title"], $_POST["tutorial_content"], $_POST["tutorial_status"], 
+					if($Tutorial->update($tutorial_id, $_POST["tutorial_title"], $_POST["tutorial_content"], intval($_POST["tutorial_order"]), $_POST["tutorial_status"], 
 						DateTime::createFromFormat('d/m/Y H:i', $_POST["tutorial_publish_date"])->format('Y-m-d H:i'),
 					))
 						die(json_encode(["res" => 1]));

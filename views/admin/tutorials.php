@@ -27,6 +27,7 @@
 						<thead>
 							<th>Título</th>
 							<th>Data de Publicação</th>
+							<th>Ordem</th>
 							<th>Status</th>
 							<th>Ações</th>
 						</thead>
@@ -38,6 +39,7 @@
 								<tr>
 									<td><a target="_blank" href="/app/tutorial/<?=$tutorial['tutorial_id']?>"><?=$tutorial['tutorial_title']?></a></td>
 									<td><?=(($tutorial['published_at'] != null) ? date("d/m/Y H:i", strtotime($tutorial['published_at'])) : "Não publicado")?></td>
+									<td><?=$tutorial['tutorial_order']?></td>
 									<td<?=($tutorial['status'] != 1 ? ' style="color: #888;"' : '')?>><?=(($tutorial['status'] == 1) ? "Publicado" : "Rascunho")?></td>
 									<td>
 										<a href="/admin/tutorials/edit/<?=$tutorial['tutorial_id']?>" style="color: #333">Editar</a>

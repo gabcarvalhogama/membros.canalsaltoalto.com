@@ -24,6 +24,13 @@
 
 						<div class="row">
 							<div class="col mb-3">
+								<label for="tutorial_order" class="form-label">Ordem</label>
+								<input type="number" class="form-control" id="tutorial_order" name="tutorial_order" placeholder="Digite a ordem do tutorial." value="<?=$tutorial->tutorial_order?>" required />
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col mb-3">
 								<label for="tutorial_title" class="form-label">Título do Tutorial</label>
 								<input type="text" class="form-control" id="tutorial_title" name="tutorial_title" placeholder="Escreva aqui o título do tutorial." required value="<?=$tutorial->tutorial_title?>" />
 							</div>

@@ -18,7 +18,7 @@
 				<h2>Comece <span class="color-primary">aqui.</span></h2>
 				<?php
 			  		$Tutorial = new Tutorial;
-			  		$tutorials = $Tutorial->getTutorials(20);
+			  		$tutorials = $Tutorial->getTutorials(999999999999999);
 			  		foreach($tutorials->fetchAll(PDO::FETCH_ASSOC) as $tutorial)
 			  			echo Template::render($tutorial, "loop_tutorials");
 			  	?>

@@ -113,7 +113,92 @@
 		<?=Template::render(null, "footer_app")?>
 
 
+		
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary display-none" style="display: none;" data-bs-toggle="modal" data-bs-target="#ultimosDiasModal">
+		Launch demo modal
+		</button>
 
+		<!-- Modal -->
+		<div class="modal fade" id="ultimosDiasModal" tabindex="-1" aria-labelledby="ultimosDiasLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content p-4 text-center" style="background-color: #ffffff;" c>
+				<h3>Sua assinatura está prestes a vencer!</h3>
+				<p>Não perca a oportunidade de continuar crescendo com a gente.</p>
+				<div class="card" style="color: #333">
+					<div class="card-body">
+						<div class="row text-center" style="font-size: 12px;">
+							<div class="col-3">
+								<h3 id="days" class="display-6">00</h3>
+								<p class="mb-0">Dias</p>
+							</div>
+							<div class="col-3">
+								<h3 id="hours" class="display-6">00</h3>
+								<p class="mb-0">Horas</p>
+							</div>
+							<div class="col-3">
+								<h3 id="minutes" class="display-6">00</h3>
+								<p class="mb-0">Minutos</p>
+							</div>
+							<div class="col-3">
+								<h3 id="seconds" class="display-6">00</h3>
+								<p class="mb-0">Segundos</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<a href="/checkout/renewall" class="mt-3"><button class="btn btn-primary">RENOVAR INSCRIÇÃO</button></a>
+
+				<a href="javascript:void(0)" class="mt-2" data-bs-dismiss="modal">Fechar janela</a>
+
+				<script type="text/javascript">
+
+					const countDownDate = new Date('<?=(USER->membership_ends_at)?>').getTime();
+
+					const x = setInterval(function() {
+						const now = new Date().getTime();
+
+						const distance = countDownDate - now;
+
+						const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+						const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+						const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+						const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+						document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+						document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+						document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+						document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+
+						if (distance < 0) {
+							clearInterval(x);
+							document.getElementById("days").innerHTML = "00";
+							document.getElementById("hours").innerHTML = "00";
+							document.getElementById("minutes").innerHTML = "00";
+							document.getElementById("seconds").innerHTML = "00";
+						}
+					}, 1000);
+
+
+					window.onload = function(){
+						const timeToShow = (30 * 24 * 60 * 60 * 1000); // 5 dias
+
+					
+						const now = new Date().getTime();
+
+						const distance = countDownDate - now;
+
+						if(distance < timeToShow){
+							const myModal = new bootstrap.Modal(document.getElementById('ultimosDiasModal'), {
+							keyboard: false
+							});
+							myModal.show();
+						}
+					}
+				</script>
+			</div>
+		</div>
+		</div>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery-3.7.1.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
