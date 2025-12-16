@@ -110,6 +110,17 @@
 
 
 
+		public function disablePubli($publi_id){
+			$sql = DB::open()->prepare("UPDATE csa_publis SET publi_status = 3 WHERE publi_id = :publi_id");
+			$sql->execute([
+				":publi_id" => intval($publi_id)
+			]);
+
+			return $sql->rowCount() > 0;
+		}
+
+
+
 		public function getComments($publi_id){
 			$sql = DB::open()->prepare("SELECT c.*, u.firstname, u.lastname, u.profile_photo FROM csa_publis_comments c 
 				LEFT JOIN csa_users u ON c.user_id = u.iduser 

@@ -733,6 +733,26 @@
 		    }
 		});
 
+		$router->post("/publis/{publi_id}/delete", function($publi_id) {
+		    if (empty($publi_id)) {
+		        die(json_encode(["res" => "Desculpe, não foi possível identificar o ID da publicação."]));
+		    }
+
+		    $Publi = new Publi;
+
+		    $publi = $Publi->getPubliById($publi_id)->fetchObject();
+
+		    if ($publi->user_id != USER->iduser) {
+		        die(json_encode(["res" => "Desculpe, você não tem permissão para excluir esta publicação."]));
+		    }
+
+		    if ($Publi->disablePubli($publi_id)) {
+		        die(json_encode(["res" => 1]));
+		    } else {
+		        die(json_encode(["res" => "Desculpe, não foi possível excluir a publicação."]));
+		    }
+		});
+
 
 		$router->get("/profile", function(){
 			$User = new User;

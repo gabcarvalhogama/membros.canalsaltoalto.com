@@ -1,18 +1,24 @@
 <div class="publis-list__item animate__animated animate__faster animate__fadeInDown" style="animation-delay: 200ms ">
-						<div class="publis-list__item--header">
-							<img src="/<?=(!empty($profile_photo)) ? $profile_photo : 'assets/images/default-pfp.png';?>" style="width: 60px;border-radius: 100px;" alt="" />
-							<div class="d-flex flex-column">
-								<span class="profile-name">
-									<?=$firstname." ".$lastname?>
-								</span>
-								<small>
-									<?=date("d/m/Y \à\s H:i", strtotime($published_at))?>
-								</small>
+						<div class="publis-list__item--header justify-content-between">
+							<div class="d-flex flex-row align-items-center">
+								<img src="/<?=(!empty($profile_photo)) ? $profile_photo : 'assets/images/default-pfp.png';?>" style="width: 60px;border-radius: 100px;" alt="" />
+								<div class="d-flex flex-column">
+									<span class="profile-name">
+										<?=$firstname." ".$lastname?>
+									</span>
+									<small>
+										<?=date("d/m/Y \à\s H:i", strtotime($published_at))?>
+									</small>
+								</div>
 							</div>
+							<?php if(USER->iduser == $user_id): ?>
+								<div class="d-flex">
+									<a href="javascript:void(0)" onclick="App.deletePubli(<?=$publi_id?>);"><button class="btn btn-danger btn-rounded">Excluir</button></a>
+								</div>
+							<?php endif; ?>
 							
 						</div>
 						<div class="publis-list__item--content">
-							<!-- <h3><?=$publi_title?></h3> -->
 							<?=$publi_content?>
 							<p>
 								

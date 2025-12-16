@@ -447,6 +447,29 @@ const App = {
 			}
 		})
 	},
+	deletePubli: function(publi_id){
+		if(!confirm("Tem certeza que deseja excluir esta publi?")){
+			return false;
+		}
+		$.ajax({
+			type: 'post',
+			data: {},
+			processData: false,
+			contentType: false,
+			url: '/app/publis/'+publi_id+'/delete',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					window.location.reload();
+				}else{
+					alert(data.res);
+				}
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
 
 	doEventCheckin: function(el, qrcode_uuid, user_id){
 		$(el).addClass("inactive")
