@@ -115,7 +115,8 @@
 			    u.user_type,
 			    (SELECT COUNT(company_id) FROM csa_companies WHERE iduser = u.iduser) as company_counter,
 			    (SELECT ends_at FROM csa_users_memberships um WHERE um.iduser = u.iduser AND um.status = 'paid' AND ends_at > NOW() ORDER BY ends_at DESC LIMIT 1) as membership_ends_at,
-				(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = u.iduser) as diamonds
+				(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = u.iduser AND YEAR(ud.created_at) = YEAR(NOW())) as diamonds,
+				(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = u.iduser) as historical_total_diamonds
 			FROM 
 			    csa_users u
 			WHERE u.email = :email

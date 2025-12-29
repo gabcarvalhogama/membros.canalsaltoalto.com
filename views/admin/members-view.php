@@ -274,6 +274,7 @@
 									<td>Diamantes</td>
 									<td>Tipo</td>
 									<td>Observações</td>
+									<td>Criado</td>
 								</tr>
 							</thead>
 							<tbody>
@@ -299,6 +300,7 @@
 											?>
 										</td>
 										<td><?=$diamond['diamond_observation']?></td>
+										<td><?=date("d/m/Y \à\s H:i", strtotime($diamond['created_at']))?></td>
 									</tr>
 								<?php endforeach; else: ?>
 									<tr><td colspan="6">Nenhum registro encontrado.</td></tr>

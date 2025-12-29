@@ -67,10 +67,8 @@
 		if ($category_id) {
 			$companies = $Company->getCompaniesByStatusCategoryAndPagination(12, (($page_number - 1) * 12), 1, $category_id);
 		} else {
-			$companies = $Company->getCompaniesByStatusAndPagination(12, (($page_number - 1) * 12), 1);
+			$companies = $Company->getCompaniesByStatusAndPagination(12, (((int) $page_number - 1) * 12), 1);
 		}
-
-
 		require "views/site/guia-de-empreendedoras.php";
 	});
 
