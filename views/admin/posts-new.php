@@ -83,29 +83,10 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/jquery.mask.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/tinymce/tinymce.min.js"></script>
+		<script type="text/javascript" src="<?=PATH?>assets/js/tinymce-setup.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/admin.js"></script>
 		<script type="text/javascript">
-			
-			tinymce.init({
-				selector: 'textarea#post_content',
-				license_key: 'gpl',
-			   	promotion: false,
-			   	plugins: 'image, link, lists, code',
-			   	toolbar: 'undo redo code | styles | bold italic | numlist bullist | link image | link',
-			   	menubar: false,
-		       	language: 'pt_BR',
-	         	images_upload_url: '<?=PATH?>upload/image',
-         	  	images_upload_base_path: '/',
-         	  	relative_urls: false,
-				remove_script_host: false,
-         	  	image_dimensions: false,
-         	  	image_class_list: [
-		            {title: 'Responsive', value: 'img-responsive'},
-					{ title: 'Bordas arredondadas', value: 'img-rounded'},
-					{ title: 'Largura total + Altura Dinâmica', value: 'img-fullwidth' },
-		        ]
-			});
-
-		</script>	
+			setupTinyMCE('textarea#post_content', '<?=PATH?>upload/image');
+		</script>
 	</body>
 </html>
