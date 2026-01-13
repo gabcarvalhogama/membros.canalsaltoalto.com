@@ -180,7 +180,7 @@
 			    um.ends_at,
 			    m.membership_title,
 			    (SELECT COUNT(company_id) FROM csa_companies c WHERE c.iduser = u.iduser) as company_counter,
-				(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = :iduser) as diamonds
+				(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = :iduser  AND YEAR(ud.created_at) = YEAR(NOW())) as diamonds
 			FROM 
 			    csa_users u
 			LEFT JOIN 
@@ -209,7 +209,7 @@
 		}
 
 		public function getDiamondByUserId($user_id){
-			$sql = DB::open()->prepare("SELECT * FROM csa_user_diamonds WHERE user_id = :user_id ORDER BY created_at DESC");
+			$sql = DB::open()->prepare("SELECT * FROM csa_user_diamonds WHERE user_id = :user_id  AND YEAR(ud.created_at) = YEAR(NOW()) ORDER BY created_at DESC");
 			$sql->execute([
 				":user_id" => intval($user_id)
 			]);
@@ -807,7 +807,8 @@
 				    (SELECT COUNT(company_id) 
 				     FROM csa_companies c 
 				     WHERE c.iduser = u.iduser AND c.status = 1) AS company_counter,
-					(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = u.iduser) as diamonds
+					(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = u.iduser AND YEAR(ud.created_at) = YEAR(NOW())) as diamonds
+					
 				FROM 
 				    csa_users u
 				INNER JOIN 

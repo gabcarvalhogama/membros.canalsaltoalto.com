@@ -1892,6 +1892,10 @@
 			$router->get("/orders", function(){
 				require_once "views/admin/reports-orders.php";
 			});
+
+			$router->get("/past-due-members", function(){
+				require_once "views/admin/reports-past-due-members.php";
+			});
 		});
 
 

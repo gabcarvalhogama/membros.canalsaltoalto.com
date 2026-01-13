@@ -24,7 +24,7 @@
 							padding: 5px 10px;
 							border: solid 1px #E54C8E;
 							border-radius: 100px;
-						"><i class="fa-solid fa-tag"></i> Planos Flexíveis a partir de R$ 40,50 e Planos Fixos a partir de R$ 540,00</span>
+						"><i class="fa-solid fa-tag"></i> Planos Flexíveis a partir de R$ 50,00 e Planos Fixos a partir de R$ 630,00</span>
 							<span style="
 							padding: 5px 10px;
 							border: solid 1px #E54C8E;
@@ -111,22 +111,23 @@
 			<div class="container-xl text-center">
 				<h2>Nossos Planos</h2>
 				<p style="margin: 0 auto;max-width: 100%; width: 600px; color: #888">Escolha o plano que melhor se adapta às suas necessidades e comece a trabalhar no ambiente perfeito para empreendedoras.</p>
+				<p style="margin: 0 auto;max-width: 100%; width: 600px; color: #888;font-style: italic;">OUTROS TIPOS DE PLANOS SÃO NEGOCIADOS INDIVIDUALMENTE.</p>
 				<div class="mt-5">
 					<h3 class="fs-3 font-weight-bold mb-4">Planos Flexíveis</h3>
 					<div class="row g-3 mb-5 justify-content-center">
 						<div class="col-12 col-md-3">
 							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
 								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">1 HORA</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 40,50</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 45,00</span> <small style="color:#888;display:block">para não membros</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 50,00</span> <small style="color:#888;display:block">para membros</small></p>
+								<p><span class="fs-5 color-secondary">R$ 55,00</span> <small style="color:#888;display:block">para não membros</small></p>
 							</div>
 						</div>
 						<div class="col-12 col-md-3">
 							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
 								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">MEIO PERÍODO</strong></h4>
 								<p class="text-center" style="color: #888"><small>(5 horas corridas)</small></p>
-								<p><span class="fs-3 color-primary fw-bold">R$ 90,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 100,00</span> <small style="color:#888;display:block">para não membros</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 108,00</span> <small style="color:#888;display:block">para membros</small></p>
+								<p><span class="fs-5 color-secondary">R$ 120,00</span> <small style="color:#888;display:block">para não membros</small></p>
 							</div>
 						</div>
 						<div class="col-12 col-md-3">
@@ -140,16 +141,16 @@
 								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">DIÁRIA</strong></h4>
 								<p class="text-center" style="color: #888"><small>(10 horas corridas)</small></p>
 								
-								<p><span class="fs-3 color-primary fw-bold">R$ 157,50</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 175,00</span> <small style="color:#888;display:block">para não membros</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 180,00</span> <small style="color:#888;display:block">para membros</small></p>
+								<p><span class="fs-5 color-secondary">R$ 200,00</span> <small style="color:#888;display:block">para não membros</small></p>
 							</div>
 						</div>
 						<div class="col-12 col-md-3">
 							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
 								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">SÁBADO</strong></h4>
 								<p class="text-center" style="color: #888"><small>(Pacote de 4 horas corridas)</small></p>
-								<p><span class="fs-3 color-primary fw-bold">R$ 90,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 100,00</span> <small style="color:#888;display:block">para não membros</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 108,00</span> <small style="color:#888;display:block">para membros</small></p>
+								<p><span class="fs-5 color-secondary">R$ 120,00</span> <small style="color:#888;display:block">para não membros</small></p>
 							</div>
 						</div>
 						<p class="mt-3"><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale com a gente no WhatsApp</button></a></p>
@@ -163,8 +164,8 @@
 						<div class="col-md-4">
 							<div class="mb-4 rounded shadow-sm p-4 box-gradient-gray h-100">
 								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">PLANO 1</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 540,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 600,00</span> <small style="color:#888;display:block">para não membros</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 630,00</span> <small style="color:#888;display:block">para membros</small></p>
+								<p><span class="fs-5 color-secondary">R$ 700,00</span> <small style="color:#888;display:block">para não membros</small></p>
 								<p><small>1 dia por semana ou 2 meios períodos por semana</small></p>
 								<p><small class="color-primary">~40h/mês</small></p>
 							</div>
@@ -172,8 +173,8 @@
 						<div class="col-md-4">
 							<div class="mb-4 rounded shadow-sm p-4 box-gradient-gray h-100">
 								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">PLANO 2</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 720,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 800,00</span> <small style="color:#888;display:block">para não membros</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 1.080,00</span> <small style="color:#888;display:block">para membros</small></p>
+								<p><span class="fs-5 color-secondary">R$ 1.200,00</span> <small style="color:#888;display:block">para não membros</small></p>
 								<p><small>2 dias por semana</small></p>
 								<p><small class="color-primary">~80h/mês</small></p>
 							</div>
@@ -181,14 +182,14 @@
 						<div class="col-md-4">
 							<div class="mb-4 rounded shadow-sm p-4 box-gradient-gray h-100">
 								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">PLANO 3</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 900,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 1.000,00</span> <small style="color:#888;display:block">para não membros</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 1.350,00</span> <small style="color:#888;display:block">para membros</small></p>
+								<p><span class="fs-5 color-secondary">R$ 1.500,00</span> <small style="color:#888;display:block">para não membros</small></p>
 								<p><small>3 dias por semana</small></p>
 								<p><small class="color-primary">~120h/mês</small></p>
 							</div>
 						</div>
 						
-						<div class="col-md-6">
+						<!-- <div class="col-md-6">
 							<div class="mb-4 rounded shadow-sm p-4 box-gradient-gray h-100">
 								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">PLANO 4</strong></h4>
 								<p><span class="fs-3 color-primary fw-bold">R$ 1.080,00</span> <small style="color:#888;display:block">para membros</small></p>
@@ -206,7 +207,7 @@
 								<p><small>5 dias por semana</small></p>
 								<p><small class="color-primary">~200/mês</small></p>
 							</div>
-						</div>
+						</div> -->
 					</div>
 
 					<p class="mt-4"><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale com a gente no WhatsApp</button></a></p>
