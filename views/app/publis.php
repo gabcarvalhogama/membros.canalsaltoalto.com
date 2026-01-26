@@ -15,9 +15,13 @@
 
 		<section class="app__publis">
 			<div class="container-xl">
-				<div class="d-flex flex-column flex-md-row justify-content-between">
+				<div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
 					<h2>Faça aqui sua <span class="color-primary">publi!</span></h2>
-					<div>
+					<div style="margin-top: -40px;">
+						<div class="d-flex flex-row align-items-center justify-content-center" style="font-size: 14px;">
+							<img src="<?=PATH?>assets/images/icon-diamond.svg" alt="" style="height: 10px;margin-right: 5px" />
+							<span>Ganhe 20</span>
+						</div>
 						<a href="/app/publis/new"><button class="btn btn-rose btn-rounded">Faça uma Publi</button></a>
 					</div>
 				</div>
@@ -29,12 +33,20 @@
 
 						$getPubli = $Publi->getPublisByStatus(200, 1);
 						if($getPubli->rowCount() > 0):
+							$counter = 0;
 							foreach($getPubli->fetchAll(PDO::FETCH_ASSOC) as $publi):
 								if ((new DateTime())->diff(new DateTime($publi['published_at']))->days > 30 && (new DateTime() > new DateTime($publi['published_at']))) continue;
-
+								else $counter++;
 								$ms+=100;
 								echo Template::render($publi, "loop_publis");
-							endforeach; endif; ?>
+							endforeach; 
+						endif; ?>
+
+						<?php if($counter == 0): ?>	
+							<div class="no-publis" style="padding: 20px;background: rgba(255, 192, 203, 0.1);border: 1px solid rgba(255, 192, 203, 0.3);border-radius: 8px;text-align: center;margin-top: 20px;">
+								<p>Não há divulgações disponíveis no momento. Faça sua primeira publi ou volte mais tarde.</p>
+							</div>
+						<?php endif; ?>
 			    </div>
 			</div>
 		</section>
