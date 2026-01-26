@@ -39,6 +39,13 @@
 
 						<div class="row">
 							<div class="col mb-3">
+								<label for="tutorial_video_url" class="form-label">URL do Vídeo</label>
+								<input type="text" class="form-control" id="tutorial_video_url" name="tutorial_video_url" placeholder="Ex: https://www.youtube.com/watch?v=1234567890" required />
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col mb-3">
 								<textarea name="tutorial_content" id="tutorial_content" class="form-control" placeholder="Escreva aqui seu conteúdo."></textarea>
 							</div>
 						</div>

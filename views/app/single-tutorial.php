@@ -22,6 +22,9 @@
 				<ul class="d-flex flex-wrap site__single-post--terms">
 					<li><a href="#"><i class="fa-solid fa-calendar"></i> <?=date('d/m/Y \à\s H:i', strtotime($object->published_at))?></a></li>
 				</ul>
+				<?php if($object->tutorial_video_url): ?>
+					<iframe width="560" height="315" src="<?=$object->tutorial_video_url?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				<?php endif; ?>
 			</div>
 			
 

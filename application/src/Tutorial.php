@@ -28,12 +28,13 @@
             return $sql;
         }
 
-        public function create($tutorial_title, $tutorial_content, $tutorial_order, $author, $status, $published_at) {
+        public function create($tutorial_title, $tutorial_video_url, $tutorial_content, $tutorial_order, $author, $status, $published_at) {
             $sql = DB::open()->prepare(
-            "INSERT INTO csa_tutorials (tutorial_title, tutorial_content, tutorial_order, author, status, published_at, created_at, updated_at)
-             VALUES (:title, :content, :tutorial_order, :author, :status, :published_at, NOW(), NOW())"
+            "INSERT INTO csa_tutorials (tutorial_title, tutorial_video_url, tutorial_content, tutorial_order, author, status, published_at, created_at, updated_at)
+             VALUES (:title, :video_url, :content, :tutorial_order, :author, :status, :published_at, NOW(), NOW())"
             );
             $sql->bindParam(':title', $tutorial_title);
+            $sql->bindParam(':video_url', $tutorial_video_url);
             $sql->bindParam(':content', $tutorial_content);
             $sql->bindParam(':tutorial_order', $tutorial_order);
             $sql->bindParam(':author', $author);
@@ -42,10 +43,11 @@
             return $sql->execute();
         }
 
-        public function update($tutorial_id, $tutorial_title, $tutorial_content, $tutorial_order, $status, $published_at) {
+        public function update($tutorial_id, $tutorial_title, $tutorial_video_url, $tutorial_content, $tutorial_order, $status, $published_at) {
             $sql = DB::open()->prepare(
             "UPDATE csa_tutorials SET
                 tutorial_title = :title,
+                tutorial_video_url = :video_url,
                 tutorial_content = :content,
                 tutorial_order = :tutorial_order,   
                 status = :status,
@@ -54,6 +56,7 @@
              WHERE tutorial_id = :tutorial_id"
             );
             $sql->bindParam(':title', $tutorial_title);
+            $sql->bindParam(':video_url', $tutorial_video_url);
             $sql->bindParam(':content', $tutorial_content);
             $sql->bindParam(':tutorial_order', $tutorial_order);
             $sql->bindParam(':status', $status);
