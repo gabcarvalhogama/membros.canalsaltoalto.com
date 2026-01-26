@@ -49,6 +49,23 @@
 
 						<div class="row">
 							<div class="col mb-3">
+								<label for="company_category">Categoria da Empresa</label>
+								<select name="company_category" id="company_category" class="form-control">
+									<option value="">Selecione uma opção</option>
+									<?php
+										$objCompany = new Company;
+										$getCompanyCategories = $objCompany->getCompaniesCategories();
+
+										foreach($getCompanyCategories->fetchAll(PDO::FETCH_ASSOC) as $category):
+									?>
+									<option value="<?=$category['idcategory']?>"><?=$category['category_name']?></option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col mb-3">
 								<label for="company_description" class="form-label">Descrição da Empresa</label>
 								<textarea name="company_description" id="company_description" class="form-control"></textarea>
 							</div>

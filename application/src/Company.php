@@ -283,7 +283,7 @@
 		}
 
 
-		public function create($company_owner, $company_name, $company_description, $company_image, $has_place, $address_zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $instagram_url, $site_url, $facebook_url, $status){
+		public function create($company_owner, $company_name, $company_category, $company_description, $company_image, $has_place, $address_zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $instagram_url, $site_url, $facebook_url, $status){
 			$sql = DB::open()->prepare("
 	            INSERT INTO csa_companies (
 	            	company_id,
@@ -312,7 +312,7 @@
 	                :company_name,
 	                :company_description,
 	                :company_image,
-					null,
+					:company_category,
 	                :has_place,
 	                :address_zipcode,
 	                :address_state,
@@ -335,6 +335,7 @@
 	            ":company_name" => ucfirst(trim($company_name)),
 	            ":company_description" => ucfirst(trim($company_description)),
 	            ":company_image" => $company_image,
+				":company_category" => intval($company_category),
 	            ":has_place" => intval($has_place),
 	            ":address_zipcode" => ($address_zipcode == "") ? NULL : preg_replace('/\D/', '', $address_zipcode),
 	            ":address_state" => $address_state,
@@ -371,7 +372,7 @@
 		}
 
 
-		public function update($company_id, $company_owner, $company_name, $company_description, $company_image, $has_place, $address_zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $instagram_url, $site_url, $facebook_url, $status) {
+		public function update($company_id, $company_owner, $company_name, $company_category, $company_description, $company_image, $has_place, $address_zipcode, $address_state, $address_city, $address, $address_number, $address_neighborhood, $address_complement, $cellphone, $instagram_url, $site_url, $facebook_url, $status) {
 
 			$sql = DB::open()->prepare("
 	            UPDATE csa_companies
@@ -380,6 +381,7 @@
 	                company_name = :company_name,
 	                company_description = :company_description,
 	                company_image = IFNULL(:company_image, company_image),
+					company_category_id = :company_category,
 	                has_place = :has_place,
 	                address_zipcode = :address_zipcode,
 	                address_state = :address_state,
@@ -403,6 +405,7 @@
 	            ":company_name" => ucfirst(trim($company_name)),
 	            ":company_description" => ucfirst(trim($company_description)),
 	            ":company_image" => $company_image,
+				":company_category" => intval($company_category),
 	            ":has_place" => intval($has_place),
 				":address_zipcode" => ($address_zipcode == "") ? NULL : preg_replace('/\D/', '', $address_zipcode),
 	            ":address_state" => $address_state,

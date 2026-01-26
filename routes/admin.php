@@ -1539,6 +1539,8 @@
 		    	die(json_encode(["res" => "Por favor, selecione um usuário."]));
 		    }else if (empty($_POST["company_name"])) {
 		        die(json_encode(["res" => "Por favor, informe o nome da empresa!"]));
+		    }else if (empty($_POST["company_category"])) {
+		        die(json_encode(["res" => "Por favor, selecione uma categoria para a empresa!"]));
 		    }else if (empty($_POST["company_description"])) {
 		        die(json_encode(["res" => "Por favor, informe a descrição da empresa!"]));
 		    }else if (empty($_FILES["company_image"]["name"])) {
@@ -1590,7 +1592,8 @@
 		    	if($Company->create(
 		    		$_POST["company_owner"],
 				    $_POST["company_name"],
-				    $_POST["company_description"],
+					$_POST["company_category"],
+					$_POST["company_description"],
 				    $company_image,
 				    ($_POST["has_place"]) ?? null,
 				    ($_POST["address_zipcode"]) ?? null,
@@ -1636,6 +1639,8 @@
 		    	die(json_encode(["res" => "Por favor, selecione um usuário."]));
 		    }else if (empty($_POST["company_name"])) {
 		        die(json_encode(["res" => "Por favor, informe o nome da empresa!"]));
+		    }else if (empty($_POST["company_category"])) {
+		        die(json_encode(["res" => "Por favor, selecione uma categoria para a empresa!"]));
 		    }else if (empty($_POST["company_description"])) {
 		        die(json_encode(["res" => "Por favor, informe a descrição da empresa!"]));
 		    }else if (empty($_POST["cellphone"])) {
@@ -1687,6 +1692,7 @@
 		    		$_POST["company_id"],
 		    		$_POST["company_owner"],
 				    $_POST["company_name"],
+					$_POST["company_category"],
 				    $_POST["company_description"],
 				    $company_image,
 				    ($_POST["has_place"]) ?? null,
