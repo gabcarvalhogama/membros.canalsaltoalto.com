@@ -508,6 +508,89 @@
 			return $sql;
 		}
 
+		public function getEnabledCompaniesCategories(){
+			$sql = DB::open()->prepare("
+				SELECT cc.*
+				FROM csa_companies_categories cc
+				WHERE EXISTS (
+					SELECT 1
+					FROM csa_companies c
+					WHERE c.company_category_id = cc.id_company_category
+					AND c.status = 1
+				)
+				ORDER BY cc.category_name ASC;
+			");
+			$sql->execute();
+			return $sql;
+		}
+
+		public function getCompanyCategoryBySlug($slug){
+			$sql = DB::open()->prepare("
+				SELECT cc.*, cc.id_company_category AS idcompany_category
+				FROM csa_companies_categories cc
+				WHERE cc.slug = :slug
+				LIMIT 1
+			");
+			$sql->execute([
+				":slug" => trim($slug)
+			]);
+			return $sql;
+		}
+
+		public function getCompaniesByCategoryAndStatus($company_category_id, $status = 1){
+			$sql = DB::open()->prepare("
+				SELECT DISTINCT
+					c.*,
+					u.profile_photo,
+					u.firstname,
+					u.lastname
+				FROM csa_companies c
+				LEFT JOIN csa_users u ON c.iduser = u.iduser
+				LEFT JOIN csa_users_memberships um ON u.iduser = um.iduser
+				WHERE
+					c.company_category_id = :company_category_id
+					AND c.status = :status
+					AND um.status = 'paid'
+					AND um.ends_at > NOW()
+					AND u.user_type = 0
+				ORDER BY c.company_name ASC
+			");
+			$sql->execute([
+				":company_category_id" => intval($company_category_id),
+				":status" => intval($status)
+			]);
+			return $sql;
+		}
+
+		public function getCompaniesByCategoryAndStatusAndPagination($company_category_id, $limit = 12, $offset = 0, $status = 1){
+			$sql = DB::open()->prepare("
+				SELECT DISTINCT
+					c.*,
+					u.profile_photo,
+					u.firstname,
+					u.lastname
+				FROM csa_companies c
+				LEFT JOIN csa_users u ON c.iduser = u.iduser
+				LEFT JOIN csa_users_memberships um ON u.iduser = um.iduser
+				WHERE
+					c.company_category_id = :company_category_id
+					AND c.status = :status
+					AND um.status = 'paid'
+					AND um.ends_at > NOW()
+					AND u.user_type = 0
+				ORDER BY c.company_name ASC
+				LIMIT :limit_events OFFSET :offset_events
+			");
+
+			$sql->bindParam(':limit_events', $limit, \PDO::PARAM_INT);
+			$sql->bindParam(':offset_events', $offset, \PDO::PARAM_INT);
+			$sql->bindParam(':status', $status, \PDO::PARAM_INT);
+			$sql->bindParam(':company_category_id', $company_category_id, \PDO::PARAM_INT);
+			$sql->execute();
+
+			return $sql;
+		}
+
 
 		// public function userHasCompany($email){
 

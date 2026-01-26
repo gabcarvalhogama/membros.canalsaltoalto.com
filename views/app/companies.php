@@ -9,6 +9,16 @@
 
 		
 		<?=Template::render(["is_private_area" => true], "head-tags")?>
+		
+		<style>
+		/* Companies categories pills */
+		.companies-categories{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+		.companies-categories__item{display:inline-flex;align-items:center;gap:.45rem;padding:.35rem .75rem;border-radius:50rem;border:1px solid rgba(var(--bs-primary-rgb),0.12);color:var(--bs-primary);background:transparent;text-decoration:none;font-size:.95rem;transition:all .15s ease-in-out}
+		.companies-categories__item img{height:18px;width:auto;display:inline-block}
+		.companies-categories__item:hover{background:rgba(var(--bs-primary-rgb),0.08);transform:translateY(-1px);text-decoration:none}
+		.companies-categories__item.active,.companies-categories__item[aria-current="page"]{background:var(--bs-primary);color:#fff;border-color:transparent}
+		@media(max-width:575px){.companies-categories__item{padding:.3rem .6rem;font-size:.9rem}}
+		</style>
 	</head>
 	<body class="app">
 		<?=Template::render(null, "header_app")?>
@@ -33,6 +43,27 @@
 					</div>
 				</div>
 				<div class="companies-list mt-3">
+
+				<?php
+					$company = new Company();
+
+					$categories = $company->getEnabledCompaniesCategories();
+					// determine active slug if on a category page
+					$active_slug = (isset($category) && is_object($category) && !empty($category->slug)) ? $category->slug : null;
+					if($categories->rowCount() > 0):
+						echo '<div class="companies-categories mb-4">';
+						foreach($categories->fetchAll(PDO::FETCH_ASSOC) as $cat):
+							$category_name = (!empty($cat['icon'])) ? '<img src="'.PATH.'uploads/'.$cat['icon'].'" alt="'.$cat['category_name'].'" class="me-2" />' : '';
+							$category_name .= $cat['category_name'];
+							$is_active = ($active_slug && $cat['slug'] === $active_slug);
+							$class_attr = 'companies-categories__item' . ($is_active ? ' active' : '');
+							$aria = $is_active ? ' aria-current="page"' : '';
+							echo '<a href="/app/companies/category/'.$cat['slug'].'" class="'.$class_attr.'"'.$aria.'>'. $category_name .'</a>';
+						endforeach;
+						echo '</div>';
+					endif;
+				?>
+
 				<?php
 			  		if($companies->rowCount() > 0):
 			  			foreach($companies->fetchAll(PDO::FETCH_ASSOC) as $company):

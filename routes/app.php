@@ -330,6 +330,38 @@
 		});
 
 
+		$router->get("/companies/category/{category_slug}/page/{page_number}", function($category_slug, $page_number){
+			$Company = new Company;
+
+			$category = $Company->getCompanyCategoryBySlug($category_slug);
+			if($category->rowCount() == 0) header("Location: /app/companies");
+
+			$category = $category->fetchObject();
+
+			if(empty($page_number) || intval($page_number) <= 0) header("Location: /app/companies/category/".$category_slug);
+
+			$total_companies = $Company->getCompaniesByCategoryAndStatus($category->idcompany_category, 1)->rowCount();
+			$companies = $Company->getCompaniesByCategoryAndStatusAndPagination($category->idcompany_category, 12, (($page_number - 1) * 12), 1);
+
+			require "views/app/companies-category.php";
+		});
+
+
+		$router->get("/companies/category/{category_slug}", function($category_slug){
+			$Company = new Company;
+
+			$category = $Company->getCompanyCategoryBySlug($category_slug);
+			if($category->rowCount() == 0) header("Location: /app/companies");
+
+			$category = $category->fetchObject();
+
+			$total_companies = $Company->getCompaniesByCategoryAndStatus($category->idcompany_category, 1)->rowCount();
+	 	  	$companies = $Company->getCompaniesByCategoryAndStatusAndPagination($category->idcompany_category, 12, 0, 1);
+
+			require "views/app/companies-category.php";
+		});
+
+
 		$router->get("/companies/new", function(){
 			require "views/app/companies-new.php";
 		});
