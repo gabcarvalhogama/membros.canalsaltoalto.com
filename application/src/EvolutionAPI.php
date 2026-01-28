@@ -1,7 +1,7 @@
 <?php   
 
     class EvolutionAPI {
-        const BASE_URL = 'https://evo.hatoria.com/';
+        const BASE_URL = 'https://evo.juridicopro.com/';
         const API_KEY = '659547E4H829315DGAIAAE39F0D57E33';
         const INSTANCE_NAME = 'canalsaltoalto';
         private $headers;

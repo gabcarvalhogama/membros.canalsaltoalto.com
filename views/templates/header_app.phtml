@@ -93,11 +93,10 @@
 						<li><a href="https://twitter.com/saltoaltocanal" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li>
 					</ul>
 
-					<div class="d-flex flex-row align-items-center my-profile">
-						<a href="/app/profile">
-							<span>Meu Perfil</span>
-							<img src="<?=PATH.((!isset(USER->profile_photo) OR empty(USER->profile_photo)) ? 'assets/images/profile-icon.png' : USER->profile_photo)  ?>" alt="" class="profile-icon" />
-						</a>
+					<a href="/app/profile" class="d-flex flex-row align-items-center my-profile">
+						<span>Meu Perfil</span>
+						<img src="<?=PATH.((!isset(USER->profile_photo) OR empty(USER->profile_photo)) ? 'assets/images/profile-icon.png' : USER->profile_photo)  ?>" alt="" class="profile-icon" />
+					</a>
 						<!-- <ul class="my-profile__menu">
 							<li><a href="/app/profile">Editar perfil</a></li>
 							<li><a href="/app/logout">Sair</a></li>

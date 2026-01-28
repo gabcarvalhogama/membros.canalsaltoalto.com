@@ -209,7 +209,7 @@
 		}
 
 		public function getDiamondByUserId($user_id){
-			$sql = DB::open()->prepare("SELECT * FROM csa_user_diamonds WHERE user_id = :user_id  AND YEAR(ud.created_at) = YEAR(NOW()) ORDER BY created_at DESC");
+			$sql = DB::open()->prepare("SELECT * FROM csa_user_diamonds WHERE user_id = :user_id  AND YEAR(created_at) = YEAR(NOW()) ORDER BY created_at DESC");
 			$sql->execute([
 				":user_id" => intval($user_id)
 			]);
