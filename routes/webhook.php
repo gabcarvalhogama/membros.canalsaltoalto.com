@@ -1,6 +1,7 @@
 <?php
 	$router->mount("/webhook", function() use ($router){
 		$router->post("/payment/confirmation", function(){
+
             // {
             //     "invoice_slug": "abc123",
             //     "amount": 1000,
@@ -14,6 +15,22 @@
             // }
 
             $data = json_decode(file_get_contents('php://input'), true);
+
+            // grava payload do webhook em arquivo de log (adiciona, nunca sobrescreve)
+            $logDir = __DIR__ . '/../storage/logs';
+            if(!is_dir($logDir)){
+                mkdir($logDir, 0755, true);
+            }
+            $logFile = $logDir . '/webhook_payments.log';
+
+            $entry = [
+                'timestamp' => date('c'),
+                'remote_addr' => $_SERVER['REMOTE_ADDR'] ?? null,
+                'payload' => $data
+            ];
+
+            $json = json_encode($entry, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            file_put_contents($logFile, $json . PHP_EOL, FILE_APPEND | LOCK_EX);
 
             if(empty($data["order_nsu"])){
                 http_response_code(400);

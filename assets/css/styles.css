@@ -26941,8 +26941,8 @@ label, .form-label {
   min-height: 100vh;
   z-index: 99;
   display: none;
-  overflow-y: auto;
-  max-height: 100vh;
+  overflow-y: scroll !important;
+  padding-bottom: 30px;
 }
 .site__header .lmenu--header {
   padding: 20px;
@@ -27612,8 +27612,8 @@ label, .form-label {
   min-height: 100vh;
   z-index: 99;
   display: none;
-  overflow-y: auto;
-  max-height: 100vh;
+  overflow-y: scroll !important;
+  padding-bottom: 30px;
 }
 .app .app__header .lmenu--header {
   padding: 20px;

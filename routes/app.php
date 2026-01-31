@@ -419,6 +419,7 @@
 		    	if($Company->create(
 		    		$User->getUserIdByEmail($_SESSION["csa_email"]),
 				    $_POST["company_name"],
+					null,
 				    $_POST["company_description"],
 				    $company_image,
 				    ($_POST["has_place"] == 'on'),
@@ -522,6 +523,7 @@
 					$company_id,
 		    		$User->getUserIdByEmail($_SESSION["csa_email"]),
 				    $_POST["company_name"],
+					null,
 				    $_POST["company_description"],
 				    $company_image,
 				    ($_POST["has_place"] == 'on'),

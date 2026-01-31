@@ -176,8 +176,9 @@ a{
 			min-height: 100vh;
 			z-index: 99;
 			display: none;
-			overflow-y: auto;
-			max-height: 100vh;
+			overflow-y: scroll !important;
+			// max-height: 100vh;
+			padding-bottom: 30px;
 			&--header{
 				padding: 20px;
 				img{
