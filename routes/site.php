@@ -5,7 +5,7 @@
 	});
 
 	$router->get("/seja-membro", function(){
-		require "views/site/seja-membro-v2.php";
+		require "views/site/seja-membro-v3.php";
 	});
 
 
