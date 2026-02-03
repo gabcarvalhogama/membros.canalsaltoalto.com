@@ -281,9 +281,9 @@
 			<h2 class="text-center mb-5">A Experiência Salto Alto: Do Digital ao Presencial</h2>
 			<div style="width: 900px;max-width: 100%;margin: 0 auto">
 				<p class="text-center mb-4">Somos o <em>único ecossistema de empreendedorismo feminino no Brasil</em> que acompanha você 365 dias por ano. Unimos a conveniência do digital com o impacto do olho no olho.</p>
-				<div class="row align-items-start">
+				<div class="row align-items-start experience-section" style="background-color: #E54C8E;padding: 30px;color: #FFF;">
 					<div class="col-md-6">
-						<h4>🌐 No Digital (Sua plataforma 24h)</h4>
+						<h4>No Digital <small>(Sua plataforma 24h)</small></h4>
 						<ul>
 							<li><strong>Aulas Online ao Vivo e Cursos Exclusivos:</strong> Aprenda com quem já chegou lá.</li>
 							<li><strong>Mentorias em Grupo:</strong> Tire suas dúvidas e receba direcionamento.</li>
@@ -291,8 +291,8 @@
 							<li><strong>Gamificação:</strong> Evolua no seu negócio e ganhe recompensas por isso.</li>
 						</ul>
 					</div>
-					<div class="col-md-6">
-						<h4>🤝 No Presencial (Onde a magia acontece)</h4>
+					<div class="col-md-6" style="padding-left: 20px;">
+						<h4>No Presencial <small>(Onde a magia acontece)</small></h4>
 						<ul>
 							<li><strong>Eventos de Networking:</strong> Cafés, workshops, feiras e encontros de negócios.</li>
 							<li><strong>Dia D de Fotos Corporativas:</strong> Construa uma imagem profissional impecável.</li>
@@ -303,6 +303,25 @@
 				</div>
 			</div>
 		</section>
+        <style type="text/css">
+            .experience-section{
+                position: relative;
+                border-radius: 15px;
+            }
+            .experience-section::before{
+                height: 90%;
+                width: 1px;
+                background-color: #FFF;
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .experience-section ul li{
+                margin-bottom: 20px;
+            }
+        </style>
 
 		<section class="container-xl my-5 py-5">
 			<h2 class="text-center mb-5">OLHE O QUE ELAS DIZEM SOBRE NÓS</h2>
