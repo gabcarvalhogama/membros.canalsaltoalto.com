@@ -237,6 +237,7 @@
 						<div class="mt-5 d-flex align-items-center">
 							<h2>Participação em Eventos</h2>
 						</div>
+						
 						<table class="table">
 							<thead>
 								<tr>
@@ -267,6 +268,7 @@
 					<section>
 						<div class="mt-5 d-flex align-items-center">
 							<h2>Diamantes</h2>
+							<button class="ms-md-3 btn btn-rose btn-rounded btn-rose-light" data-bs-toggle="modal" data-bs-target="#addDiamondsModal">Cadastrar diamante</button>
 						</div>
 						<table class="table">
 							<thead>
@@ -275,6 +277,7 @@
 									<td>Tipo</td>
 									<td>Observações</td>
 									<td>Criado</td>
+									<td></td>
 								</tr>
 							</thead>
 							<tbody>
@@ -301,6 +304,7 @@
 										</td>
 										<td><?=$diamond['diamond_observation']?></td>
 										<td><?=date("d/m/Y \à\s H:i", strtotime($diamond['created_at']))?></td>
+										<td><a href="javascript:void(0)" onclick="Admin.deleteDiamonds(<?=$diamond['user_diamonds_id']?>)">Apagar</a></td>
 									</tr>
 								<?php endforeach; else: ?>
 									<tr><td colspan="6">Nenhum registro encontrado.</td></tr>
@@ -396,6 +400,40 @@
 		      		<input type="hidden" name="user_id" value="<?=$user->iduser?>" />	
 		      		<div class="form-group mt-3">
 		      			<button type="submit" class=" btn btn-rose btn-rounded btn-rose-light">Cadastrar consultoria</button>
+		      		</div>
+		      	</form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="modal" id="addDiamondsModal" tabindex="-1" role="dialog" aria-labelledby="addDiamondsModal" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLongTitle">Cadastre diamantes manualmente</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<form action="javascript:void(0)" method="post" accept-charset="utf-8" onsubmit="Admin.newDiamonds(this)">
+		      		<div class="message"></div>
+		      		<div class="form-group">
+		      			<label for="diamonds_value" class="form-label">Quantidade de Diamantes</label>
+						<input type="text" class="form-control" id="diamonds_value" name="diamonds_value" required />
+		      		</div>
+					
+		      		<div class="form-group">
+		      			<label for="diamonds_observation" class="form-label">Observações dos Diamantes</label>
+						<input type="text" class="form-control" id="diamonds_observation" name="diamonds_observation" required />
+		      		</div>
+
+					
+
+		      		<input type="hidden" name="user_id" value="<?=$user->iduser?>" />	
+		      		<div class="form-group mt-3">
+		      			<button type="submit" class=" btn btn-rose btn-rounded btn-rose-light">Cadastrar diamantes</button>
 		      		</div>
 		      	</form>
 		      </div>

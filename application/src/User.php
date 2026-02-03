@@ -199,12 +199,19 @@
 
 		public static function addDiamond($user_id, $diamond_value, $diamond_origin_id, $diamond_origin_type, $diamond_observation){
 			$sql = DB::open()->prepare("INSERT INTO csa_user_diamonds () VALUES (default, :user_id, :diamond_value, :diamond_origin_id, :diamond_origin_type, :diamond_observation, NOW())");
-			$sql->execute([
+			return $sql->execute([
 				":diamond_value" => floatval($diamond_value),
 				":diamond_origin_id" => intval($diamond_origin_id),
 				":diamond_origin_type" => strtolower(trim($diamond_origin_type)),
 				":diamond_observation" => ($diamond_observation) ? ucfirst(trim($diamond_observation)) : null,
 				":user_id" => intval($user_id)
+			]);
+		}
+
+		public function deleteUserDiamondById($user_diamond_id){
+			$sql = DB::open()->prepare("DELETE FROM csa_user_diamonds WHERE user_diamonds_id = :user_diamond_id");
+			return $sql->execute([
+				":user_diamond_id" => intval($user_diamond_id)
 			]);
 		}
 

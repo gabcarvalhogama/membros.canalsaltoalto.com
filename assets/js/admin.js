@@ -205,6 +205,63 @@ const Admin = {
 		})
 	},
 
+	
+
+
+	newDiamonds: function(form){
+		$(form).addClass("inactive")
+		message.warning(form, "Carregando, aguarde...");
+		var formData = new FormData(form);
+
+
+		$.ajax({
+			type: 'post',
+			data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/members/diamonds/new',
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					$(form)[0].reset()
+					message.success(form, "Os diamantes foram adicionados com sucesso.");
+				}else{
+					message.error(form, data.res);
+				}
+			},
+			error: function(err){
+				message.error(form, "Algo deu errado, verifique sua internet e tente novamente!");
+			}
+		})
+	},
+
+	deleteDiamonds: function(user_diamonds_id){
+		if(confirm("Você realmente deseja apagar esses diamantes?") != true)
+			return false;
+
+		$.ajax({
+			type: 'post',
+            contentType: false,
+            cache: false,
+            processData:false,
+			url: '/admin/members/diamonds/delete/'+user_diamonds_id,
+			dataType: 'json',
+			success: function(data){
+				if(data.res == 1){
+					alert("Diamantes apagados com sucesso.")
+					window.location.reload();
+				}else{
+					alert(data.res);
+				}
+			},
+			error: function(err){
+				alert("Algo deu errado, verifique sua internet e tente novamente!")
+				console.log(err)
+			}
+		})
+	},
+
 
 	loadCities: function(el){
 		$(el).attr("disabled");

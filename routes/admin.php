@@ -1419,6 +1419,46 @@
 		});
 
 
+		# /members/diamonds
+		$router->post("/members/diamonds/new", function(){
+			if(empty($_POST["user_id"]))
+				die(json_encode(["res" => "Por favor, informe o ID do Usuário."]));
+			
+			if(empty($_POST["diamonds_value"]))
+				die(json_encode(["res" => "Por favor, informe o valor em diamantes."]));
+			
+			if(!is_numeric($_POST["diamonds_value"]) OR floatval($_POST["diamonds_value"]) <= 0)
+				die(json_encode(["res" => "Por favor, informe um valor válido em diamantes."]));
+
+			
+			$User = new User;
+			$add = $User->addDiamond($_POST["user_id"], 
+			floatval($_POST["diamonds_value"]), 
+			null, 
+			"admin_adjustment", 
+			"Ajuste manual de diamantes realizado por um administrador. Observações: ".($_POST["diamonds_observation"] ?? "N/A"));
+
+			if($add === true){
+				die(json_encode(["res" => 1]));
+			}else{
+				die(json_encode(["res" => "Desculpe, não foi possível adicionar os diamantes."]));
+			}
+		});
+
+
+		$router->post("/members/diamonds/delete/{user_diamond_id}", function($user_diamond_id){
+			if(empty($user_diamond_id))
+				die(json_encode(["res" => "Desculpe, não foi possível identificar o ID do ajuste de diamantes."]));
+
+			$User = new User;
+
+			if($User->deleteUserDiamondById($user_diamond_id))
+				die(json_encode(["res" => 1]));
+			else
+				die(json_encode(["res" => "Desculpe, não foi possível apagar o ajuste de diamantes."]));
+		});
+
+
 
 		$router->get("/members/edit/{user_id}", function($user_id){
 			$User = new User;
