@@ -283,7 +283,7 @@
 							<tbody>
 								<?php
 									$User = new User;
-									$getDiamondByUserId = $User->getDiamondByUserId($user->iduser);
+									$getDiamondByUserId = $User->getAllDiamondsByUserId($user->iduser);
 									if($getDiamondByUserId->rowCount() > 0):
 										foreach($getDiamondByUserId->fetchAll(PDO::FETCH_ASSOC) as $diamond):
 								?>

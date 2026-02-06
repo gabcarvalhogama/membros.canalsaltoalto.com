@@ -22,8 +22,30 @@
 				<ul class="d-flex flex-wrap site__single-post--terms">
 					<li><a href="#"><i class="fa-solid fa-calendar"></i> <?=date('d/m/Y \à\s H:i', strtotime($object->published_at))?></a></li>
 				</ul>
-				<?php if($object->tutorial_video_url): ?>
-					<iframe width="560" height="315" src="<?=$object->tutorial_video_url?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+				<?php if($object->tutorial_video_url): 
+					$url = trim($object->tutorial_video_url);
+					$videoId = null;
+
+					// try common YouTube patterns
+					if (preg_match('#(?:youtube\.com/shorts/)([^?&/]+)#i', $url, $m)) {
+						$videoId = $m[1];
+					} elseif (preg_match('#[?&]v=([^&]+)#i', $url, $m)) {
+						$videoId = $m[1];
+					} elseif (preg_match('#youtu\.be/([^?&/]+)#i', $url, $m)) {
+						$videoId = $m[1];
+					} else {
+						// fallback: last path segment
+						$parts = parse_url($url);
+						if (!empty($parts['path'])) {
+							$segments = explode('/', trim($parts['path'], '/'));
+							$last = end($segments);
+							if ($last) $videoId = $last;
+						}
+					}
+
+					$watchUrl = $videoId ? 'https://youtube.com/embed/' . urlencode($videoId) : $url;
+				?>
+					<iframe width="560" height="315" src="<?= htmlspecialchars($watchUrl)?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 				<?php endif; ?>
 			</div>
 			
