@@ -96,6 +96,35 @@
                 if(Membership::getPaidMembershipsByUserEmail($email)->rowCount() > 1)
                     User::addDiamond(User::getUserIdByEmail2($email), 100, null, "renewal", null);
                 
+                // Referral System Logic
+                if($user->referred_by){
+                    // Credit diamonds
+                    User::addDiamond($user->referred_by, 100, null, "referral_bonus", $user->iduser);
+
+                    // Get referrer details for email
+                    $referrerUser = $User->getUserById($user->referred_by)->fetchObject();
+                    if($referrerUser){
+                        $referrerEmail = $referrerUser->email;
+                        $referrerName = $referrerUser->firstname;
+                        
+                        $email_title_ref = "Você ganhou 100 diamantes! 💎";
+                        $content_ref = "<div>
+                            <h1>Parabéns, $referrerName!</h1>
+                            <p>Você acabou de ganhar <b>100 diamantes</b> porque alguém se tornou membro do Canal Salto Alto usando seu link de indicação.</p>
+                            <p>Continue indicando e ganhe mais benefícios exclusivos!</p>
+                            <p>Acesse sua conta para ver seu saldo de diamantes.</p>
+                            <a href='https://canalsaltoalto.com/app' style='display: block;padding: 20px;border-radius: 5px;background-color: #E54C8E;color: #000;width: 100%;'>ACESSAR MINHA CONTA</a>
+                        </div>";
+                        
+                        $email_content_ref = Template::render([
+                            "email_title" => $email_title_ref,
+                            "email_content" => $content_ref
+                        ], "email_general");
+                        
+                        $Comunications->sendEmail($referrerEmail, $email_title_ref, $email_content_ref);
+                    }
+                }
+                
 
                 die(json_encode(["res" => 1]));
             }

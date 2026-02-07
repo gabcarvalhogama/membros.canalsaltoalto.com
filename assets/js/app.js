@@ -35,6 +35,26 @@ const message = {
 }
 
 
+function shareReferralLink(link) {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Canal Salto Alto',
+            text: 'Venha fazer parte do Canal Salto Alto!',
+            url: link,
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+    } else {
+        navigator.clipboard.writeText(link).then(function() {
+            alert('Link copiado para a área de transferência!');
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+            prompt('Copie o link abaixo:', link);
+        });
+    }
+}
+
+
 
 
 

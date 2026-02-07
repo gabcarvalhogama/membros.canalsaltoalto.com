@@ -3,9 +3,19 @@
 	class User{
 		public $user;
 
-		public function create($firstname, $lastname, $cpf, $birthdate, $zipcode, $state, $city, $address, $address_number, $neighborhood, $complement, $cellphone, $email, $password, $type){
-			$sql = DB::open()->prepare("INSERT INTO csa_users () VALUES (default, :firstname, :lastname, null, null, :cpf, :birthdate, :zipcode, :state, :city, :address, :address_number, :neighborhood, :complement, :cellphone, :email, :password, :type, NOW(), null)");
-			return $sql->execute([
+		public function create($firstname, $lastname, $cpf, $birthdate, $zipcode, $state, $city, $address, $address_number, $neighborhood, $complement, $cellphone, $email, $password, $type, $referred_by = null){
+			// Gerar referral_code
+			$cleanName = preg_replace('/[^a-zA-Z0-9]/', '', $firstname);
+			$cleanName = strtoupper(substr($cleanName, 0, 3));
+			if (strlen($cleanName) < 3) {
+				$cleanName = str_pad($cleanName, 3, 'X');
+			}
+			$randomStr = strtoupper(substr(md5(uniqid()), 0, 3));
+			$referralCodeTemp = $cleanName . $randomStr; // Será atualizado com ID depois ou ajustado para garantir unicidade com ID
+
+			$sql = DB::open()->prepare("INSERT INTO csa_users (firstname, lastname, cpf, birthdate, zipcode, address_state, address_city, address, address_number, address_neighborhood, address_complement, cellphone, email, password, user_type, created_at, referred_by) VALUES (:firstname, :lastname, :cpf, :birthdate, :zipcode, :state, :city, :address, :address_number, :neighborhood, :complement, :cellphone, :email, :password, :type, NOW(), :referred_by)");
+			
+			$executed = $sql->execute([
 				":firstname" => ucfirst(trim($firstname)),
 				":lastname" => ucfirst(trim($lastname)),
 				":cpf" => preg_replace('/\D/', '', $cpf),
@@ -20,8 +30,24 @@
 				":cellphone" => preg_replace('/\D/', '', $cellphone),
 				":email" => strtolower(filter_var($email, FILTER_SANITIZE_EMAIL)),
 				":password" => Bcrypt::hash($password),
-				":type" => intval($type)
+				":type" => intval($type),
+				":referred_by" => ($referred_by) ? intval($referred_by) : null
 			]);
+
+			if($executed){
+				$userId = DB::open()->lastInsertId();
+				$finalReferralCode = $cleanName . $userId . $randomStr;
+				
+				$update = DB::open()->prepare("UPDATE csa_users SET referral_code = :code WHERE iduser = :id");
+				$update->execute([
+					':code' => $finalReferralCode,
+					':id' => $userId
+				]);
+
+				return true;
+			}
+
+			return false;
 		}
 
 		public function update($firstname = null, $lastname = null, $profile_photo = null, $biography = null, $cpf = null, $birthdate = null, $zipcode = null, $address_state = null, $address_city = null, $address = null, $address_number = null, $address_neighborhood = null, $address_complement = null, $cellphone = null, $iduser) {
@@ -113,6 +139,7 @@
 			    u.cellphone, 
 			    u.email, 
 			    u.user_type,
+				u.referral_code,
 			    (SELECT COUNT(company_id) FROM csa_companies WHERE iduser = u.iduser) as company_counter,
 			    (SELECT ends_at FROM csa_users_memberships um WHERE um.iduser = u.iduser AND um.status = 'paid' AND ends_at > NOW() ORDER BY ends_at DESC LIMIT 1) as membership_ends_at,
 				(SELECT SUM(diamond_value) FROM csa_user_diamonds ud WHERE ud.user_id = u.iduser AND YEAR(ud.created_at) = YEAR(NOW())) as diamonds,
@@ -289,6 +316,15 @@
 			]);
 		}
 
+
+		public function getUserIdByReferralCode($referralCode){
+			$sql = DB::open()->prepare("SELECT iduser FROM csa_users WHERE referral_code = :code LIMIT 1");
+			$sql->execute([
+				":code" => trim($referralCode)
+			]);
+
+			return ($sql->rowCount() > 0) ? $sql->fetchObject()->iduser : 0;
+		}
 
 		public function isUserAdminByEmail($email){
 			$sql = DB::open()->prepare("SELECT user_type FROM csa_users WHERE email = :email LIMIT 1");

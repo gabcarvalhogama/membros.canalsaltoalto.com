@@ -444,6 +444,11 @@
 					die(json_encode(["res"=>"O e-mail informado já foi utilizado. Informe um novo e-mail para continuar!", "step" => "enterpreneur"]));
 				
 
+				$referred_by = null;
+				if(isset($_COOKIE["csa_referral_code"]) && !empty($_COOKIE["csa_referral_code"])){
+					$referred_by = $User->getUserIdByReferralCode($_COOKIE["csa_referral_code"]);
+				}
+
 				$isUserCreated =  $User->create(
 					(isset($_POST["f_firstname"])) ? $_POST["f_firstname"] : null,
 					(isset($_POST["f_lastname"])) ? $_POST["f_lastname"] : null,
@@ -459,7 +464,8 @@
 					(isset($_POST["f_cellphone"])) ? $_POST["f_cellphone"] : null,
 					(isset($_POST["f_email"])) ? $_POST["f_email"] : null,
 					(isset($_POST["f_password"])) ? $_POST["f_password"] : null,
-					0
+					0,
+					$referred_by
 				);
 
 				if(!$isUserCreated)

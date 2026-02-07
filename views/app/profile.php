@@ -43,6 +43,17 @@
 				<div class="profile__section">
 					<?php include "profile.menu.php"; ?>
 					<div class="profile__section--content">
+						
+						<div class="mb-5">
+							<h3>Link de Indicação</h3>
+							<p>Indique novas membros e ganhe <b>100 diamantes</b> por cada indicação confirmada! Copie seu link abaixo:</p>
+							<div class="input-group">
+								<input type="text" class="form-control" value="https://canalsaltoalto.com/seja-membro?ref=<?=(isset($user->referral_code) ? $user->referral_code : '')?>" id="referralLink" readonly>
+								<button class="btn btn-rose" type="button" onclick="copyReferralLink()">COPIAR LINK</button>
+							</div>
+						</div>
+						<hr class="mb-5">
+
 						<h3>Informações Básicas</h3>
 						<form action="javascript:void(0)" method="post" onsubmit="App.updateUser(this)">
 							<div class="message"></div>
@@ -157,5 +168,14 @@
 		<script type="text/javascript" src="<?=PATH?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/swiper.min.js"></script>
 		<script type="text/javascript" src="<?=PATH?>assets/js/app.js"></script>
+		<script>
+			function copyReferralLink() {
+				var copyText = document.getElementById("referralLink");
+				copyText.select();
+				copyText.setSelectionRange(0, 99999); /* For mobile devices */
+				navigator.clipboard.writeText(copyText.value);
+				alert("Link copiado para a área de transferência!");
+			}
+		</script>
 	</body>
 </html>

@@ -5,6 +5,9 @@
 	});
 
 	$router->get("/seja-membro", function(){
+		if(isset($_GET['ref']) && !empty($_GET['ref'])){
+			setcookie("csa_referral_code", trim($_GET['ref']), time() + (86400 * 30), "/"); // Cookie válido por 30 dias
+		}
 		require "views/site/seja-membro-v3.php";
 	});
 

@@ -77,6 +77,14 @@
 						<span>Meu Perfil</span>
 						<img src="<?=PATH.((!isset(USER->profile_photo) OR empty(USER->profile_photo)) ? 'assets/images/profile-icon.png' : USER->profile_photo)  ?>" alt="" class="profile-icon" />
 					</a>
+					
+					<a href="javascript:void(0)" onclick="shareReferralLink('https://canalsaltoalto.com/seja-membro?ref=<?=(isset(USER->referral_code) ? USER->referral_code : '')?>')" class="d-flex flex-row align-items-center mt-2 justify-content-center" style="border: solid 1px #ddd; border-radius: 50px">
+						<span style="font-weight: bold;">Convide e ganhe </span>
+						<div class="d-flex flex-row align-items-center btn-diamonds ms-5">
+							<img src="<?=PATH?>assets/images/icon-diamond.svg" alt="" />
+							<span>100</span>
+						</div>
+					</a>
 
 					<ul class="d-flex flex-column">
 						<li><a href="<?=PATH?>app/tutorials">Comece Aqui</a></li>
