@@ -221,7 +221,7 @@
 
 		<section class="plaintext mt-5 mb-5 site__lp-plaintext">
 			<div class="container-xl">
-				<div class="row">
+				<div class="row align-items-center">
 					<div class="col-md-7">
 						<div class="swiper" data-slidespace="20" data-smview="1" data-mdview="2" data-lgview="3" data-xlview="3" data-navigation="true" data-pagination="true" style="--swiper-navigation-color: #E54C8E; --swiper-pagination-color: #E54C8E;">
 							<div class="swiper-wrapper">
@@ -245,12 +245,10 @@
 					</div>
 					<div class="col-md-5">
 						<h2>Eventos na Recepção</h2>
-						<p><small>Até 15 pessoas.</small></p>
+						<p><small>Até 15 pessoas + água e café.</small></p>
 
 						<ul class="reset">
-							<li>Sábado – 8h às 12h: <strong>R$ 175,00</strong></li>
-							<li>Sábado – 13h às 17h: <strong>R$ 200,00</strong></li>
-							<li>Sábado – 08h às 17h: <strong>R$ 350,00</strong></li>
+							<li>Sábado – 8h às 12h: <strong>R$ 225,00 (membro)</strong> e R$ 250 (não membro)</li>
 						</ul>
 					</div>
 				</div>
