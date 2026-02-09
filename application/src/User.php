@@ -201,6 +201,8 @@
 			    u.cellphone, 
 			    u.email, 
 			    u.user_type, 
+				u.referral_code,
+				u.referred_by,
 			    u.created_at, 
 			    u.updated_at,
 			    um.starts_at, 

@@ -38,7 +38,7 @@
 
 			    $mail->send();
 
-				error_log("Recovery message sent to {$destination}");
+				error_log("Email '{$subject}' sent to {$destination}");
 			    return true;
 			} catch (Exception $e) {
 			    return false;
