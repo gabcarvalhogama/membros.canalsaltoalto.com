@@ -24,6 +24,7 @@
 						<thead>
 							<th>Título</th>
 							<th>Data do Evento</th>
+							<th>Status</th>
 							<th>Ações</th>
 						</thead>
 						<tbody>
@@ -34,6 +35,7 @@
 								<tr>
 									<td><?=$event['event_title']?></td>
 									<td><?=date("d/m/Y \à\s H:i", strtotime($event['event_datetime']))?></td>
+									<td><span class="badge rounded-pill <?= ($event['status'] == 1) ? 'bg-success' : 'bg-warning' ?>"><?= ($event['status'] == 1) ? "Publicado" : "Rascunho" ?></span></td>
 									<td>
 										<a href="/admin/events/edit/<?=$event['idevent']?>" style="color: #333">Editar</a>
 									</td>
