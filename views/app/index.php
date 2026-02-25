@@ -67,7 +67,7 @@
 				<div class="events-list">
 				<?php
 			  		$Event = new Event;
-			  		$events = $Event->getEvents(6);
+			  		$events = $Event->getActiveEvents(6);
 			  		foreach($events->fetchAll(PDO::FETCH_ASSOC) as $event)
 			  			echo Template::render($event, "loop_events");
 				?>

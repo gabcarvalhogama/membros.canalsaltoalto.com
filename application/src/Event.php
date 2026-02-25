@@ -89,6 +89,14 @@
 			return $sql;
 		}
 
+		public function getActiveEvents($limit = 12){
+			$sql = DB::open()->prepare("SELECT * FROM csa_events WHERE status = 1 ORDER BY event_datetime DESC LIMIT :limit_posts");
+			$sql->bindParam(':limit_posts', $limit, \PDO::PARAM_INT);
+			$sql->execute();
+
+			return $sql;
+		}
+
 		public function getEventsTotalNumber(){
 			$sql = DB::open()->prepare("SELECT * FROM csa_events");
 			$sql->execute();
