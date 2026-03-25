@@ -499,6 +499,26 @@
 		$aVistaPrice = (float) $product->membership_price_incash;
 		$cartaoPrice = (float) $product->membership_price_cc;
 
+		$today = new DateTimeImmutable('now');
+		$currentMonth = (int)$today->format('n');
+		$monthsRemaining = 12 - $currentMonth + 1;
+		if ($monthsRemaining < 1) {
+			$monthsRemaining = 1;
+		}
+
+		$perMonth_incash = $aVistaPrice / 12;
+		$perMonth_cc = $cartaoPrice / 12;
+
+		$prorated_incash = round($perMonth_incash * $monthsRemaining, 2);
+		$prorated_cc = round($perMonth_cc * $monthsRemaining, 2);
+
+		// Override values so the template shows the prorated amounts
+		$aVistaPrice = $prorated_incash;
+		$cartaoPrice = $prorated_cc;
+
+		// Optional: keep months info available for the template/JS if needed
+		// $plan->membership_prorated_months = $monthsRemaining;
+
 
 		$isMemberEligibleForRenewallDiscount = $User->isMemberEligibleForRenewallDiscount($user->iduser);
 

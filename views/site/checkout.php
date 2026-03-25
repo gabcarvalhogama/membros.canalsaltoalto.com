@@ -27,6 +27,29 @@
 				$getPlan = $Membership->getMembershipPlanById($plan_id);
 
 				$plan = $getPlan->fetchObject();
+
+				$membership_price_incash = $plan->membership_price_incash;
+				$membership_price_cc = $plan->membership_price_cc;
+
+				$today = new DateTimeImmutable('now');
+				$currentMonth = (int)$today->format('n');
+				$monthsRemaining = 12 - $currentMonth + 1;
+				if ($monthsRemaining < 1) {
+					$monthsRemaining = 1;
+				}
+
+				$perMonth_incash = $membership_price_incash / 12;
+				$perMonth_cc = $membership_price_cc / 12;
+
+				$prorated_incash = round($perMonth_incash * $monthsRemaining, 2);
+				$prorated_cc = round($perMonth_cc * $monthsRemaining, 2);
+
+				// Override values so the template shows the prorated amounts
+				$plan->membership_price_incash = $prorated_incash;
+				$plan->membership_price_cc = $prorated_cc;
+
+				// Optional: keep months info available for the template/JS if needed
+				$plan->membership_prorated_months = $monthsRemaining;
 			?>
 		</div>
 
@@ -41,6 +64,7 @@
 								<?=$plan->membership_title?>
 							</h4>
 							<p class="d-flex flex-row align-items-center font-weight-bold">R$ <span id="priceAvistaValueSelector" data-original="<?=$plan->membership_price_incash?>" style="margin-right: 5px;"><?=Validation::decimalToReal($plan->membership_price_incash)?></span> à vista <br /><small style="margin-left: 10px;color: rgb(150,150,150);">ou 12x de R$ <span id="priceInstallmentsValueSelector" data-original="<?=$plan->membership_price_cc/12?>"><?=Validation::decimalToReal($plan->membership_price_cc/12)?></span></small></p>
+							<p><?= $monthsRemaining ?> meses restantes.</p>
 						</div>
 					</div>
 				</div>
