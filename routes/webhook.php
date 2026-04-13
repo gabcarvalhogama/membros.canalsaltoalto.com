@@ -61,7 +61,8 @@
             $starts_at = date("Y-m-d H:i:s");
             $dateTime = new DateTime($starts_at);
             $dateTime->add(new DateInterval('P365D'));
-            $ends_at = $dateTime->format('Y-m-d H:i:s');
+            // $ends_at = $dateTime->format('Y-m-d H:i:s');
+            $ends_at = '2026-12-31 23:59:59'; // hardcoded end date for now, to avoid issues with leap years and prorated memberships
 
             if($User->updateMembershipByOrderId($data["order_nsu"], 'paid', $starts_at, $ends_at)){
 

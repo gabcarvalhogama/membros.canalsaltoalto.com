@@ -499,25 +499,19 @@
 		$aVistaPrice = (float) $product->membership_price_incash;
 		$cartaoPrice = (float) $product->membership_price_cc;
 
-		$today = new DateTimeImmutable('now');
-		$currentMonth = (int)$today->format('n');
-		$monthsRemaining = 12 - $currentMonth + 1;
-		if ($monthsRemaining < 1) {
-			$monthsRemaining = 1;
-		}
+		$today = new DateTimeImmutable('today');
+		$endDate = new DateTimeImmutable('2026-12-31');
+		$daysRemaining = (int)$today->diff($endDate)->days + 1; // +1 inclui o dia de hoje
 
-		$perMonth_incash = $aVistaPrice / 12;
-		$perMonth_cc = $cartaoPrice / 12;
+		$perDay_incash = $aVistaPrice / 365;
+		$perDay_cc = $cartaoPrice / 365;
 
-		$prorated_incash = round($perMonth_incash * $monthsRemaining, 2);
-		$prorated_cc = round($perMonth_cc * $monthsRemaining, 2);
+		$prorated_incash = round($perDay_incash * $daysRemaining, 2);
+		$prorated_cc = round($perDay_cc * $daysRemaining, 2);
 
 		// Override values so the template shows the prorated amounts
 		$aVistaPrice = $prorated_incash;
 		$cartaoPrice = $prorated_cc;
-
-		// Optional: keep months info available for the template/JS if needed
-		// $plan->membership_prorated_months = $monthsRemaining;
 
 
 		$isMemberEligibleForRenewallDiscount = $User->isMemberEligibleForRenewallDiscount($user->iduser);
@@ -693,7 +687,9 @@
 		$starts_at = date("Y-m-d H:i:s");
 		$dateTime = new DateTime($starts_at);
 		$dateTime->add(new DateInterval('P365D'));
-		$ends_at = $dateTime->format('Y-m-d H:i:s');
+		// $ends_at = $dateTime->format('Y-m-d H:i:s');
+
+		$ends_at = '2026-12-31 23:59:59'; // hardcoded end date for now, to avoid issues with leap years and prorated memberships
 
 		if($User->updateMembershipByOrderId($_GET["order_nsu"], 'paid', $starts_at, $ends_at)){
 			$name = $user->firstname;
