@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 	<head>
-		<title>Coworking Space | Canal Salto Alto</title>
+		<title>Espaço Salto Alto | Canal Salto Alto</title>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="<?=PATH?>assets/css/styles.css?<?=uniqid()?>" />
@@ -16,20 +16,15 @@
 			<div class="container-xl">
 				<div class="row align-items-center">
 					<div class="col-md-6">
-						<h1 class="mb-4" style="font-weight: bold">Coworking Space em Linhares para Mulheres Empreendedoras</h1>
-						<p>Está à procura de um Coworking Space em Linhares, ES, que atenda às suas necessidades como mulher empreendedora? O Canal Salto Alto oferece <strong>a melhor opção para você!</strong></p>
+						<h1 class="mb-4" style="font-weight: bold">Espaço integrado em Linhares para Mulheres Empreendedoras</h1>
+						<p>Está à procura de uma sala para alugar em Linhares, ES, que atenda às suas necessidades como mulher empreendedora? O Canal Salto Alto oferece <strong>a melhor opção para você!</strong></p>
 						<p>Somos a comunidade de empreendedoras mais completa e inovadora do Espírito Santo, e agora temos um espaço colaborativo <strong>no coração do bairro Três Barras</strong>, um dos mais desejados de Linhares.</p>
 						<p style="color: #E54C8E;" class="d-flex flex-column align-items-start">
 							<span class="mb-3" style="
 							padding: 5px 10px;
 							border: solid 1px #E54C8E;
 							border-radius: 100px;
-						"><i class="fa-solid fa-tag"></i> Planos Flexíveis a partir de R$ 50,00 e Planos Fixos a partir de R$ 630,00</span>
-							<span style="
-							padding: 5px 10px;
-							border: solid 1px #E54C8E;
-							border-radius: 100px;
-						"><i class="fa-solid fa-ticket"></i> Empreendedoras membros tem 10% de Desconto!</span>
+						"><i class="fa-solid fa-tag"></i> Planos a partir de R$ 110,00 e Planos Mensais a partir de R$ 400,00</span>
 						</p>
 						<a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale no WhatsApp</button></a>
 					</div>
@@ -44,8 +39,8 @@
 			<div class="container-xl">
 				<div class="text-center">
 					<p><span style="color: var(--primary-color)">SALAS COMERCIAIS EM LINHARES</span></p>
-					<h2>O Que o Coworking Space do Canal Salto Alto Oferece?</h2>
-					<p style="width: 100%;max-width: 700px;margin:0 auto; color: #888;" class="">Nosso coworking foi pensado especialmente para atender empreendedoras que precisam de um ambiente profissional, acolhedor e funcional.</p>
+					<h2>O Que o Espaço Integrado do Canal Salto Alto Oferece?</h2>
+					<p style="width: 100%;max-width: 700px;margin:0 auto; color: #888;" class="">Nosso espaço integrado foi pensado especialmente para atender empreendedoras que precisam de um ambiente profissional, acolhedor e funcional.</p>
 
 
 					<div class="row text-start mt-5">
@@ -111,107 +106,136 @@
 			<div class="container-xl text-center">
 				<h2>Nossos Planos</h2>
 				<p style="margin: 0 auto;max-width: 100%; width: 600px; color: #888">Escolha o plano que melhor se adapta às suas necessidades e comece a trabalhar no ambiente perfeito para empreendedoras.</p>
-				<p style="margin: 0 auto;max-width: 100%; width: 600px; color: #888;font-style: italic;">OUTROS TIPOS DE PLANOS SÃO NEGOCIADOS INDIVIDUALMENTE.</p>
+				
 				<div class="mt-5">
-					<h3 class="fs-3 font-weight-bold mb-4">Planos Flexíveis</h3>
+					<h3 class="fs-3 font-weight-bold mb-2">Planos Período da Manhã</h3>
+					<p class="mb-4" style="color: #888;">(8h às 11h30)</p>
 					<div class="row g-3 mb-5 justify-content-center">
-						<div class="col-12 col-md-3">
-							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
-								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">1 HORA</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 50,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 55,00</span> <small style="color:#888;display:block">para não membros</small></p>
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 1</strong></h4>
+								<p class="mb-1"><small>1 dia por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 400,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~4 atendimentos</small></p>
 							</div>
 						</div>
-						<div class="col-12 col-md-3">
-							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
-								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">MEIO PERÍODO</strong></h4>
-								<p class="text-center" style="color: #888"><small>(5 horas corridas)</small></p>
-								<p><span class="fs-3 color-primary fw-bold">R$ 108,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 120,00</span> <small style="color:#888;display:block">para não membros</small></p>
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 2</strong></h4>
+								<p class="mb-1"><small>2 dias por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 600,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~8 atendimentos</small></p>
 							</div>
 						</div>
-						<div class="col-12 col-md-3">
-							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
-								<div style="margin-top: -40px;margin-bottom: 10px">
-									<div class="bg-primary  text-white px-4 py-1 rounded-full text-sm font-semibold gap-1" style="border-radius: 200px;display: inline-flex;align-items: center;justify-content: center;">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4" data-lov-id="src/components/Pricing.tsx:87:22" data-lov-name="Star" data-component-path="src/components/Pricing.tsx" data-component-line="87" data-component-file="Pricing.tsx" data-component-name="Star" data-component-content="%7B%22className%22%3A%22w-4%20h-4%22%7D"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
-										Mais Popular
-									</div>
-								</div>
-								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">DIÁRIA</strong></h4>
-								<p class="text-center" style="color: #888"><small>(10 horas corridas)</small></p>
-								
-								<p><span class="fs-3 color-primary fw-bold">R$ 180,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 200,00</span> <small style="color:#888;display:block">para não membros</small></p>
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 3</strong></h4>
+								<p class="mb-1"><small>3 dias por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 800,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~12 atendimentos</small></p>
 							</div>
 						</div>
-						<div class="col-12 col-md-3">
-							<div class="mb-4 bg-light p-4 box-gradient-gray h-100">
-								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">SÁBADO</strong></h4>
-								<p class="text-center" style="color: #888"><small>(Pacote de 4 horas corridas)</small></p>
-								<p><span class="fs-3 color-primary fw-bold">R$ 108,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 120,00</span> <small style="color:#888;display:block">para não membros</small></p>
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 4</strong></h4>
+								<p class="mb-1"><small>4 dias por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 1.000,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~16 atendimentos</small></p>
 							</div>
 						</div>
-						<p class="mt-3"><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale com a gente no WhatsApp</button></a></p>
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm border border-primary">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 5</strong></h4>
+								<p class="mb-1"><small>5 dias por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 1.200,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~20 atendimentos</small></p>
+								<hr>
+								<p class="mb-0"><small><strong>SALA EXCLUSIVA PELA MANHÃ</strong></small></p>
+								<p><small>Tenha uma sala para chamar de sua!</small></p>
+							</div>
+						</div>
 					</div>
 				</div>
 
-				<div>
-					<h3 class="fs-3">Planos Fixos</h3>
-					<p style="color: #888;">(Contrato mínimo de 6 meses)</p>
-					<div class="row g-3 justify-content-center">
-						<div class="col-md-4">
-							<div class="mb-4 rounded shadow-sm p-4 box-gradient-gray h-100">
-								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">PLANO 1</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 630,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 700,00</span> <small style="color:#888;display:block">para não membros</small></p>
-								<p><small>1 dia por semana ou 2 meios períodos por semana</small></p>
-								<p><small class="color-primary">~40h/mês</small></p>
+				<div class="mt-5">
+					<h3 class="fs-3 font-weight-bold mb-2">Planos Período da Tarde</h3>
+					<p class="mb-4" style="color: #888;">(13h às 18h)</p>
+					<div class="row g-3 mb-5 justify-content-center">
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 1</strong></h4>
+								<p class="mb-1"><small>1 dia por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 450,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~4 atendimentos</small></p>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="mb-4 rounded shadow-sm p-4 box-gradient-gray h-100">
-								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">PLANO 2</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 1.080,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 1.200,00</span> <small style="color:#888;display:block">para não membros</small></p>
-								<p><small>2 dias por semana</small></p>
-								<p><small class="color-primary">~80h/mês</small></p>
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 2</strong></h4>
+								<p class="mb-1"><small>2 dias por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 750,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~8 atendimentos</small></p>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="mb-4 rounded shadow-sm p-4 box-gradient-gray h-100">
-								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">PLANO 3</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 1.350,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 1.500,00</span> <small style="color:#888;display:block">para não membros</small></p>
-								<p><small>3 dias por semana</small></p>
-								<p><small class="color-primary">~120h/mês</small></p>
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 3</strong></h4>
+								<p class="mb-1"><small>3 dias por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 1.100,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~12 atendimentos</small></p>
 							</div>
 						</div>
-						
-						<!-- <div class="col-md-6">
-							<div class="mb-4 rounded shadow-sm p-4 box-gradient-gray h-100">
-								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">PLANO 4</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 1.080,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 1.200,00</span> <small style="color:#888;display:block">para não membros</small></p>
-								<p><small>4 dias por semana</small></p>
-								<p><small class="color-primary">~160/mês</small></p>
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 4</strong></h4>
+								<p class="mb-1"><small>4 dias por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 1.450,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~16 atendimentos</small></p>
 							</div>
 						</div>
-						
-						<div class="col-md-6">
-							<div class="mb-4 rounded shadow-sm p-4 box-gradient-gray h-100">
-								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">PLANO 5</strong></h4>
-								<p><span class="fs-3 color-primary fw-bold">R$ 1.350,00</span> <small style="color:#888;display:block">para membros</small></p>
-								<p><span class="fs-5 color-secondary">R$ 1.500,00</span> <small style="color:#888;display:block">para não membros</small></p>
-								<p><small>5 dias por semana</small></p>
-								<p><small class="color-primary">~200/mês</small></p>
+						<div class="col-12 col-md">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm border border-primary">
+								<h4 class="color-secondary fs-6"><strong style="font-weight: 900;">PLANO 5</strong></h4>
+								<p class="mb-1"><small>5 dias por semana</small></p>
+								<p><span class="fs-4 color-primary fw-bold">R$ 1.750,00</span> <small style="color:#888;display:block">mensais</small></p>
+								<p><small class="color-primary">~20 atendimentos</small></p>
+								<hr>
+								<p class="mb-0"><small><strong>SALA EXCLUSIVA À TARDE</strong></small></p>
+								<p><small>Tenha uma sala para chamar de sua!</small></p>
 							</div>
-						</div> -->
+						</div>
 					</div>
+				</div>
 
-					<p class="mt-4"><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale com a gente no WhatsApp</button></a></p>
-
+				<div class="mt-5">
+					<h3 class="fs-3 font-weight-bold mb-4">Planos Avulsos</h3>
+					<div class="row g-3 mb-5 justify-content-center">
+						<div class="col-12 col-md-4">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">MEIO PERÍODO MANHÃ</strong></h4>
+								<p class="mb-1" style="color: #888"><small>(8h às 11h30)</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 110,00</span></p>
+							</div>
+						</div>
+						<div class="col-12 col-md-4">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">MEIO PERÍODO TARDE</strong></h4>
+								<p class="mb-1" style="color: #888"><small>(13h às 18h)</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 120,00</span></p>
+							</div>
+						</div>
+						<div class="col-12 col-md-4">
+							<div class="mb-4 bg-light p-4 box-gradient-gray h-100 rounded shadow-sm">
+								<h4 class="color-secondary fs-5"><strong style="font-weight: 900;">DIÁRIA</strong></h4>
+								<p class="mb-1" style="color: #888"><small>(8h às 18h com intervalo de 11h30 às 13h)</small></p>
+								<p><span class="fs-3 color-primary fw-bold">R$ 200,00</span></p>
+							</div>
+						</div>
+					</div>
+					<p class="mt-3"><a href="https://api.whatsapp.com/send?phone=5527996959895&text=Ol%C3%A1,%20vim%20pelo%20site" target="_blank"><button class="btn btn-rose-light btn-rounded"><i class="fa-brands fa-whatsapp me-2"></i> Fale com a gente no WhatsApp</button></a></p>
+				</div>
+				
+				<div class="mt-5">
 					<p class="mt-4"><em>Pagamentos em cartão de crédito terão acréscimo de taxa (favor consultar)</em></p>
 					<p><em>Não há crédito de horas ou desconto em valores em caso de feriados no mês, os valores e horários são fixos.</em></p>
 				</div>
@@ -269,12 +293,12 @@
 						<h2>Regras</h2>
 						<ul>
 							<li><i class="fa-solid fa-check"></i> Quem não é empreendedora membro do Canal Salto Alto precisa fazer um cadastro com alguns dados pessoais que vamos solicitar;</li>
-							<li><i class="fa-solid fa-check"></i> Em caso de não realização do atendimento agendado nos PLANOS FLEXÍVEIS, o aviso deve ser feito com até 24h de antecedência em nosso whatsapp. Dessa forma você pode remarcar dentro de 7 dias ou ter 50% do investimento de volta;</li>
+							<li><i class="fa-solid fa-check"></i> Em caso de não realização do atendimento agendado nos <strong>PLANOS AVULSOS</strong>, o aviso deve ser feito com até 24h de antecedência em nosso whatsapp. Dessa forma você pode remarcar dentro de 7 dias ou ter 50% do investimento de volta;</li>
 							<li><i class="fa-solid fa-check"></i> Não devolvemos o valor total do investimento para atendimentos não realizados, conforme situação acima;</li>
 							<li><i class="fa-solid fa-check"></i> Não podemos ter atrasos no final do atendimento devido aos atendimentos seguintes, se ocorrer atrasos, após o tempo de 10 minutos será cobrada mais uma hora de uso do espaço;</li>
 							<li><i class="fa-solid fa-check"></i> Pagamentos realizados no cartão de crédito terão acréscimo da taxa do cartão. Favor consultar antes de realizar o agendamento;</li>
-							<li><i class="fa-solid fa-check"></i> Nos PLANOS FIXOS não há crédito de horas ou desconto em valores em caso de feriados no mês, os valores e horários são fixos;</li>
-							<li><i class="fa-solid fa-check"></i> Os PLANOS FIXOS precisam de contrato mínimo de 6 meses.</li>
+							<li><i class="fa-solid fa-check"></i> Nos <strong>PLANOS MENSAIS</strong> não há crédito de horas ou desconto em valores em caso de feriados no mês, os valores e horários são fixos;</li>
+							<li><i class="fa-solid fa-check"></i> Os <strong>PLANOS MENSAIS</strong> precisam de contrato mínimo de 6 meses.</li>
 						</ul>
 					</div>
 				</div>
@@ -310,7 +334,7 @@
 			<div class="container-xl">
 				<div class="row align-items-center justify-content-center">
 					<div class="col-md-8 text-center">
-						<h2>Por Que Escolher o Coworking Space do Canal Salto Alto?</h2>
+						<h2>Por Que Escolher o Espaço do Canal Salto Alto?</h2>
 						<p>Além de um espaço estruturado e estratégico em Linhares, você terá a oportunidade de:</p>
 
 						<ul>

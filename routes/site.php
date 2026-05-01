@@ -13,7 +13,10 @@
 
 
 	$router->get("/coworking-space", function(){
-		require "views/site/coworking-space.php";
+		header("Location: /espaco-salto-alto");
+	});
+	$router->get("/espaco-salto-alto", function(){
+		require "views/site/espaco-salto-alto.php";
 	});
 
 	$router->get("/noticias", function(){
