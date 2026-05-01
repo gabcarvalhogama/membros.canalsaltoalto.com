@@ -19,6 +19,10 @@
 		require "views/site/espaco-salto-alto.php";
 	});
 
+	$router->get("/embaixadora-da-minha-marca", function(){
+		require "views/site/embaixadora-da-minha-marca.php";
+	});
+
 	$router->get("/noticias", function(){
 		$Post = new Post;
 
