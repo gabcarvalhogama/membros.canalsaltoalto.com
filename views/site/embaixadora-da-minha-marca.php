@@ -1,5 +1,5 @@
 <?php
-	$buy_link = "https://loja.infinitepay.io/tatiserafim/dws8838-mentoria---posicionamento-de-marca";
+	$buy_link = "https://invoice.infinitepay.io/tatiserafim/yQsW7IRCt/";
 	$instagram = "https://instagram.com/tatiserafim.oficial";
 	$whatsapp_link = "https://api.whatsapp.com/send?phone=5527998047775&text=Ol%C3%A1,%20quero%20entrar%20na%20Lista%20VIP%20da%20Mentoria%20Embaixadora%20da%20minha%20Marca";
 ?>
@@ -9,7 +9,7 @@
 		<title>Mentoria Embaixadora da minha Marca | Tatiane Serafim</title>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="Mentoria Embaixadora da minha Marca com Tatiane Serafim. Lançamento 02/05. 4 encontros online + encontro individual. Posicionamento de marca para empreendedoras.">
+		<meta name="description" content="Mentoria Embaixadora da minha Marca com Tatiane Serafim. Inscrições abertas, vagas limitadas. 4 encontros online + encontro individual. Posicionamento de marca para empreendedoras.">
 
 		<link rel="icon" href="<?=PATH?>assets/images/favicon.png" />
 
@@ -561,6 +561,43 @@
 				font-size: .9rem;
 				margin-bottom: 1.5rem;
 			}
+			.tati-lp .lote-card--passed{
+				opacity: .45;
+				border-color: rgba(201,169,97,.25);
+			}
+			.tati-lp .lote-card--passed .lote-price,
+			.tati-lp .lote-card--passed .lote-name,
+			.tati-lp .lote-card--passed .lote-date{
+				text-decoration: line-through;
+				text-decoration-color: rgba(201,169,97,.6);
+			}
+			.tati-lp .lote-card .badge-passed{
+				position: absolute;
+				top: -14px;
+				left: 50%;
+				transform: translateX(-50%);
+				background: rgba(255,255,255,.08);
+				color: var(--text-muted);
+				padding: 6px 18px;
+				border-radius: 100px;
+				font-size: .7rem;
+				letter-spacing: .2em;
+				text-transform: uppercase;
+				font-weight: 700;
+				white-space: nowrap;
+				border: 1px solid rgba(201,169,97,.25);
+			}
+			.tati-lp .lote-card--passed-text{
+				display: inline-block;
+				padding: .65rem 1rem;
+				color: var(--text-muted);
+				font-size: .85rem;
+				font-style: italic;
+				border: 1px dashed rgba(201,169,97,.3);
+				border-radius: 4px;
+				width: 100%;
+				text-align: center;
+			}
 
 			.tati-lp .promo-banner{
 				background: linear-gradient(135deg, rgba(201,169,97,.15) 0%, rgba(139,111,42,.08) 100%);
@@ -754,7 +791,7 @@
 			<div class="container">
 				<div class="countdown-bar__inner">
 					<span class="countdown-bar__label" id="countdownLabel">
-						<i class="fa-solid fa-hourglass-half"></i> Promoção de lançamento termina em
+						<i class="fa-solid fa-hourglass-half"></i> 1º Lote (R$ 1.297) termina em
 					</span>
 					<div class="countdown-bar__timer" id="countdownTimer">
 						<div class="cd-block"><span class="cd-num" id="cdDays">--</span><span class="cd-lbl">dias</span></div>
@@ -775,7 +812,7 @@
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-lg-7 text-center text-lg-start">
-						<div class="hero__badge"><i class="fa-solid fa-star me-2"></i>Lançamento 02/05</div>
+						<div class="hero__badge"><i class="fa-solid fa-fire me-2"></i>Inscrições abertas — vagas limitadas</div>
 						<p class="eyebrow hero__eyebrow" style="font-size: .65rem;margin-left: 10px">Mentoria com Tatiane Serafim</p>
 						<h1 class="hero__title mb-4">
 							Cansada de ver profissionais piores <em>brilhando mais que você</em>?
@@ -784,10 +821,10 @@
 							Em 4 encontros você vira a <strong class="gold">primeira escolha</strong> do seu cliente. Mentoria <em class="gold-light" style="font-family: 'Cormorant Garamond', serif;font-size: 1.5rem">"Embaixadora da minha Marca"</em> com Tatiane Serafim.
 						</p>
 						<div class="hero__date-pill">
-							<div class="day">02/05</div>
+							<div class="day">1º<br><span style="font-size:.55em;letter-spacing:.1em;">LOTE</span></div>
 							<div>
-								<div class="label">Inscrições abrem</div>
-								<div style="font-size: .9rem;">Promoção válida só até <strong class="gold">23h29</strong></div>
+								<div class="label">R$ 1.297 em até 12x</div>
+								<div style="font-size: .9rem;">Valor especial válido até <strong class="gold">17/05</strong></div>
 							</div>
 						</div>
 						<div class="d-flex flex-column flex-sm-row gap-3 align-items-center align-items-lg-start mt-3">
@@ -1067,36 +1104,37 @@
 
 				<!-- Promo Banner -->
 				<div class="promo-banner mb-5">
-					<p class="eyebrow">Oferta de Lançamento</p>
-					<h3 style="font-style: italic; margin-bottom: .5rem;">Apenas em <span class="gold">02/05</span></h3>
-					<div class="promo-price">R$ 997<small>,00</small></div>
-					<p class="promo-deadline">Valor especial de lançamento para quem se inscrever no dia 02/05 até as 23h29</p>
+					<p class="eyebrow">1º Lote — Lote Atual</p>
+					<h3 style="font-style: italic; margin-bottom: .5rem;">Vagas com <span class="gold">valor reduzido</span> até <span class="gold">17/05</span></h3>
+					<div class="promo-price">R$ 1.297<small>,00</small></div>
+					<p class="promo-deadline">Em até 12x no cartão. Após 17/05, valor sobe para R$ 1.497 (2º lote).</p>
 					<a href="<?=$buy_link?>" target="_blank" class="btn-gold">
-						<i class="fa-solid fa-crown"></i> Quero garantir o valor de lançamento
+						<i class="fa-solid fa-crown"></i> Quero garantir o 1º lote
 					</a>
 				</div>
 
 				<!-- Lotes -->
 				<div class="row g-4">
 					<div class="col-md-4">
-						<div class="lote-card lote-card--featured">
-							<div class="badge-featured">Lançamento</div>
+						<div class="lote-card lote-card--passed">
+							<div class="badge-passed">Encerrado</div>
 							<div class="lote-name">Dia do Lançamento</div>
 							<div class="lote-date">02/05 até 23h29</div>
 							<div class="lote-price">R$ 997<small>,00</small></div>
 							<div class="lote-installments">em até 12x no cartão</div>
-							<a href="<?=$buy_link?>" target="_blank" class="btn-gold w-100 justify-content-center">
-								Inscrever
-							</a>
+							<span class="lote-card--passed-text">
+								<i class="fa-solid fa-circle-check me-1"></i> Lote encerrado
+							</span>
 						</div>
 					</div>
 					<div class="col-md-4">
-						<div class="lote-card">
+						<div class="lote-card lote-card--featured">
+							<div class="badge-featured">Lote Atual</div>
 							<div class="lote-name">1º Lote</div>
-							<div class="lote-date">03/05 a 17/05</div>
+							<div class="lote-date">até 17/05</div>
 							<div class="lote-price">R$ 1.297<small>,00</small></div>
 							<div class="lote-installments">em até 12x no cartão</div>
-							<a href="<?=$buy_link?>" target="_blank" class="btn-outline-gold w-100 justify-content-center">
+							<a href="<?=$buy_link?>" target="_blank" class="btn-gold w-100 justify-content-center">
 								Inscrever
 							</a>
 						</div>
@@ -1160,7 +1198,7 @@
 						</details>
 						<details class="faq-item">
 							<summary>Por que o preço muda?</summary>
-							<p>O valor de R$ 997 é o benefício de lançamento, exclusivo do dia 02/05 até as 23h29. A partir de 03/05 começa o 1º lote (R$ 1.297) e depois o 2º lote (R$ 1.497). Quanto antes você se inscrever, menor o investimento.</p>
+							<p>O 1º lote sai por R$ 1.297 (válido até 17/05) e o 2º lote por R$ 1.497 (de 18/05 a 29/05). Quanto antes você se inscrever, menor o investimento.</p>
 						</details>
 						<details class="faq-item">
 							<summary>Posso parcelar?</summary>
@@ -1223,9 +1261,8 @@
 			(function(){
 				var year = new Date().getFullYear();
 				var stages = [
-					{ label: 'Promoção de lançamento termina em', deadline: new Date(year, 4, 2, 23, 29, 0) },
-					{ label: '1º Lote (R$ 1.297) termina em',     deadline: new Date(year, 4, 17, 23, 59, 59) },
-					{ label: '2º Lote (R$ 1.497) termina em',     deadline: new Date(year, 4, 29, 23, 59, 59) }
+					{ label: '1º Lote (R$ 1.297) termina em', deadline: new Date(year, 4, 17, 23, 59, 59) },
+					{ label: '2º Lote (R$ 1.497) termina em', deadline: new Date(year, 4, 29, 23, 59, 59) }
 				];
 				var bar     = document.getElementById('countdownBar');
 				var labelEl = document.getElementById('countdownLabel');
